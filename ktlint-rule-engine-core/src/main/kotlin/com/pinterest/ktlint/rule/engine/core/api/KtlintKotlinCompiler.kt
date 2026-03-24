@@ -4,11 +4,13 @@ import com.pinterest.ktlint.rule.engine.core.api.ElementType.BLOCK
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.SCRIPT
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.SCRIPT_INITIALIZER
 import com.pinterest.ktlint.rule.engine.core.util.cast
-import org.jetbrains.kotlin.cli.common.messages.MessageCollector
-import org.jetbrains.kotlin.cli.jvm.compiler.EnvironmentConfigFiles
-import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
+import org.jetbrains.kotlin.cli.jvm.compiler.IdeaStandaloneExecutionSetup
+import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreApplicationEnvironment
+import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreApplicationEnvironmentMode
+import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreProjectEnvironment
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.mock.MockProject
+import org.jetbrains.kotlin.com.intellij.openapi.Disposable
 import org.jetbrains.kotlin.com.intellij.openapi.diagnostic.DefaultLogger
 import org.jetbrains.kotlin.com.intellij.openapi.util.Disposer
 import org.jetbrains.kotlin.com.intellij.openapi.util.UserDataHolderBase
@@ -19,9 +21,9 @@ import org.jetbrains.kotlin.com.intellij.pom.impl.PomTransactionBase
 import org.jetbrains.kotlin.com.intellij.pom.tree.TreeAspect
 import org.jetbrains.kotlin.com.intellij.psi.PsiFile
 import org.jetbrains.kotlin.com.intellij.psi.PsiFileFactory
-import org.jetbrains.kotlin.config.CommonConfigurationKeys
-import org.jetbrains.kotlin.config.CompilerConfiguration
+import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.idea.KotlinLanguage
+import org.jetbrains.kotlin.parsing.KotlinParserDefinition
 import sun.reflect.ReflectionFactory
 import org.jetbrains.kotlin.com.intellij.openapi.diagnostic.Logger as DiagnosticLogger
 
@@ -61,10 +63,6 @@ public object KtlintKotlinCompiler {
 private fun initPsiFileFactory(): PsiFileFactory {
     DiagnosticLogger.setFactory(LoggerFactory::class.java)
 
-    val compilerConfiguration =
-        CompilerConfiguration()
-            .apply { put(CommonConfigurationKeys.MESSAGE_COLLECTOR_KEY, MessageCollector.NONE) }
-
     val disposable = Disposer.newDisposable()
     // When running ktlint via the ktlint-intellij-plugin in IntelliJ IDEA, an exception is thrown whenever certain properties are not set
     // (https://github.com/nbadal/ktlint-intellij-plugin/issues/614). When initializing the embedded kotlin compiler while running it within
@@ -72,17 +70,10 @@ private fun initPsiFileFactory(): PsiFileFactory {
     val ideaHomePath = System.getProperties().setProperty(IDEA_HOME_PATH_PROPERTY, "/ktlint/$IDEA_HOME_PATH_PROPERTY") as String?
     val ideaConfigPath = System.getProperties().setProperty(IDEA_CONFIG_PATH_PROPERTY, "/ktlint/$IDEA_CONFIG_PATH_PROPERTY") as String?
     try {
-        val project =
-            KotlinCoreEnvironment
-                .createForProduction(
-                    disposable,
-                    compilerConfiguration,
-                    EnvironmentConfigFiles.JVM_CONFIG_FILES,
-                ).project
-                .cast<MockProject>()
-                .apply { registerFormatPomModel() }
-
-        return PsiFileFactory.getInstance(project)
+        val kotlinCoreProjectEnvironment = createKotlinProjectEnvironment(disposable)
+        return PsiFileFactory.getInstance(kotlinCoreProjectEnvironment.project)
+    } catch (t: Throwable) {
+        throw UnsupportedOperationException(t)
     } finally {
         // Dispose explicitly to (possibly) prevent memory leak
         // https://discuss.kotlinlang.org/t/memory-leak-in-kotlincoreenvironment-and-kotlintojvmbytecodecompiler/21950
@@ -99,6 +90,26 @@ private fun initPsiFileFactory(): PsiFileFactory {
         } else {
             System.setProperty(IDEA_CONFIG_PATH_PROPERTY, ideaConfigPath)
         }
+    }
+}
+
+private fun createKotlinProjectEnvironment(disposable: Disposable): KotlinCoreProjectEnvironment {
+    IdeaStandaloneExecutionSetup.doSetup()
+    val kotlinCoreApplicationEnvironment =
+        KotlinCoreApplicationEnvironment
+            .create(
+                disposable,
+                KotlinCoreApplicationEnvironmentMode.Production,
+            ).also {
+                it.registerParserDefinition(KotlinParserDefinition())
+                // Needed this as well to parse the .kt files
+                it.registerFileType(KotlinFileType.INSTANCE, "kt")
+            }
+    return KotlinCoreProjectEnvironment(disposable, kotlinCoreApplicationEnvironment).also {
+        it
+            .project
+            .cast<MockProject>()
+            .apply { registerFormatPomModel() }
     }
 }
 
