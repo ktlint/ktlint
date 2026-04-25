@@ -29,7 +29,7 @@ dokka = "org.jetbrains.dokka:dokka-gradle-plugin:2.2.0"
 ec4j = "org.ec4j.core:ec4j-core:1.2.0"
 logging = "io.github.oshai:kotlin-logging-jvm:8.0.01"
 slf4j = "org.slf4j:slf4j-simple:2.0.17"
-poko = "dev.drewhamilton.poko:poko-gradle-plugin:0.21.3"
+poko = "dev.drewhamilton.poko:poko-gradle-plugin:0.22.1"
 # Use logback-classic as the logger for kotlin-logging / slf4j as it allow changing the log level at runtime.
 logback = "ch.qos.logback:logback-classic:1.5.32"
 logcaptor = "io.github.hakky54:logcaptor:2.12.6"
