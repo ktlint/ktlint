@@ -54,7 +54,7 @@ Follow steps below for a quick start with latest ktlint release.
 
 ### Legal
 
-This project is not affiliated with nor endorsed by JetBrains.  
+This project is no longer affiliated with Pinterest and is not affiliated with nor endorsed by JetBrains.
 All code, unless specified otherwise, is licensed under the [MIT](https://opensource.org/licenses/MIT) license.  
 Copyright (c) 2019 Pinterest, Inc.  
 Copyright (c) 2016-2019 Stanley Shyiko.
