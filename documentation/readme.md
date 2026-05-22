@@ -37,7 +37,7 @@ In case the `gh-pages` branch is corrupt, it can be recreated again. In order to
     # Execute from directory `documentation/release-latest`
     mike deploy --push --update-aliases xx.yy.zz latest # Replace "xx.yy.zz" with the version number. Do not remove or alter tag "latest"
     ```
-    After the Github Actions workflow is completed, the documentation is available at https://pinterest.github.io/ktlint/xx.yy.zz/ but is not yet available on https://pinterest.github.io/ktlint/ until the Github Action workflow for next command is completed:
+    After the Github Actions workflow is completed, the documentation is available at https://ktlint.github.io/ktlint/xx.yy.zz/ but is not yet available on https://ktlint.github.io/ktlint/ until the Github Action workflow for next command is completed:
     ```shell
     # Execute from directory `documentation/release-latest`
     ```
@@ -62,7 +62,7 @@ In case the `gh-pages` branch is corrupt, it can be recreated again. In order to
     # Execute from directory `documentation/release-latest` or from root directory of project for versions prior to `0.49.0`
     mike deploy --push --update-aliases aa.bb.cc # Replace "aa.bb.cc" with the version number. Do not add tag "latest"!
     ```
-   After the Github Actions workflow is completed, the documentation is available at https://pinterest.github.io/ktlint/aa.bb.cc/
+   After the Github Actions workflow is completed, the documentation is available at https://ktlint.github.io/ktlint/aa.bb.cc/
 
 4) Recreate the snapshot documentation
    In directory `documentation/snapshot`:
@@ -70,4 +70,4 @@ In case the `gh-pages` branch is corrupt, it can be recreated again. In order to
     # Execute from directory `documentation/snapshot`
     mike deploy --push --update-aliases dev-snapshot
     ```
-   After the Github Actions workflow is completed, the documentation is available at https://pinterest.github.io/ktlint/dev-snapshot/.
+   After the Github Actions workflow is completed, the documentation is available at https://ktlint.github.io/ktlint/dev-snapshot/.

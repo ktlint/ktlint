@@ -1,7 +1,7 @@
 # Welcome to Ktlint
 
 <h1 align="center">
-<a href="https://pinterest.github.io/ktlint/">
+<a href="https://ktlint.github.io/ktlint/">
   <img src="https://cloud.githubusercontent.com/assets/370176/26518284/38b680da-4262-11e7-8d27-2b9e849fb55f.png"/>
 </a>
 </h1>
@@ -9,7 +9,7 @@
 <a href="https://kotlinlang.slack.com/messages/CKS3XG0LS"><img src="https://img.shields.io/badge/slack-@kotlinlang/ktlint-yellow.svg?logo=slack" alt="Join the chat at https://kotlinlang.slack.com"/></a>
 <a href="https://github.com/pinterest/ktlint/actions?query=workflow%3A%22Publish+snapshot+build%22"><img src="https://github.com/pinterest/ktlint/workflows/Publish%20snapshot%20build/badge.svg" alt="Build status snapshot"></a>
 <a href="https://central.sonatype.com/artifact/com.pinterest.ktlint/ktlint-cli?smo=true"><img src="https://img.shields.io/maven-central/v/com.pinterest.ktlint/ktlint-cli.svg" alt="Maven Central"></a>
-<a href="https://pinterest.github.io/ktlint/"><img src="https://img.shields.io/badge/ktlint%20code--style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
+<a href="https://ktlint.github.io/ktlint/"><img src="https://img.shields.io/badge/ktlint%20code--style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 </p>
 <p align="center">
 <a href="https://kotlinlang.org/">Kotlin</a> linter in spirit of <a href="https://github.com/feross/standard">feross/standard</a> (JavaScript) and <a href="https://golang.org/cmd/gofmt/">gofmt</a> (Go).  

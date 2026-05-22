@@ -1,5 +1,5 @@
 <h1 align="center">
-<a href="https://pinterest.github.io/ktlint/">
+<a href="https://ktlint.github.io/ktlint/">
   <img src="https://cloud.githubusercontent.com/assets/370176/26518284/38b680da-4262-11e7-8d27-2b9e849fb55f.png"/>
 </a>
 </h1>
@@ -11,7 +11,7 @@
 <a href="https://jitpack.io/#pinterest/ktlint"><img src="https://jitpack.io/v/pinterest/ktlint.svg" alt="JitPack"></a>
 <a href="https://formulae.brew.sh/formula/ktlint"><img src="https://img.shields.io/homebrew/v/ktlint.svg" alt="HomeBrew"></a>
 <a href="LICENSE"><img src="https://img.shields.io/github/license/pinterest/ktlint.svg" alt="License"></a>
-<a href="https://pinterest.github.io/ktlint/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
+<a href="https://ktlint.github.io/ktlint/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 </p>
 
 <p align="center">
@@ -36,7 +36,7 @@ Follow steps below for a quick start with latest ktlint release.
   ```shell
   brew install ktlint
   ```
-  See [download and verification from GitHub](https://pinterest.github.io/ktlint/latest/install/cli/#download-and-verification) or [other package managers](https://pinterest.github.io/ktlint/latest/install/cli/#package-managers) for alternative ways of installing ktlint. Or, use one of the [integrations like maven and gradle plugins](https://pinterest.github.io/ktlint/latest/install/integrations/).
+  See [download and verification from GitHub](https://ktlint.github.io/ktlint/latest/install/cli/#download-and-verification) or [other package managers](https://ktlint.github.io/ktlint/latest/install/cli/#package-managers) for alternative ways of installing ktlint. Or, use one of the [integrations like maven and gradle plugins](https://ktlint.github.io/ktlint/latest/install/integrations/).
 
 * Step 2: Lint and format your code  
   All files with extension `.kt` and `.kts` in the current directory and below will be scanned. Problems will be fixed automatically when possible.
@@ -45,11 +45,11 @@ Follow steps below for a quick start with latest ktlint release.
   # or
   ktlint -F
   ```
-  See [cli usage](https://pinterest.github.io/ktlint/latest/install/cli/#command-line-usage) for a more extensive description on using ktlint.
+  See [cli usage](https://ktlint.github.io/ktlint/latest/install/cli/#command-line-usage) for a more extensive description on using ktlint.
 
 ## Documentation
 
-<a href="https://pinterest.github.io/ktlint/">User guide</a>
+<a href="https://ktlint.github.io/ktlint/">User guide</a>
 
 
 ### Legal

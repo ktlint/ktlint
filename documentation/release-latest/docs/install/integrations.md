@@ -118,7 +118,7 @@ tasks.register("ktlintCheck", JavaExec) {
     description = "Check Kotlin code style."
     classpath = configurations.ktlint
     mainClass = "com.pinterest.ktlint.Main"
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    // see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information
     args "src/**/*.kt", "**.kts", "!**/build/**"
 }
 
@@ -133,7 +133,7 @@ tasks.register("ktlintFormat", JavaExec) {
     mainClass = "com.pinterest.ktlint.Main"
     // Suppress "sun.misc.Unsafe::objectFieldOffset" on Java24 (warning) (https://github.com/pinterest/ktlint/issues/2973)
     // jvmArgs("--sun-misc-unsafe-memory-access=allow") // Java 24+
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    // see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information
     args "-F", "src/**/*.kt", "**.kts", "!**/build/**"
 }
 ```
@@ -167,7 +167,7 @@ val ktlintCheck by tasks.registering(JavaExec::class) {
     description = "Check Kotlin code style"
     classpath = ktlint
     mainClass.set("com.pinterest.ktlint.Main")
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    // see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information
     args(
         "**/src/**/*.kt",
         "**.kts",
@@ -186,7 +186,7 @@ tasks.register<JavaExec>("ktlintFormat") {
     mainClass.set("com.pinterest.ktlint.Main")
     // Suppress "sun.misc.Unsafe::objectFieldOffset" on Java24 (warning) (https://github.com/pinterest/ktlint/issues/2973)
     jvmArgs("--sun-misc-unsafe-memory-access=allow") // Java 24+
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    // see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information
     args(
         "-F",
         "**/src/**/*.kt",

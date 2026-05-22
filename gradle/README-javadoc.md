@@ -1,1 +1,1 @@
-Documentation available at https://pinterest.github.io/ktlint/latest/
+Documentation available at https://ktlint.github.io/ktlint/latest/

@@ -1,5 +1,5 @@
 site_name: Ktlint
-site_url: https://pinterest.github.io/ktlint/
+site_url: https://ktlint.github.io/ktlint/
 
 site_dir: build/site
 docs_dir: docs
