@@ -70,8 +70,8 @@ nav:
 plugins:
   - search
 
-repo_url: https://github.com/pinterest/ktlint
-repo_name: pinterest/ktlint
+repo_url: https://github.com/ktlint/ktlint
+repo_name: ktlint/ktlint
 
 markdown_extensions:
   - toc:
