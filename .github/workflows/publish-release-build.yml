@@ -10,7 +10,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: github.repository == 'pinterest/ktlint'
+    if: github.repository == 'ktlint/ktlint'
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -22,11 +22,11 @@ jobs:
       - name: Build executable and publish to Maven
         run: ./gradlew clean ktlintCliFiles publishMavenPublicationToMavenCentralRepository
         env:
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.CENTRAL_PORTAL_TOKEN }}
-          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEYID }}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.CENTRAL_PORTAL_USERNAME_KTLINT_2 }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.CENTRAL_PORTAL_TOKEN_KTLINT_2 }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY_KTLINT_2 }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEYID_KTLINT_2 }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD_KTLINT_2 }}
 
       - name: Validate changelog.md
         id: validate_changelog
@@ -78,7 +78,7 @@ jobs:
         with:
           formula-name: ktlint
           formula-path: Formula/k/ktlint.rb
-          download-url: https://github.com/pinterest/ktlint/releases/download/${{ env.version }}/ktlint-${{ env.version }}.zip
+          download-url: https://github.com/ktlint/ktlint/releases/download/${{ env.version }}/ktlint-${{ env.version }}.zip
 
       - name: Update Release documentation
         if: ${{ success() }}

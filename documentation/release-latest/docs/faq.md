@@ -133,7 +133,7 @@ See [adding a custom rule set](api/custom-rule-set.md) for more information.
 ## How do I suppress errors for a line/block/file?
 
 !!! tip
-    Suppressing a `ktlint` violation is meant primarily as an escape latch for the rare cases when **ktlint** is not able to produce the correct result. Please report any such instances using [GitHub Issues](https://github.com/pinterest/ktlint/issues).
+    Suppressing a `ktlint` violation is meant primarily as an escape latch for the rare cases when **ktlint** is not able to produce the correct result. Please report any such instances using [GitHub Issues](https://github.com/ktlint/ktlint/issues).
 
 To disable a specific rule you'll need the fully qualified rule identifier. This identifier is displayed at the end of the lint error. In case your code was autocorrected, you need to revert the code and run the `lint` task instead of the `format` to find the rule identifier.
 

@@ -177,5 +177,5 @@ Formatting projects in which ktlint is not used may result in a huge amount of f
     As the baseline is removed, thousands of violations are to be reported and/or autocorrected. Check at least in the summary that no internal errors are thrown like below:
 
 ## Checking documentation
-[The documentation for KtLint](https://pinterest.github.io/ktlint/) should be checked for dead links.
+[The documentation for KtLint](https://ktlint.github.io/ktlint/) should be checked for dead links.
 Follow the instructions for building the documentation in `/docs/readme.md`, and use a tool such as [Broken Link Checker Tool](https://www.deadlinkchecker.com/website-dead-link-checker.asp) to find broken links.

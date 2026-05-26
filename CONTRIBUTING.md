@@ -1,1 +1,1 @@
-See [Contributing guidelines](https://pinterest.github.io/ktlint/latest/contributing/overview/)
+See [Contributing guidelines](https://ktlint.github.io/ktlint/latest/contributing/overview/)

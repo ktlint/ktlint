@@ -9,16 +9,16 @@ on:
   workflow_dispatch:
 
 env:
-  ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
-  ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.CENTRAL_PORTAL_TOKEN }}
-  ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
-  ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEYID }}
-  ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+  ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.CENTRAL_PORTAL_USERNAME_KTLINT_2 }}
+  ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.CENTRAL_PORTAL_TOKEN_KTLINT_2 }}
+  ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY_KTLINT_2 }}
+  ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEYID_KTLINT_2 }}
+  ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD_KTLINT_2 }}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: github.repository == 'pinterest/ktlint'
+    if: github.repository == 'ktlint/ktlint'
     concurrency:
       group: publish-snapshot
       cancel-in-progress: false

@@ -34,9 +34,9 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 env:
-  ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
-  ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEYID }}
-  ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+  ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY_KTLINT_2 }}
+  ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEYID_KTLINT_2 }}
+  ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD_KTLINT_2 }}
   CLI_TEST_MAX_DURATION_IN_SECONDS: 10
 
 # Note that all "jobs" (build, tests) including "jobs.*.runs-on" should be kept in sync with "pull-request-without-code"
@@ -71,7 +71,7 @@ jobs:
           if [ $found -eq 0 ]; then
               exit 0
           else
-              echo "data classes found in one or more .api files. Visit https://github.com/pinterest/ktlint/issues/2133 for more details"
+              echo "data classes found in one or more .api files. Visit https://github.com/ktlint/ktlint/issues/2133 for more details"
               exit 1
           fi
         shell: bash

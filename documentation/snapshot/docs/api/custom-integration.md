@@ -2,7 +2,7 @@
 
 ## Ktlint Rule Engine
 
-The `Ktlint Rule Engine` is the central entry point for custom integrations with the `Ktlint API`. See [basic API Consumer](https://github.com/pinterest/ktlint/blob/master/ktlint-api-consumer/src/main/kotlin/com/example/ktlint/api/consumer/KtlintApiConsumer.kt) for a basic example on how to invoke the `Ktlint Rule Engine`. This example also explains how the logging of the `Ktlint Rule Engine` can be configured to your needs.
+The `Ktlint Rule Engine` is the central entry point for custom integrations with the `Ktlint API`. See [basic API Consumer](https://github.com/ktlint/ktlint/blob/master/ktlint-api-consumer/src/main/kotlin/com/example/ktlint/api/consumer/KtlintApiConsumer.kt) for a basic example on how to invoke the `Ktlint Rule Engine`. This example also explains how the logging of the `Ktlint Rule Engine` can be configured to your needs.
 
 The `KtLintRuleEngine` instance only needs to be created once for the entire lifetime of your application. Reusing the same instance results in better performance due to caching.
 
@@ -194,4 +194,4 @@ emit(node.startOffset, "some detail message", false)
 
 ## Logging
 
-Ktlint uses the `io.github.oshai:kotlin-logging` which is a `slf4j` wrapper. As API consumer you can choose which logging framework you want to use and configure that framework to your exact needs. The [basic API Consumer](https://github.com/pinterest/ktlint/blob/master/ktlint-api-consumer/src/main/kotlin/com/example/ktlint/api/consumer/KtlintApiConsumer.kt) contains an example with `org.slf4j:slf4j-simple` as logging provider and a customized configuration which shows logging at `DEBUG` level for all classes except one specific class which only displays logging at `WARN` level.
+Ktlint uses the `io.github.oshai:kotlin-logging` which is a `slf4j` wrapper. As API consumer you can choose which logging framework you want to use and configure that framework to your exact needs. The [basic API Consumer](https://github.com/ktlint/ktlint/blob/master/ktlint-api-consumer/src/main/kotlin/com/example/ktlint/api/consumer/KtlintApiConsumer.kt) contains an example with `org.slf4j:slf4j-simple` as logging provider and a customized configuration which shows logging at `DEBUG` level for all classes except one specific class which only displays logging at `WARN` level.

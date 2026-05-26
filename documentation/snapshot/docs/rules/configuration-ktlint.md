@@ -2,7 +2,7 @@ Ktlint uses a limited set of `.editorconfig` properties for additional configura
 
 !!! danger
 
-    Unfortunately, [IntelliJ IDEA](https://www.jetbrains.com/idea/) has an [autoformat issue regarding `.editorconfig`](https://youtrack.jetbrains.com/issue/IDEA-242506). Due to this error, an additional space is added between glob statements, resulting in `[*{kt, kts}]` instead of `[*{kt,kts}]`. The `.editorconfig` library used by `ktlint` [ignores sections after encountering a space in the list](https://github.com/editorconfig/editorconfig/issues/148). As a result, the rule is not applied on all files as documented in the [original ktlint issue](https://github.com/pinterest/ktlint/issues/762).
+    Unfortunately, [IntelliJ IDEA](https://www.jetbrains.com/idea/) has an [autoformat issue regarding `.editorconfig`](https://youtrack.jetbrains.com/issue/IDEA-242506). Due to this error, an additional space is added between glob statements, resulting in `[*{kt, kts}]` instead of `[*{kt,kts}]`. The `.editorconfig` library used by `ktlint` [ignores sections after encountering a space in the list](https://github.com/editorconfig/editorconfig/issues/148). As a result, the rule is not applied on all files as documented in the [original ktlint issue](https://github.com/ktlint/ktlint/issues/762).
 
 ## Code style
 

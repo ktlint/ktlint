@@ -41,7 +41,7 @@ The `ktlint-intellij-plugin` can be installed as [plugin in Intellij IDEA](https
 
 The [git pre-commit hook](cli.md#git-hooks), protects against committing code containing lint violations. From the perspective of code reviewing it is important that the code is already formatted in the style of the project. This is especially valuable after refactorings (for example search and replace) have been applied on files that are not opened in the editor and as of that might not have been updated by the `ktlint-intellij-plugin`.
 
-Ktlint CLI can generate a pre-commit hook, or you can find it [here](https://github.com/pinterest/ktlint/blob/master/ktlint-cli/src/main/kotlin/com/pinterest/ktlint/cli/internal/GitPreCommitHookSubCommand.kt#L23).
+Ktlint CLI can generate a pre-commit hook, or you can find it [here](https://github.com/ktlint/ktlint/blob/master/ktlint-cli/src/main/kotlin/com/ktlint/ktlint/cli/internal/GitPreCommitHookSubCommand.kt#L23).
 
 ## Build pipeline as last defence
 
