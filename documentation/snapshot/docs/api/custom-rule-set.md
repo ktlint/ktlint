@@ -1,19 +1,19 @@
-You can provide custom rules via a separate ruleset to Ktlint. A ruleset is a JAR containing one or more [Rule](https://github.com/pinterest/ktlint/blob/master/ktlint-rule-engine-core/src/main/kotlin/com/pinterest/ktlint/rule/engine/core/api/Rule.kt)s. 
+You can provide custom rules via a separate ruleset to Ktlint. A ruleset is a JAR containing one or more [Rule](https://github.com/ktlint/ktlint/blob/master/ktlint-rule-engine-core/src/main/kotlin/com/ktlint/ktlint/rule/engine/core/api/Rule.kt)s. 
 
- See presentation [How to build a custom ruleset](../assets/Ktlint%20-%20building%20a%20custom%20ruleset%20.pdf) as starting point to build your custom ruleset. Or, directly clone the sample project is included in this repo under the [ktlint-ruleset-template](https://github.com/pinterest/ktlint/tree/master/ktlint-ruleset-template) directory.
+ See presentation [How to build a custom ruleset](../assets/Ktlint%20-%20building%20a%20custom%20ruleset%20.pdf) as starting point to build your custom ruleset. Or, directly clone the sample project is included in this repo under the [ktlint-ruleset-template](https://github.com/ktlint/ktlint/tree/master/ktlint-ruleset-template) directory.
 
 ## ktlint-ruleset-template
 
 ### Gradle build
 
-The [Gradle build file](https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-template/build.gradle.kts) of the sample project includes the setup for:
+The [Gradle build file](https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-template/build.gradle.kts) of the sample project includes the setup for:
 
 * publishing the custom ruleset artifact to Maven
 * the custom Gradle task 'ktlintCheck' that is using the Ktlint CLI to run the rules provided by the ktlint project, as well as the custom rule(s) from this project on the project itself ([dogfood principle](https://en.wikipedia.org/wiki/Eating_your_own_dog_food)).
 
 ### Rule
 
-The Rule contains the logic for linting and formatting the code. For example, see [NoVarRuleTest](https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-template/src/main/kotlin/yourpkgname/NoVarRule.kt). 
+The Rule contains the logic for linting and formatting the code. For example, see [NoVarRuleTest](https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-template/src/main/kotlin/yourpkgname/NoVarRule.kt). 
 
 A rule has to implement one or more of hooks below:
 
@@ -31,9 +31,9 @@ Upon traversal of the Abstract Syntax Tree (AST), the hooks of the Rule are visi
 
 ### Rule Set Provider
 
-The RuleSetProvider provides new instances of the rule, see [CustomRuleSetProvider](https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-template/src/main/kotlin/yourpkgname/CustomRuleSetProvider.kt) for an example.
+The RuleSetProvider provides new instances of the rule, see [CustomRuleSetProvider](https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-template/src/main/kotlin/yourpkgname/CustomRuleSetProvider.kt) for an example.
 
-`ktlint` is relying on the [ServiceLoader](https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html) to discover all available "RuleSet"s on the classpath. For this, the RuleSetProvider needs to be registered in file `resources/META-INF/services/com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider`, see [Registration for Java ServiceLoader](https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-template/src/main/resources/META-INF/services/com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider).
+`ktlint` is relying on the [ServiceLoader](https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html) to discover all available "RuleSet"s on the classpath. For this, the RuleSetProvider needs to be registered in file `resources/META-INF/services/com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider`, see [Registration for Java ServiceLoader](https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-template/src/main/resources/META-INF/services/com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider).
 
 ### Building the project
 

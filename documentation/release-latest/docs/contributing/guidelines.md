@@ -27,7 +27,7 @@ If you have a bug report, please provide as much information as possible so that
 ## Making Changes
 
 !!! tip
-    `ktlint` only provides rules that enforce the [Kotlin coding conventions](https://kotlinlang.org/docs/coding-conventions.html) or [Android Kotlin style guide](https://developer.android.com/kotlin/style-guide). If your change is more opinionated than please [file an issue](https://github.com/pinterest/ktlint/issues/new) first so that it can be discussed amongst the community. Rules which are too opinionated might be better published as a custom rule set. 
+    `ktlint` only provides rules that enforce the [Kotlin coding conventions](https://kotlinlang.org/docs/coding-conventions.html) or [Android Kotlin style guide](https://developer.android.com/kotlin/style-guide). If your change is more opinionated than please [file an issue](https://github.com/ktlint/ktlint/issues/new) first so that it can be discussed amongst the community. Rules which are too opinionated might be better published as a custom rule set. 
 
 1. Fork this repository to your own account
 2. Make your changes and verify that tests pass

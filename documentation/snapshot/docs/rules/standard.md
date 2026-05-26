@@ -1338,7 +1338,7 @@ Indentation formatting - respects `.editorconfig` `indent_size` with no continua
     ```
 
 !!! note
-    This rule handles indentation for many different language constructs which can not be summarized with a few examples. See the [unit tests](https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-standard/src/test/kotlin/com/pinterest/ktlint/ruleset/standard/rules/IndentationRuleTest.kt) for more details.
+    This rule handles indentation for many different language constructs which can not be summarized with a few examples. See the [unit tests](https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-standard/src/test/kotlin/com/ktlint/ktlint/ruleset/standard/rules/IndentationRuleTest.kt) for more details.
 
 | Configuration setting                                                                                                                                                                                                                                                                             | ktlint_official | intellij_idea | android_studio |
 |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------:|:-------------:|:--------------:|
@@ -2787,7 +2787,7 @@ Suppress or disable rule (1)
 
 !!! important
     Starting from KtLint `1.7.0` this rule no longer runs by default. In some cases the rule marks imports as unused, while after removal of the import the code no longer compiles.
-    If you insist on running the rule despite its [shortcomings](https://github.com/pinterest/ktlint/issues/3038), you need to enable the rule in the `.editorconfig` by adding:
+    If you insist on running the rule despite its [shortcomings](https://github.com/ktlint/ktlint/issues/3038), you need to enable the rule in the `.editorconfig` by adding:
     ```
     ktlint_standard_no-unused-imports = enabled
     ```

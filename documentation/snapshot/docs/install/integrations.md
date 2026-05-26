@@ -131,7 +131,7 @@ tasks.register("ktlintFormat", JavaExec) {
     description = "Fix Kotlin code style deviations."
     classpath = configurations.ktlint
     mainClass = "com.pinterest.ktlint.Main"
-    // Suppress "sun.misc.Unsafe::objectFieldOffset" on Java24 (warning) (https://github.com/pinterest/ktlint/issues/2973)
+    // Suppress "sun.misc.Unsafe::objectFieldOffset" on Java24 (warning) (https://github.com/ktlint/ktlint/issues/2973)
     // jvmArgs("--sun-misc-unsafe-memory-access=allow") // Java 24+
     // see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information
     args "-F", "src/**/*.kt", "**.kts", "!**/build/**"
@@ -184,7 +184,7 @@ tasks.register<JavaExec>("ktlintFormat") {
     description = "Check Kotlin code style and format"
     classpath = ktlint
     mainClass.set("com.pinterest.ktlint.Main")
-    // Suppress "sun.misc.Unsafe::objectFieldOffset" on Java24 (warning) (https://github.com/pinterest/ktlint/issues/2973)
+    // Suppress "sun.misc.Unsafe::objectFieldOffset" on Java24 (warning) (https://github.com/ktlint/ktlint/issues/2973)
     jvmArgs("--sun-misc-unsafe-memory-access=allow") // Java 24+
     // see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information
     args(

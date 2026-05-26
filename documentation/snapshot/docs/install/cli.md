@@ -5,14 +5,14 @@
 
 ### Download manually from GitHub
 
-All releases of `ktlint` can be downloaded from the [releases](https://github.com/pinterest/ktlint/releases) page.
+All releases of `ktlint` can be downloaded from the [releases](https://github.com/ktlint/ktlint/releases) page.
 
 ### Download using curl
 
 A particular version of `ktlint` can be downloaded with next command which also changes the file to an executable in directory `/usr/local/bin`:
 
 ```sh title="Download"
-curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.8.0/ktlint && chmod a+x ktlint && sudo mv ktlint /usr/local/bin/
+curl -sSLO https://github.com/ktlint/ktlint/releases/download/1.8.0/ktlint && chmod a+x ktlint && sudo mv ktlint /usr/local/bin/
 ```
 
 !!! tip "Curl not installed or behind proxy"
@@ -34,7 +34,7 @@ curl -sS "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x0F631C1DD2A656
 ```
 
 !!! note
-    As reported in [this issue](https://github.com/pinterest/ktlint/issues/3130) the https://keybase.io/ktlint/pgp_keys.asc is no longer available. Our public signature can be downloaded from the Unbuntu Key Server.
+    As reported in [this issue](https://github.com/ktlint/ktlint/issues/3130) the https://keybase.io/ktlint/pgp_keys.asc is no longer available. Our public signature can be downloaded from the Unbuntu Key Server.
 
 ```sh title="Verify releases 0.32.0 - 1.8.0"
 curl -sS "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xadbc987d1a7b91db6b0aaa81995efbf4a3d20beb" | gpg --import && gpg --verify ktlint.asc
@@ -217,6 +217,6 @@ Options `--stdin` and `--patterns-from-stdin` are mutually exclusive, only one o
 
 Microsoft Windows is not able to run the `ktlint` command directly. Ktlint can be run in following ways on Microsoft Windows:
 
-1. Use the `ktlint.bat` batch file provided as part of the [release](https://github.com/pinterest/ktlint/releases/tag/1.8.0). Add the batch file to your `%PATH%` environment variable for easy access
+1. Use the `ktlint.bat` batch file provided as part of the [release](https://github.com/ktlint/ktlint/releases/tag/1.8.0). Add the batch file to your `%PATH%` environment variable for easy access
 2. Run `ktlint` using Git Bash
 3. Run as `java -jar ktlint`

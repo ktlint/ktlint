@@ -21,7 +21,7 @@ NOTE: Changes to the documentation have to be submitted as PR. When merging to `
 
 Github Pages deploys the documentation from branch `gh-pages`. Each version of the documentation is stored in a separate directory of that branch. Each of those directories contains a html/css version of the generated documentation. Beside the directories for released versions, two special directories exist. The `latest` directory which is based on the `documentation/release-latest` directory on the `master` branch. The `dev-snapshot` directory is based on the `documentation/snapshot` directory on the `master` branch.
 
-In case the `gh-pages` branch is corrupt, it can be recreated again. In order to execute commands below, `python`, `pip`, `mkdocs` and `mike` need to be installed on the local machine. The commands have to be executed from the designated directory. Note that after each command a Github Actions workflow is started (see https://github.com/pinterest/ktlint/actions). Wait with executing the next command until the Github Action workflow is completed. In between steps, the command `mike list` can be executed to see what versions have been published.
+In case the `gh-pages` branch is corrupt, it can be recreated again. In order to execute commands below, `python`, `pip`, `mkdocs` and `mike` need to be installed on the local machine. The commands have to be executed from the designated directory. Note that after each command a Github Actions workflow is started (see https://github.com/ktlint/ktlint/actions). Wait with executing the next command until the Github Action workflow is completed. In between steps, the command `mike list` can be executed to see what versions have been published.
 
 1) Clear all doc versions from gh-pages
     ```shell

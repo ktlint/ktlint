@@ -1,6 +1,6 @@
 ## Access to the latest `master` snapshot
 
-Whenever a commit is added to the `master` branch a snapshot build is automatically uploaded to [Sonatype's snapshots repository](https://central.sonatype.com/repository/maven-snapshots//com/pinterest/ktlint/).
+Whenever a commit is added to the `master` branch a snapshot build is automatically uploaded to [Sonatype's snapshots repository](https://central.sonatype.com/repository/maven-snapshots//com/ktlint/ktlint/).
 If you are eager to try upcoming changes (that might or might not be included in the next stable release) you can do so by changing the version of ktlint to `<latest-version>-SNAPSHOT`, and adding the Sonatype snapshot repository location.
 
 !!! important
