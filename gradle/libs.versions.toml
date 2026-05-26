@@ -7,7 +7,7 @@ java-compilation = "25"
 # used in KotlinCommonPlugin
 #noinspection UnusedVersionCatalogEntry
 java-target = "17"
-kotlin = "2.3.20"
+kotlin = "2.3.21"
 kotlinDev = "2.3.20"
 
 [plugins]
