@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://pinterest.github.io/ktlint/dev-snapshot/install/cli/">
+        <link rel="canonical" href="https://ktlint.github.io/ktlint/dev-snapshot/install/cli/">
       
       
         <link rel="prev" href="../setup/">
@@ -1792,33 +1792,39 @@ If you are behind a proxy see - <a href="https://curl.haxx.se/docs/manpage.html#
 <p><code>ktlint.asc</code> contains PGP signature which you can verify with:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>Ktlint 2.x has been moved to a separate organization, and no longer affiliated with Pinterest open source projects. Our public signature can be downloaded from the Unbuntu Key Server.</p>
+</div>
+<div class="highlight"><span class="filename">Verify releases 2.0 and up</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>-sS<span class="w"> </span><span class="s2">&quot;https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0x0F631C1DD2A656869B1F47350FDF10E71780F7FD&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--import<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>gpg<span class="w"> </span>--verify<span class="w"> </span>ktlint.asc
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>As reported in <a href="https://github.com/pinterest/ktlint/issues/3130">this issue</a> the https://keybase.io/ktlint/pgp_keys.asc is no longer available. Our public signature can be downloaded from the Unbuntu Key Server.</p>
 </div>
-<div class="highlight"><span class="filename">Verify releases 0.32.0 and above</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>-sS<span class="w"> </span><span class="s2">&quot;https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xadbc987d1a7b91db6b0aaa81995efbf4a3d20beb&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--import<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>gpg<span class="w"> </span>--verify<span class="w"> </span>ktlint.asc
+<div class="highlight"><span class="filename">Verify releases 0.32.0 - 1.8.0</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-sS<span class="w"> </span><span class="s2">&quot;https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xadbc987d1a7b91db6b0aaa81995efbf4a3d20beb&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--import<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>gpg<span class="w"> </span>--verify<span class="w"> </span>ktlint.asc
 </code></pre></div>
-<div class="highlight"><span class="filename">Verify releases up through 0.31.0</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-sS<span class="w"> </span>https://keybase.io/shyiko/pgp_keys.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--import<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>gpg<span class="w"> </span>--verify<span class="w"> </span>ktlint.asc
+<div class="highlight"><span class="filename">Verify releases up through 0.31.0</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>-sS<span class="w"> </span>https://keybase.io/shyiko/pgp_keys.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--import<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>gpg<span class="w"> </span>--verify<span class="w"> </span>ktlint.asc
 </code></pre></div>
 <h3 id="package-managers">Package managers<a class="headerlink" href="#package-managers" title="Permanent link">&para;</a></h3>
 <p><code>ktlint</code> can be installed via several OS specific package managers.</p>
 <p>Install with <a href="https://brew.sh/">brew on macOS</a> or <a href="https://docs.brew.sh/Homebrew-on-Linux">Homebrew on Linux</a>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>brew<span class="w"> </span>install<span class="w"> </span>ktlint
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>brew<span class="w"> </span>install<span class="w"> </span>ktlint
 </code></pre></div></p>
 <p>Install with <a href="https://www.macports.org/">MacPorts</a>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>port<span class="w"> </span>install<span class="w"> </span>ktlint
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>port<span class="w"> </span>install<span class="w"> </span>ktlint
 </code></pre></div></p>
 <h2 id="command-line-usage">Command line usage<a class="headerlink" href="#command-line-usage" title="Permanent link">&para;</a></h2>
 <h3 id="rule-sets">Rule set(s)<a class="headerlink" href="#rule-sets" title="Permanent link">&para;</a></h3>
 <p>When no arguments are specified, the style of all Kotlin files (ending with '.kt' or '.kts') inside the current dir (recursively) are validated with the rules from the <a href="../../rules/standard/">standard ruleset</a>. Hidden folders will be skipped.</p>
-<div class="highlight"><span class="filename">Default validation with standard ruleset</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ktlint
+<div class="highlight"><span class="filename">Default validation with standard ruleset</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ktlint
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The experimental rules in the standard rule set will only be run when <code>.editorconfig</code> property <code>ktlint_experimental = enabled</code> is set.</p>
 </div>
 <p>To validate with a <a href="../../api/custom-rule-set/#running-ktlint-cli-with-the-custom-ruleset">custom ruleset</a> run command below:  </p>
-<div class="highlight"><span class="filename">Validation with standard and a custom ruleset</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ktlint<span class="w"> </span>--ruleset<span class="o">=</span>/path/to/custom-ruleset.jar
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># or</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>ktlint<span class="w"> </span>-R<span class="w"> </span>/path/to/custom-ruleset.jar
+<div class="highlight"><span class="filename">Validation with standard and a custom ruleset</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ktlint<span class="w"> </span>--ruleset<span class="o">=</span>/path/to/custom-ruleset.jar
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># or</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>ktlint<span class="w"> </span>-R<span class="w"> </span>/path/to/custom-ruleset.jar
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1826,31 +1832,31 @@ If you are behind a proxy see - <a href="https://curl.haxx.se/docs/manpage.html#
 </div>
 <h3 id="format-autocorrect">Format (autocorrect)<a class="headerlink" href="#format-autocorrect" title="Permanent link">&para;</a></h3>
 <p>Most style violations can be corrected automatically. Errors that can not be corrected, are printed to <code>stderr</code>.</p>
-<div class="highlight"><span class="filename">Autocorrect style violations</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ktlint<span class="w"> </span>--format
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># or</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>ktlint<span class="w"> </span>-F
+<div class="highlight"><span class="filename">Autocorrect style violations</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ktlint<span class="w"> </span>--format
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1"># or</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>ktlint<span class="w"> </span>-F
 </code></pre></div>
 <h3 id="globs">Globs<a class="headerlink" href="#globs" title="Permanent link">&para;</a></h3>
 <p>Globs can be used to specify more exactly what files and directories are to be validated. <code>ktlint</code> uses the <a href="https://git-scm.com/docs/gitignore"><code>.gitignore</code> pattern style syntax for globs</a>. Globs are processed from left to right. Prepend a glob with <code>!</code> to negate it. Hidden folders will be skipped.</p>
-<div class="highlight"><span class="filename">Check only certain locations starting from the current directory</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Check all &#39;.kt&#39; files in &#39;src/&#39; directory, but ignore files ending with &#39;Test.kt&#39;:</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ktlint<span class="w"> </span><span class="s1">&#39;src/**/*.kt&#39;</span><span class="w"> </span><span class="s1">&#39;!src/**/*Test.kt&#39;</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Check all &#39;.kt&#39; files in &#39;src/&#39; directory, but ignore &#39;generated&#39; directory and its subdirectories:</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>ktlint<span class="w"> </span><span class="s1">&#39;src/**/*.kt&#39;</span><span class="w"> </span><span class="s1">&#39;!src/**/generated/**&#39;</span>
+<div class="highlight"><span class="filename">Check only certain locations starting from the current directory</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Check all &#39;.kt&#39; files in &#39;src/&#39; directory, but ignore files ending with &#39;Test.kt&#39;:</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ktlint<span class="w"> </span><span class="s1">&#39;src/**/*.kt&#39;</span><span class="w"> </span><span class="s1">&#39;!src/**/*Test.kt&#39;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Check all &#39;.kt&#39; files in &#39;src/&#39; directory, but ignore &#39;generated&#39; directory and its subdirectories:</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>ktlint<span class="w"> </span><span class="s1">&#39;src/**/*.kt&#39;</span><span class="w"> </span><span class="s1">&#39;!src/**/generated/**&#39;</span>
 </code></pre></div>
 <h3 id="violation-reporting">Violation reporting<a class="headerlink" href="#violation-reporting" title="Permanent link">&para;</a></h3>
 <p><code>ktlint</code> supports different type of reporters for lint violations. When not specified the <code>plain</code> reporter is used. Optionally the <code>plain</code> reporter can group the violations per file.</p>
-<div class="highlight"><span class="filename">Style violation grouped by file</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain?group_by_file
+<div class="highlight"><span class="filename">Style violation grouped by file</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain?group_by_file
 </code></pre></div>
 <p>When using <code>ktlint</code> on an existing project, the number of violations can be huge. To get more insights in which rules are causing the most violations, the <code>plain-summary</code> reporter can be used.
-<div class="highlight"><span class="filename">Style violations counted per rule</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain-summary
+<div class="highlight"><span class="filename">Style violations counted per rule</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$<span class="w"> </span>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain-summary
 </code></pre></div></p>
 <p>Other built-in reporters are: <code>json</code>, <code>sarif</code>, <code>checkstyle</code>, and <code>html</code></p>
 <p>Style violations can be written to an output file which is convenient when multiple reporters are specified. In example below, the plain reporter is used to write to the console while the checkstyle reports is written to a file:</p>
-<div class="highlight"><span class="filename">Multiple reporters</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain<span class="w"> </span>--reporter<span class="o">=</span>checkstyle,output<span class="o">=</span>ktlint-report-in-checkstyle-format.xml
+<div class="highlight"><span class="filename">Multiple reporters</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain<span class="w"> </span>--reporter<span class="o">=</span>checkstyle,output<span class="o">=</span>ktlint-report-in-checkstyle-format.xml
 </code></pre></div>
 <p>If resolving all existing errors in a project is unwanted, it is possible to create a baseline and in following invocations compare violations against this baseline. Violations that are registered in the baseline, will be ignored silently. Remove the baseline file in case you want to reset it.</p>
-<div class="highlight"><span class="filename">Check against a baseline file</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ktlint<span class="w"> </span>--baseline<span class="o">=</span>ktlint-baseline.xml<span class="w"> </span><span class="c1"># Baseline is created when not existing</span>
+<div class="highlight"><span class="filename">Check against a baseline file</span><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ktlint<span class="w"> </span>--baseline<span class="o">=</span>ktlint-baseline.xml<span class="w"> </span><span class="c1"># Baseline is created when not existing</span>
 </code></pre></div>
 <h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h3>
 <p>Logging information is written to <code>stdout</code>. The amount of logging can be influenced by setting the minimal log level using option <code>--log-level</code> or <code>-l</code> to one of values <code>trace</code>, <code>debug</code>, <code>info</code>, <code>warn</code>, <code>error</code>, or <code>none</code> to suppress all logging.</p>
@@ -1858,14 +1864,14 @@ If you are behind a proxy see - <a href="https://curl.haxx.se/docs/manpage.html#
 <h3 id="rule-configuration-editorconfig">Rule configuration (<code>.editorconfig</code>)<a class="headerlink" href="#rule-configuration-editorconfig" title="Permanent link">&para;</a></h3>
 <p>Some rules can be tweaked via the <a href="../../rules/configuration-ktlint/"><code>editorconfig file</code></a>.</p>
 <p>A scaffold of the <code>.editorconfig</code> file can be generated with command below. Note: that the generated file only contains configuration settings which are actively used by the <a href="#rule-sets">rules which are loaded</a>:</p>
-<div class="highlight"><span class="filename">Generate .editorconfig</span><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Specify the code style (ktlint_official, intellij_idea or android_studio) to be used when generating the .editorconfig</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>ktlint<span class="w"> </span>generateEditorConfig<span class="w"> </span>--code-style<span class="w"> </span>ktlint_official
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1"># or</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>ktlint<span class="w"> </span>--ruleset<span class="o">=</span>/path/to/custom-ruleset.jar<span class="w"> </span>generateEditorConfig<span class="w"> </span>--code-style<span class="w"> </span>android_studio
+<div class="highlight"><span class="filename">Generate .editorconfig</span><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Specify the code style (ktlint_official, intellij_idea or android_studio) to be used when generating the .editorconfig</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>ktlint<span class="w"> </span>generateEditorConfig<span class="w"> </span>--code-style<span class="w"> </span>ktlint_official
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># or</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>ktlint<span class="w"> </span>--ruleset<span class="o">=</span>/path/to/custom-ruleset.jar<span class="w"> </span>generateEditorConfig<span class="w"> </span>--code-style<span class="w"> </span>android_studio
 </code></pre></div>
 <p>Normally the <code>.editorconfig</code> file is located in the root of your project directory. In case the file is located in a sub folder of the project, the settings of that file only applies to that subdirectory and its folders (recursively). Ktlint automatically detects and reads all <code>.editorconfig</code> files in your project.</p>
 <p>Use command below, to specify a default <code>editorconfig</code>. In case a property is not defined in any <code>.editorconfig</code> file on the path to the file, the value from the default file is used. The path may point to any valid file or directory. The path can be relative or absolute. Depending on your OS, the "~" at the beginning of a path is replaced by the user home directory.</p>
-<div class="highlight"><span class="filename">Override '.editorconfig'</span><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ktlint<span class="w"> </span>--editorconfig<span class="o">=</span>/path/to/.editorconfig
+<div class="highlight"><span class="filename">Override &#x27;.editorconfig&#x27;</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ktlint<span class="w"> </span>--editorconfig<span class="o">=</span>/path/to/.editorconfig
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Overrides '.editorconfig' in project directory" in KtLint 0.46 and older</p>
@@ -1873,10 +1879,10 @@ If you are behind a proxy see - <a href="https://curl.haxx.se/docs/manpage.html#
 </div>
 <h3 id="stdin-stdout">Stdin &amp;&amp; stdout<a class="headerlink" href="#stdin-stdout" title="Permanent link">&para;</a></h3>
 <p>With command below, the input is read from <code>stdin</code> and the violations are printed to <code>stderr</code>. Logging is written to <code>stdout</code>.</p>
-<div class="highlight"><span class="filename">Lint from stdin</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ktlint<span class="w"> </span>--stdin
+<div class="highlight"><span class="filename">Lint from stdin</span><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ktlint<span class="w"> </span>--stdin
 </code></pre></div>
 <p>When combined with the <code>--format</code> option, the formatted code is written to <code>stdout</code> and the violations are printed to <code>stderr</code>:</p>
-<div class="highlight"><span class="filename">Format from stdin and write to stdout</span><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ktlint<span class="w"> </span>--stdin<span class="w"> </span>-F
+<div class="highlight"><span class="filename">Format from stdin and write to stdout</span><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ktlint<span class="w"> </span>--stdin<span class="w"> </span>-F
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Suppress logging and error output</p>
@@ -1884,13 +1890,13 @@ If you are behind a proxy see - <a href="https://curl.haxx.se/docs/manpage.html#
 <p>Logging output printed to <code>stdout</code> can be suppressed by setting <code>--log-level=none</code> (see <a href="#logging">logging</a>).
 Output printed to <code>stderr</code> can be suppressed in different ways. To ignore all error output, add <code>2&gt; /dev/null</code> to the end of the command line. Otherwise, specify a <a href="#violation-reporting">reporter</a> to write the error output to a file.</p>
 <p>If input from <code>stdin</code> represents the contents of a file, the file path can be supplied with <code>stdin-path</code>. This path is made available for rules to use, the <code>--format</code> option will not modify this file. </p>
-<div class="highlight"><span class="filename">file path from stdin-path</span><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ktlint<span class="w"> </span>--stdin<span class="w"> </span>--stdin-path<span class="w"> </span>/path/to/file/Foo.kt
+<div class="highlight"><span class="filename">file path from stdin-path</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ktlint<span class="w"> </span>--stdin<span class="w"> </span>--stdin-path<span class="w"> </span>/path/to/file/Foo.kt
 </code></pre></div>
 <h3 id="git-hooks">Git hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h3>
 <p>Predefined git hooks can be installed, to automatically validate lint errors before commit or push.</p>
-<div class="highlight"><span class="filename">Install git pre-commit hook</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ktlint<span class="w"> </span>installGitPreCommitHook
+<div class="highlight"><span class="filename">Install git pre-commit hook</span><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ktlint<span class="w"> </span>installGitPreCommitHook
 </code></pre></div>
-<div class="highlight"><span class="filename">Install git pre-push hook</span><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ktlint<span class="w"> </span>installGitPrePushHook
+<div class="highlight"><span class="filename">Install git pre-push hook</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ktlint<span class="w"> </span>installGitPrePushHook
 </code></pre></div>
 <h3 id="miscellaneous-flags-and-commands">Miscellaneous flags and commands<a class="headerlink" href="#miscellaneous-flags-and-commands" title="Permanent link">&para;</a></h3>
 <p><code>--color</code> and <code>--color-name=&lt;colorName&gt;</code>: Make output colorful and optionally set the color name to use.</p>

@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://pinterest.github.io/ktlint/dev-snapshot/api/custom-integration/">
+        <link rel="canonical" href="https://ktlint.github.io/ktlint/dev-snapshot/api/custom-integration/">
       
       
         <link rel="prev" href="../overview/">
@@ -1575,7 +1575,7 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
 <p>The <code>editorConfigOverride</code> property takes an <code>EditorConfigProperty</code> as key. KtLint defines several such properties, but they can also be defined as part of a custom rule.</p>
 <p>The <code>editorConfigDefaults</code> property is more cumbersome to define as it is based directly on the data format of the <code>ec4j</code> library which is used for parsing the <code>.editorconfig</code> file.</p>
 <p>The defaults can be loaded from a path or a directory. If a path to a file is specified, the name of the file does not necessarily have to end with <code>.editorconfig</code>. If a path to a directory is specified, the directory should contain a file with name <code>.editorconfig</code>. Note that the <code>propertyTypes</code> have to be derived from the same collection of rule providers that are specified in the <code>ruleProviders</code> property of the <code>KtLintRuleEngine</code>.</p>
-<p><div class="highlight"><span class="filename">Specifying the editorConfigDefaults using an '.editorconfig' file</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">ktLintRuleEngine</span><span class="w"> </span><span class="o">=</span>
+<p><div class="highlight"><span class="filename">Specifying the editorConfigDefaults using an &#x27;.editorconfig&#x27; file</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">ktLintRuleEngine</span><span class="w"> </span><span class="o">=</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">KtLintRuleEngine</span><span class="p">(</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">ruleProviders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KTLINT_API_CONSUMER_RULE_PROVIDERS</span><span class="p">,</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">editorConfigDefaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EditorConfigDefaults</span><span class="p">.</span><span class="na">load</span><span class="p">(</span>

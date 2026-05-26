@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://pinterest.github.io/ktlint/dev-snapshot/install/integrations/">
+        <link rel="canonical" href="https://ktlint.github.io/ktlint/dev-snapshot/install/integrations/">
       
       
         <link rel="prev" href="../cli/">
@@ -1832,7 +1832,7 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
 <a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Check Kotlin code style.&quot;</span>
 <a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">    </span><span class="n">classpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configurations</span><span class="o">.</span><span class="na">ktlint</span>
 <a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">    </span><span class="n">mainClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;com.pinterest.ktlint.Main&quot;</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">    </span><span class="c1">// see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">    </span><span class="c1">// see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information</span>
 <a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">    </span><span class="n">args</span><span class="w"> </span><span class="s2">&quot;src/**/*.kt&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;**.kts&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;!**/build/**&quot;</span>
 <a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="o">}</span>
 <a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>
@@ -1847,7 +1847,7 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
 <a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="w">    </span><span class="n">mainClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;com.pinterest.ktlint.Main&quot;</span>
 <a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">    </span><span class="c1">// Suppress &quot;sun.misc.Unsafe::objectFieldOffset&quot; on Java24 (warning) (https://github.com/pinterest/ktlint/issues/2973)</span>
 <a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">    </span><span class="c1">// jvmArgs(&quot;--sun-misc-unsafe-memory-access=allow&quot;) // Java 24+</span>
-<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">    </span><span class="c1">// see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">    </span><span class="c1">// see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information</span>
 <a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">    </span><span class="n">args</span><span class="w"> </span><span class="s2">&quot;-F&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;src/**/*.kt&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;**.kts&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;!**/build/**&quot;</span>
 <a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="o">}</span>
 </code></pre></div>
@@ -1878,7 +1878,7 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Check Kotlin code style&quot;</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="n">classpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ktlint</span>
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="n">mainClass</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&quot;com.pinterest.ktlint.Main&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="c1">// see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="c1">// see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information</span>
 <a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="n">args</span><span class="p">(</span>
 <a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="s">&quot;**/src/**/*.kt&quot;</span><span class="p">,</span>
 <a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">        </span><span class="s">&quot;**.kts&quot;</span><span class="p">,</span>
@@ -1897,7 +1897,7 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
 <a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">    </span><span class="n">mainClass</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&quot;com.pinterest.ktlint.Main&quot;</span><span class="p">)</span>
 <a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">    </span><span class="c1">// Suppress &quot;sun.misc.Unsafe::objectFieldOffset&quot; on Java24 (warning) (https://github.com/pinterest/ktlint/issues/2973)</span>
 <a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">    </span><span class="n">jvmArgs</span><span class="p">(</span><span class="s">&quot;--sun-misc-unsafe-memory-access=allow&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Java 24+</span>
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">    </span><span class="c1">// see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">    </span><span class="c1">// see https://ktlint.github.io/ktlint/install/cli/#command-line-usage for more information</span>
 <a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">    </span><span class="n">args</span><span class="p">(</span>
 <a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">        </span><span class="s">&quot;-F&quot;</span><span class="p">,</span>
 <a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">        </span><span class="s">&quot;**/src/**/*.kt&quot;</span><span class="p">,</span>
