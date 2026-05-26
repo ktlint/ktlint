@@ -219,13 +219,13 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
     
     
       <div class="md-header__source">
-        <a href="https://github.com/pinterest/ktlint" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/ktlint/ktlint" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
   </div>
   <div class="md-source__repository">
-    pinterest/ktlint
+    ktlint/ktlint
   </div>
 </a>
       </div>
@@ -397,13 +397,13 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/pinterest/ktlint" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/ktlint/ktlint" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
   </div>
   <div class="md-source__repository">
-    pinterest/ktlint
+    ktlint/ktlint
   </div>
 </a>
     </div>
@@ -1538,17 +1538,17 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
 
   <h1>Custom rule set</h1>
 
-<p>You can provide custom rules via a separate ruleset to Ktlint. A ruleset is a JAR containing one or more <a href="https://github.com/pinterest/ktlint/blob/master/ktlint-rule-engine-core/src/main/kotlin/com/pinterest/ktlint/rule/engine/core/api/Rule.kt">Rule</a>s. </p>
-<p>See presentation <a href="../../assets/Ktlint%20-%20building%20a%20custom%20ruleset%20.pdf">How to build a custom ruleset</a> as starting point to build your custom ruleset. Or, directly clone the sample project is included in this repo under the <a href="https://github.com/pinterest/ktlint/tree/master/ktlint-ruleset-template">ktlint-ruleset-template</a> directory.</p>
+<p>You can provide custom rules via a separate ruleset to Ktlint. A ruleset is a JAR containing one or more <a href="https://github.com/ktlint/ktlint/blob/master/ktlint-rule-engine-core/src/main/kotlin/com/ktlint/ktlint/rule/engine/core/api/Rule.kt">Rule</a>s. </p>
+<p>See presentation <a href="../../assets/Ktlint%20-%20building%20a%20custom%20ruleset%20.pdf">How to build a custom ruleset</a> as starting point to build your custom ruleset. Or, directly clone the sample project is included in this repo under the <a href="https://github.com/ktlint/ktlint/tree/master/ktlint-ruleset-template">ktlint-ruleset-template</a> directory.</p>
 <h2 id="ktlint-ruleset-template">ktlint-ruleset-template<a class="headerlink" href="#ktlint-ruleset-template" title="Permanent link">&para;</a></h2>
 <h3 id="gradle-build">Gradle build<a class="headerlink" href="#gradle-build" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-template/build.gradle.kts">Gradle build file</a> of the sample project includes the setup for:</p>
+<p>The <a href="https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-template/build.gradle.kts">Gradle build file</a> of the sample project includes the setup for:</p>
 <ul>
 <li>publishing the custom ruleset artifact to Maven</li>
 <li>the custom Gradle task 'ktlintCheck' that is using the Ktlint CLI to run the rules provided by the ktlint project, as well as the custom rule(s) from this project on the project itself (<a href="https://en.wikipedia.org/wiki/Eating_your_own_dog_food">dogfood principle</a>).</li>
 </ul>
 <h3 id="rule">Rule<a class="headerlink" href="#rule" title="Permanent link">&para;</a></h3>
-<p>The Rule contains the logic for linting and formatting the code. For example, see <a href="https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-template/src/main/kotlin/yourpkgname/NoVarRule.kt">NoVarRuleTest</a>. </p>
+<p>The Rule contains the logic for linting and formatting the code. For example, see <a href="https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-template/src/main/kotlin/yourpkgname/NoVarRule.kt">NoVarRuleTest</a>. </p>
 <p>A rule has to implement one or more of hooks below:</p>
 <ul>
 <li><code>Rule.beforeFirstNode</code></li>
@@ -1563,8 +1563,8 @@ You're viewing the SNAPSHOT version of the documentation. Be sure to use the
 <p>Upon traversal of the Abstract Syntax Tree (AST), the hooks of the Rule are visited as indicated by their names. The <a href="https://plugins.jetbrains.com/plugin/227-psiviewer">Jetbrains PsiViewer plugin for IntelliJ IDEA</a> is a convenient tool to inspect the AST for any piece of code.</p>
 <p><img alt="Image" src="../../assets/images/psi-viewer.png" /></p>
 <h3 id="rule-set-provider">Rule Set Provider<a class="headerlink" href="#rule-set-provider" title="Permanent link">&para;</a></h3>
-<p>The RuleSetProvider provides new instances of the rule, see <a href="https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-template/src/main/kotlin/yourpkgname/CustomRuleSetProvider.kt">CustomRuleSetProvider</a> for an example.</p>
-<p><code>ktlint</code> is relying on the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> to discover all available "RuleSet"s on the classpath. For this, the RuleSetProvider needs to be registered in file <code>resources/META-INF/services/com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider</code>, see <a href="https://github.com/pinterest/ktlint/blob/master/ktlint-ruleset-template/src/main/resources/META-INF/services/com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider">Registration for Java ServiceLoader</a>.</p>
+<p>The RuleSetProvider provides new instances of the rule, see <a href="https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-template/src/main/kotlin/yourpkgname/CustomRuleSetProvider.kt">CustomRuleSetProvider</a> for an example.</p>
+<p><code>ktlint</code> is relying on the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> to discover all available "RuleSet"s on the classpath. For this, the RuleSetProvider needs to be registered in file <code>resources/META-INF/services/com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider</code>, see <a href="https://github.com/ktlint/ktlint/blob/master/ktlint-ruleset-template/src/main/resources/META-INF/services/com.pinterest.ktlint.cli.ruleset.core.api.RuleSetV2Provider">Registration for Java ServiceLoader</a>.</p>
 <h3 id="building-the-project">Building the project<a class="headerlink" href="#building-the-project" title="Permanent link">&para;</a></h3>
 <div class="highlight"><span class="filename">Building the ktlint-ruleset-template</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>ktlint-ruleset-template/
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$<span class="w"> </span>../gradlew<span class="w"> </span>build
