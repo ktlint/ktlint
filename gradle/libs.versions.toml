@@ -31,7 +31,7 @@ logging = "io.github.oshai:kotlin-logging-jvm:8.0.01"
 slf4j = "org.slf4j:slf4j-simple:2.0.17"
 poko = "dev.drewhamilton.poko:poko-gradle-plugin:0.22.1"
 # Use logback-classic as the logger for kotlin-logging / slf4j as it allow changing the log level at runtime.
-logback = "ch.qos.logback:logback-classic:1.5.32"
+logback = "ch.qos.logback:logback-classic:1.5.33"
 logcaptor = "io.github.hakky54:logcaptor:2.12.6"
 # Required for logback-test.xml conditional configuration so that trace-logging in unit test can be automatically enabled using an
 # environment variable
