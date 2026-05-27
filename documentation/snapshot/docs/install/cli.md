@@ -15,9 +15,13 @@ Each release contains multiple ways to run `ktlint`:
 - `ktlint_windows-x86-64.exe` is a native executable for Windows x86-64.
 - `ktlint.bat` starts the executable JAR on Windows.
 
-### Download using curl
+### Download using curl (Linux or macOS)
 
 A particular version of `ktlint` can be downloaded with the commands below. Each command uses `curl` for downloading. The downloaded file will be renamed to `/usr/local/bin/ktlint` and changed to an executable file.
+
+On macOS Apple Silicon, replace `ktlint_linux-x86-64` with `ktlint_darwin-arm64` in the command above.
+
+On Windows, download `ktlint_windows-x86-64.exe` from the same release page and add the directory containing it to your `%PATH%`.
 
 !!! tip "Curl not installed or behind proxy"
     If you don't have curl installed - replace `curl -sL` with `wget -qO-`.  
