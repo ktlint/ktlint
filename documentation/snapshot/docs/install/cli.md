@@ -237,7 +237,7 @@ Options `--stdin` and `--patterns-from-stdin` are mutually exclusive, only one o
 
 Microsoft Windows is not able to run the `ktlint` command directly. Ktlint can be run in following ways on Microsoft Windows:
 
-* Use the native executable `ktlint_windows-x86-64.exe` provided as part of the [release](https://github.com/pinterest/ktlint/ktlint/releases/tag/1.8.0)
+* Use the native executable `ktlint_windows-x86-64.exe` provided as part of the [release](https://github.com/ktlint/ktlint/ktlint/releases/tag/1.8.0)
 * Use the `ktlint.bat` batch file provided as part of the release. Add the batch file to your `%PATH%` environment variable for easy access
 * Run `ktlint` using Git Bash
 * Run the executable JAR as `java -jar ktlint`

@@ -95,7 +95,7 @@ jobs:
     permissions:
       contents: write
     needs: publish
-    if: github.repository == 'pinterest/ktlint'
+    if: github.repository == 'ktlint/ktlint'
     strategy:
       matrix:
         # ubuntu-22.04 is used instead of ubuntu-latest to produce a binary compatible with a wider range
