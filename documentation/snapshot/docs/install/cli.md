@@ -31,7 +31,7 @@ curl -sSLO https://github.com/ktlint/ktlint/releases/download/1.8.0/ktlint_linux
 ```
 
 ```sh title="Download Linux native for macOS Apple Silicon"
-curl -sSLO https://github.com/ktlint/ktlint/releases/download/1.8.0/ktlint_darwin-arm64 && chmod a+x ktlint_darwin-arm64 && sudo mv ktlint_linux-x86-64 /usr/local/bin/ktlint
+curl -sSLO https://github.com/ktlint/ktlint/releases/download/1.8.0/ktlint_darwin-arm64 && chmod a+x ktlint_darwin-arm64 && sudo mv ktlint_darwin-arm64 /usr/local/bin/ktlint
 ```
 
 ```sh title="Download Windows native"
