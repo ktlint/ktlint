@@ -36,8 +36,8 @@ abstract class KotlinCommonPlugin : Plugin<Project> {
                 jvmToolchain(jdkVersion = javaCompilationVersion.asInt())
 
                 compilerOptions {
-                    apiVersion.set(KotlinVersion.KOTLIN_2_2)
-                    languageVersion.set(KotlinVersion.KOTLIN_2_2)
+                    apiVersion.set(KotlinVersion.KOTLIN_2_3)
+                    languageVersion.set(KotlinVersion.KOTLIN_2_3)
                 }
             }
 

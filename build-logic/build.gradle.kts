@@ -29,7 +29,7 @@ kotlin {
 
     compilerOptions {
         // Match language version enforced by current Gradle version https://docs.gradle.org/current/userguide/compatibility.html#kotlin
-        apiVersion.set(KotlinVersion.KOTLIN_2_2)
+        apiVersion.set(KotlinVersion.KOTLIN_2_3)
     }
 }
 
