@@ -34,10 +34,10 @@ dependencies {
     implementation("com.pinterest.ktlint:ktlint-cli-ruleset-core:1.8.0")
     implementation("com.pinterest.ktlint:ktlint-rule-engine-core:1.8.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.1.0")
     // Since Gradle 8 the platform launcher needs explicitly be defined as runtime dependency to avoid classpath problems
     // https://docs.gradle.org/8.12/userguide/upgrading_version_8.html#test_framework_implementation_dependencies
-    testImplementation("org.junit.platform:junit-platform-launcher:6.0.3")
+    testImplementation("org.junit.platform:junit-platform-launcher:6.1.0")
     testImplementation("org.slf4j:slf4j-simple:2.0.18")
     testImplementation("com.pinterest.ktlint:ktlint-test:1.8.0")
 }

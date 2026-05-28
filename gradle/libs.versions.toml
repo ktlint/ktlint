@@ -37,8 +37,8 @@ logcaptor = "io.github.hakky54:logcaptor:2.12.6"
 # environment variable
 janino = "org.codehaus.janino:janino:3.1.12"
 # Testing libraries
-junit5-jupiter = "org.junit.jupiter:junit-jupiter:6.0.3"
-junit5-platform-launcher = "org.junit.platform:junit-platform-launcher:6.0.3"
+junit5-jupiter = "org.junit.jupiter:junit-jupiter:6.1.0"
+junit5-platform-launcher = "org.junit.platform:junit-platform-launcher:6.1.0"
 assertj = "org.assertj:assertj-core:3.27.7"
 sarif4k = "io.github.detekt.sarif4k:sarif4k:0.7.0"
 jimfs = "com.google.jimfs:jimfs:1.3.1"
