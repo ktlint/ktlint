@@ -13,7 +13,7 @@ kotlinDev = "2.3.20"
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-sam-with-receiver = { id = "org.jetbrains.kotlin.plugin.sam.with.receiver", version.ref = "kotlin" }
-shadow = "com.gradleup.shadow:9.4.1"
+shadow = "com.gradleup.shadow:9.4.2"
 # kotlinx-binary-compatibiltiy-validator is used in build.gradle.kts in ktlint-root
 #noinspection UnusedVersionCatalogEntry
 kotlinx-binary-compatibiltiy-validator = "org.jetbrains.kotlinx.binary-compatibility-validator:0.18.1"
