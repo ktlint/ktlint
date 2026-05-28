@@ -42,6 +42,13 @@ curl -sSLO https://github.com/ktlint/ktlint/releases/download/1.8.0/ktlint_windo
 curl -sSLO https://github.com/ktlint/ktlint/releases/download/1.8.0/ktlint && chmod a+x ktlint && sudo mv ktlint /usr/local/bin/
 ```
 
+!!! tip "Run ktlint on Microsoft Windows"
+    Microsoft Windows is not able to run the `ktlint` command directly. Ktlint can be run in following ways on Microsoft Windows:    
+    * Use the native executable `ktlint_windows-x86-64.exe` provided as part of the [release](https://github.com/ktlint/ktlint/ktlint/releases/tag/1.8.0)
+    * Use the `ktlint.bat` batch file provided as part of the release. Add the batch file to your `%PATH%` environment variable for easy access
+    * Run `ktlint` using Git Bash
+    * Run the executable JAR as `java -jar ktlint`
+
 ### Verification of download
 
 `ktlint.asc` contains PGP signature which you can verify with:
@@ -232,12 +239,3 @@ If this option is given, then the default patterns are disabled.
 Options `--stdin` and `--patterns-from-stdin` are mutually exclusive, only one of them can be given at a time.
 
 `-V` or `--version`: Prints version information and exit.
-
-### Microsoft Windows users
-
-Microsoft Windows is not able to run the `ktlint` command directly. Ktlint can be run in following ways on Microsoft Windows:
-
-* Use the native executable `ktlint_windows-x86-64.exe` provided as part of the [release](https://github.com/ktlint/ktlint/ktlint/releases/tag/1.8.0)
-* Use the `ktlint.bat` batch file provided as part of the release. Add the batch file to your `%PATH%` environment variable for easy access
-* Run `ktlint` using Git Bash
-* Run the executable JAR as `java -jar ktlint`
