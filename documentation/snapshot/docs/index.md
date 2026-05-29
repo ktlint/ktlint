@@ -30,8 +30,8 @@
 - **Customizable output**
   Several reporters are available out-of-the-box: `plain` (+ `plain?group_by_file`), `plain-summary`, `json`, `html` and `checkstyle`.
   It's also easy to [create a custom reporter](api/custom-reporter/).
-- **Executable jar**  
-  `ktlint` is released as a single executable jar with all dependencies included.
+- **Executable jar and native binaries**  
+  `ktlint` is released as an executable jar with all dependencies included and as native executables for Linux, macOS, and Windows.
 
 ## Legal
 

@@ -88,3 +88,39 @@ jobs:
           ./.announce -y
         env:
           VERSION: ${{ env.version }}
+
+  build-native-image:
+    name: "Build GraalVM native-image (${{ matrix.os }})"
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    needs: publish
+    if: github.repository == 'ktlint/ktlint'
+    strategy:
+      matrix:
+        # ubuntu-22.04 is used instead of ubuntu-latest to produce a binary compatible with a wider range
+        # of Linux distributions (glibc version constraint). See https://github.com/google/google-java-format/issues/1072.
+        os: [ubuntu-22.04, macos-latest, windows-latest]
+    env:
+      SUFFIX: ${{ fromJson('{"ubuntu-22.04":"linux-x86-64","macos-latest":"darwin-arm64","windows-latest":"windows-x86-64"}')[matrix.os] }}
+      EXTENSION: ${{ matrix.os == 'windows-latest' && '.exe' || '' }}
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: 'master'
+
+      - name: Get version
+        run: echo "version=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+        shell: bash
+
+      - uses: ./.github/actions/build-native-image
+        with:
+          output-name: ktlint_${{ env.SUFFIX }}
+
+      - name: Upload native binary to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release upload "${{ github.ref_name }}" "ktlint_${{ env.SUFFIX }}${{ env.EXTENSION }}"
+        shell: bash

@@ -25,7 +25,7 @@
 - Built-in formatter
 - `.editorconfig` support
 - Several built-in reporters: `plain`, `json`, `html` and `checkstyle`
-- Executable jar
+- Executable jar and native binaries
 - Allows extension with custom rule sets and reporters
 
 ## Quick start
@@ -36,7 +36,7 @@ Follow steps below for a quick start with latest ktlint release.
   ```shell
   brew install ktlint
   ```
-  See [download and verification from GitHub](https://ktlint.github.io/ktlint/latest/install/cli/#download-and-verification) or [other package managers](https://ktlint.github.io/ktlint/latest/install/cli/#package-managers) for alternative ways of installing ktlint. Or, use one of the [integrations like maven and gradle plugins](https://ktlint.github.io/ktlint/latest/install/integrations/).
+  See [download and verification from GitHub](https://ktlint.github.io/ktlint/latest/install/cli/#download-and-verification) for native executables and the executable JAR, or [other package managers](https://ktlint.github.io/ktlint/latest/install/cli/#package-managers) for alternative ways of installing ktlint. Or, use one of the [integrations like maven and gradle plugins](https://ktlint.github.io/ktlint/latest/install/integrations/).
 
 * Step 2: Lint and format your code  
   All files with extension `.kt` and `.kts` in the current directory and below will be scanned. Problems will be fixed automatically when possible.

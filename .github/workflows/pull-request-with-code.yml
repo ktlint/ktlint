@@ -9,14 +9,24 @@ on:
     paths:
       - '**/*.kt'
       - '**/*.kts'
+      - '**/*.gradle'
+      - '**/*.gradle.kts'
       - '**/*.properties'
       - '**/*.toml'
+      - '.github/actions/**'
+      - '.github/workflows/**'
+      - 'ktlint-cli/**'
   pull_request:
     paths:
       - '**/*.kt'
       - '**/*.kts'
+      - '**/*.gradle'
+      - '**/*.gradle.kts'
       - '**/*.properties'
       - '**/*.toml'
+      - '.github/actions/**'
+      - '.github/workflows/**'
+      - 'ktlint-cli/**'
   workflow_dispatch:
 
 concurrency:
@@ -96,3 +106,19 @@ jobs:
           additional-java-versions: ${{ matrix.jdk }}
 
       - run: ./gradlew testOnJdk${{ matrix.jdk }} -PtestJdkVersion=${{ matrix.jdk }}
+
+  native-image:
+    strategy:
+      fail-fast: false
+      matrix:
+        # ubuntu-22.04 is used instead of ubuntu-latest to produce a binary compatible with a wider range
+        # of Linux distributions (glibc version constraint). See https://github.com/google/google-java-format/issues/1072.
+        os: [ubuntu-22.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    name: "[native-image] OS=${{ matrix.os }}"
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: ./.github/actions/build-native-image
+        with:
+          output-name: ktlint

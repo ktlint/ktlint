@@ -10,15 +10,25 @@ on:
       - '**/*'
       - '!**/*.kt'
       - '!**/*.kts'
+      - '!**/*.gradle'
+      - '!**/*.gradle.kts'
       - '!**/*.properties'
       - '!**/*.toml'
+      - '!.github/actions/**'
+      - '!.github/workflows/**'
+      - '!ktlint-cli/**'
   pull_request:
     paths:
       - '**/*'
       - '!**/*.kt'
       - '!**/*.kts'
+      - '!**/*.gradle'
+      - '!**/*.gradle.kts'
       - '!**/*.properties'
       - '!**/*.toml'
+      - '!.github/actions/**'
+      - '!.github/workflows/**'
+      - '!ktlint-cli/**'
 
 # Add a dummy job that return true so that a PR not containing any code can be merged to master
 # Note that all "jobs" (build, tests) including "jobs.*.runs-on" should be kept in sync with "pull-request-with-code"
@@ -48,5 +58,14 @@ jobs:
         jdk: [ 17, 21 ] # list of Java versions (usually only LTS versions) to run tests against (excluding `java-compilation` version for which tests already have run during `build` job)
     runs-on: ${{ matrix.os }}
     name: "[tests] OS=${{ matrix.os }}, Java=${{ matrix.jdk }}"
+    steps:
+      - run: 'echo "No build required"'
+
+  native-image:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    name: "[native-image] OS=${{ matrix.os }}"
     steps:
       - run: 'echo "No build required"'

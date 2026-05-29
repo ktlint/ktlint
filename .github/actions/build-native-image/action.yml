@@ -1,0 +1,49 @@
+name: Build native image
+description: Build the ktlint CLI GraalVM native image for the current runner OS
+
+inputs:
+  output-name:
+    description: Output file name for the generated native image
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup-gradle-build
+
+    - name: Set up GraalVM
+      uses: graalvm/setup-graalvm@v1
+      with:
+        java-version: "25"
+        distribution: "graalvm-community"
+        github-token: ${{ github.token }}
+        native-image-job-reports: "true"
+
+    - name: Build shadow JAR
+      run: ./gradlew :ktlint-cli:shadowJar
+      shell: bash
+      env:
+        # Signing is not needed for the shadow JAR — skip it to avoid missing-key failures
+        ORG_GRADLE_PROJECT_signingInMemoryKey: ""
+
+    - name: Find shadow JAR (Unix)
+      if: runner.os != 'Windows'
+      run: echo "SHADOW_JAR=$(ls ktlint-cli/build/libs/ktlint-cli-*-all.jar)" >> "$GITHUB_ENV"
+      shell: bash
+
+    - name: Find shadow JAR (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        $jar = Get-ChildItem -Path "ktlint-cli/build/libs" -Filter "ktlint-cli-*-all.jar" | Select-Object -First 1
+        echo "SHADOW_JAR=$($jar.FullName)" >> $env:GITHUB_ENV
+      shell: pwsh
+
+    - name: Build native image
+      run: >-
+        native-image
+        --no-fallback
+        -H:+ReportExceptionStackTraces
+        -march=compatibility
+        -jar "${{ env.SHADOW_JAR }}"
+        -o "${{ inputs.output-name }}"
+      shell: bash

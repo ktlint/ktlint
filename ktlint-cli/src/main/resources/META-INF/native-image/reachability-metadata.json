@@ -1,0 +1,31 @@
+{
+  "reflection": [
+    {
+      "type": "com.pinterest.ktlint.cli.reporter.baseline.BaselineReporterProvider"
+    },
+    {
+      "type": "com.pinterest.ktlint.cli.reporter.checkstyle.CheckStyleReporterProvider"
+    },
+    {
+      "type": "com.pinterest.ktlint.cli.reporter.format.FormatReporterProvider"
+    },
+    {
+      "type": "com.pinterest.ktlint.cli.reporter.html.HtmlReporterProvider"
+    },
+    {
+      "type": "com.pinterest.ktlint.cli.reporter.json.JsonReporterProvider"
+    },
+    {
+      "type": "com.pinterest.ktlint.cli.reporter.plain.PlainReporterProvider"
+    },
+    {
+      "type": "com.pinterest.ktlint.cli.reporter.plainsummary.PlainSummaryReporterProvider"
+    },
+    {
+      "type": "com.pinterest.ktlint.cli.reporter.sarif.SarifReporterProvider"
+    },
+    {
+      "type": "com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider"
+    }
+  ]
+}
