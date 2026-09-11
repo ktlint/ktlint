@@ -5,10 +5,10 @@ import io.github.ktlint.core.rule.engine.api.Code.Companion.fromPath
 import io.github.ktlint.core.rule.engine.api.Code.Companion.fromSnippet
 import io.github.ktlint.core.rule.engine.api.Code.Companion.fromStdin
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine.Companion.STDIN_FILE
-import org.jetbrains.kotlin.konan.file.file
 import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.pathString
+import org.jetbrains.kotlin.konan.file.File as KonanFile
 
 /**
  * A representation of a block of code. Use one of the factory methods [fromFile], [fromPath], [fromSnippet] or [fromStdin] to instantiate.
@@ -49,7 +49,7 @@ public class Code private constructor(
             )
 
         /**
-         * Create [Code] from a [path] to a file containing valid Kotlin code or script. The '.editorconfig' files on the path to [file] are
+         * Create [Code] from a [path] to a file containing valid Kotlin code or script. The '.editorconfig' files on the path to [Path] are
          * taken into account. This method is intended to be used in unit tests. In order to work with the Ktlint test file system it needs
          * to make additional call to get the file system which makes it slower compared to [fromFile]. Prefer to use [fromFile].
          */
@@ -58,7 +58,8 @@ public class Code private constructor(
             val file =
                 path
                     .fileSystem
-                    .file(path.pathString)
+                    .getPath(path.toString())
+                    .KonanFile()
             return Code(
                 content = file.readStrings().joinToString(separator = "\n"),
                 fileName = file.name,
