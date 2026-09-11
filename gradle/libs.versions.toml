@@ -7,8 +7,8 @@ java-compilation = "26"
 # used in KotlinCommonPlugin
 #noinspection UnusedVersionCatalogEntry
 java-target = "17"
-kotlin = "2.4.10"
-kotlinDev = "2.4.10"
+kotlin = "2.4.20"
+kotlinDev = "2.4.20"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

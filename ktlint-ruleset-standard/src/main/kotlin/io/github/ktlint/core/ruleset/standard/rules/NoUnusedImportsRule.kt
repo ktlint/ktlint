@@ -33,6 +33,7 @@ import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.CompositeElement
 import org.jetbrains.kotlin.kdoc.lexer.KDocTokens.MARKDOWN_LINK
 import org.jetbrains.kotlin.psi.KtDotQualifiedExpression
 import org.jetbrains.kotlin.psi.KtImportDirective
+import org.jetbrains.kotlin.psi.KtNonPublicApi
 import org.jetbrains.kotlin.psi.KtPackageDirective
 import org.jetbrains.kotlin.resolve.ImportPath
 
@@ -55,6 +56,7 @@ public class NoUnusedImportsRule :
     private var rootNode: ASTNode? = null
     private var foundByKeyword = false
 
+    @OptIn(KtNonPublicApi::class)
     override fun beforeVisitChildNodes(
         node: ASTNode,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision,
@@ -74,7 +76,7 @@ public class NoUnusedImportsRule :
                     // Emit directly when same import occurs more than once
                     emit(node.startOffset, "Unused import", true)
                         .ifAutocorrectAllowed {
-                            node.psi.delete()
+                            (node.psi as KtImportDirective).rawDelete()
                         }
                 } else {
                     imports[importPath] = node
@@ -125,6 +127,7 @@ public class NoUnusedImportsRule :
         }
     }
 
+    @OptIn(KtNonPublicApi::class)
     override fun afterVisitChildNodes(
         node: ASTNode,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision,
@@ -196,7 +199,7 @@ public class NoUnusedImportsRule :
                                     .takeIf { it.isWhiteSpaceWithNewline }
                                     ?.remove()
                             }
-                            importDirective.delete()
+                            importDirective.rawDelete()
                         }
                 }
             }
