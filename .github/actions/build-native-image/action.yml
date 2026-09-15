@@ -18,7 +18,7 @@ runs:
         # built to Java 17 bytecode (see `java-target` in libs.versions.toml), so GraalVM 25 can
         # process it. `set-java-home: false` preserves the Java 26 JDK that setup-gradle-build
         # installed — Gradle's build-logic requires it to configure the project.
-        java-version: "25"
+        java-version: "25.0.4+101.0.LTS"
         distribution: "graalvm-community"
         github-token: ${{ github.token }}
         native-image-job-reports: "true"
