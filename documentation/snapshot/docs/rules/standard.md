@@ -74,7 +74,7 @@ Suppress or disable rule (1)
 
 ## Blank line between when-conditions
 
-Consistently add or remove a blank line between when-conditions in a when-statement. A blank line is only added between when-conditions if the when-statement contains at lease one multiline when-condition. If a when-statement only contains single line when-conditions, then the blank lines between the when-conditions are removed.
+Consistently add or remove a blank line between when-conditions in a when-statement. A blank line is only added between when-conditions if the when-statement contains at least one multiline when-condition. If a when-statement only contains single line when-conditions, then the blank lines between the when-conditions are removed.
 
 !!! note
     Ktlint uses `.editorconfig` property `ij_kotlin_line_break_after_multiline_when_entry` but applies it also on single line entries to increase consistency.
