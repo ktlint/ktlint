@@ -442,6 +442,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/IndentationRule 
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/IndentationRule$Companion {
+	public final fun getINDENT_EXPLICIT_CONSTRUCTOR_PROPERTY ()Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfigProperty;
 	public final fun getINDENT_WHEN_ARROW_ON_NEW_LINE ()Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfigProperty;
 }
 

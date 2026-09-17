@@ -6,6 +6,7 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.in
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
+import io.github.ktlint.core.ruleset.standard.rules.IndentationRule.Companion.INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
@@ -5384,9 +5385,27 @@ internal class IndentationRuleTest {
     }
 
     @Nested
-    inner class `Issue 1916, issue 2115 - Given the ktlint_official code style and a class declaration with an annotated constructor` {
+    inner class `Issue 1916, issue 2115 - Given a class declaration with an annotation before the constructor keyword` {
         @Test
-        fun `Issue 1916, issue 2115 - Given a class declaration with an annotation before the constructor keyword`() {
+        fun `Issue 1916, issue 2115 - Given indent explicit constructor is disabled`() {
+            val code =
+                """
+                class Foo
+                @Bar1 @Bar2
+                constructor(
+                    foo1: Foo1,
+                    foo2: Foo2,
+                ) {
+                    fun foo() = "foo"
+                }
+                """.trimIndent()
+            indentationRuleAssertThat(code)
+                .withEditorConfigOverride(INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY to false)
+                .hasNoLintViolations()
+        }
+
+        @Test
+        fun `Issue 1916, issue 2115 - Given indent explicit constructor is enabled`() {
             val code =
                 """
                 class Foo
@@ -5410,8 +5429,7 @@ internal class IndentationRuleTest {
                     }
                 """.trimIndent()
             indentationRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
-                .isFormattedAs(formattedCode)
+                .withEditorConfigOverride(INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY to true)
                 .hasLintViolations(
                     LintViolation(2, 1, "Unexpected indentation (0) (should be 4)"),
                     LintViolation(3, 1, "Unexpected indentation (0) (should be 4)"),
@@ -5422,9 +5440,12 @@ internal class IndentationRuleTest {
                     LintViolation(8, 1, "Unexpected indentation (0) (should be 4)"),
                 ).isFormattedAs(formattedCode)
         }
+    }
 
+    @Nested
+    inner class `Issue 1916, issue 2115 - Given a class declaration with an annotation before the constructor and having a single super type` {
         @Test
-        fun `Issue 1916, issue 2115 - Given a class declaration with an annotation before the constructor and having a single super type`() {
+        fun `Issue 1916, issue 2115 - Given indent explicit constructor is disabled`() {
             val code =
                 """
                 class Foo
@@ -5433,9 +5454,30 @@ internal class IndentationRuleTest {
                     foo1: Foo1,
                     foo2: Foo2,
                 ) : Foobar(
-                    "foobar1",
-                    "foobar2",
-                ) {
+                        "foobar1",
+                        "foobar2",
+                    ) {
+                    fun foo() = "foo"
+                }
+                """.trimIndent()
+            indentationRuleAssertThat(code)
+                .withEditorConfigOverride(INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY to false)
+                .hasNoLintViolations()
+        }
+
+        @Test
+        fun `Issue 1916, issue 2115 - Given indent explicit constructor is enabled`() {
+            val code =
+                """
+                class Foo
+                @Bar1 @Bar2
+                constructor(
+                    foo1: Foo1,
+                    foo2: Foo2,
+                ) : Foobar(
+                        "foobar1",
+                        "foobar2",
+                    ) {
                     fun foo() = "foo"
                 }
                 """.trimIndent()
@@ -5454,23 +5496,27 @@ internal class IndentationRuleTest {
                     }
                 """.trimIndent()
             indentationRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY to true)
+                .isFormattedAs(formattedCode)
                 .hasLintViolations(
                     LintViolation(2, 1, "Unexpected indentation (0) (should be 4)"),
                     LintViolation(3, 1, "Unexpected indentation (0) (should be 4)"),
                     LintViolation(4, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(5, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(6, 1, "Unexpected indentation (0) (should be 4)"),
-                    LintViolation(7, 1, "Unexpected indentation (4) (should be 12)"),
-                    LintViolation(8, 1, "Unexpected indentation (4) (should be 12)"),
-                    LintViolation(9, 1, "Unexpected indentation (0) (should be 8)"),
+                    LintViolation(7, 1, "Unexpected indentation (8) (should be 12)"),
+                    LintViolation(8, 1, "Unexpected indentation (8) (should be 12)"),
+                    LintViolation(9, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(10, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(11, 1, "Unexpected indentation (0) (should be 4)"),
                 ).isFormattedAs(formattedCode)
         }
+    }
 
+    @Nested
+    inner class `Issue 1916, issue 2115 - Given a class declaration with an annotation before the constructor and having multiple super types` {
         @Test
-        fun `Issue 1916, issue 2115 - Given a class declaration with an annotation before the constructor and having multiple super types`() {
+        fun `Issue 1916, issue 2115 - Given indent explicit constructor is disabled`() {
             val code =
                 """
                 class Foo
@@ -5479,9 +5525,32 @@ internal class IndentationRuleTest {
                     foo1: Foo1,
                     foo2: Foo2,
                 ) : Foobar1(
-                    "foobar1",
-                    "foobar2",
-                ),
+                        "foobar1",
+                        "foobar2",
+                    ),
+                    FooBar2,
+                    FooBar3 {
+                    fun foo() = "foo"
+                }
+                """.trimIndent()
+            indentationRuleAssertThat(code)
+                .withEditorConfigOverride(INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY to false)
+                .hasNoLintViolations()
+        }
+
+        @Test
+        fun `Issue 1916, issue 2115 - Given indent explicit constructor is enabled`() {
+            val code =
+                """
+                class Foo
+                @Bar1 @Bar2
+                constructor(
+                    foo1: Foo1,
+                    foo2: Foo2,
+                ) : Foobar1(
+                        "foobar1",
+                        "foobar2",
+                    ),
                     FooBar2,
                     FooBar3 {
                     fun foo() = "foo"
@@ -5504,7 +5573,7 @@ internal class IndentationRuleTest {
                     }
                 """.trimIndent()
             indentationRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY to true)
                 .isFormattedAs(formattedCode)
                 .hasLintViolations(
                     LintViolation(2, 1, "Unexpected indentation (0) (should be 4)"),
@@ -5512,9 +5581,9 @@ internal class IndentationRuleTest {
                     LintViolation(4, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(5, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(6, 1, "Unexpected indentation (0) (should be 4)"),
-                    LintViolation(7, 1, "Unexpected indentation (4) (should be 12)"),
-                    LintViolation(8, 1, "Unexpected indentation (4) (should be 12)"),
-                    LintViolation(9, 1, "Unexpected indentation (0) (should be 8)"),
+                    LintViolation(7, 1, "Unexpected indentation (8) (should be 12)"),
+                    LintViolation(8, 1, "Unexpected indentation (8) (should be 12)"),
+                    LintViolation(9, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(10, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(11, 1, "Unexpected indentation (4) (should be 8)"),
                     LintViolation(12, 1, "Unexpected indentation (4) (should be 8)"),
@@ -5837,7 +5906,7 @@ internal class IndentationRuleTest {
     }
 
     @Test
-    fun `Given ktlint_official code style, a class with an explicit constructor and a super type entry`() {
+    fun `Given indent explicit constructor is enabled, a class with an explicit constructor and a super type entry`() {
         val code =
             """
             class Foo
@@ -5857,7 +5926,7 @@ internal class IndentationRuleTest {
                 }
             """.trimIndent()
         indentationRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY to true)
             .isFormattedAs(formattedCode)
             .hasLintViolations(
                 LintViolation(2, 1, "Unexpected indentation (0) (should be 4)"),
@@ -5869,7 +5938,7 @@ internal class IndentationRuleTest {
     }
 
     @Test
-    fun `Given ktlint_official code style, a class with an explicit constructor and multiple super types entry`() {
+    fun `Given explicit constructor indent is enabled, a class with an explicit constructor and multiple super types entry`() {
         val code =
             """
             class Foo
@@ -5891,7 +5960,7 @@ internal class IndentationRuleTest {
                 }
             """.trimIndent()
         indentationRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY to true)
             .isFormattedAs(formattedCode)
             .hasLintViolations(
                 LintViolation(2, 1, "Unexpected indentation (0) (should be 4)"),

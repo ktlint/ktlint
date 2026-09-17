@@ -142,11 +142,13 @@ public class IndentationRule :
                 INDENT_SIZE_PROPERTY,
                 INDENT_STYLE_PROPERTY,
                 INDENT_WHEN_ARROW_ON_NEW_LINE,
+                INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY,
             ),
     ) {
     private var codeStyle = CODE_STYLE_PROPERTY.defaultValue
     private var indentConfig = IndentConfig.DEFAULT_INDENT_CONFIG
     private var indentWhenArrowOnNewLine = INDENT_WHEN_ARROW_ON_NEW_LINE.defaultValue
+    private var identExplicitConstructor = INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY.defaultValue
 
     private var line = 1
 
@@ -165,6 +167,7 @@ public class IndentationRule :
             stopTraversalOfAST()
         }
         indentWhenArrowOnNewLine = editorConfig[INDENT_WHEN_ARROW_ON_NEW_LINE]
+        identExplicitConstructor = editorConfig[INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY]
     }
 
     override fun beforeVisitChildNodes(
@@ -723,12 +726,11 @@ public class IndentationRule :
 
         val primaryConstructor = node.findChildByType(PRIMARY_CONSTRUCTOR)
         val containsConstructorKeyword = primaryConstructor?.findChildByType(CONSTRUCTOR_KEYWORD) != null
-        if (codeStyle == ktlint_official && primaryConstructor != null && containsConstructorKeyword) {
+        if (identExplicitConstructor && primaryConstructor != null && containsConstructorKeyword) {
             nextToAstNode =
                 startIndentContext(
                     fromAstNode = primaryConstructor.getPrecedingLeadingCommentsAndWhitespaces(),
                     toAstNode = nextToAstNode,
-//                    activated = true,
                 ).prevCodeLeaf()
         } else {
             node
@@ -1342,6 +1344,21 @@ public class IndentationRule :
                 // the default behavior was changed to true. Disable by default to keep backward compatibility with older ktlint and IDEA
                 // versions.
                 defaultValue = false,
+            )
+
+        public val INDENT_EXPLICIT_CONSTRUCTOR_PROPERTY: EditorConfigProperty<Boolean> =
+            EditorConfigProperty(
+                type =
+                    PropertyType.LowerCasingPropertyType(
+                        "ktlint_indent_explicit_constructor",
+                        "Indent an explicit constructor of a class. As side effect the entire class body will also be indented.",
+                        PropertyValueParser.BOOLEAN_VALUE_PARSER,
+                        setOf("true", "false"),
+                    ),
+                defaultValue = true,
+                androidStudioCodeStyleDefaultValue = false,
+                intellijIdeaCodeStyleDefaultValue = false,
+                ktlintOfficialCodeStyleDefaultValue = true,
             )
     }
 
