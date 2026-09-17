@@ -1345,6 +1345,7 @@ Indentation formatting - respects `.editorconfig` `indent_size` with no continua
 | `indent_size`</br><i>The size of an indentation level when `indent_style` is set to `space`. Use value `unset` to ignore indentation.</i>                                                                                                                                                         |        4        |       4       |       4        |
 | `indent_style`</br><i>Style of indentation. Set this value to `space` or `tab`.</i>                                                                                                                                                                                                               |     `space`     |    `space`    |    `space`     |
 | `ij_kotlin_indent_before_arrow_on_new_line`</br><i>Indent the arrow in a when-entry if the arrow starts on a new line. Set this value to `true` or `false`. Starting from IDEA version `2024.2` or above this value needs to be set to `true` to maintain compatibility with IDEA formatting.</i> |     `false`     |    `false`    |    `false`     |
+| `ktlint_indent_explicit_constructor`</br><i>Indent an explicit constructor of a class. As side effect the entire class body will also be indented.</i> |     `true`      |    `false`    |    `false`     |
 
 Rule id: `standard:indent`
 
