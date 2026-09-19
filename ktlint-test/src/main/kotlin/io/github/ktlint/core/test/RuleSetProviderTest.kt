@@ -1,7 +1,9 @@
 package io.github.ktlint.core.test
 
+import assertk.assertThat
+import assertk.assertions.isEmpty
+import assertk.assertions.isNotEmpty
 import io.github.ktlint.core.cli.ruleset.core.api.RuleSetV2Provider
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -37,19 +39,20 @@ public open class RuleSetProviderTest(
                 ?.map { it.name.removeSuffix(".class") }
                 ?.filter { it.endsWith("Rule") }
                 ?: arrayListOf()
-        assertThat(packageRules)
-            .withFailMessage("No rules were found in package '$rulesDir'. Is the packagname '$packageName' correct?")
-            .isNotEmpty
+        assertThat(
+            packageRules,
+            name = "No rules were found in package '$rulesDir'. Is the packagname '$packageName' correct?",
+        ).isNotEmpty()
 
         val providerRules = rules.map { it::class.java.simpleName }
         val missingRules =
             packageRules
                 .minus(providerRules.toSet())
                 .joinToString(separator = NEWLINE_AND_INDENT)
-        assertThat(missingRules)
-            .withFailMessage(
-                "${ruleSetProvider::class.simpleName} is missing to provide the following rules:${NEWLINE_AND_INDENT}$missingRules",
-            ).isEmpty()
+        assertThat(
+            missingRules,
+            name = "${ruleSetProvider::class.simpleName} is missing to provide the following rules:${NEWLINE_AND_INDENT}$missingRules",
+        ).isEmpty()
     }
 
     private companion object {

@@ -1,7 +1,10 @@
 package io.github.ktlint.core.rule.engine.core.api
 
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
+import assertk.assertFailure
+import assertk.assertThat
+import assertk.assertions.hasMessage
+import assertk.assertions.isEqualTo
+import assertk.assertions.isInstanceOf
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -10,8 +13,8 @@ import org.junit.jupiter.params.provider.ValueSource
 class RuleKtTest {
     @Test
     fun `Given a rule with an unqualified rule id than the rule can not be instantiated`() {
-        assertThatThrownBy { creatRule("some-unqualified-rule-id") }
-            .isInstanceOf(IllegalArgumentException::class.java)
+        assertFailure { creatRule("some-unqualified-rule-id") }
+            .isInstanceOf<IllegalArgumentException>()
             .hasMessage("Rule with id 'some-unqualified-rule-id' must match regexp '[a-z]+(-[a-z]+)*:[a-z]+(-[a-z]+)*'")
     }
 

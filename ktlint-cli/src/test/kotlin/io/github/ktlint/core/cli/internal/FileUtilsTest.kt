@@ -1,5 +1,12 @@
 package io.github.ktlint.core.cli.internal
 
+import assertk.all
+import assertk.assertThat
+import assertk.assertions.contains
+import assertk.assertions.containsExactlyInAnyOrder
+import assertk.assertions.containsNone
+import assertk.assertions.doesNotContain
+import assertk.assertions.isEmpty
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
 import io.github.ktlint.core.logger.api.initKtLintKLogger
@@ -8,7 +15,6 @@ import io.github.ktlint.core.test.KtlintTestFileSystem
 import io.github.oshai.kotlinlogging.DelegatingKLogger
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -87,8 +93,8 @@ internal class FileUtilsTest {
     fun `Given no patterns and no workdir then find all kt and kts files in root and all its sub directories except file in hidden directories`() {
         val foundFiles = getFiles()
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(
                 ktFileRootDirectory,
                 ktsFileRootDirectory,
                 ktFileInProjectRootDirectory,
@@ -96,11 +102,13 @@ internal class FileUtilsTest {
                 ktFile1InProjectSubDirectory,
                 ktFile2InProjectSubDirectory,
                 ktsFileInProjectSubDirectory,
-            ).doesNotContain(
+            )
+            containsNone(
                 javaFileInHiddenDirectory,
                 ktFileInHiddenDirectory,
                 ktsFileInHiddenDirectory,
             )
+        }
     }
 
     @Test
@@ -114,16 +122,18 @@ internal class FileUtilsTest {
                     ),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(
                 ktFileInProjectRootDirectory,
                 ktFile1InProjectSubDirectory,
                 ktFile2InProjectSubDirectory,
-            ).doesNotContain(
+            )
+            containsNone(
                 javaFileInHiddenDirectory,
                 ktFileInHiddenDirectory,
                 ktsFileInHiddenDirectory,
             )
+        }
     }
 
     @Test
@@ -148,9 +158,10 @@ internal class FileUtilsTest {
                     ),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(ktFile1InProjectSubDirectory)
-            .doesNotContain(ktFile2InProjectSubDirectory)
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(ktFile1InProjectSubDirectory)
+            doesNotContain(ktFile2InProjectSubDirectory)
+        }
     }
 
     @Test
@@ -310,13 +321,15 @@ internal class FileUtilsTest {
                 rootDir = ktlintTestFileSystem.resolve("project1"),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(
                 ktFile1InProjectSubDirectory,
                 ktFile2InProjectSubDirectory,
-            ).doesNotContain(
+            )
+            doesNotContain(
                 javaFileInProjectSubDirectory,
             )
+        }
     }
 
     @EnabledOnOs(OS.WINDOWS)
@@ -331,9 +344,10 @@ internal class FileUtilsTest {
                     ),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(ktFile1InProjectSubDirectory)
-            .doesNotContain(ktFile2InProjectSubDirectory)
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(ktFile1InProjectSubDirectory)
+            doesNotContain(ktFile2InProjectSubDirectory)
+        }
     }
 
     @DisabledOnOs(OS.WINDOWS)
@@ -438,17 +452,19 @@ internal class FileUtilsTest {
                     ),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(
                 ktFileRootDirectory,
                 ktsFileRootDirectory,
                 ktsFileInProjectRootDirectory,
                 ktsFileInProjectSubDirectory,
-            ).doesNotContain(
+            )
+            containsNone(
                 ktFileInProjectRootDirectory,
                 ktFile1InProjectSubDirectory,
                 ktFile2InProjectSubDirectory,
             )
+        }
     }
 
     @DisabledOnOs(OS.WINDOWS)
@@ -460,17 +476,19 @@ internal class FileUtilsTest {
                 rootDir = ktlintTestFileSystem.resolve(someFileInOtherProjectRootDirectory).parent.toAbsolutePath(),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(
                 ktFileInProjectRootDirectory,
                 ktsFileInProjectRootDirectory,
                 ktFile1InProjectSubDirectory,
                 ktFile2InProjectSubDirectory,
                 ktsFileInProjectSubDirectory,
-            ).doesNotContain(
+            )
+            containsNone(
                 ktFileRootDirectory,
                 ktsFileRootDirectory,
             )
+        }
     }
 
     @DisabledOnOs(OS.WINDOWS)
@@ -482,14 +500,16 @@ internal class FileUtilsTest {
                 rootDir = ktlintTestFileSystem.resolve("other-project"),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(
                 ktFileInProjectRootDirectory,
                 ktFile1InProjectSubDirectory,
                 ktFile2InProjectSubDirectory,
-            ).doesNotContain(
+            )
+            doesNotContain(
                 ktFileRootDirectory,
             )
+        }
     }
 
     @Test
@@ -500,17 +520,19 @@ internal class FileUtilsTest {
                 rootDir = ktlintTestFileSystem.resolve(someFileInOtherProjectRootDirectory).parent.toAbsolutePath(),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(
                 ktFileInProjectRootDirectory,
                 ktsFileInProjectRootDirectory,
                 ktFile1InProjectSubDirectory,
                 ktFile2InProjectSubDirectory,
                 ktsFileInProjectSubDirectory,
-            ).doesNotContain(
+            )
+            containsNone(
                 ktFileRootDirectory,
                 ktsFileRootDirectory,
             )
+        }
     }
 
     @Test
@@ -527,9 +549,10 @@ internal class FileUtilsTest {
                 rootDir = ktlintTestFileSystem.resolve(ktFileInProjectRootDirectory).parent.toAbsolutePath(),
             )
 
-        assertThat(foundFiles)
-            .containsExactlyInAnyOrder(ktFileInProjectInsideTargetedDirectory)
-            .doesNotContain(ktFileInProjectOutsideTargetedDirectory)
+        assertThat(foundFiles).all {
+            containsExactlyInAnyOrder(ktFileInProjectInsideTargetedDirectory)
+            doesNotContain(ktFileInProjectOutsideTargetedDirectory)
+        }
     }
 
     private fun KtlintTestFileSystem.createFile(fileName: String) =

@@ -1,5 +1,11 @@
 package io.github.ktlint.core.test
 
+import assertk.assertThat
+import assertk.assertions.containsExactlyInAnyOrder
+import assertk.assertions.isEmpty
+import assertk.assertions.isEqualTo
+import assertk.assertions.isNotEmpty
+import assertk.assertions.isSuccess
 import dev.drewhamilton.poko.Poko
 import io.github.ktlint.core.logger.api.initKtLintKLogger
 import io.github.ktlint.core.logger.api.setDefaultLoggerModifier
@@ -21,9 +27,6 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleSetExec
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.assertj.core.api.AbstractAssert
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatNoException
 import org.junit.jupiter.api.assertAll
 import kotlin.io.path.pathString
 
@@ -380,7 +383,7 @@ public class KtLintAssertThatAssertable(
      *  lint errors for those rules are suppressed.
      */
     private val additionalRuleProviders: Set<RuleV2Provider>,
-) : AbstractAssert<KtLintAssertThatAssertable, String>(code.content, KtLintAssertThatAssertable::class.java) {
+) {
     /**
      * Asserts that the code does not contain any [LintViolation]s caused by the rule associated with the KtLintAssertThat.
      *
@@ -394,8 +397,9 @@ public class KtLintAssertThatAssertable(
 
         assertAll(
             {
-                assertThat(lintErrorsWhenFormatting)
-                    .describedAs(
+                assertThat(
+                    lintErrorsWhenFormatting,
+                    name =
                         "LintViolations found by format while no lint errors were found during Lint. " +
                             if (additionalRuleProviders.isEmpty()) {
                                 "This is unexpected as no additional rule have been defined for this test."
@@ -403,11 +407,12 @@ public class KtLintAssertThatAssertable(
                                 "If this is caused by an additional rule added to the test, then remove that rule in case it " +
                                     "is always executed before the rule under test."
                             },
-                    ).isEmpty()
+                ).isEmpty()
             },
             {
-                assertThat(actualFormattedCode)
-                    .describedAs(
+                assertThat(
+                    actualFormattedCode,
+                    name =
                         "Code is changed by format while no lint errors were found. " +
                             if (additionalRuleProviders.isEmpty()) {
                                 "This is unexpected as no additional rule have been defined for this test."
@@ -415,12 +420,13 @@ public class KtLintAssertThatAssertable(
                                 "If this is caused by an additional rule added to the test, then remove that rule in case it " +
                                     "is always executed before the rule under test."
                             },
-                    ).isEqualTo(code.content)
+                ).isEqualTo(code.content)
             },
             {
-                assertThatNoException()
-                    .describedAs("After reformat of code, it can no longer be successfully parsed")
-                    .isThrownBy { createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script)) }
+                assertThat(
+                    runCatching { createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script)) },
+                    name = "After reformat of code, it can no longer be successfully parsed",
+                ).isSuccess()
             },
         )
     }
@@ -433,14 +439,16 @@ public class KtLintAssertThatAssertable(
 
         assertAll(
             {
-                assertThat(lintErrorsWhenFormatting.filter { it.ruleId == ruleId })
-                    .describedAs("At least 1 lint violation was found for rule id '${ruleId.value}' while none were expected")
-                    .isEmpty()
+                assertThat(
+                    lintErrorsWhenFormatting.filter { it.ruleId == ruleId },
+                    name = "At least 1 lint violation was found for rule id '${ruleId.value}' while none were expected",
+                ).isEmpty()
             },
             {
-                assertThatNoException()
-                    .describedAs("After reformat of code, it can no longer be successfully parsed")
-                    .isThrownBy { createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script)) }
+                assertThat(
+                    runCatching { createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script)) },
+                    name = "After reformat of code, it can no longer be successfully parsed",
+                ).isSuccess()
             },
         )
 
@@ -463,7 +471,7 @@ public class KtLintAssertThatAssertable(
 
         val lintErrors = lint()
         assertThat(lintErrors.filterCurrentRuleOnly()).isEmpty()
-        assertThat(lintErrors.filterAdditionalRulesOnly()).isNotEmpty
+        assertThat(lintErrors.filterAdditionalRulesOnly()).isNotEmpty()
 
         return this
     }
@@ -524,9 +532,10 @@ public class KtLintAssertThatAssertable(
             lint()
                 .filterCurrentRuleOnly()
                 .toLintViolationsFields()
-        assertThat(actualLintViolationFields)
-            .describedAs("Lint errors which can be automatically corrected")
-            .containsExactlyInAnyOrder(*expectedErrors.toLintViolationsFields())
+        assertThat(
+            actualLintViolationFields,
+            name = "Lint errors which can be automatically corrected",
+        ).containsExactlyInAnyOrder(*expectedErrors.toLintViolationsFields().toTypedArray())
         return this
     }
 
@@ -540,9 +549,10 @@ public class KtLintAssertThatAssertable(
             lint()
                 .filterAdditionalRulesOnly()
                 .toLintViolationsFields()
-        assertThat(actualLintViolationFields)
-            .describedAs("Lint errors which can be automatically corrected")
-            .containsExactlyInAnyOrder(*expectedErrors.toLintViolationsFields())
+        assertThat(
+            actualLintViolationFields,
+            name = "Lint errors which can be automatically corrected",
+        ).containsExactlyInAnyOrder(*expectedErrors.toLintViolationsFields().toTypedArray())
         return this
     }
 
@@ -559,16 +569,18 @@ public class KtLintAssertThatAssertable(
 
         assertAll(
             {
-                assertThat(actualFormattedCode)
-                    .describedAs("Code is formatted as")
-                    .isEqualTo(formattedCode)
+                assertThat(
+                    actualFormattedCode,
+                    name = "Code is formatted as",
+                ).isEqualTo(formattedCode)
             },
             {
-                assertThatNoException()
-                    .describedAs("After reformat of code, it can no longer be successfully parsed")
-                    .isThrownBy {
+                assertThat(
+                    runCatching {
                         createKtLintRuleEngine().lint(Code.fromSnippet(actualFormattedCode, code.script))
-                    }
+                    },
+                    name = "After reformat of code, it can no longer be successfully parsed",
+                ).isSuccess()
             },
         )
 
@@ -607,7 +619,7 @@ public class KtLintAssertThatAssertable(
                         detail = it.detail,
                         canBeAutoCorrected = false,
                     )
-                }.toTypedArray()
+                }
         val expectedLintViolationFields =
             expectedLintViolations
                 .map {
@@ -619,12 +631,13 @@ public class KtLintAssertThatAssertable(
                     )
                 }
 
-        assertThat(actualLintViolationFields)
-            .describedAs("Lint errors which can not be automatically corrected")
-            .containsExactlyInAnyOrder(*expectedLintViolationFields.toTypedArray())
+        assertThat(
+            actualLintViolationFields,
+            name = "Lint errors which can not be automatically corrected",
+        ).containsExactlyInAnyOrder(*expectedLintViolationFields.toTypedArray())
     }
 
-    private fun Array<out LintViolation>.toLintViolationsFields(): Array<LintViolationFields> =
+    private fun Array<out LintViolation>.toLintViolationsFields(): List<LintViolationFields> =
         map {
             LintViolationFields(
                 line = it.line,
@@ -633,13 +646,12 @@ public class KtLintAssertThatAssertable(
                 canBeAutoCorrected = it.canBeAutoCorrected,
             )
         }.distinct()
-            .toTypedArray()
 
     private fun Set<LintError>.filterAdditionalRulesOnly() = filter { it.ruleId != ruleProvider.ruleId }.toSet()
 
     private fun Set<LintError>.filterCurrentRuleOnly() = filter { it.ruleId == ruleProvider.ruleId }.toSet()
 
-    private fun Set<LintError>.toLintViolationsFields(): Array<LintViolationFields> =
+    private fun Set<LintError>.toLintViolationsFields(): List<LintViolationFields> =
         map {
             LintViolationFields(
                 line = it.line,
@@ -647,8 +659,7 @@ public class KtLintAssertThatAssertable(
                 detail = it.detail,
                 canBeAutoCorrected = it.canBeAutoCorrected,
             )
-        }.distinct()
-            .toTypedArray()
+        }
 
     private fun createKtLintRuleEngine(): KtLintRuleEngine {
         val ruleProviders =

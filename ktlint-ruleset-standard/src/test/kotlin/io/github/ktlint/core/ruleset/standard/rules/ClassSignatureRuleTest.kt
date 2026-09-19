@@ -1,5 +1,11 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import assertk.assertFailure
+import assertk.assertThat
+import assertk.assertions.hasMessage
+import assertk.assertions.isEqualTo
+import assertk.assertions.isInstanceOf
+import assertk.assertions.isNull
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.intellij_idea
@@ -11,8 +17,6 @@ import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRuleBuilder
 import io.github.ktlint.core.test.LintViolation
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -1611,9 +1615,9 @@ class ClassSignatureRuleTest {
             val someNegativeValue = "-1"
             val property = FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY.toPropertyWithValue(someNegativeValue)
 
-            assertThatExceptionOfType(RuntimeException::class.java)
-                .isThrownBy { propertyMapper(property, codeStyleValue) }
-                .withMessage(
+            assertFailure { propertyMapper(property, codeStyleValue) }
+                .isInstanceOf<RuntimeException>()
+                .hasMessage(
                     "Property 'ktlint_class_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than' expects a " +
                         "positive integer; found '$someNegativeValue'",
                 )
@@ -1626,9 +1630,9 @@ class ClassSignatureRuleTest {
             val property =
                 FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY.toPropertyWithValue(someValueBiggerThanMaxInt)
 
-            assertThatExceptionOfType(RuntimeException::class.java)
-                .isThrownBy { propertyMapper(property, codeStyleValue) }
-                .withMessage(
+            assertFailure { propertyMapper(property, codeStyleValue) }
+                .isInstanceOf<RuntimeException>()
+                .hasMessage(
                     "Property 'ktlint_class_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than' expects an " +
                         "integer. The parsed '$someValueBiggerThanMaxInt' is not an integer.",
                 )
@@ -1640,9 +1644,9 @@ class ClassSignatureRuleTest {
             val property =
                 FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY.toPropertyWithValue("some-invalid-value")
 
-            assertThatExceptionOfType(RuntimeException::class.java)
-                .isThrownBy { propertyMapper(property, codeStyleValue) }
-                .withMessage(
+            assertFailure { propertyMapper(property, codeStyleValue) }
+                .isInstanceOf<RuntimeException>()
+                .hasMessage(
                     "Property 'ktlint_class_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than' expects an " +
                         "integer. The parsed 'some-invalid-value' is not an integer.",
                 )

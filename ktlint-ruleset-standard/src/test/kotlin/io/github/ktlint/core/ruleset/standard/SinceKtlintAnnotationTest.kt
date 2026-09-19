@@ -1,8 +1,11 @@
 package io.github.ktlint.core.ruleset.standard
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import assertk.assertions.isLessThanOrEqualTo
+import assertk.assertions.isTrue
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -28,7 +31,7 @@ class SinceKtlintAnnotationTest {
                     .sinceKtlintAnnotations()
                     .all { isValidVersionFormat(it.version) }
 
-            assertThat(actual).isTrue
+            assertThat(actual).isTrue()
         }
 
         fun allRules(): Stream<Arguments> = rules { true }
@@ -92,7 +95,7 @@ class SinceKtlintAnnotationTest {
         fun `The rule should not have @SinceKtlint annotation with status STABLE`() {
             val actual = experimentalRule.sinceKtlintAnnotations().none { it.status == SinceKtlint.Status.STABLE }
 
-            assertThat(actual).isTrue
+            assertThat(actual).isTrue()
         }
 
         fun experimentalRules(): Stream<Arguments> = rules { it is RuleV2.Experimental }

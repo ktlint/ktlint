@@ -1,9 +1,10 @@
 package io.github.ktlint.core.cli.reporter.json
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import io.github.ktlint.core.cli.reporter.core.api.KtlintCliError
 import io.github.ktlint.core.cli.reporter.core.api.KtlintCliError.Status.FORMAT_IS_AUTOCORRECTED
 import io.github.ktlint.core.cli.reporter.core.api.KtlintCliError.Status.LINT_CAN_BE_AUTOCORRECTED
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream

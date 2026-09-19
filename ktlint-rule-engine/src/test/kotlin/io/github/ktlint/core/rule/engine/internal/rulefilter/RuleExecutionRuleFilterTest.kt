@@ -1,5 +1,8 @@
 package io.github.ktlint.core.rule.engine.internal.rulefilter
 
+import assertk.assertThat
+import assertk.assertions.containsExactly
+import assertk.assertions.isEmpty
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleSetId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
@@ -12,7 +15,6 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleExecutionEditorConfigProperty
 import io.github.ktlint.core.rule.engine.internal.rules.KTLINT_SUPPRESSION_RULE_ID
 import io.github.ktlint.core.rule.engine.internal.rules.KtlintSuppressionRule
-import org.assertj.core.api.Assertions.assertThat
 import org.ec4j.core.model.Property
 import org.junit.jupiter.api.Test
 

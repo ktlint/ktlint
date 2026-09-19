@@ -1,8 +1,9 @@
 package io.github.ktlint.core.ruleset.standard.rules.importordering
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import io.github.ktlint.core.ruleset.standard.rules.ImportOrderingRule
 import io.github.ktlint.core.ruleset.standard.rules.internal.importordering.PatternEntry
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class ImportOrderingRuleTest {

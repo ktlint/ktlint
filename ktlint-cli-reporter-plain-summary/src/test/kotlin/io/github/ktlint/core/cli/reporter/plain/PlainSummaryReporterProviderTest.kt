@@ -1,7 +1,8 @@
 package io.github.ktlint.core.cli.reporter.plain
 
+import assertk.assertThat
+import assertk.assertions.isNotNull
 import io.github.ktlint.core.cli.reporter.plainsummary.PlainSummaryReporterProvider
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.io.PrintStream
 import java.lang.System.out
@@ -15,6 +16,6 @@ class PlainSummaryReporterProviderTest {
                 opt = emptyMap(),
             )
 
-        assertThat(plainSummaryReporter).isNotNull
+        assertThat(plainSummaryReporter).isNotNull()
     }
 }

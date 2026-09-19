@@ -1,6 +1,8 @@
 package io.github.ktlint.core.rule.engine.internal
 
-import org.assertj.core.api.Assertions.assertThat
+import assertk.assertThat
+import assertk.assertions.containsExactly
+import assertk.assertions.isEqualTo
 import org.ec4j.core.EditorConfigLoader
 import org.ec4j.core.Resource
 import org.ec4j.core.model.EditorConfig

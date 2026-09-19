@@ -2,6 +2,17 @@
 
 package com.pinterest.ktlint.rule.engine.core.api
 
+import assertk.assertThat
+import assertk.assertions.contains
+import assertk.assertions.containsAtLeast
+import assertk.assertions.containsExactly
+import assertk.assertions.isEmpty
+import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
+import assertk.assertions.isNotNull
+import assertk.assertions.isNull
+import assertk.assertions.isSuccess
+import assertk.assertions.isTrue
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.CLASS
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.CLASS_BODY
@@ -24,9 +35,6 @@ import com.pinterest.ktlint.rule.engine.core.api.ElementType.WHITE_SPACE
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
 import io.github.ktlint.core.test.SPACE
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatNoException
-import org.assertj.core.api.Assertions.entry
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.psi.KtAnnotated
@@ -115,7 +123,7 @@ class ASTNodeExtensionTest {
 
             val actual = noNewLineInOpenRange(enumEntries.first(), enumEntries.last())
 
-            assertThat(actual).isTrue
+            assertThat(actual).isTrue()
         }
 
         @Test
@@ -132,7 +140,7 @@ class ASTNodeExtensionTest {
 
             val actual = noNewLineInClosedRange(enumClassBody.first(), enumClassBody.last())
 
-            assertThat(actual).isFalse
+            assertThat(actual).isFalse()
         }
 
         @Test
@@ -147,7 +155,7 @@ class ASTNodeExtensionTest {
 
             val actual = noNewLineInClosedRange(enumClassBody.first(), enumClassBody.last())
 
-            assertThat(actual).isFalse
+            assertThat(actual).isFalse()
         }
     }
 
@@ -163,7 +171,7 @@ class ASTNodeExtensionTest {
 
             val actual = hasNewLineInClosedRange(enumEntries.first(), enumEntries.last())
 
-            assertThat(actual).isFalse
+            assertThat(actual).isFalse()
         }
 
         @Test
@@ -181,7 +189,7 @@ class ASTNodeExtensionTest {
                     enumClass.last(),
                 )
 
-            assertThat(actual).isTrue
+            assertThat(actual).isTrue()
         }
 
         @Test
@@ -198,7 +206,7 @@ class ASTNodeExtensionTest {
 
             val actual = hasNewLineInClosedRange(enumClassBody.first(), enumClassBody.last())
 
-            assertThat(actual).isTrue
+            assertThat(actual).isTrue()
         }
 
         @Test
@@ -216,7 +224,7 @@ class ASTNodeExtensionTest {
                     enumBodyClass.last { it.isWhiteSpaceWithNewline20 },
                 )
 
-            assertThat(actual).isTrue
+            assertThat(actual).isTrue()
         }
 
         @Test
@@ -231,7 +239,7 @@ class ASTNodeExtensionTest {
 
             val actual = hasNewLineInClosedRange(enumClassBody.first(), enumClassBody.last())
 
-            assertThat(actual).isTrue
+            assertThat(actual).isTrue()
         }
     }
 
@@ -252,7 +260,7 @@ class ASTNodeExtensionTest {
 
             val actual = noNewLineInClosedRange(enumEntries.first(), enumEntries.last())
 
-            assertThat(actual).isTrue
+            assertThat(actual).isTrue()
         }
 
         @Test
@@ -266,7 +274,7 @@ class ASTNodeExtensionTest {
 
             val actual = noNewLineInClosedRange(enumClassBody.first(), enumClassBody.last())
 
-            assertThat(actual).isFalse
+            assertThat(actual).isFalse()
         }
 
         @Test
@@ -283,7 +291,7 @@ class ASTNodeExtensionTest {
 
             val actual = noNewLineInClosedRange(enumClassBody.first(), enumClassBody.last())
 
-            assertThat(actual).isFalse
+            assertThat(actual).isFalse()
         }
 
         @Test
@@ -297,7 +305,7 @@ class ASTNodeExtensionTest {
 
             val actual = noNewLineInClosedRange(enumClassBody.first(), enumClassBody.last())
 
-            assertThat(actual).isFalse
+            assertThat(actual).isFalse()
         }
 
         @Test
@@ -312,7 +320,7 @@ class ASTNodeExtensionTest {
 
             val actual = noNewLineInClosedRange(enumClassBody.first(), enumClassBody.last())
 
-            assertThat(actual).isFalse
+            assertThat(actual).isFalse()
         }
     }
 
@@ -683,11 +691,11 @@ class ASTNodeExtensionTest {
                 .map { it.text to it.indent20 }
                 .toMap()
 
-        assertThat(actual).contains(
-            entry("Foo1", "\n"),
-            entry("foo2", "\n    "),
-            entry("foo3", "\n    "),
-            entry("foo4", "\n        "),
+        assertThat(actual).containsAtLeast(
+            "Foo1" to "\n",
+            "foo2" to "\n    ",
+            "foo3" to "\n    ",
+            "foo4" to "\n        ",
         )
     }
 
@@ -716,7 +724,7 @@ class ASTNodeExtensionTest {
                         .joinToString(separator = "") { it.text }
                 }.toList()
 
-        assertThat(actual).contains(
+        assertThat(actual).containsAtLeast(
             "class Foo1 {",
             "\n    val foo2 = \"foo2\"",
             "\n\n    fun foo3() {",
@@ -748,7 +756,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.lineLength }
                     .toList()
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\"".length,
                 "    fun foo3() {".length,
@@ -778,7 +786,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.lineLength }
                     .toList()
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\" // some comment".length,
                 "    fun foo3() {".length,
@@ -812,7 +820,7 @@ class ASTNodeExtensionTest {
                             .lineLength
                     }.toList()
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 "class Foo1".length,
                 "    val foo2".length,
                 "    fun foo3".length,
@@ -829,8 +837,8 @@ class ASTNodeExtensionTest {
                 val foo2 = "foo2"
                 """.trimIndent()
 
-            assertThatNoException()
-                .isThrownBy {
+            assertThat(
+                runCatching {
                     transformCodeToAST(code)
                         .firstChildLeafOrSelf20
                         .leaves()
@@ -841,7 +849,8 @@ class ASTNodeExtensionTest {
                                 .takeWhile { it.prevLeaf != identifier }
                                 .lineLength
                         }.toList()
-                }
+                },
+            ).isSuccess()
         }
     }
 
@@ -868,7 +877,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.lineLength }
                     .toList()
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\"".length,
                 "    fun foo3() {".length,
@@ -897,7 +906,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.lineLength }
                     .toList()
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\" // some comment".length,
                 "    fun foo3() {".length,
@@ -926,7 +935,7 @@ class ASTNodeExtensionTest {
                     .map { identifier -> identifier.leavesOnLine20.dropTrailingEolComment().lineLength }
                     .toList()
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 "class Foo1 {".length,
                 "    val foo2 = \"foo2\"".length,
                 "    fun foo3() {".length,
@@ -975,7 +984,7 @@ class ASTNodeExtensionTest {
                 ?.findChildByType(IDENTIFIER)
                 ?.afterCodeSibling(FUN_KEYWORD)
 
-        assertThat(actual).isTrue()
+        assertThat(actual).isEqualTo(true)
     }
 
     @ParameterizedTest(name = "Text between FUN_KEYWORD and IDENTIFIER: {0}")
@@ -998,7 +1007,7 @@ class ASTNodeExtensionTest {
                 ?.findChildByType(FUN_KEYWORD)
                 ?.beforeCodeSibling(IDENTIFIER)
 
-        assertThat(actual).isTrue()
+        assertThat(actual).isEqualTo(true)
     }
 
     @Test
@@ -1012,8 +1021,8 @@ class ASTNodeExtensionTest {
                 .findChildByType(FUN)
                 ?.findChildByType(IDENTIFIER)
 
-        assertThat(identifier?.betweenCodeSiblings(FUN_KEYWORD, VALUE_PARAMETER_LIST)).isTrue()
-        assertThat(identifier?.betweenCodeSiblings(MODIFIER_LIST, TYPE_REFERENCE)).isTrue()
+        assertThat(identifier?.betweenCodeSiblings(FUN_KEYWORD, VALUE_PARAMETER_LIST)).isEqualTo(true)
+        assertThat(identifier?.betweenCodeSiblings(MODIFIER_LIST, TYPE_REFERENCE)).isEqualTo(true)
     }
 
     @Test
@@ -1064,7 +1073,7 @@ class ASTNodeExtensionTest {
                     .findChildByType(FUN)
                     ?.hasModifier(PRIVATE_KEYWORD)
 
-            assertThat(actual).isTrue()
+            assertThat(actual).isEqualTo(true)
         }
 
         @Test
@@ -1078,7 +1087,7 @@ class ASTNodeExtensionTest {
                     .findChildByType(FUN)
                     ?.hasModifier(PRIVATE_KEYWORD)
 
-            assertThat(actual).isFalse()
+            assertThat(actual).isEqualTo(false)
         }
 
         @Test
@@ -1092,7 +1101,7 @@ class ASTNodeExtensionTest {
                     .findChildByType(FUN)
                     ?.hasModifier(PRIVATE_KEYWORD)
 
-            assertThat(actual).isFalse()
+            assertThat(actual).isEqualTo(false)
         }
     }
 

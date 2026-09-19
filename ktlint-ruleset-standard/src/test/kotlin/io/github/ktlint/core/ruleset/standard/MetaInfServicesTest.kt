@@ -1,7 +1,8 @@
 package io.github.ktlint.core.ruleset.standard
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import io.github.ktlint.core.cli.ruleset.core.api.RuleSetV2Provider
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class MetaInfServicesTest {

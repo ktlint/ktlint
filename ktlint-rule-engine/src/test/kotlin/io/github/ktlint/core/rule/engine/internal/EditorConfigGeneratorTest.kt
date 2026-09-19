@@ -1,5 +1,11 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import assertk.all
+import assertk.assertThat
+import assertk.assertions.contains
+import assertk.assertions.containsAtLeast
+import assertk.assertions.containsNone
+import assertk.assertions.doesNotContain
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import io.github.ktlint.core.rule.engine.core.api.RuleV2Provider
@@ -7,7 +13,6 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigProperty
 import io.github.ktlint.core.rule.engine.core.api.propertyTypes
 import io.github.ktlint.core.test.KtlintTestFileSystem
-import org.assertj.core.api.Assertions.assertThat
 import org.ec4j.core.model.PropertyType
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -51,8 +56,8 @@ internal class EditorConfigGeneratorTest {
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 
-        assertThat(generatedEditorConfig.lines()).doesNotContainAnyElementsOf(listOf("root = true"))
-        assertThat(generatedEditorConfig.lines()).contains(
+        assertThat(generatedEditorConfig.lines()).doesNotContain("root = true")
+        assertThat(generatedEditorConfig.lines()).containsAtLeast(
             "$PROPERTY_1_NAME = $PROPERTY_1_DEFAULT_VALUE",
             "$PROPERTY_2_NAME = $PROPERTY_2_DEFAULT_VALUE",
         )
@@ -68,10 +73,12 @@ internal class EditorConfigGeneratorTest {
             )
 
         assertThat(generatedEditorConfig.lines())
-            .contains(
+            .containsAtLeast(
                 "$PROPERTY_1_NAME = $PROPERTY_1_DEFAULT_VALUE_ANDROID",
                 "$PROPERTY_2_NAME = $PROPERTY_2_DEFAULT_VALUE_ANDROID",
-            ).doesNotContain(
+            )
+        assertThat(generatedEditorConfig.lines())
+            .containsNone(
                 "$PROPERTY_1_NAME = $PROPERTY_1_DEFAULT_VALUE",
                 "$PROPERTY_2_NAME = $PROPERTY_2_DEFAULT_VALUE",
             )
@@ -102,7 +109,7 @@ internal class EditorConfigGeneratorTest {
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 
-        assertThat(generatedEditorConfig.lines()).contains(
+        assertThat(generatedEditorConfig.lines()).containsAtLeast(
             "$PROPERTY_1_NAME = $PROPERTY_1_DEFAULT_VALUE",
             "$PROPERTY_2_NAME = $PROPERTY_2_DEFAULT_VALUE",
         )
@@ -130,8 +137,8 @@ internal class EditorConfigGeneratorTest {
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 
-        assertThat(generatedEditorConfig.lines()).doesNotContainAnyElementsOf(listOf("root = true"))
-        assertThat(generatedEditorConfig.lines()).contains(
+        assertThat(generatedEditorConfig.lines()).doesNotContain("root = true")
+        assertThat(generatedEditorConfig.lines()).containsAtLeast(
             "$PROPERTY_1_NAME = false",
             "$PROPERTY_2_NAME = $PROPERTY_2_DEFAULT_VALUE",
         )
@@ -160,13 +167,14 @@ internal class EditorConfigGeneratorTest {
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 
-        assertThat(generatedEditorConfig.lines()).doesNotContainAnyElementsOf(listOf("root = true"))
+        assertThat(generatedEditorConfig.lines()).doesNotContain("root = true")
         assertThat(generatedEditorConfig.lines()).contains(
             "$PROPERTY_2_NAME = $PROPERTY_2_DEFAULT_VALUE",
         )
-        assertThat(generatedEditorConfig.lines())
-            .doesNotContain("$PROPERTY_1_NAME = $PROPERTY_1_DEFAULT_VALUE")
-            .contains("$PROPERTY_1_NAME = $rootEditorConfigPropertyValue1")
+        assertThat(generatedEditorConfig.lines()).all {
+            doesNotContain("$PROPERTY_1_NAME = $PROPERTY_1_DEFAULT_VALUE")
+            contains("$PROPERTY_1_NAME = $rootEditorConfigPropertyValue1")
+        }
     }
 
     private class TestRule :

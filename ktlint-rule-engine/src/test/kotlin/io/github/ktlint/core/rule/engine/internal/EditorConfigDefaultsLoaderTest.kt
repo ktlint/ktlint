@@ -1,9 +1,10 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import io.github.ktlint.core.rule.engine.api.EditorConfigDefaults
 import io.github.ktlint.core.rule.engine.api.EditorConfigDefaults.Companion.EMPTY_EDITOR_CONFIG_DEFAULTS
 import io.github.ktlint.core.test.KtlintTestFileSystem
-import org.assertj.core.api.Assertions.assertThat
 import org.ec4j.core.model.EditorConfig
 import org.ec4j.core.model.Glob
 import org.ec4j.core.model.Property

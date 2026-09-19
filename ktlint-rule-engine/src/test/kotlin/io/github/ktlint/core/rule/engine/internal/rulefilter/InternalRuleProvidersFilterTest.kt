@@ -1,5 +1,7 @@
 package io.github.ktlint.core.rule.engine.internal.rulefilter
 
+import assertk.assertThat
+import assertk.assertions.containsExactly
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
 import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -7,7 +9,6 @@ import io.github.ktlint.core.rule.engine.core.api.RuleSetId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import io.github.ktlint.core.rule.engine.core.api.RuleV2Provider
 import io.github.ktlint.core.rule.engine.internal.rules.KTLINT_SUPPRESSION_RULE_ID
-import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.Test
 

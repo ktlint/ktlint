@@ -1,11 +1,20 @@
 package io.github.ktlint.core.rule.engine.core.api.editorconfig
 
+import assertk.assertFailure
+import assertk.assertThat
+import assertk.assertions.containsExactly
+import assertk.assertions.hasMessage
+import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
+import assertk.assertions.isInstanceOf
+import assertk.assertions.isNotNull
+import assertk.assertions.isSuccess
+import assertk.assertions.isTrue
+import assertk.assertions.message
+import assertk.assertions.startsWith
 import io.github.ktlint.core.rule.engine.api.EditorConfigDefaults
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.ec4j.toPropertyWithValue
 import io.github.ktlint.core.test.KtlintTestFileSystem
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatNoException
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.ec4j.core.model.Property
 import org.ec4j.core.model.PropertyType
 import org.junit.jupiter.api.Test
@@ -17,9 +26,11 @@ class EditorConfigTest {
     fun `Given an EditorConfig from which a non existing property is retrieved then an exception is thrown`() {
         val editorConfig = EditorConfig()
 
-        assertThatThrownBy { editorConfig[sampleEditorConfigProperty()] }
-            .isInstanceOf(IllegalStateException::class.java)
-            .hasMessageStartingWith("Property '$SOME_PROPERTY_NAME' can not be retrieved from this EditorConfig.")
+        assertFailure { editorConfig[sampleEditorConfigProperty()] }
+            .isInstanceOf<IllegalStateException>()
+            .message()
+            .isNotNull()
+            .startsWith("Property '$SOME_PROPERTY_NAME' can not be retrieved from this EditorConfig.")
     }
 
     @Test
@@ -78,7 +89,7 @@ class EditorConfigTest {
         val someDeprecatedEditorConfigProperty = sampleEditorConfigProperty(deprecationError = someDeprecationMessage)
         val editorConfig = EditorConfig().addPropertiesWithDefaultValueIfMissing(someDeprecatedEditorConfigProperty)
 
-        assertThatThrownBy { editorConfig[someDeprecatedEditorConfigProperty] }
+        assertFailure { editorConfig[someDeprecatedEditorConfigProperty] }
             .hasMessage("Property '$SOME_PROPERTY_NAME' is disallowed: $someDeprecationMessage")
     }
 
@@ -87,9 +98,11 @@ class EditorConfigTest {
         val someDeprecatedEditorConfigProperty = sampleEditorConfigProperty(deprecationWarning = "some-deprecation-message")
         val editorConfig = EditorConfig().addPropertiesWithDefaultValueIfMissing(someDeprecatedEditorConfigProperty)
 
-        editorConfig[sampleEditorConfigProperty()]
-
-        assertThatNoException()
+        assertThat(
+            runCatching {
+                editorConfig[sampleEditorConfigProperty()]
+            },
+        ).isSuccess()
     }
 
     @Test
@@ -98,7 +111,7 @@ class EditorConfigTest {
 
         val actual = editorConfig.contains(sampleEditorConfigProperty().name)
 
-        assertThat(actual).isTrue
+        assertThat(actual).isTrue()
     }
 
     @Test
@@ -107,7 +120,7 @@ class EditorConfigTest {
 
         val actual = editorConfig.contains(sampleEditorConfigProperty().name)
 
-        assertThat(actual).isFalse
+        assertThat(actual).isFalse()
     }
 
     @Test
@@ -125,7 +138,7 @@ class EditorConfigTest {
 
         val actual = editorConfig.map { property -> property.name.uppercase() to property.sourceValue.uppercase() }
 
-        assertThat(actual).containsExactly(
+        assertThat(actual.toList()).containsExactly(
             propertyName1.uppercase() to propertyValue1.uppercase(),
             propertyName2.uppercase() to propertyValue2.uppercase(),
         )
@@ -133,21 +146,23 @@ class EditorConfigTest {
 
     @Test
     fun `Given an EditorConfig to which properties are added with the same name but different identities than those properties can not be loaded in the same EditorConfig`() {
-        assertThatThrownBy {
+        assertFailure {
             EditorConfig()
                 .addPropertiesWithDefaultValueIfMissing(
                     sampleEditorConfigProperty(defaultValue = SOME_PROPERTY_VALUE_ANDROID_STUDIO),
                     sampleEditorConfigProperty(defaultValue = SOME_PROPERTY_VALUE_INTELLIJ_IDEA),
                 )
-        }.isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageStartingWith(
+        }.isInstanceOf<IllegalArgumentException>()
+            .message()
+            .isNotNull()
+            .startsWith(
                 "Found multiple editorconfig properties with name '$SOME_PROPERTY_NAME' but having distinct identities:",
             )
     }
 
     @Test
     fun `Given two editorconfig properties with the same name but different identities than those properties can not be loaded in the same EditorConfig`() {
-        assertThatThrownBy {
+        assertFailure {
             EditorConfig()
                 .filterBy(
                     setOf(
@@ -155,8 +170,10 @@ class EditorConfigTest {
                         sampleEditorConfigProperty(defaultValue = SOME_PROPERTY_VALUE_INTELLIJ_IDEA),
                     ),
                 )
-        }.isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageStartingWith(
+        }.isInstanceOf<IllegalArgumentException>()
+            .message()
+            .isNotNull()
+            .startsWith(
                 "Found multiple editorconfig properties with name '$SOME_PROPERTY_NAME' but having distinct identities:",
             )
     }

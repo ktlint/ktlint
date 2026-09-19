@@ -1,6 +1,7 @@
 package io.github.ktlint.core.cli
 
-import org.assertj.core.api.SoftAssertions
+import assertk.assertAll
+import assertk.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Path
@@ -17,17 +18,16 @@ class RuleSetsLoaderCLITest {
                 "custom-ruleset",
                 listOf("-R", "$tempDir/$jarWithoutValidRulesetProvider", "**/*.test"),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertErrorExitCode()
-                        assertThat(normalOutput + errorOutput)
-                            .containsLineMatching(
-                                Regex(
-                                    ".*ERROR.* JAR file '.*$jarWithoutValidRulesetProvider' is missing a class implementing interface " +
-                                        "'io.github.ktlint.core.cli.ruleset.core.api.RuleSetV2Provider'",
-                                ),
-                            )
-                    }.assertAll()
+                assertAll {
+                    assertErrorExitCode()
+                    assertThat(normalOutput + errorOutput)
+                        .containsLineMatching(
+                            Regex(
+                                ".*ERROR.* JAR file '.*$jarWithoutValidRulesetProvider' is missing a class implementing interface " +
+                                    "'io.github.ktlint.core.cli.ruleset.core.api.RuleSetV2Provider'",
+                            ),
+                        )
+                }
             }
     }
 
@@ -42,17 +42,16 @@ class RuleSetsLoaderCLITest {
                 "custom-ruleset",
                 listOf("-R", "$tempDir/$jarWithDeprecatedRulesetProvider", "**/*.test"),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertNormalExitCode()
-                        assertThat(normalOutput)
-                            .containsLineMatching(
-                                Regex(
-                                    ".*WARN.* JAR file '.*$jarWithDeprecatedRulesetProvider' contains a class implementing a deprecated " +
-                                        "interface 'com.pinterest.ktlint.cli.ruleset.core.api.RuleSetProviderV3'",
-                                ),
-                            )
-                    }.assertAll()
+                assertAll {
+                    assertNormalExitCode()
+                    assertThat(normalOutput)
+                        .containsLineMatching(
+                            Regex(
+                                ".*WARN.* JAR file '.*$jarWithDeprecatedRulesetProvider' contains a class implementing a deprecated " +
+                                    "interface 'com.pinterest.ktlint.cli.ruleset.core.api.RuleSetProviderV3'",
+                            ),
+                        )
+                }
             }
     }
 }
