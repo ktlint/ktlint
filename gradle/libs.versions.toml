@@ -11,6 +11,7 @@ kotlin = "2.4.20"
 kotlinDev = "2.4.20"
 
 [plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-sam-with-receiver = { id = "org.jetbrains.kotlin.plugin.sam.with.receiver", version.ref = "kotlin" }
 shadow = "com.gradleup.shadow:9.6.1"

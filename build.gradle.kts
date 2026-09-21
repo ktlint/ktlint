@@ -1,8 +1,28 @@
 import java.net.URI
 
 plugins {
+    alias(libs.plugins.detekt)
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.shadow) apply false
+}
+
+detekt {
+    // Each module's build.gradle.kts is intentionally left untouched; detekt is wired up once here, at the root,
+    // and scans the whole checkout in a single pass, mirroring how `ktlintCheck`/`ktlintFormat` above already work.
+    buildUponDefaultConfig = true
+    config.setFrom(rootDir.resolve("config/detekt.yml"))
+    // No `detekt-formatting` dependency is added on purpose: that submodule wraps ktlint itself, so adding it here
+    // would just duplicate what `ktlintCheck` already enforces on this codebase.
+    source.setFrom(
+        fileTree(rootDir) {
+            include("**/src/main/kotlin/**/*.kt", "**/src/test/kotlin/**/*.kt", "**/*.kts")
+            exclude("**/build/**")
+        },
+    )
+    // Grandfathers all violations that exist at the time detekt was introduced, so `detekt` only fails on issues in
+    // newly added or modified code. Regenerate with `./gradlew detektBaseline` after intentionally cleaning up
+    // pre-existing findings.
+    baseline = rootDir.resolve("config/detekt-baseline.xml")
 }
 
 val ktlint: Configuration by configurations.creating
