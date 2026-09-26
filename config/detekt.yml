@@ -1,0 +1,9 @@
+build:
+  maxIssues: 0
+
+style:
+  # Already enforced by ktlint's own `standard:max-line-length` rule, using the `max_line_length = 140` value set in
+  # this project's .editorconfig. detekt's default threshold (120) does not know about that override and would
+  # otherwise flag ~2280 lines that ktlintCheck already accepts.
+  MaxLineLength:
+    active: false
