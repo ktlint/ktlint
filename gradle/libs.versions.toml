@@ -28,7 +28,7 @@ logging = "io.github.oshai:kotlin-logging-jvm:8.0.4"
 slf4j = "org.slf4j:slf4j-simple:2.0.19"
 poko = "dev.drewhamilton.poko:poko-gradle-plugin:0.23.2"
 # Use logback-classic as the logger for kotlin-logging / slf4j as it allow changing the log level at runtime.
-logback = "ch.qos.logback:logback-classic:1.6.3"
+logback = "ch.qos.logback:logback-classic:1.6.4"
 # TODO: When upgrading logcaptor to version > 2.12.6 then remove dependency constraint in ktlint-cli-reporter-baseline which overrides the
 #  log4j dependencies
 logcaptor = "io.github.hakky54:logcaptor:2.12.6"
