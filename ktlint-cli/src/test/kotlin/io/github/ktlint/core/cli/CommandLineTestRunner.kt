@@ -1,10 +1,17 @@
 package io.github.ktlint.core.cli
 
+import assertk.Assert
+import assertk.assertThat
+import assertk.assertions.any
+import assertk.assertions.contains
+import assertk.assertions.isEmpty
+import assertk.assertions.isEqualTo
+import assertk.assertions.isNotEqualTo
+import assertk.assertions.matches
+import assertk.assertions.none
 import io.github.ktlint.core.cli.environment.OsEnvironment
 import io.github.ktlint.core.logger.api.initKtLintKLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.ListAssert
 import org.junit.jupiter.api.fail
 import java.io.File
 import java.io.InputStream
@@ -246,16 +253,16 @@ class CommandLineTestRunner(
                         "call this assertion for commands that never print this line."
                 }
             } else {
-                assertThat(exitCode)
-                    .withFailMessage(
-                        "Expected process to exit with exitCode 0, but was $exitCode."
-                            .followedByIndentedList(
-                                listOf(
-                                    "RESULTS OF STDOUT:".followedByIndentedList(normalOutput, 2),
-                                    "RESULTS OF STDERR:".followedByIndentedList(errorOutput, 2),
-                                ),
+                assertThat(
+                    exitCode,
+                    "Expected process to exit with exitCode 0, but was $exitCode."
+                        .followedByIndentedList(
+                            listOf(
+                                "RESULTS OF STDOUT:".followedByIndentedList(normalOutput, 2),
+                                "RESULTS OF STDERR:".followedByIndentedList(errorOutput, 2),
                             ),
-                    ).isEqualTo(0)
+                        ),
+                ).isEqualTo(0)
             }
         }
 
@@ -269,17 +276,14 @@ class CommandLineTestRunner(
                         "call this assertion for commands that never print this line."
                 }
             } else {
-                assertThat(exitCode)
-                    .withFailMessage("Execution was expected to finish with error. However, exitCode is $exitCode")
+                assertThat(exitCode, "Execution was expected to finish with error. However, exitCode is $exitCode")
                     .isNotEqualTo(0)
             }
         }
 
         fun assertErrorOutputIsEmpty() {
-            assertThat(errorOutput.isEmpty())
-                .withFailMessage(
-                    "Expected error output to be empty but was:".followedByIndentedList(errorOutput),
-                ).isTrue
+            assertThat(errorOutput, "Expected error output to be empty but was:".followedByIndentedList(errorOutput))
+                .isEmpty()
         }
 
         fun assertSourceFileWasFormatted(filePathInProject: String) {
@@ -331,25 +335,25 @@ private fun String.followedByIndentedList(
         }
 
 @Suppress("unused")
-internal fun ListAssert<String>.containsLineMatching(string: String): ListAssert<String> =
-    this.anyMatch {
-        it.contains(string)
+internal fun Assert<List<String>>.containsLineMatching(string: String): Assert<List<String>> =
+    apply {
+        any { it.contains(string) }
     }
 
 @Suppress("unused")
-internal fun ListAssert<String>.containsLineMatching(regex: Regex): ListAssert<String> =
-    this.anyMatch {
-        it.matches(regex)
+internal fun Assert<List<String>>.containsLineMatching(regex: Regex): Assert<List<String>> =
+    apply {
+        any { it.matches(regex) }
     }
 
 @Suppress("unused")
-internal fun ListAssert<String>.doesNotContainLineMatching(string: String): ListAssert<String> =
-    this.noneMatch {
-        it.contains(string)
+internal fun Assert<List<String>>.doesNotContainLineMatching(string: String): Assert<List<String>> =
+    apply {
+        none { it.contains(string) }
     }
 
 @Suppress("unused")
-internal fun ListAssert<String>.doesNotContainLineMatching(regex: Regex): ListAssert<String> =
-    this.noneMatch {
-        it.matches(regex)
+internal fun Assert<List<String>>.doesNotContainLineMatching(regex: Regex): Assert<List<String>> =
+    apply {
+        none { it.matches(regex) }
     }

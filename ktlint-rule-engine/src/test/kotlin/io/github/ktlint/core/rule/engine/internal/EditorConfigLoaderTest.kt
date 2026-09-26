@@ -1,5 +1,11 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import assertk.all
+import assertk.assertThat
+import assertk.assertions.contains
+import assertk.assertions.containsAtLeast
+import assertk.assertions.containsExactlyInAnyOrder
+import assertk.assertions.doesNotContain
 import io.github.ktlint.core.rule.engine.api.EditorConfigDefaults
 import io.github.ktlint.core.rule.engine.api.EditorConfigOverride
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
@@ -7,7 +13,6 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigPrope
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INSERT_FINAL_NEWLINE_PROPERTY
 import io.github.ktlint.core.test.KtlintTestFileSystem
-import org.assertj.core.api.Assertions.assertThat
 import org.ec4j.core.model.PropertyType
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Nested
@@ -109,27 +114,30 @@ internal class EditorConfigLoaderTest {
         createEditorConfigLoader()
             .load(ktlintTestFileSystem.resolve("$someRelativeProjectSubDirectory/test.kt"))
             .run {
-                assertThat(convertToPropertyValues())
-                    .contains(
+                assertThat(convertToPropertyValues()).all {
+                    containsAtLeast(
                         "some_property_2 = some_value_2",
                         "some_property_3 = some_value_3",
-                    ).doesNotContain(
+                    )
+                    doesNotContain(
                         // The '.editorconfig' file in the root directory is skipped because the property "root = true" is
                         // found
                         "some_property_1 = some_value_1",
                     )
+                }
             }
 
         createEditorConfigLoader()
             .load(ktlintTestFileSystem.resolve("$someRelativeProjectDirectory/test.kt"))
             .run {
-                assertThat(convertToPropertyValues())
-                    .contains("some_property_2 = some_value_2")
-                    .doesNotContain(
+                assertThat(convertToPropertyValues()).all {
+                    contains("some_property_2 = some_value_2")
+                    doesNotContain(
                         // The '.editorconfig' file in the root directory is skipped because the property "root = true" is
                         // found
                         "some_property_1 = some_value_1",
                     )
+                }
             }
 
         createEditorConfigLoader()
@@ -159,7 +167,7 @@ internal class EditorConfigLoaderTest {
             .load(ktlintTestFileSystem.resolve("test.kt"))
             .run {
                 assertThat(convertToPropertyValues())
-                    .contains(
+                    .containsAtLeast(
                         "some_property_1 = some_value_1",
                         "some_property_2 = some_value_2",
                         "some_property_3 = some_value_3",
@@ -207,7 +215,7 @@ internal class EditorConfigLoaderTest {
             .load(ktlintTestFileSystem.resolve("test.kt"))
             .run {
                 assertThat(convertToPropertyValues())
-                    .contains(
+                    .containsAtLeast(
                         "some_property_1 = some_value_1,some_value_2",
                         "some_property_2 = some_value_1 ,some_value_2",
                         "some_property_3 = some_value_1, some_value_2",
@@ -437,7 +445,7 @@ internal class EditorConfigLoaderTest {
             .load(ktlintTestFileSystem.resolve("$someRelativeProjectDirectory/test.kt"))
             .run {
                 assertThat(convertToPropertyValues())
-                    .contains(
+                    .containsAtLeast(
                         "some_property_1 = some_value_2",
                         "some_property_2 = some_value_2",
                         "indent_size = 2",
@@ -486,7 +494,7 @@ internal class EditorConfigLoaderTest {
             .load(ktlintTestFileSystem.resolve("test.kt"))
             .run {
                 assertThat(convertToPropertyValues())
-                    .contains(
+                    .containsAtLeast(
                         "indent_size = 3",
                         "tab_width = 3",
                     )
@@ -514,7 +522,7 @@ internal class EditorConfigLoaderTest {
             .load(ktlintTestFileSystem.resolve("api/test.kt"))
             .run {
                 assertThat(convertToPropertyValues())
-                    .contains(
+                    .containsAtLeast(
                         "some_property_1 = some_value_2",
                         "some_property_2 = some_value_2",
                         "some_property_3 = some_value_3",
@@ -540,7 +548,7 @@ internal class EditorConfigLoaderTest {
             .load(ktlintTestFileSystem.resolve("test.kt"))
             .run {
                 assertThat(convertToPropertyValues())
-                    .contains(
+                    .containsAtLeast(
                         "some_property_1 = some_value_1",
                         "insert_final_newline = true",
                     )

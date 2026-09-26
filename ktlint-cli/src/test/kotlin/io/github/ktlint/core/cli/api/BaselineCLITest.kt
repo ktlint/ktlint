@@ -1,9 +1,10 @@
 package io.github.ktlint.core.cli.api
 
+import assertk.assertAll
+import assertk.assertThat
 import io.github.ktlint.core.cli.CommandLineTestRunner
 import io.github.ktlint.core.cli.containsLineMatching
 import io.github.ktlint.core.cli.doesNotContainLineMatching
-import org.assertj.core.api.SoftAssertions
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
@@ -24,13 +25,12 @@ class BaselineCLITest {
                     "some/path/to/TestBaselineFile.kt.test",
                 ),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertErrorExitCode()
-                        assertThat(normalOutput)
-                            .containsLineMatching(Regex(".*/$projectName/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
-                            .containsLineMatching(Regex(".*/$projectName/some/path/to/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
-                    }.assertAll()
+                assertAll {
+                    assertErrorExitCode()
+                    assertThat(normalOutput)
+                        .containsLineMatching(Regex(".*/$projectName/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
+                        .containsLineMatching(Regex(".*/$projectName/some/path/to/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
+                }
             }
     }
 
@@ -54,19 +54,18 @@ class BaselineCLITest {
                         "some/path/to/TestBaselineFile.kt.test",
                     ),
                 ) {
-                    SoftAssertions()
-                        .apply {
-                            assertNormalExitCode()
-                            assertThat(normalOutput)
-                                .doesNotContainLineMatching(Regex(".*/$projectName/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
-                                .doesNotContainLineMatching(
-                                    Regex(".*/$projectName/some/path/to/TestBaselineFile.kt.test:1:24: Unnecessary block.*"),
-                                ).doesNotContainLineMatching(
-                                    Regex(
-                                        ".*Format was not able to resolve all violations which \\(theoretically\\) can be autocorrected in file.*",
-                                    ),
-                                )
-                        }.assertAll()
+                    assertAll {
+                        assertNormalExitCode()
+                        assertThat(normalOutput)
+                            .doesNotContainLineMatching(Regex(".*/$projectName/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
+                            .doesNotContainLineMatching(
+                                Regex(".*/$projectName/some/path/to/TestBaselineFile.kt.test:1:24: Unnecessary block.*"),
+                            ).doesNotContainLineMatching(
+                                Regex(
+                                    ".*Format was not able to resolve all violations which \\(theoretically\\) can be autocorrected in file.*",
+                                ),
+                            )
+                    }
                 }
         }
 
@@ -87,15 +86,14 @@ class BaselineCLITest {
                         "some/path/to/TestBaselineFile.kt.test",
                     ),
                 ) {
-                    SoftAssertions()
-                        .apply {
-                            assertNormalExitCode()
-                            assertThat(normalOutput)
-                                .doesNotContainLineMatching(Regex(".*/$projectName/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
-                                .doesNotContainLineMatching(
-                                    Regex(".*/$projectName/some/path/to/TestBaselineFile.kt.test:1:24: Unnecessary block.*"),
-                                )
-                        }.assertAll()
+                    assertAll {
+                        assertNormalExitCode()
+                        assertThat(normalOutput)
+                            .doesNotContainLineMatching(Regex(".*/$projectName/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
+                            .doesNotContainLineMatching(
+                                Regex(".*/$projectName/some/path/to/TestBaselineFile.kt.test:1:24: Unnecessary block.*"),
+                            )
+                    }
                 }
         }
 
@@ -115,13 +113,12 @@ class BaselineCLITest {
                         "some/path/to/TestBaselineFile.kt.test",
                     ),
                 ) {
-                    SoftAssertions()
-                        .apply {
-                            assertNormalExitCode()
-                            assertThat(normalOutput)
-                                .doesNotContainLineMatching(Regex("^TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
-                                .doesNotContainLineMatching(Regex("^some/path/to/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
-                        }.assertAll()
+                    assertAll {
+                        assertNormalExitCode()
+                        assertThat(normalOutput)
+                            .doesNotContainLineMatching(Regex("^TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
+                            .doesNotContainLineMatching(Regex("^some/path/to/TestBaselineFile.kt.test:1:24: Unnecessary block.*"))
+                    }
                 }
         }
     }
@@ -143,22 +140,21 @@ class BaselineCLITest {
                     "some/path/to/TestBaselineExtraErrorFile.kt.test",
                 ),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertErrorExitCode()
-                        assertThat(normalOutput)
-                            .containsLineMatching(
-                                Regex(
-                                    ".*/$projectName/TestBaselineExtraErrorFile.kt.test:1:1: Replace the block comment with an " +
-                                        "EOL comment.*",
-                                ),
-                            ).containsLineMatching(
-                                Regex(
-                                    ".*/$projectName/some/path/to/TestBaselineExtraErrorFile.kt.test:1:1: Replace the block comment with " +
-                                        "an EOL comment.*",
-                                ),
-                            )
-                    }.assertAll()
+                assertAll {
+                    assertErrorExitCode()
+                    assertThat(normalOutput)
+                        .containsLineMatching(
+                            Regex(
+                                ".*/$projectName/TestBaselineExtraErrorFile.kt.test:1:1: Replace the block comment with an " +
+                                    "EOL comment.*",
+                            ),
+                        ).containsLineMatching(
+                            Regex(
+                                ".*/$projectName/some/path/to/TestBaselineExtraErrorFile.kt.test:1:1: Replace the block comment with " +
+                                    "an EOL comment.*",
+                            ),
+                        )
+                }
             }
     }
 }

@@ -1,6 +1,10 @@
 package io.github.ktlint.core.rule.engine.internal
 
-import org.assertj.core.api.Assertions.assertThat
+import assertk.all
+import assertk.assertThat
+import assertk.assertions.contains
+import assertk.assertions.containsAtLeast
+import assertk.assertions.doesNotContain
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -69,7 +73,7 @@ class EditorConfigFinderTest {
 
             val actual = editorConfigFinder.findEditorConfigs(kotlinFilePath)
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 tempDir.plus("$someProjectDirectory/.editorconfig"),
                 tempDir.plus("$someProjectDirectory/src/main/.editorconfig"),
             )
@@ -88,13 +92,15 @@ class EditorConfigFinderTest {
 
             val actual = editorConfigFinder.findEditorConfigs(kotlinFilePath)
 
-            assertThat(actual)
-                .contains(
+            assertThat(actual).all {
+                containsAtLeast(
                     tempDir.plus("$someProjectDirectory/src/main/.editorconfig"),
                     tempDir.plus("$someProjectDirectory/src/.editorconfig"),
-                ).doesNotContain(
+                )
+                doesNotContain(
                     tempDir.plus("$someProjectDirectory/.editorconfig"),
                 )
+            }
         }
     }
 
@@ -111,7 +117,7 @@ class EditorConfigFinderTest {
 
             val actual = editorConfigFinder.findEditorConfigs(tempDir.plus(someDirectory))
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 tempDir.plus("$someDirectory/.editorconfig"),
                 tempDir.plus("$someDirectory/src/main/kotlin/.editorconfig"),
             )
@@ -129,13 +135,15 @@ class EditorConfigFinderTest {
 
             val actual = editorConfigFinder.findEditorConfigs(tempDir.plus("$someProjectDirectory/src/main/kotlin"))
 
-            assertThat(actual)
-                .contains(
+            assertThat(actual).all {
+                containsAtLeast(
                     tempDir.plus("$someProjectDirectory/.editorconfig"),
                     tempDir.plus("$someProjectDirectory/src/main/kotlin/.editorconfig"),
-                ).doesNotContain(
+                )
+                doesNotContain(
                     tempDir.plus("$someProjectDirectory/src/test/kotlin/.editorconfig"),
                 )
+            }
         }
 
         @Test
@@ -150,7 +158,7 @@ class EditorConfigFinderTest {
 
             val actual = editorConfigFinder.findEditorConfigs(tempDir.plus(someProjectDirectory))
 
-            assertThat(actual).contains(
+            assertThat(actual).containsAtLeast(
                 tempDir.plus("$someProjectDirectory/.editorconfig"),
                 tempDir.plus("$someProjectDirectory/src/main/kotlin/.editorconfig"),
                 tempDir.plus("$someProjectDirectory/src/test/kotlin/.editorconfig"),

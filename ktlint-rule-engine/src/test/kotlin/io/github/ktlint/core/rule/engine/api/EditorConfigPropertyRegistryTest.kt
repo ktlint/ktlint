@@ -1,5 +1,9 @@
 package io.github.ktlint.core.rule.engine.api
 
+import assertk.assertFailure
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import assertk.assertions.isInstanceOf
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleSetId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
@@ -10,8 +14,6 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleExecuti
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleSetExecutionEditorConfigProperty
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.ktLintRuleExecutionPropertyName
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.ktLintRuleSetExecutionPropertyName
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.ec4j.core.model.PropertyType
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -44,8 +46,8 @@ class EditorConfigPropertyRegistryTest {
 
         @Test
         fun `Given a property name that can not be found by name in the editor config property registry then throw an exception`() {
-            assertThatExceptionOfType(EditorConfigPropertyNotFoundException::class.java)
-                .isThrownBy { editorConfigPropertyRegistry.find("some-unknown-property-name") }
+            assertFailure { editorConfigPropertyRegistry.find("some-unknown-property-name") }
+                .isInstanceOf<EditorConfigPropertyNotFoundException>()
         }
     }
 

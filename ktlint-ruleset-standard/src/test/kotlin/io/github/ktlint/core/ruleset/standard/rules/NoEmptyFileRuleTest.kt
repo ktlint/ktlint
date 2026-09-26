@@ -118,7 +118,7 @@ class NoEmptyFileRuleTest {
                 implementation(projects.ktlintLogger)
                 implementation(projects.ktlintRuleEngine)
                 implementation(projects.ktlintCliRulesetCore)
-                api(libs.assertj)
+                api(libs.assertk)
                 api(libs.junit5)
                 api(libs.jimfs)
             }

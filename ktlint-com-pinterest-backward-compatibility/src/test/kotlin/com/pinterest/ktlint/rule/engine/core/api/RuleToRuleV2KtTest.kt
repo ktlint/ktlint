@@ -2,14 +2,19 @@
 
 package com.pinterest.ktlint.rule.engine.core.api
 
+import assertk.assertFailure
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import assertk.assertions.isInstanceOf
+import assertk.assertions.isSameInstanceAs
+import assertk.assertions.isTrue
+import assertk.assertions.messageContains
 import com.pinterest.ktlint.rule.engine.core.api.AutocorrectDecision.ALLOW_AUTOCORRECT
 import com.pinterest.ktlint.rule.engine.core.api.AutocorrectDecision.NO_AUTOCORRECT
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfig
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfigProperty
 import io.github.ktlint.core.rule.engine.core.api.KtlintKotlinCompiler
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.ec4j.core.model.PropertyType
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.Nested
@@ -33,9 +38,9 @@ class RuleToRuleV2KtTest {
                 about = About(),
             ) {}
 
-        assertThatThrownBy { rule.toRuleV2() }
-            .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("RuleAutocorrectApproveHandler")
+        assertFailure { rule.toRuleV2() }
+            .isInstanceOf<IllegalArgumentException>()
+            .messageContains("RuleAutocorrectApproveHandler")
     }
 
     @Nested
@@ -83,7 +88,7 @@ class RuleToRuleV2KtTest {
 
             ruleV2.beforeFirstNode(EditorConfigKtlint2x())
 
-            assertThat(delegated).isTrue
+            assertThat(delegated).isTrue()
         }
 
         @Test
@@ -93,7 +98,7 @@ class RuleToRuleV2KtTest {
 
             ruleV2.afterLastNode()
 
-            assertThat(delegated).isTrue
+            assertThat(delegated).isTrue()
         }
 
         @Test
@@ -135,7 +140,7 @@ class RuleToRuleV2KtTest {
                         .usesEditorConfigProperties
                         .single()
 
-                assertThat(mapped.type).isSameAs(codeStylePropertyKtlint2x.type)
+                assertThat(mapped.type).isSameInstanceAs(codeStylePropertyKtlint2x.type)
             }
 
             @Test
@@ -211,7 +216,7 @@ class RuleToRuleV2KtTest {
                         .usesEditorConfigProperties
                         .single()
 
-                assertThat(mapped.type).isSameAs(RuleExecutionPropertyTypeKtlint2x)
+                assertThat(mapped.type).isSameInstanceAs(RuleExecutionPropertyTypeKtlint2x)
             }
 
             @Test
@@ -256,7 +261,7 @@ class RuleToRuleV2KtTest {
 
             ruleV2.afterVisitChildNodes(fakeNode()) { _, _, _ -> AutocorrectDecisionKtlint2.NO_AUTOCORRECT }
 
-            assertThat(delegated).isTrue
+            assertThat(delegated).isTrue()
         }
     }
 

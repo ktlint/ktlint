@@ -1,12 +1,14 @@
 package io.github.ktlint.core.rule.engine.api
 
+import assertk.assertThat
+import assertk.assertions.contains
+import assertk.assertions.isEmpty
 import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import io.github.ktlint.core.rule.engine.core.api.RuleV2Provider
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleExecutionEditorConfigProperty
-import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

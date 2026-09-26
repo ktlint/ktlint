@@ -1,5 +1,9 @@
 package io.github.ktlint.core.rule.engine.api
 
+import assertk.assertAll
+import assertk.assertThat
+import assertk.assertions.containsExactly
+import assertk.assertions.isEqualTo
 import io.github.ktlint.core.rule.engine.api.AutoCorrectErrorRule.Companion.AUTOCORRECT_ERROR_RULE_ID
 import io.github.ktlint.core.rule.engine.api.AutoCorrectErrorRule.Companion.ERROR_MESSAGE_CAN_BE_AUTOCORRECTED
 import io.github.ktlint.core.rule.engine.api.AutoCorrectErrorRule.Companion.ERROR_MESSAGE_CAN_NOT_BE_AUTOCORRECTED
@@ -28,7 +32,6 @@ import io.github.ktlint.core.rule.engine.core.api.ifAutocorrectAllowed
 import io.github.ktlint.core.rule.engine.core.api.isRoot
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.rules.IndentationRule
-import org.assertj.core.api.Assertions.assertThat
 import org.ec4j.core.model.PropertyType
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
@@ -163,25 +166,27 @@ class KtLintTest {
                             AutocorrectDecision.NO_AUTOCORRECT
                         }
                     }
-                assertThat(actualFormattedCode).isEqualTo(formattedCode)
-                assertThat(callbacks).containsExactly(
-                    CallbackResult(
-                        line = 1,
-                        col = 12,
-                        ruleId = AUTOCORRECT_ERROR_RULE_ID,
-                        detail = ERROR_MESSAGE_CAN_NOT_BE_AUTOCORRECTED,
-                        canBeAutoCorrected = false,
-                        corrected = false,
-                    ),
-                    CallbackResult(
-                        line = 2,
-                        col = 12,
-                        ruleId = AUTOCORRECT_ERROR_RULE_ID,
-                        detail = ERROR_MESSAGE_CAN_BE_AUTOCORRECTED,
-                        canBeAutoCorrected = true,
-                        corrected = true,
-                    ),
-                )
+                assertAll {
+                    assertThat(actualFormattedCode).isEqualTo(formattedCode)
+                    assertThat(callbacks.toList()).containsExactly(
+                        CallbackResult(
+                            line = 1,
+                            col = 12,
+                            ruleId = AUTOCORRECT_ERROR_RULE_ID,
+                            detail = ERROR_MESSAGE_CAN_NOT_BE_AUTOCORRECTED,
+                            canBeAutoCorrected = false,
+                            corrected = false,
+                        ),
+                        CallbackResult(
+                            line = 2,
+                            col = 12,
+                            ruleId = AUTOCORRECT_ERROR_RULE_ID,
+                            detail = ERROR_MESSAGE_CAN_BE_AUTOCORRECTED,
+                            canBeAutoCorrected = true,
+                            corrected = true,
+                        ),
+                    )
+                }
             }
         }
     }
@@ -335,8 +340,7 @@ class KtLintTest {
                     ),
             ).format(Code.fromSnippet(code)) { _ -> AutocorrectDecision.ALLOW_AUTOCORRECT }
 
-            assertThat(ruleExecutionCalls)
-                .filteredOn { it.elementType == null || it.classIdentifier != null }
+            assertThat(ruleExecutionCalls.filter { it.elementType == null || it.classIdentifier != null })
                 .containsExactly(
                     RuleExecutionCall(SimpleTestRule.RULE_ID_STOP_TRAVERSAL, BEFORE_FIRST),
                     RuleExecutionCall(SimpleTestRule.RULE_ID_STOP_TRAVERSAL, BEFORE_CHILDREN, CHILD, CLASS, "FooBar"),
@@ -376,8 +380,7 @@ class KtLintTest {
                     ),
             ).format(Code.fromSnippet(code)) { _ -> AutocorrectDecision.ALLOW_AUTOCORRECT }
 
-            assertThat(ruleExecutionCalls)
-                .filteredOn { it.elementType == null || it.classIdentifier != null }
+            assertThat(ruleExecutionCalls.filter { it.elementType == null || it.classIdentifier != null })
                 .containsExactly(
                     RuleExecutionCall(SimpleTestRule.RULE_ID_STOP_TRAVERSAL, BEFORE_FIRST),
                     RuleExecutionCall(SimpleTestRule.RULE_ID_STOP_TRAVERSAL, BEFORE_CHILDREN, CHILD, CLASS, "FooBar"),

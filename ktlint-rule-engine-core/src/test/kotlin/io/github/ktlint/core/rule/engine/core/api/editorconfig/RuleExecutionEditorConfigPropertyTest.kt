@@ -1,6 +1,7 @@
 package io.github.ktlint.core.rule.engine.core.api.editorconfig
 
-import org.assertj.core.api.Assertions.assertThat
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 

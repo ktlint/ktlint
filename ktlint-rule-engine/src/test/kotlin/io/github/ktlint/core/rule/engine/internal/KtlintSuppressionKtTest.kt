@@ -1,11 +1,12 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import io.github.ktlint.core.rule.engine.core.api.RuleV2Provider
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 

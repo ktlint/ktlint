@@ -1,5 +1,11 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import assertk.all
+import assertk.assertFailure
+import assertk.assertions.cause
+import assertk.assertions.hasMessage
+import assertk.assertions.isInstanceOf
+import assertk.assertions.isNotNull
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
 import io.github.ktlint.core.rule.engine.api.KtLintRuleException
@@ -8,7 +14,6 @@ import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import io.github.ktlint.core.rule.engine.core.api.RuleV2Provider
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.Test
 
 class RuleExecutionContextTest {
@@ -34,18 +39,19 @@ class RuleExecutionContextTest {
                         },
                     ),
             )
-        assertThatExceptionOfType(KtLintRuleException::class.java)
-            .isThrownBy { ktLintRuleEngine.format(SOME_CODE_SNIPPET) { ALLOW_AUTOCORRECT } }
-            .withMessage(
-                """
-                Rule '${SOME_RULE_ID.value}' throws exception in file '<stdin>' at position (0:0)
-                   Rule maintainer: $SOME_MAINTAINER
-                   Issue tracker  : $SOME_ISSUE_TRACKER_URL
-                   Repository     : $SOME_REPOSITORY_URL
-                """.trimIndent(),
-            ).withCauseExactlyInstanceOf(IllegalArgumentException::class.java)
-            .havingCause()
-            .withMessage(SOME_EXCEPTION_MESSAGE)
+        assertFailure { ktLintRuleEngine.format(SOME_CODE_SNIPPET) { ALLOW_AUTOCORRECT } }
+            .isInstanceOf<KtLintRuleException>()
+            .all {
+                hasMessage(
+                    """
+                    Rule '${SOME_RULE_ID.value}' throws exception in file '<stdin>' at position (0:0)
+                       Rule maintainer: $SOME_MAINTAINER
+                       Issue tracker  : $SOME_ISSUE_TRACKER_URL
+                       Repository     : $SOME_REPOSITORY_URL
+                    """.trimIndent(),
+                )
+                cause().isNotNull().isInstanceOf<IllegalArgumentException>().hasMessage(SOME_EXCEPTION_MESSAGE)
+            }
     }
 
     @Test
@@ -69,18 +75,19 @@ class RuleExecutionContextTest {
                         },
                     ),
             )
-        assertThatExceptionOfType(KtLintRuleException::class.java)
-            .isThrownBy { ktLintRuleEngine.format(SOME_CODE_SNIPPET) { ALLOW_AUTOCORRECT } }
-            .withMessage(
-                """
-                Rule '${SOME_RULE_ID.value}' throws exception in file '<stdin>' at position (0:0)
-                   Rule maintainer: $SOME_MAINTAINER
-                   Issue tracker  : $SOME_ISSUE_TRACKER_URL
-                   Repository     : $SOME_REPOSITORY_URL
-                """.trimIndent(),
-            ).withCauseExactlyInstanceOf(IllegalArgumentException::class.java)
-            .havingCause()
-            .withMessage(SOME_EXCEPTION_MESSAGE)
+        assertFailure { ktLintRuleEngine.format(SOME_CODE_SNIPPET) { ALLOW_AUTOCORRECT } }
+            .isInstanceOf<KtLintRuleException>()
+            .all {
+                hasMessage(
+                    """
+                    Rule '${SOME_RULE_ID.value}' throws exception in file '<stdin>' at position (0:0)
+                       Rule maintainer: $SOME_MAINTAINER
+                       Issue tracker  : $SOME_ISSUE_TRACKER_URL
+                       Repository     : $SOME_REPOSITORY_URL
+                    """.trimIndent(),
+                )
+                cause().isNotNull().isInstanceOf<IllegalArgumentException>().hasMessage(SOME_EXCEPTION_MESSAGE)
+            }
     }
 
     private companion object {

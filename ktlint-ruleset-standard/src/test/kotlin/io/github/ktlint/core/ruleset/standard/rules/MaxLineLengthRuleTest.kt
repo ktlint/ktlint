@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
@@ -15,7 +17,6 @@ import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
 import io.github.ktlint.core.test.MULTILINE_STRING_QUOTE
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 

@@ -1,7 +1,10 @@
 package io.github.ktlint.core.cli.reporter.plain
 
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import assertk.assertFailure
+import assertk.assertThat
+import assertk.assertions.hasMessage
+import assertk.assertions.isInstanceOf
+import assertk.assertions.isNotNull
 import org.junit.jupiter.api.Test
 import java.io.PrintStream
 import java.lang.System.out
@@ -15,42 +18,42 @@ class PlainReporterProviderTest {
                 opt = mapOf("color_name" to "RED"),
             )
 
-        assertThat(plainReporter).isNotNull
+        assertThat(plainReporter).isNotNull()
     }
 
     @Test
     fun `Given that the color_name attribute name is not provided then throw an IllegalArgumentException`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy {
-                PlainReporterProvider()
-                    .get(
-                        out = PrintStream(out, true),
-                        opt = mapOf(),
-                    )
-            }.withMessage("Invalid color parameter.")
+        assertFailure {
+            PlainReporterProvider()
+                .get(
+                    out = PrintStream(out, true),
+                    opt = mapOf(),
+                )
+        }.isInstanceOf<IllegalArgumentException>()
+            .hasMessage("Invalid color parameter.")
     }
 
     @Test
     fun `Given that the color_name attribute name is empty then throw an IllegalArgumentException`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy {
-                PlainReporterProvider()
-                    .get(
-                        out = PrintStream(out, true),
-                        opt = mapOf("color_name" to ""),
-                    )
-            }.withMessage("Invalid color parameter.")
+        assertFailure {
+            PlainReporterProvider()
+                .get(
+                    out = PrintStream(out, true),
+                    opt = mapOf("color_name" to ""),
+                )
+        }.isInstanceOf<IllegalArgumentException>()
+            .hasMessage("Invalid color parameter.")
     }
 
     @Test
     fun `Given that an invalid color name is provided then the plain reporter provider throws an IllegalArgumentException`() {
-        assertThatExceptionOfType(IllegalArgumentException::class.java)
-            .isThrownBy {
-                PlainReporterProvider()
-                    .get(
-                        out = PrintStream(out, true),
-                        opt = mapOf("color_name" to "GARBAGE_INPUT"),
-                    )
-            }.withMessage("Invalid color parameter.")
+        assertFailure {
+            PlainReporterProvider()
+                .get(
+                    out = PrintStream(out, true),
+                    opt = mapOf("color_name" to "GARBAGE_INPUT"),
+                )
+        }.isInstanceOf<IllegalArgumentException>()
+            .hasMessage("Invalid color parameter.")
     }
 }

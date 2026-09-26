@@ -1,5 +1,15 @@
 package io.github.ktlint.core.cli.reporter.baseline
 
+import assertk.all
+import assertk.assertFailure
+import assertk.assertThat
+import assertk.assertions.cause
+import assertk.assertions.contains
+import assertk.assertions.hasMessage
+import assertk.assertions.isEqualTo
+import assertk.assertions.isEqualToWithGivenProperties
+import assertk.assertions.isInstanceOf
+import assertk.assertions.isNotNull
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
 import io.github.ktlint.core.cli.reporter.core.api.KtlintCliError
@@ -10,8 +20,6 @@ import io.github.oshai.kotlinlogging.DelegatingKLogger
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import nl.altindag.log.LogCaptor
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -68,22 +76,26 @@ class BaselineTest {
 
             val actual = loadBaseline(path)
 
+            val expected =
+                Baseline(
+                    path = path,
+                    status = Baseline.Status.VALID,
+                    lintErrorsPerFile =
+                        mapOf(
+                            "src/main/kotlin/Foo.kt" to
+                                listOf(
+                                    KtlintCliError(1, 1, "standard:max-line-length", "", BASELINE_IGNORED),
+                                    KtlintCliError(2, 1, "standard:max-line-length", "", BASELINE_IGNORED),
+                                    KtlintCliError(4, 9, "standard:property-naming", "", BASELINE_IGNORED),
+                                ),
+                        ),
+                )
             assertThat(actual)
-                .usingRecursiveComparison()
-                .isEqualTo(
-                    Baseline(
-                        path = path,
-                        status = Baseline.Status.VALID,
-                        lintErrorsPerFile =
-                            mapOf(
-                                "src/main/kotlin/Foo.kt" to
-                                    listOf(
-                                        KtlintCliError(1, 1, "standard:max-line-length", "", BASELINE_IGNORED),
-                                        KtlintCliError(2, 1, "standard:max-line-length", "", BASELINE_IGNORED),
-                                        KtlintCliError(4, 9, "standard:property-naming", "", BASELINE_IGNORED),
-                                    ),
-                            ),
-                    ),
+                .isEqualToWithGivenProperties(
+                    expected,
+                    Baseline::path,
+                    Baseline::status,
+                    Baseline::lintErrorsPerFile,
                 )
         }
 
@@ -98,22 +110,26 @@ class BaselineTest {
 
             val actual = loadBaseline(path, baselineErrorHandling)
 
+            val expected =
+                Baseline(
+                    path = path,
+                    status = Baseline.Status.VALID,
+                    lintErrorsPerFile =
+                        mapOf(
+                            "src/main/kotlin/Foo.kt" to
+                                listOf(
+                                    KtlintCliError(1, 1, "standard:max-line-length", "", BASELINE_IGNORED),
+                                    KtlintCliError(2, 1, "standard:max-line-length", "", BASELINE_IGNORED),
+                                    KtlintCliError(4, 9, "standard:property-naming", "", BASELINE_IGNORED),
+                                ),
+                        ),
+                )
             assertThat(actual)
-                .usingRecursiveComparison()
-                .isEqualTo(
-                    Baseline(
-                        path = path,
-                        status = Baseline.Status.VALID,
-                        lintErrorsPerFile =
-                            mapOf(
-                                "src/main/kotlin/Foo.kt" to
-                                    listOf(
-                                        KtlintCliError(1, 1, "standard:max-line-length", "", BASELINE_IGNORED),
-                                        KtlintCliError(2, 1, "standard:max-line-length", "", BASELINE_IGNORED),
-                                        KtlintCliError(4, 9, "standard:property-naming", "", BASELINE_IGNORED),
-                                    ),
-                            ),
-                    ),
+                .isEqualToWithGivenProperties(
+                    expected,
+                    Baseline::path,
+                    Baseline::status,
+                    Baseline::lintErrorsPerFile,
                 )
         }
     }
@@ -127,12 +143,15 @@ class BaselineTest {
         ) {
             val path = "baseline-invalid.xml".copyResourceToFileIn(tempDir)
 
-            assertThatExceptionOfType(BaselineLoaderException::class.java)
-                .isThrownBy { loadBaseline(path, BaselineErrorHandling.EXCEPTION) }
-                .withMessage("Unable to parse baseline file: $path")
-                .withCauseInstanceOf(SAXParseException::class.java)
-                .havingCause()
-                .withMessage("The element type \"file\" must be terminated by the matching end-tag \"</file>\".")
+            assertFailure { loadBaseline(path, BaselineErrorHandling.EXCEPTION) }
+                .isInstanceOf<BaselineLoaderException>()
+                .all {
+                    hasMessage("Unable to parse baseline file: $path")
+                    cause()
+                        .isNotNull()
+                        .isInstanceOf<SAXParseException>()
+                        .hasMessage("The element type \"file\" must be terminated by the matching end-tag \"</file>\".")
+                }
         }
 
         @Test

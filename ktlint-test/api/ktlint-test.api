@@ -1,3 +1,8 @@
+public final class io/github/ktlint/core/test/AssertKKt {
+	public static final fun assertDoesNotThrow (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
+	public static final fun assertDoesNotThrow (Lkotlin/jvm/functions/Function0;)V
+}
+
 public final class io/github/ktlint/core/test/KtLintAssertThat {
 	public static final field Companion Lio/github/ktlint/core/test/KtLintAssertThat$Companion;
 	public static final field EOL_CHAR C
@@ -30,7 +35,7 @@ public final class io/github/ktlint/core/test/KtLintAssertThat$Companion {
 	public final fun assertThatRuleBuilder (Lkotlin/jvm/functions/Function0;)Lio/github/ktlint/core/test/KtLintAssertThat;
 }
 
-public final class io/github/ktlint/core/test/KtLintAssertThatAssertable : org/assertj/core/api/AbstractAssert {
+public final class io/github/ktlint/core/test/KtLintAssertThatAssertable {
 	public fun <init> (Lio/github/ktlint/core/rule/engine/core/api/RuleV2Provider;Lio/github/ktlint/core/rule/engine/api/Code;Lio/github/ktlint/core/rule/engine/api/EditorConfigOverride;Ljava/util/Set;)V
 	public synthetic fun <init> (Lio/github/ktlint/core/rule/engine/core/api/RuleV2Provider;Lio/github/ktlint/core/rule/engine/api/Code;Lio/github/ktlint/core/rule/engine/api/EditorConfigOverride;Ljava/util/Set;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun hasLintViolation (IILjava/lang/String;)Lio/github/ktlint/core/test/KtLintAssertThatAssertable;

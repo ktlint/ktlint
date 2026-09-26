@@ -1,6 +1,7 @@
 package io.github.ktlint.core.cli
 
-import org.assertj.core.api.SoftAssertions
+import assertk.assertAll
+import assertk.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import org.junit.jupiter.params.ParameterizedTest
@@ -18,17 +19,16 @@ class EditorConfigDefaultsLoaderCLITest {
                 testProjectName = "editorconfig-path",
                 arguments = listOf("**/*.test"),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertErrorExitCode()
-                        assertThat(normalOutput)
-                            .containsLineMatching(Regex(".*Foo.*Exceeded max line length \\(30\\).*"))
-                            .containsLineMatching(Regex(".*Wildcard2.*Wildcard import.*"))
-                            // The Bar files are not matched by any glob
-                            .doesNotContainLineMatching(Regex(".*Bar.*Exceeded max line length"))
-                            // The filename rule is disabled for the examples-directory only
-                            .doesNotContainLineMatching(Regex(".*Wildcard1.*Wildcard import.*"))
-                    }.assertAll()
+                assertAll {
+                    assertErrorExitCode()
+                    assertThat(normalOutput)
+                        .containsLineMatching(Regex(".*Foo.*Exceeded max line length \\(30\\).*"))
+                        .containsLineMatching(Regex(".*Wildcard2.*Wildcard import.*"))
+                        // The Bar files are not matched by any glob
+                        .doesNotContainLineMatching(Regex(".*Bar.*Exceeded max line length"))
+                        // The filename rule is disabled for the examples-directory only
+                        .doesNotContainLineMatching(Regex(".*Wildcard1.*Wildcard import.*"))
+                }
             }
     }
 
@@ -55,16 +55,15 @@ class EditorConfigDefaultsLoaderCLITest {
                         "--editorconfig=$tempDir/editorconfig-path/project/$editorconfigPath",
                     ),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertErrorExitCode()
-                        assertThat(normalOutput)
-                            .containsLineMatching(Regex(".*FooTest.*Exceeded max line length \\(30\\).*"))
-                            .containsLineMatching(Regex(".*Foo.*Exceeded max line length \\(30\\).*"))
-                            // Only the Bar-files fall back on the default editorconfig!
-                            .containsLineMatching(Regex(".*BarTest.*Exceeded max line length \\(20\\).*"))
-                            .containsLineMatching(Regex(".*Bar.*Exceeded max line length \\(20\\).*"))
-                    }.assertAll()
+                assertAll {
+                    assertErrorExitCode()
+                    assertThat(normalOutput)
+                        .containsLineMatching(Regex(".*FooTest.*Exceeded max line length \\(30\\).*"))
+                        .containsLineMatching(Regex(".*Foo.*Exceeded max line length \\(30\\).*"))
+                        // Only the Bar-files fall back on the default editorconfig!
+                        .containsLineMatching(Regex(".*BarTest.*Exceeded max line length \\(20\\).*"))
+                        .containsLineMatching(Regex(".*Bar.*Exceeded max line length \\(20\\).*"))
+                }
             }
     }
 
@@ -82,15 +81,14 @@ class EditorConfigDefaultsLoaderCLITest {
                         "--editorconfig=$tempDir/editorconfig-path/project/.editorconfig-default-max-line-length-on-tests-only",
                     ),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertErrorExitCode()
-                        assertThat(normalOutput)
-                            .containsLineMatching(Regex(".*FooTest.*Exceeded max line length \\(30\\).*"))
-                            .containsLineMatching(Regex(".*Foo.*Exceeded max line length \\(30\\).*"))
-                            // Only the BarTest-file falls back on the default editorconfig!
-                            .containsLineMatching(Regex(".*BarTest.*Exceeded max line length \\(25\\).*"))
-                    }.assertAll()
+                assertAll {
+                    assertErrorExitCode()
+                    assertThat(normalOutput)
+                        .containsLineMatching(Regex(".*FooTest.*Exceeded max line length \\(30\\).*"))
+                        .containsLineMatching(Regex(".*Foo.*Exceeded max line length \\(30\\).*"))
+                        // Only the BarTest-file falls back on the default editorconfig!
+                        .containsLineMatching(Regex(".*BarTest.*Exceeded max line length \\(25\\).*"))
+                }
             }
     }
 
@@ -108,13 +106,12 @@ class EditorConfigDefaultsLoaderCLITest {
                         "--editorconfig=$tempDir/editorconfig-path/project/.editorconfig-disable-no-wildcard-imports-rule",
                     ),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertErrorExitCode()
-                        assertThat(normalOutput)
-                            .doesNotContainLineMatching(Regex(".*Wildcard1.*Wildcard import.*"))
-                            .doesNotContainLineMatching(Regex(".*Wildcard2.*Wildcard import.*"))
-                    }.assertAll()
+                assertAll {
+                    assertErrorExitCode()
+                    assertThat(normalOutput)
+                        .doesNotContainLineMatching(Regex(".*Wildcard1.*Wildcard import.*"))
+                        .doesNotContainLineMatching(Regex(".*Wildcard2.*Wildcard import.*"))
+                }
             }
     }
 
@@ -132,13 +129,12 @@ class EditorConfigDefaultsLoaderCLITest {
                         "--editorconfig=$tempDir/editorconfig-path/project/editorconfig-boolean-setting",
                     ),
             ) {
-                SoftAssertions()
-                    .apply {
-                        assertErrorExitCode()
-                        assertThat(errorOutput).doesNotContainLineMatching(
-                            Regex(".*java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Boolean.*"),
-                        )
-                    }.assertAll()
+                assertAll {
+                    assertErrorExitCode()
+                    assertThat(errorOutput).doesNotContainLineMatching(
+                        Regex(".*java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Boolean.*"),
+                    )
+                }
             }
     }
 }
