@@ -718,7 +718,6 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoUnitReturnRule
 public final class io/github/ktlint/core/ruleset/standard/rules/NoUnusedImportsRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/IgnoreKtlintSuppressions, io/github/ktlint/core/rule/engine/core/api/RuleV2$OnlyWhenEnabledInEditorconfig {
 	public fun <init> ()V
 	public fun afterVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoUnusedImportsRuleKt {

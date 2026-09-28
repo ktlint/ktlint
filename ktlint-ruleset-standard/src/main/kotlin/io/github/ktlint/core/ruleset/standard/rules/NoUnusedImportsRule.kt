@@ -15,9 +15,9 @@ import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2.OnlyWhenEnabledInEditorconfig
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
+import io.github.ktlint.core.rule.engine.core.api.children
 import io.github.ktlint.core.rule.engine.core.api.ifAutocorrectAllowed
 import io.github.ktlint.core.rule.engine.core.api.isPartOf
-import io.github.ktlint.core.rule.engine.core.api.isRoot
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.lastChildLeafOrSelf
 import io.github.ktlint.core.rule.engine.core.api.nextLeaf
@@ -54,16 +54,37 @@ public class NoUnusedImportsRule :
     private val parentExpressions = mutableSetOf<String>()
     private val imports = mutableMapOf<ImportPath, ASTNode>()
     private var packageName = ""
-    private var rootNode: ASTNode? = null
     private var foundByKeyword = false
 
-    override fun beforeVisitChildNodes(
+    // `ktImportDirective.delete()` with Kotlin 2.4.0 results in exception below (`KtElementStub` is a superclass of `KtImportDirective`)
+    //    Caused by: java.lang.IllegalStateException: Cannot mutate Kotlin PSI because KtPsiMutationService is missing
+    // 	      at org.jetbrains.kotlin.psi.KtPsiMutationService$Companion.getInstance(KtPsiMutationService.kt:365)
+    // 	      at org.jetbrains.kotlin.psi.KtPsiMutationService.getInstance(KtPsiMutationService.kt)
+    // 	      at org.jetbrains.kotlin.psi.KtElementImplStub.delete(KtElementImplStub.java:99)
+    @OptIn(KtNonPublicApi::class)
+    private fun ASTNode.deleteImportDirective() {
+        psi.safeAs<KtImportDirective>()?.rawDelete()
+    }
+
+    override fun afterVisitChildNodes(
         node: ASTNode,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision,
     ) {
-        if (node.isRoot) {
-            rootNode = node
+        if (node.elementType == FILE) {
+            // Only after processing the entire file, the unused imports are to be checked. Finding the imports, references and parent
+            // expressions in the beforeVisitChildNodes, and actual checking of unused imports in the afterVisitChildNodes is unreliable
+            // as rules might refactor code that is containing references. The first step is to traverse the entire file to build the list
+            // of imports, references and parent expressions. In the second step the unused imports are identified. Combining both steps
+            // inside the same method, triggered by the FILE node only, ensures consistency between the steps.
+            findImportsAndReferencesAndParentExpressions(node, emit)
+            findUnusedImports(emit)
         }
+    }
+
+    private fun findImportsAndReferencesAndParentExpressions(
+        node: ASTNode,
+        emit: (Int, String, Boolean) -> AutocorrectDecision,
+    ) {
         when (node.elementType) {
             PACKAGE_DIRECTIVE -> {
                 val packageDirective = node.psi as KtPackageDirective
@@ -123,103 +144,87 @@ public class NoUnusedImportsRule :
                 foundByKeyword = true
             }
         }
+        node.children.forEach { child ->
+            findImportsAndReferencesAndParentExpressions(child, emit)
+        }
     }
 
-    // `ktImportDirective.delete()` with Kotlin 2.4.0 results in exception below (`KtElementStub` is a superclass of `KtImportDirective`)
-    //    Caused by: java.lang.IllegalStateException: Cannot mutate Kotlin PSI because KtPsiMutationService is missing
-    // 	      at org.jetbrains.kotlin.psi.KtPsiMutationService$Companion.getInstance(KtPsiMutationService.kt:365)
-    // 	      at org.jetbrains.kotlin.psi.KtPsiMutationService.getInstance(KtPsiMutationService.kt)
-    // 	      at org.jetbrains.kotlin.psi.KtElementImplStub.delete(KtElementImplStub.java:99)
-    @OptIn(KtNonPublicApi::class)
-    private fun ASTNode.deleteImportDirective() {
-        psi.safeAs<KtImportDirective>()?.rawDelete()
-    }
-
-    override fun afterVisitChildNodes(
-        node: ASTNode,
-        emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision,
-    ) {
-        if (node.elementType == FILE) {
-            val directCalls = ref.filter { !it.inDotQualifiedExpression }.map { it.text }
-            parentExpressions.forEach { parent ->
-                imports
-                    .filterKeys { import ->
-                        val importPath = import.pathStr.removeBackticksAndTrim()
-                        importPath.endsWith(".$parent") && directCalls.none { importPath.endsWith(".$it") }
-                    }.forEach { (importPath, importNode) ->
-                        emit(importNode.startOffset, "Unused import", true)
-                            .ifAutocorrectAllowed {
-                                imports.remove(importPath, importNode)
-                                importNode.removeImportDirective()
-                            }
-                    }
-            }
-
-            imports.forEach { (_, node) ->
-                val importDirective = node.psi as KtImportDirective
-                val name =
-                    importDirective
-                        .importPath
-                        ?.importedName
-                        ?.asString()
-                        ?.removeBackticksAndTrim()
-                val importPath = importDirective.importPath?.pathStr?.removeBackticksAndTrim()!!
-                if (importDirective.aliasName == null &&
-                    (packageName.isEmpty() || importPath.startsWith("$packageName.")) &&
-                    importPath.substring(packageName.length + 1).indexOf('.') == -1
-                ) {
-                    // Allow imports without alias for which the fully qualified path is equal to the package name. See
-                    // https://github.com/ktlint/ktlint/issues/2821 for an example in which marking an import from the same package
-                    // led to compile failure.
-                } else if (name != null &&
-                    (!ref.map { it.text }.contains(name) || !isAValidImport(importPath)) &&
-                    !OPERATOR_SET.contains(name) &&
-                    !name.isComponentN() &&
-                    !importPath.ignoreProvideDelegate()
-                ) {
-                    emit(node.startOffset, "Unused import", true)
+    private fun findUnusedImports(emit: (Int, String, Boolean) -> AutocorrectDecision) {
+        val directCalls = ref.filter { !it.inDotQualifiedExpression }.map { it.text }
+        parentExpressions.forEach { parent ->
+            imports
+                .filterKeys { import ->
+                    val importPath = import.pathStr.removeBackticksAndTrim()
+                    importPath.endsWith(".$parent") && directCalls.none { importPath.endsWith(".$it") }
+                }.forEach { (importPath, importNode) ->
+                    emit(importNode.startOffset, "Unused import", true)
                         .ifAutocorrectAllowed {
-                            val nextSibling = node.nextSibling
-                            if (nextSibling == null) {
-                                // Last import
-                                node
-                                    .lastChildLeafOrSelf
-                                    .nextLeaf
-                                    ?.takeIf { it.isWhiteSpaceWithNewline }
-                                    ?.let { whitespace ->
-                                        if (node.prevLeaf == null) {
-                                            // Also it was the first import, and it is not preceded by any other node containing some text. So
-                                            // all whitespace until the next is redundant
-                                            whitespace.remove()
-                                        } else {
-                                            val textAfterFirstNewline =
-                                                whitespace
-                                                    .text
-                                                    .substringAfter("\n")
-                                            if (textAfterFirstNewline.isNotBlank()) {
-                                                whitespace.replaceTextWith(textAfterFirstNewline)
-                                            }
-                                        }
-                                    }
-                            } else {
-                                nextSibling
-                                    .takeIf { it.isWhiteSpaceWithNewline }
-                                    ?.remove()
-                            }
-                            node.deleteImportDirective()
+                            imports.remove(importPath, importNode)
+                            importNode.removeImportDirective()
                         }
                 }
+        }
+
+        imports.forEach { (_, node) ->
+            val importDirective = node.psi as KtImportDirective
+            val name =
+                importDirective
+                    .importPath
+                    ?.importedName
+                    ?.asString()
+                    ?.removeBackticksAndTrim()
+            val importPath = importDirective.importPath?.pathStr?.removeBackticksAndTrim()!!
+            if (importDirective.aliasName == null &&
+                (packageName.isEmpty() || importPath.startsWith("$packageName.")) &&
+                importPath.substring(packageName.length + 1).indexOf('.') == -1
+            ) {
+                // Allow imports without alias for which the fully qualified path is equal to the package name. See
+                // https://github.com/ktlint/ktlint/issues/2821 for an example in which marking an import from the same package
+                // led to compile failure.
+            } else if (name != null &&
+                (!ref.map { it.text }.contains(name) || !isAValidImport(importPath)) &&
+                !OPERATOR_SET.contains(name) &&
+                !name.isComponentN() &&
+                !importPath.ignoreProvideDelegate()
+            ) {
+                emit(node.startOffset, "Unused import", true)
+                    .ifAutocorrectAllowed {
+                        val nextSibling = node.nextSibling
+                        if (nextSibling == null) {
+                            // Last import
+                            node
+                                .lastChildLeafOrSelf
+                                .nextLeaf
+                                ?.takeIf { it.isWhiteSpaceWithNewline }
+                                ?.let { whitespace ->
+                                    if (node.prevLeaf == null) {
+                                        // Also it was the first import, and it is not preceded by any other node containing some text. So
+                                        // all whitespace until the next is redundant
+                                        whitespace.remove()
+                                    } else {
+                                        val textAfterFirstNewline =
+                                            whitespace
+                                                .text
+                                                .substringAfter("\n")
+                                        if (textAfterFirstNewline.isNotBlank()) {
+                                            whitespace.replaceTextWith(textAfterFirstNewline)
+                                        }
+                                    }
+                                }
+                        } else {
+                            nextSibling
+                                .takeIf { it.isWhiteSpaceWithNewline }
+                                ?.remove()
+                        }
+                        node.deleteImportDirective()
+                    }
             }
         }
     }
 
     private fun String.ignoreProvideDelegate() =
-        if (endsWith(".provideDelegate")) {
-            // Ignore provideDelegate if the `by` keyword is found anywhere in the file
-            foundByKeyword
-        } else {
-            false
-        }
+        // Ignore provideDelegate if the `by` keyword is found anywhere in the file
+        endsWith(".provideDelegate") && foundByKeyword
 
     private fun ASTNode.removeImportDirective() {
         require(this.elementType == IMPORT_DIRECTIVE)
