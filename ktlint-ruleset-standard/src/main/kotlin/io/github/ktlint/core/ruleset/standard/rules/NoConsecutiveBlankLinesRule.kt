@@ -25,8 +25,7 @@ public class NoConsecutiveBlankLinesRule : StandardRule("no-consecutive-blank-li
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision,
     ) {
         if (node.isWhiteSpace && node.prevSibling != null) {
-            val text = node.getText()
-            val newLineCount = text.count { it == '\n' }
+            val newLineCount = node.text.count { it == '\n' }
             if (newLineCount < 2) {
                 return
             }
@@ -35,7 +34,7 @@ public class NoConsecutiveBlankLinesRule : StandardRule("no-consecutive-blank-li
             val betweenClassAndPrimaryConstructor = node.isBetweenClassAndPrimaryConstructor()
 
             if (newLineCount > 2 || eof || betweenClassAndPrimaryConstructor) {
-                val split = text.split("\n")
+                val split = node.text.split("\n")
                 val offset =
                     node.startOffset +
                         split[0].length +

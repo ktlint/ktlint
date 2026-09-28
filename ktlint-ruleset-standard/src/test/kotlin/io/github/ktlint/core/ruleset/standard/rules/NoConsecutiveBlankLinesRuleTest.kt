@@ -221,4 +221,14 @@ class NoConsecutiveBlankLinesRuleTest {
             .hasLintViolations(LintViolation(3, 1, "Needless blank line(s)"))
             .isFormattedAs(formattedCode)
     }
+
+    @Test
+    fun `Issue 3396 - Given consecutive blank lines at end of file, should not result in exception thrown in 'indent' rule`() {
+        val code = "class Foo\n\n\n"
+        val formattedCode = "class Foo\n"
+        noConsecutiveBlankLinesRuleAssertThat(code)
+            .addAdditionalRuleProvider { IndentationRule() }
+            .hasLintViolations(LintViolation(3, 1, "Needless blank line(s)"))
+            .isFormattedAs(formattedCode)
+    }
 }

@@ -362,8 +362,11 @@ public fun ASTNode.upsertWhitespaceBeforeMe(text: String) {
  */
 public fun ASTNode.replaceTextWith(text: String) {
     require(this is LeafElement)
-    takeIf { it.text != text }
-        ?.rawReplaceWithText(text)
+    if (this.text != text) {
+        // Since Kotlin 2.4.20 the "rawReplaceWithText" sometimes result in messing up the reference to the previous and next leaf/siblings.
+        rawInsertBeforeMe(PsiWhiteSpaceImpl(text))
+        remove()
+    }
 }
 
 /**

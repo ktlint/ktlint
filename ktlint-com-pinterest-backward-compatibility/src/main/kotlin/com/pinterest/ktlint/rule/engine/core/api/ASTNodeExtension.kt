@@ -12,6 +12,7 @@ import com.pinterest.ktlint.rule.engine.core.api.ElementType.VAR_KEYWORD
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.WHITE_SPACE
 import io.github.ktlint.core.rule.engine.core.api.KtlintKotlinCompiler
 import io.github.ktlint.core.rule.engine.core.api.TokenSets
+import io.github.ktlint.core.rule.engine.core.api.remove
 import org.jetbrains.kotlin.KtNodeType
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
@@ -571,8 +572,11 @@ public fun ASTNode.upsertWhitespaceBeforeMe(text: String) {
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
 public fun ASTNode.replaceTextWith(text: String) {
     require(this is LeafElement)
-    takeIf { it.text != text }
-        ?.rawReplaceWithText(text)
+    if (this.text != text) {
+        // Since Kotlin 2.4.20 the "rawReplaceWithText" sometimes result in messing up the reference to the previous and next leaf/siblings.
+        rawInsertBeforeMe(PsiWhiteSpaceImpl(text))
+        remove()
+    }
 }
 
 /**
