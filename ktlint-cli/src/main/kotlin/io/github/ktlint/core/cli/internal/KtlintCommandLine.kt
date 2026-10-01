@@ -256,7 +256,7 @@ internal class KtlintCommandLine : CliktCommand(name = "ktlint") {
                         "Add editor config override to disable 'filename' rule which can not be used in combination with reading from " +
                             "<stdin>"
                     }
-                    plus(FILENAME_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.disabled)
+                    plus(FILENAME_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.DISABLED)
                 }
 
         val start = System.currentTimeMillis()

@@ -21,7 +21,7 @@ class BlankLineBeforeDeclarationRuleTest {
     // Just for one single test evaluates that the rule is working for `ktlint_official` and `android_studio` code styles, but not for
     // `intellij_idea`. It is assumed that all other tests (do not) work similarly.
     @ParameterizedTest(name = "Code style: {0}")
-    @EnumSource(CodeStyleValue::class, mode = INCLUDE, names = ["ktlint_official", "android_studio"])
+    @EnumSource(CodeStyleValue::class, mode = INCLUDE, names = ["KTLINT_OFFICIAL", "ANDROID_STUDIO"])
     fun `Given some consecutive classes not separated by a blank line then insert a blank line in between`(
         codeStyleValue: CodeStyleValue,
     ) {
@@ -43,7 +43,7 @@ class BlankLineBeforeDeclarationRuleTest {
     }
 
     @ParameterizedTest(name = "Code style: {0}")
-    @EnumSource(CodeStyleValue::class, mode = EXCLUDE, names = ["ktlint_official", "android_studio"])
+    @EnumSource(CodeStyleValue::class, mode = EXCLUDE, names = ["KTLINT_OFFICIAL", "ANDROID_STUDIO"])
     fun `Given some consecutive classes not separated by a blank line then do not insert a blank line in between`(
         codeStyleValue: CodeStyleValue,
     ) {

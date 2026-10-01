@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 class NoUnusedImportsRuleTest {
     private val noUnusedImportsRuleAssertThat =
         assertThatRuleBuilder { NoUnusedImportsRule() }
-            .withEditorConfigOverride(NO_UNUSED_IMPORTS_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled)
+            .withEditorConfigOverride(NO_UNUSED_IMPORTS_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED)
             .assertThat()
 
     @Test

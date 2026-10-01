@@ -47,7 +47,7 @@ internal class EditorConfigGeneratorTest {
         val generatedEditorConfig =
             editorConfigGenerator.generateEditorconfig(
                 rules = rules,
-                codeStyle = CodeStyleValue.intellij_idea,
+                codeStyle = CodeStyleValue.INTELLIJ_IDEA,
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 
@@ -63,7 +63,7 @@ internal class EditorConfigGeneratorTest {
         val generatedEditorConfig =
             editorConfigGenerator.generateEditorconfig(
                 rules = rules,
-                codeStyle = CodeStyleValue.android_studio,
+                codeStyle = CodeStyleValue.ANDROID_STUDIO,
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 
@@ -98,7 +98,7 @@ internal class EditorConfigGeneratorTest {
                             usesEditorConfigProperties = setOf(EDITOR_CONFIG_PROPERTY_1),
                         ) {},
                     ),
-                codeStyle = CodeStyleValue.intellij_idea,
+                codeStyle = CodeStyleValue.INTELLIJ_IDEA,
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 
@@ -126,7 +126,7 @@ internal class EditorConfigGeneratorTest {
         val generatedEditorConfig =
             editorConfigGenerator.generateEditorconfig(
                 rules = rules,
-                codeStyle = CodeStyleValue.intellij_idea,
+                codeStyle = CodeStyleValue.INTELLIJ_IDEA,
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 
@@ -156,7 +156,7 @@ internal class EditorConfigGeneratorTest {
         val generatedEditorConfig =
             editorConfigGenerator.generateEditorconfig(
                 rules = rules,
-                codeStyle = CodeStyleValue.intellij_idea,
+                codeStyle = CodeStyleValue.INTELLIJ_IDEA,
                 filePath = ktlintTestFileSystem.resolve("test.kt"),
             )
 

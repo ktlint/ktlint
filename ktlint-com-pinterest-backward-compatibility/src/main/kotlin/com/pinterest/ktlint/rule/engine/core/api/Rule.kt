@@ -10,9 +10,17 @@ import com.pinterest.ktlint.rule.engine.core.internal.IdNamingPolicy
 import dev.drewhamilton.poko.Poko
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision as AutocorrectDecisionKtlint2
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig as EditorConfigKtlint2
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigProperty as EditorConfigPropertyKtlint2
+import com.pinterest.ktlint.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY_TYPE as CODE_STYLE_PROPERTY_TYPE_COM_PINTEREST_KTLINT
+import com.pinterest.ktlint.rule.engine.core.api.editorconfig.CodeStyleValue as CodeStyleValueComPinterestKtlint
+import com.pinterest.ktlint.rule.engine.core.api.editorconfig.RULE_EXECUTION_PROPERTY_TYPE as RULE_EXECUTION_PROPERTY_TYPE_COM_PINTEREST_KTLINT
+import com.pinterest.ktlint.rule.engine.core.api.editorconfig.RuleExecution as RuleExecutionComPinterestKtlint
+import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision as AutocorrectDecisionIoGithubKtlint
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY_TYPE as CODE_STYLE_PROPERTY_TYPE_IO_GITHUB_KTLINT
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue as CodeStyleValueIoGithubKtlint
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig as EditorConfigIoGithubKtlint
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigProperty as EditorConfigPropertyIoGithubKtlint
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.RULE_EXECUTION_PROPERTY_TYPE as RULE_EXECUTION_PROPERTY_TYPE_IO_GITHUB_KTLINT
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution as RuleExecutionIoGithubKtlint
 
 @Poko
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
@@ -308,15 +316,15 @@ public fun Rule.toRuleV2(): RuleV2 =
                             repositoryUrl = rule.about.repositoryUrl,
                             issueTrackerUrl = rule.about.issueTrackerUrl,
                         ),
-                    usesEditorConfigProperties = rule.usesEditorConfigProperties.mapToIoGithubKtlintCoreEditorConfigProperties(),
+                    usesEditorConfigProperties = rule.usesEditorConfigProperties.mapToEditorConfigPropertiesIoGithubKtlint(),
                 ) {
-                override fun beforeFirstNode(editorConfig: EditorConfigKtlint2) {
-                    rule.beforeFirstNode(editorConfig.mapToEditorConfigKtlint1())
+                override fun beforeFirstNode(editorConfig: EditorConfigIoGithubKtlint) {
+                    rule.beforeFirstNode(editorConfig.mapToEditorConfigComPinterestKtlint())
                 }
 
                 override fun beforeVisitChildNodes(
                     node: ASTNode,
-                    emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecisionKtlint2,
+                    emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecisionIoGithubKtlint,
                 ) {
                     // Call the legacy version which previously was provided via RuleAutocorrectApproveHandler. Note that the
                     // AutocorrectDecision has to be transformed
@@ -327,18 +335,18 @@ public fun Rule.toRuleV2(): RuleV2 =
                 }
 
                 private fun emitAndTransformAutoCorrectDecision(
-                    emit: (Int, String, Boolean) -> AutocorrectDecisionKtlint2,
+                    emit: (Int, String, Boolean) -> AutocorrectDecisionIoGithubKtlint,
                 ): (Int, String, Boolean) -> AutocorrectDecision =
                     { offset: Int, errorMessage: String, canBeAutoCorrected: Boolean ->
                         when (emit(offset, errorMessage, canBeAutoCorrected)) {
-                            AutocorrectDecisionKtlint2.NO_AUTOCORRECT -> NO_AUTOCORRECT
-                            AutocorrectDecisionKtlint2.ALLOW_AUTOCORRECT -> ALLOW_AUTOCORRECT
+                            AutocorrectDecisionIoGithubKtlint.NO_AUTOCORRECT -> NO_AUTOCORRECT
+                            AutocorrectDecisionIoGithubKtlint.ALLOW_AUTOCORRECT -> ALLOW_AUTOCORRECT
                         }
                     }
 
                 override fun afterVisitChildNodes(
                     node: ASTNode,
-                    emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecisionKtlint2,
+                    emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecisionIoGithubKtlint,
                 ) {
                     (rule as RuleAutocorrectApproveHandler).afterVisitChildNodes(node, emitAndTransformAutoCorrectDecision(emit))
                 }
@@ -349,19 +357,17 @@ public fun Rule.toRuleV2(): RuleV2 =
             }
         }
 
-private fun EditorConfigKtlint2.mapToEditorConfigKtlint1(): EditorConfig = EditorConfig(*map { it }.toTypedArray())
+private fun EditorConfigIoGithubKtlint.mapToEditorConfigComPinterestKtlint(): EditorConfig = EditorConfig(*map { it }.toTypedArray())
 
 @Suppress("UNCHECKED_CAST")
-private fun Set<EditorConfigProperty<*>>.mapToIoGithubKtlintCoreEditorConfigProperties(): Set<EditorConfigPropertyKtlint2<*>> =
-    map { (it as EditorConfigProperty<Any?>).toIoGithubKtlintCoreEditorConfigProperty() }.toSet()
+private fun Set<EditorConfigProperty<*>>.mapToEditorConfigPropertiesIoGithubKtlint(): Set<EditorConfigPropertyIoGithubKtlint<*>> =
+    map { (it as EditorConfigProperty<Any?>).toEditorConfigPropertyIoGithubKtlint() }.toSet()
 
 // Maps PropertyType instances from the com.pinterest package to their io.github.ktlint.core equivalents.
 private val PROPERTY_TYPE_REGISTRY: Map<org.ec4j.core.model.PropertyType<*>, org.ec4j.core.model.PropertyType<*>> =
     mapOf(
-        com.pinterest.ktlint.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY_TYPE to
-            io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY_TYPE,
-        com.pinterest.ktlint.rule.engine.core.api.editorconfig.RULE_EXECUTION_PROPERTY_TYPE to
-            io.github.ktlint.core.rule.engine.core.api.editorconfig.RULE_EXECUTION_PROPERTY_TYPE,
+        CODE_STYLE_PROPERTY_TYPE_COM_PINTEREST_KTLINT to CODE_STYLE_PROPERTY_TYPE_IO_GITHUB_KTLINT,
+        RULE_EXECUTION_PROPERTY_TYPE_COM_PINTEREST_KTLINT to RULE_EXECUTION_PROPERTY_TYPE_IO_GITHUB_KTLINT,
     )
 
 @Suppress("UNCHECKED_CAST")
@@ -372,32 +378,19 @@ private fun <T> org.ec4j.core.model.PropertyType<T>.toNewPackage(): org.ec4j.cor
 // other values unchanged.
 private fun Any?.mapValueToNewPackage(): Any? =
     when (this) {
-        is com.pinterest.ktlint.rule.engine.core.api.editorconfig.CodeStyleValue -> {
-            io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
-                .valueOf(name)
-        }
-
-        is com.pinterest.ktlint.rule.engine.core.api.editorconfig.RuleExecution -> {
-            io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution
-                .valueOf(name)
-        }
-
-        else -> {
-            this
-        }
+        is CodeStyleValueComPinterestKtlint -> CodeStyleValueIoGithubKtlint.valueOf(name.uppercase())
+        is RuleExecutionComPinterestKtlint -> RuleExecutionIoGithubKtlint.valueOf(name.uppercase())
+        else -> this
     }
 
 // Wraps the com.pinterest propertyMapper so that the io.github CodeStyleValue parameter is converted to the
 // com.pinterest equivalent before invoking the original mapper, and the return value is mapped back to the
 // io.github package when applicable.
 @Suppress("UNCHECKED_CAST")
-private fun <T> EditorConfigProperty<T>.wrapPropertyMapper():
-    ((org.ec4j.core.model.Property?, io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue) -> T?)? =
+private fun <T> EditorConfigProperty<T>.wrapPropertyMapper(): ((org.ec4j.core.model.Property?, CodeStyleValueIoGithubKtlint) -> T?)? =
     propertyMapper?.let { oldMapper ->
         { property, newCodeStyle ->
-            val oldCodeStyle =
-                com.pinterest.ktlint.rule.engine.core.api.editorconfig.CodeStyleValue
-                    .valueOf(newCodeStyle.name)
+            val oldCodeStyle = CodeStyleValueComPinterestKtlint.valueOf(newCodeStyle.name.lowercase())
             oldMapper(property, oldCodeStyle).mapValueToNewPackage() as T?
         }
     }
@@ -408,8 +401,8 @@ private fun <T> EditorConfigProperty<T>.wrapPropertyMapper():
 // duplicated across both packages (CodeStyleValue, RuleExecution), the PropertyType, default values, and
 // propertyMapper are mapped to their io.github.ktlint.core equivalents.
 @Suppress("UNCHECKED_CAST")
-private fun <T> EditorConfigProperty<T>.toIoGithubKtlintCoreEditorConfigProperty(): EditorConfigPropertyKtlint2<T> =
-    EditorConfigPropertyKtlint2(
+private fun <T> EditorConfigProperty<T>.toEditorConfigPropertyIoGithubKtlint(): EditorConfigPropertyIoGithubKtlint<T> =
+    EditorConfigPropertyIoGithubKtlint(
         type = type.toNewPackage(),
         defaultValue = defaultValue.mapValueToNewPackage() as T,
         ktlintOfficialCodeStyleDefaultValue = ktlintOfficialCodeStyleDefaultValue.mapValueToNewPackage() as T,

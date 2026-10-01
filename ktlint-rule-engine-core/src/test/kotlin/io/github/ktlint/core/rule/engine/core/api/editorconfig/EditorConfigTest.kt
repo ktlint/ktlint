@@ -43,9 +43,9 @@ class EditorConfigTest {
     @ParameterizedTest(name = "Code style: {0}, expected result: {1}")
     @CsvSource(
         value = [
-            "android_studio, $SOME_PROPERTY_VALUE_ANDROID_STUDIO",
-            "intellij_idea, $SOME_PROPERTY_VALUE_INTELLIJ_IDEA",
-            "ktlint_official, $SOME_PROPERTY_VALUE_KTLINT_OFFICIAL",
+            "ANDROID_STUDIO, $SOME_PROPERTY_VALUE_ANDROID_STUDIO",
+            "INTELLIJ_IDEA, $SOME_PROPERTY_VALUE_INTELLIJ_IDEA",
+            "KTLINT_OFFICIAL, $SOME_PROPERTY_VALUE_KTLINT_OFFICIAL",
         ],
     )
     fun `Given an EditorConfig with a defined code style and add a property with default value then the default value can be retrieved for the default code style`(
@@ -298,8 +298,8 @@ class EditorConfigTest {
 
         // Although the type of one of the properties is null, both can be loaded as the type of EditorConfigProperty is used to parse the
         // raw value of the property
-        assertThat(editorConfig[ktlintTestRuleExecutionPropertyType1]).isEqualTo(RuleExecution.disabled)
-        assertThat(editorConfig[ktlintTestRuleExecutionPropertyType2]).isEqualTo(RuleExecution.disabled)
+        assertThat(editorConfig[ktlintTestRuleExecutionPropertyType1]).isEqualTo(RuleExecution.DISABLED)
+        assertThat(editorConfig[ktlintTestRuleExecutionPropertyType2]).isEqualTo(RuleExecution.DISABLED)
     }
 
     private fun editorConfigProperty(name: String) =
@@ -312,7 +312,7 @@ class EditorConfigTest {
                     SafeEnumValueParser(RuleExecution::class.java),
                     RuleExecution.entries.map { it.name }.toSet(),
                 ),
-            defaultValue = RuleExecution.enabled,
+            defaultValue = RuleExecution.ENABLED,
         )
 
     private companion object {

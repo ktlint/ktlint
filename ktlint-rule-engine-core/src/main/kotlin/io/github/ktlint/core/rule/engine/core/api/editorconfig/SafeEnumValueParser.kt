@@ -32,10 +32,10 @@ public class SafeEnumValueParser<T : Enum<T>>(
                             // itself is removed but not the space. This results in the enum value not being parsed
                             // correctly.
                             .trim()
-                            .lowercase(Locale.getDefault()),
+                            .uppercase(Locale.getDefault()),
                     ) as T,
                 )
-            } catch (e: IllegalArgumentException) {
+            } catch (_: IllegalArgumentException) {
                 PropertyType.PropertyValue.invalid(
                     value,
                     "Unexpected parsed \"" + value + "\" for enum " + enumType.name,

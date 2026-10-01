@@ -118,7 +118,7 @@ internal class EditorConfigLoader(
     }
 
     private fun MutableMap<String, Property>.prettyPrint(normalizedFilePath: Path?) =
-        map { entry -> "${entry.key}: ${entry.value.sourceValue}" }
+        map { entry -> "${entry.key}: ${entry.value.sourceValue.lowercase()}" }
             .joinToString(
                 prefix =
                     "Effective editorconfig properties${

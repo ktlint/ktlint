@@ -4,8 +4,8 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPER
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.MAX_LINE_LENGTH_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution.disabled
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution.enabled
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution.DISABLED
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution.ENABLED
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleExecutionEditorConfigProperty
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.ec4j.toPropertyWithValue
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.ktLintRuleExecutionPropertyName
@@ -242,7 +242,7 @@ class MaxLineLengthRuleTest {
             EditorConfig(
                 mapOf(
                     MAX_LINE_LENGTH to MAX_LINE_LENGTH_PROPERTY.toPropertyWithValue(SOME_MAX_LINE_LENGTH.toString()),
-                    KTLINT_RULE_EXECUTION_PROPERTY_NAME to MAX_LINE_LENGTH_RULE_EXECUTION_PROPERTY.toPropertyWithValue(enabled.name),
+                    KTLINT_RULE_EXECUTION_PROPERTY_NAME to MAX_LINE_LENGTH_RULE_EXECUTION_PROPERTY.toPropertyWithValue(ENABLED.name),
                 ),
             )
 
@@ -255,7 +255,7 @@ class MaxLineLengthRuleTest {
             EditorConfig(
                 mapOf(
                     MAX_LINE_LENGTH to MAX_LINE_LENGTH_PROPERTY.toPropertyWithValue(SOME_MAX_LINE_LENGTH.toString()),
-                    KTLINT_RULE_EXECUTION_PROPERTY_NAME to MAX_LINE_LENGTH_RULE_EXECUTION_PROPERTY.toPropertyWithValue(disabled.name),
+                    KTLINT_RULE_EXECUTION_PROPERTY_NAME to MAX_LINE_LENGTH_RULE_EXECUTION_PROPERTY.toPropertyWithValue(DISABLED.name),
                 ),
             )
 
@@ -268,8 +268,8 @@ class MaxLineLengthRuleTest {
             EditorConfig(
                 mapOf(
                     MAX_LINE_LENGTH to MAX_LINE_LENGTH_PROPERTY.toPropertyWithValue("unset"),
-                    CODE_STYLE_PROPERTY.name to CODE_STYLE_PROPERTY.toPropertyWithValue(CodeStyleValue.intellij_idea.name),
-                    KTLINT_RULE_EXECUTION_PROPERTY_NAME to MAX_LINE_LENGTH_RULE_EXECUTION_PROPERTY.toPropertyWithValue(enabled.name),
+                    CODE_STYLE_PROPERTY.name to CODE_STYLE_PROPERTY.toPropertyWithValue(CodeStyleValue.INTELLIJ_IDEA.name),
+                    KTLINT_RULE_EXECUTION_PROPERTY_NAME to MAX_LINE_LENGTH_RULE_EXECUTION_PROPERTY.toPropertyWithValue(ENABLED.name),
                 ),
             )
 

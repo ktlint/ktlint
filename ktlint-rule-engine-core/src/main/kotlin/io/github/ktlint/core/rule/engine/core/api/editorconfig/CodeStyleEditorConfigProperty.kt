@@ -6,19 +6,18 @@ import org.ec4j.core.model.PropertyType.PropertyValueParser.EnumValueParser
 /**
  * Code style to be used while linting and formatting. Note that the [EnumValueParser] requires values to be lowercase.
  */
-@Suppress("EnumEntryName")
 public enum class CodeStyleValue {
     /**
      * Code formatting based on Android's Kotlin styleguide (https://developer.android.com/kotlin/style-guide). This
      * code style aims to be compatible with code formatting in Android Studio.
      */
-    android_studio,
+    ANDROID_STUDIO,
 
     /**
      * Code formatting based on Kotlin Coding conventions (https://kotlinlang.org/docs/coding-conventions.html). This
      * code style aims to be compatible with code formatting in IntelliJ IDEA.
      */
-    intellij_idea,
+    INTELLIJ_IDEA,
 
     /**
      * Code formatting based on the best of both the Kotlin Coding conventions
@@ -31,7 +30,7 @@ public enum class CodeStyleValue {
      * are still not fixed.
      * In the long run, this code style becomes the default code style provided by KtLint.
      */
-    ktlint_official,
+    KTLINT_OFFICIAL,
 }
 
 public val CODE_STYLE_PROPERTY_TYPE: PropertyType.LowerCasingPropertyType<CodeStyleValue> =
@@ -40,14 +39,14 @@ public val CODE_STYLE_PROPERTY_TYPE: PropertyType.LowerCasingPropertyType<CodeSt
         "The code style ('ktlint_official', 'intellij_idea' or 'android_studio') to be applied. By default the 'ktlint_official' code " +
             "style is used",
         SafeEnumValueParser(CodeStyleValue::class.java),
-        CodeStyleValue.entries.map { it.name }.toSet(),
+        CodeStyleValue.entries.map { it.name.lowercase() }.toSet(),
     )
 
 public val CODE_STYLE_PROPERTY: EditorConfigProperty<CodeStyleValue> =
     EditorConfigProperty(
         type = CODE_STYLE_PROPERTY_TYPE,
-        defaultValue = CodeStyleValue.ktlint_official,
-        androidStudioCodeStyleDefaultValue = CodeStyleValue.android_studio,
-        intellijIdeaCodeStyleDefaultValue = CodeStyleValue.intellij_idea,
-        ktlintOfficialCodeStyleDefaultValue = CodeStyleValue.ktlint_official,
+        defaultValue = CodeStyleValue.KTLINT_OFFICIAL,
+        androidStudioCodeStyleDefaultValue = CodeStyleValue.ANDROID_STUDIO,
+        intellijIdeaCodeStyleDefaultValue = CodeStyleValue.INTELLIJ_IDEA,
+        ktlintOfficialCodeStyleDefaultValue = CodeStyleValue.KTLINT_OFFICIAL,
     )

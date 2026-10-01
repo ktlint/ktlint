@@ -4,7 +4,7 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.MAX_LINE_LENGTH_P
 import io.github.ktlint.core.ruleset.standard.rules.ArgumentListWrappingRule.Companion.IGNORE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY
 import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.Companion.FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY
 import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping
-import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.default
+import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.DEFAULT
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRuleBuilder
@@ -1078,7 +1078,7 @@ class ArgumentListWrappingRuleTest {
                     .setMaxLineLength()
                     .addAdditionalRuleProvider { FunctionSignatureRule() }
                     .addAdditionalRuleProvider { IndentationRule() }
-                    .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to default)
+                    .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to DEFAULT)
                     .isFormattedAs(formattedCode)
             }
 
@@ -1099,7 +1099,7 @@ class ArgumentListWrappingRuleTest {
                     .setMaxLineLength()
                     .addAdditionalRuleProvider { FunctionSignatureRule() }
                     .addAdditionalRuleProvider { IndentationRule() }
-                    .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to default)
+                    .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to DEFAULT)
                     .hasNoLintViolations()
             }
 
@@ -1128,7 +1128,7 @@ class ArgumentListWrappingRuleTest {
                     .setMaxLineLength()
                     .addAdditionalRuleProvider { FunctionSignatureRule() }
                     .addAdditionalRuleProvider { IndentationRule() }
-                    .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to default)
+                    .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to DEFAULT)
                     .hasNoLintViolationsExceptInAdditionalRules()
                     .isFormattedAs(formattedCode)
             }
@@ -1145,7 +1145,7 @@ class ArgumentListWrappingRuleTest {
                     .setMaxLineLength()
                     .addAdditionalRuleProvider { FunctionSignatureRule() }
                     .addAdditionalRuleProvider { IndentationRule() }
-                    .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to default)
+                    .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to DEFAULT)
                     .hasNoLintViolations()
             }
         }
@@ -1156,7 +1156,7 @@ class ArgumentListWrappingRuleTest {
             @EnumSource(
                 value = FunctionBodyExpressionWrapping::class,
                 mode = EnumSource.Mode.EXCLUDE,
-                names = ["default"],
+                names = ["DEFAULT"],
             )
             fun `Given a single line function signature`(functionBodyExpressionWrapping: FunctionBodyExpressionWrapping) {
                 val code =
@@ -1185,7 +1185,7 @@ class ArgumentListWrappingRuleTest {
             @EnumSource(
                 value = FunctionBodyExpressionWrapping::class,
                 mode = EnumSource.Mode.EXCLUDE,
-                names = ["default"],
+                names = ["DEFAULT"],
             )
             fun `Given a multiline function signature`(functionBodyExpressionWrapping: FunctionBodyExpressionWrapping) {
                 val code =
@@ -1224,7 +1224,7 @@ class ArgumentListWrappingRuleTest {
             @EnumSource(
                 value = FunctionBodyExpressionWrapping::class,
                 mode = EnumSource.Mode.EXCLUDE,
-                names = ["default"],
+                names = ["DEFAULT"],
             )
             fun `Given a multiline function signature that should be single line`(
                 functionBodyExpressionWrapping: FunctionBodyExpressionWrapping,

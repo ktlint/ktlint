@@ -2,7 +2,7 @@ package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleExecutionEditorConfigProperty
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
@@ -19,7 +19,7 @@ class IfElseBracingRuleTest {
     @EnumSource(
         value = CodeStyleValue::class,
         mode = EnumSource.Mode.EXCLUDE,
-        names = ["ktlint_official"],
+        names = ["KTLINT_OFFICIAL"],
     )
     fun `Given another code style then ktlint_official and IF with inconsistent bracing of the branches`(codeStyle: CodeStyleValue) {
         val code =
@@ -39,7 +39,7 @@ class IfElseBracingRuleTest {
     @EnumSource(
         value = CodeStyleValue::class,
         mode = EnumSource.Mode.EXCLUDE,
-        names = ["ktlint_official"],
+        names = ["KTLINT_OFFICIAL"],
     )
     fun `Given another code style then ktlint_official, and the rule has been enabled explicitly, and IF with inconsistent bracing of the branches`(
         codeStyle: CodeStyleValue,
@@ -65,7 +65,7 @@ class IfElseBracingRuleTest {
         @Suppress("ktlint:standard:max-line-length")
         multiLineIfElseRuleAssertThat(code)
             .withEditorConfigOverride(CODE_STYLE_PROPERTY to codeStyle)
-            .withEditorConfigOverride(IF_ELSE_BRACING_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled)
+            .withEditorConfigOverride(IF_ELSE_BRACING_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED)
             .hasLintViolation(4, 12, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces")
             .isFormattedAs(formattedCode)
     }
@@ -83,7 +83,7 @@ class IfElseBracingRuleTest {
                 }
                 """.trimIndent()
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
 
@@ -96,7 +96,7 @@ class IfElseBracingRuleTest {
                 }
                 """.trimIndent()
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
     }
@@ -114,7 +114,7 @@ class IfElseBracingRuleTest {
                 }
                 """.trimIndent()
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
 
@@ -140,7 +140,7 @@ class IfElseBracingRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(4, 12, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces")
                 .isFormattedAs(formattedCode)
         }
@@ -165,13 +165,11 @@ class IfElseBracingRuleTest {
                     }
                 }
                 """.trimIndent()
+            @Suppress("ktlint:standard:max-line-length")
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
-                .hasLintViolation(
-                    2,
-                    15,
-                    "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces",
-                ).isFormattedAs(formattedCode)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
+                .hasLintViolation(2, 15, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces")
+                .isFormattedAs(formattedCode)
         }
 
         @Test
@@ -187,7 +185,7 @@ class IfElseBracingRuleTest {
                 }
                 """.trimIndent()
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
     }
@@ -219,7 +217,7 @@ class IfElseBracingRuleTest {
                 }
                 """.trimIndent()
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
 
@@ -238,7 +236,7 @@ class IfElseBracingRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolations(
                     LintViolation(5, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces"),
                     LintViolation(7, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces"),
@@ -260,7 +258,7 @@ class IfElseBracingRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolations(
                     LintViolation(3, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces"),
                     LintViolation(7, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces"),
@@ -283,7 +281,7 @@ class IfElseBracingRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolations(
                     LintViolation(3, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces"),
                     LintViolation(5, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces"),
@@ -305,7 +303,7 @@ class IfElseBracingRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(7, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces")
                 .isFormattedAs(formattedCode)
         }
@@ -326,7 +324,7 @@ class IfElseBracingRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(5, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces")
                 .isFormattedAs(formattedCode)
         }
@@ -347,7 +345,7 @@ class IfElseBracingRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 9, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces")
                 .isFormattedAs(formattedCode)
         }
@@ -367,7 +365,7 @@ class IfElseBracingRuleTest {
                 }
                 """.trimIndent()
             multiLineIfElseRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
     }
@@ -384,7 +382,7 @@ class IfElseBracingRuleTest {
             """.trimIndent()
         @Suppress("ktlint:standard:max-line-length")
         multiLineIfElseRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
             .hasLintViolation(1, 22, "All branches of the if statement should be wrapped between braces if at least one branch is wrapped between braces")
             .isFormattedAs(formattedCode)
     }

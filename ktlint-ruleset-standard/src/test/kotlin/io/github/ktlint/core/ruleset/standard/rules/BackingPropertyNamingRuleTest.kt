@@ -1,9 +1,9 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.android_studio
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.intellij_idea
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ANDROID_STUDIO
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.INTELLIJ_IDEA
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.KtlintDocumentationTest
 import io.github.ktlint.core.test.LintViolation
@@ -88,7 +88,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolationWithoutAutoCorrect(2, 17, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -112,7 +112,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                     .hasLintViolationWithoutAutoCorrect(2, 17, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -135,7 +135,7 @@ class BackingPropertyNamingRuleTest {
                     }
                     """.trimIndent()
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to android_studio)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ANDROID_STUDIO)
                     .hasNoLintViolations()
             }
         }
@@ -209,7 +209,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolationWithoutAutoCorrect(2, 17, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -232,7 +232,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                     .hasLintViolationWithoutAutoCorrect(2, 17, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -254,7 +254,7 @@ class BackingPropertyNamingRuleTest {
                     }
                     """.trimIndent()
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to android_studio)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ANDROID_STUDIO)
                     .hasNoLintViolations()
             }
 
@@ -355,7 +355,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolationWithoutAutoCorrect(6, 21, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -381,7 +381,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                     .hasLintViolationWithoutAutoCorrect(6, 21, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -406,7 +406,7 @@ class BackingPropertyNamingRuleTest {
                     }
                     """.trimIndent()
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to android_studio)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ANDROID_STUDIO)
                     .hasNoLintViolations()
             }
         }
@@ -488,7 +488,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolationWithoutAutoCorrect(5, 21, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -513,7 +513,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                     .hasLintViolationWithoutAutoCorrect(5, 21, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -537,7 +537,7 @@ class BackingPropertyNamingRuleTest {
                     }
                     """.trimIndent()
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to android_studio)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ANDROID_STUDIO)
                     .hasNoLintViolations()
             }
 
@@ -640,7 +640,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolationWithoutAutoCorrect(6, 13, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -666,7 +666,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                     .hasLintViolationWithoutAutoCorrect(6, 13, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -691,7 +691,7 @@ class BackingPropertyNamingRuleTest {
                     }
                     """.trimIndent()
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to android_studio)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ANDROID_STUDIO)
                     .hasNoLintViolations()
             }
         }
@@ -773,7 +773,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolationWithoutAutoCorrect(5, 13, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -798,7 +798,7 @@ class BackingPropertyNamingRuleTest {
                     """.trimIndent()
                 @Suppress("ktlint:standard:max-line-length")
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                     .hasLintViolationWithoutAutoCorrect(5, 13, "Backing property is only allowed when the matching property or function is public")
             }
 
@@ -822,7 +822,7 @@ class BackingPropertyNamingRuleTest {
                     }
                     """.trimIndent()
                 backingPropertyNamingRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to android_studio)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ANDROID_STUDIO)
                     .hasNoLintViolations()
             }
 

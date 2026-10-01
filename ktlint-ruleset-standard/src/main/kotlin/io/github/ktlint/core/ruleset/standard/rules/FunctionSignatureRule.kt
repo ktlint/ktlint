@@ -27,13 +27,14 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.EXPERIMENTA
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.rule.engine.core.api.children
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigProperty
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.MAX_LINE_LENGTH_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.MAX_LINE_LENGTH_PROPERTY_OFF
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.SafeEnumValueParser
 import io.github.ktlint.core.rule.engine.core.api.firstChildLeafOrSelf
 import io.github.ktlint.core.rule.engine.core.api.hasNoMaxLineLengthSuppression
 import io.github.ktlint.core.rule.engine.core.api.ifAutocorrectAllowed
@@ -56,11 +57,10 @@ import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.always
-import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.default
-import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.multiline
+import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.ALWAYS
+import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.DEFAULT
+import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.MULTILINE
 import org.ec4j.core.model.PropertyType
-import org.ec4j.core.model.PropertyType.PropertyValueParser.EnumValueParser
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.utils.addToStdlib.ifTrue
 
@@ -191,7 +191,7 @@ public class FunctionSignatureRule :
         val forceMultilineSignature =
             node.hasMinimumNumberOfParameters() ||
                 node.containsMultilineParameter() ||
-                (codeStyle == ktlint_official && node.containsAnnotatedParameter())
+                (codeStyle == KTLINT_OFFICIAL && node.containsAnnotatedParameter())
         if (isMaxLineLengthSet()) {
             val singleLineFunctionSignatureLength = calculateFunctionSignatureLengthAsSingleLineSignature(node, emit)
             // Function signatures not having parameters, should not be reformatted automatically. It would result in function signatures
@@ -559,13 +559,13 @@ public class FunctionSignatureRule :
                         }
                     val mergeWithFunctionSignature =
                         when {
-                            functionBodyExpressionWrapping == always -> {
+                            functionBodyExpressionWrapping == ALWAYS -> {
                                 false
                             }
 
                             firstLineOfBodyExpression.length < maxLengthRemainingForFirstLineOfBodyExpression -> {
-                                (functionBodyExpressionWrapping == default && !functionBodyExpressionNodes.isMultilineStringTemplate()) ||
-                                    (functionBodyExpressionWrapping == multiline && functionBodyExpressionLines.size == 1) ||
+                                (functionBodyExpressionWrapping == DEFAULT && !functionBodyExpressionNodes.isMultilineStringTemplate()) ||
+                                    (functionBodyExpressionWrapping == MULTILINE && functionBodyExpressionLines.size == 1) ||
                                     node.isMultilineFunctionSignatureWithoutExplicitReturnType(
                                         lastNodeOfFunctionSignatureWithBodyExpression,
                                     )
@@ -585,7 +585,7 @@ public class FunctionSignatureRule :
                 } else if (whiteSpaceBeforeFunctionBodyExpression.isWhiteSpaceWithoutNewlineOrNull) {
                     if (node.isMultilineFunctionSignatureWithoutExplicitReturnType(lastNodeOfFunctionSignatureWithBodyExpression) &&
                         firstLineOfBodyExpression.length + 1 <= maxLengthRemainingForFirstLineOfBodyExpression &&
-                        functionBodyExpressionWrapping != always
+                        functionBodyExpressionWrapping != ALWAYS
                     ) {
                         if (whiteSpaceBeforeFunctionBodyExpression == null ||
                             whiteSpaceBeforeFunctionBodyExpression.text != " "
@@ -605,8 +605,8 @@ public class FunctionSignatureRule :
                             node.hasNoMaxLineLengthSuppression() &&
                                 firstLineOfBodyExpression.length + 1 > maxLengthRemainingForFirstLineOfBodyExpression
                         ) ||
-                        (functionBodyExpressionWrapping == multiline && functionBodyExpressionLines.size > 1) ||
-                        functionBodyExpressionWrapping == always
+                        (functionBodyExpressionWrapping == MULTILINE && functionBodyExpressionLines.size > 1) ||
+                        functionBodyExpressionWrapping == ALWAYS
                     ) {
                         emit(
                             functionBodyExpressionNodes.first().startOffset,
@@ -783,37 +783,37 @@ public class FunctionSignatureRule :
                             "to wrap the body expression only when the first line of the expression does not fit on the same " +
                             "line as the function signature. Use 'multiline' to force wrapping of body expressions that " +
                             "consists of multiple line. Use 'always' to force wrapping of body expression always.",
-                        EnumValueParser(FunctionBodyExpressionWrapping::class.java),
-                        FunctionBodyExpressionWrapping.entries.map { it.name }.toSet(),
+                        SafeEnumValueParser(FunctionBodyExpressionWrapping::class.java),
+                        FunctionBodyExpressionWrapping.entries.map { it.name.lowercase() }.toSet(),
                     ),
-                defaultValue = default,
-                ktlintOfficialCodeStyleDefaultValue = multiline,
+                defaultValue = DEFAULT,
+                ktlintOfficialCodeStyleDefaultValue = MULTILINE,
             )
 
         private val INDENT_WITH_CLOSING_PARENTHESIS = Regex("\\s*\\) =")
     }
 
     /**
-     * Code style to be used while linting and formatting. Note that the [EnumValueParser] requires values to be lowercase.
+     * Code style to be used while linting and formatting.
      */
-    @Suppress("EnumEntryName")
     public enum class FunctionBodyExpressionWrapping {
         /**
          * Keep the first line of the body expression on the same line as the function signature if max line length is
          * not exceeded.
          */
-        default,
+        DEFAULT,
 
         /**
          * Force the body expression to start on a separate line in case it is a multiline expression. A single line
-         * body expression is wrapped only when it does not fit on the same line as the function signature.
+         * body expression is wrapped only when it does not f
+         * it on the same line as the function signature.
          */
-        multiline,
+        MULTILINE,
 
         /**
          * Always force the body expression to start on a separate line.
          */
-        always,
+        ALWAYS,
     }
 }
 

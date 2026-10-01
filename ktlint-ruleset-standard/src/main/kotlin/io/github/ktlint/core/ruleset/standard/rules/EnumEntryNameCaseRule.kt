@@ -29,22 +29,20 @@ public class EnumEntryNameCaseRule :
     ) {
     private lateinit var enumEntryCasingRegex: Regex
     private lateinit var enumEntryCasingViolation: String
-    private var x = ENUM_ENTRY_NAME_CASING_PROPERTY.defaultValue
 
     override fun beforeFirstNode(editorConfig: EditorConfig) {
-        x = editorConfig[ENUM_ENTRY_NAME_CASING_PROPERTY]
         when (editorConfig[ENUM_ENTRY_NAME_CASING_PROPERTY]) {
-            EnumEntryNameCasing.upper_cases -> {
+            EnumEntryNameCasing.UPPER_CASES -> {
                 enumEntryCasingRegex = "[A-Z][A-Z_\\d]*".regExIgnoringDiacriticsAndStrokesOnLetters()
                 enumEntryCasingViolation = "Enum entry name should be uppercase underscore-separated names like \"ENUM_ENTRY\""
             }
 
-            EnumEntryNameCasing.camel_cases -> {
+            EnumEntryNameCasing.CAMEL_CASES -> {
                 enumEntryCasingRegex = "[A-Z]([A-Za-z\\d]*)".regExIgnoringDiacriticsAndStrokesOnLetters()
                 enumEntryCasingViolation = "Enum entry name should be upper camel-case like \"EnumEntry\""
             }
 
-            EnumEntryNameCasing.upper_or_camel_cases -> {
+            EnumEntryNameCasing.UPPER_OR_CAMEL_CASES -> {
                 enumEntryCasingRegex = "[A-Z]([A-Za-z\\d]*|[A-Z_\\d]*)".regExIgnoringDiacriticsAndStrokesOnLetters()
                 enumEntryCasingViolation =
                     "Enum entry name should be uppercase underscore-separated names like \"ENUM_ENTRY\" or upper camel-case like \"EnumEntry\""
@@ -69,24 +67,23 @@ public class EnumEntryNameCaseRule :
     }
 
     public companion object {
-        @Suppress("EnumEntryName")
         public enum class EnumEntryNameCasing {
             /**
              * Enforce all enum entry names to be uppercase underscore-separated names like "ENUM_ENTRY". Digits, diacritics and strokes are
              * allowed.
              */
-            upper_cases,
+            UPPER_CASES,
 
             /**
              * Enforce all enum entry names to be upper camel-case like "EnumEntry". Digits, diacritics and strokes are allowed.
              */
-            camel_cases,
+            CAMEL_CASES,
 
             /**
              * Enforce all enum entry names to be uppercase underscore-separated names like "ENUM_ENTRY" or upper camel-case like
              * "EnumEntry". Digits, diacritics and strokes are allowed.
              */
-            upper_or_camel_cases,
+            UPPER_OR_CAMEL_CASES,
         }
 
         public val ENUM_ENTRY_NAME_CASING_PROPERTY_TYPE: PropertyType.LowerCasingPropertyType<EnumEntryNameCasing> =
@@ -101,7 +98,7 @@ public class EnumEntryNameCaseRule :
         public val ENUM_ENTRY_NAME_CASING_PROPERTY: EditorConfigProperty<EnumEntryNameCasing> =
             EditorConfigProperty(
                 type = ENUM_ENTRY_NAME_CASING_PROPERTY_TYPE,
-                defaultValue = EnumEntryNameCasing.upper_or_camel_cases,
+                defaultValue = EnumEntryNameCasing.UPPER_OR_CAMEL_CASES,
             )
     }
 }

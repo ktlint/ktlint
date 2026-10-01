@@ -2,7 +2,7 @@ package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRuleBuilder
@@ -211,7 +211,7 @@ class ParameterListWrappingRuleTest {
                     }
                 """.trimIndent()
             parameterListWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 // Indent violations will not be reported until after the wrapping of the first parameter is completed and as of that will
                 // not be found during linting
                 .isFormattedAs(formattedCode)
@@ -221,7 +221,7 @@ class ParameterListWrappingRuleTest {
         @EnumSource(
             value = CodeStyleValue::class,
             mode = EnumSource.Mode.EXCLUDE,
-            names = ["ktlint_official"],
+            names = ["KTLINT_OFFICIAL"],
         )
         fun `Given another code style than ktlint_official then do not reformat`(codeStyleValue: CodeStyleValue) {
             parameterListWrappingRuleAssertThat(code)
@@ -673,7 +673,7 @@ class ParameterListWrappingRuleTest {
                 ) = "some-result"
                 """.trimIndent()
             parameterListWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolations(
                     LintViolation(1, 9, "Parameter should start on a newline"),
                     LintViolation(1, 17, "Parameter should start on a newline"),
@@ -686,7 +686,7 @@ class ParameterListWrappingRuleTest {
         @EnumSource(
             value = CodeStyleValue::class,
             mode = EnumSource.Mode.EXCLUDE,
-            names = ["ktlint_official"],
+            names = ["KTLINT_OFFICIAL"],
         )
         fun `Given non-ktlint_official code style`(codeStyle: CodeStyleValue) {
             val code =

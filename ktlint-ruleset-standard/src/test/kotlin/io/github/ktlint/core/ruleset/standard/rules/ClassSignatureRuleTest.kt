@@ -2,8 +2,8 @@ package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.intellij_idea
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.INTELLIJ_IDEA
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.MAX_LINE_LENGTH_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.ec4j.toPropertyWithValue
 import io.github.ktlint.core.ruleset.standard.rules.ClassSignatureRule.Companion.FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY
@@ -176,7 +176,7 @@ class ClassSignatureRuleTest {
                 )
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolations(
                     LintViolation(2, 12, "Newline expected after opening parenthesis"),
                     LintViolation(2, 18, "Newline expected before closing parenthesis"),
@@ -194,7 +194,7 @@ class ClassSignatureRuleTest {
         @EnumSource(
             value = CodeStyleValue::class,
             mode = EnumSource.Mode.EXCLUDE,
-            names = ["ktlint_official"],
+            names = ["KTLINT_OFFICIAL"],
         )
         fun `Given non-ktlint_official code style`(codeStyle: CodeStyleValue) {
             val code =
@@ -477,7 +477,7 @@ class ClassSignatureRuleTest {
                 class Foo(a: Any, b: Any, c: Any)
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to "unset")
                 .hasNoLintViolations()
         }
@@ -661,7 +661,7 @@ class ClassSignatureRuleTest {
                 )
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to Int.MAX_VALUE)
                 .hasLintViolations(
                     LintViolation(2, 12, "Newline expected after opening parenthesis"),
@@ -675,7 +675,7 @@ class ClassSignatureRuleTest {
         @EnumSource(
             value = CodeStyleValue::class,
             mode = EnumSource.Mode.EXCLUDE,
-            names = ["ktlint_official"],
+            names = ["KTLINT_OFFICIAL"],
         )
         fun `Given non-ktlint_official code style`(codeStyle: CodeStyleValue) {
             val code =
@@ -841,11 +841,11 @@ class ClassSignatureRuleTest {
         )
         fun `Given some correctly formatted class`(code: String) {
             classSignatureWrappingRuleAssertThat(code.trimIndent())
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
             classSignatureWrappingRuleAssertThat(code.trimIndent())
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
@@ -866,18 +866,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
         }
@@ -899,18 +899,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
         }
@@ -937,13 +937,13 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
         }
@@ -965,18 +965,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
         }
@@ -1008,18 +1008,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCodeKtlintOfficialCodeStyle)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
         }
@@ -1055,18 +1055,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCodeKtlintOfficialCodeStyle)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
         }
@@ -1089,18 +1089,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
         }
@@ -1123,18 +1123,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
         }
@@ -1163,18 +1163,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
         }
@@ -1205,18 +1205,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
         }
@@ -1249,18 +1249,18 @@ class ClassSignatureRuleTest {
                 """.trimIndent()
 
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCode)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasNoLintViolations()
         }
@@ -1305,18 +1305,18 @@ class ClassSignatureRuleTest {
                 }
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCodeKtlintOfficial)
 
             // non-ktlint_official code style
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to 1)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCodeNonKtlintOfficial)
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .isFormattedAs(formattedCodeNonKtlintOfficial)
         }
@@ -1820,7 +1820,7 @@ class ClassSignatureRuleTest {
                 )
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.android_studio)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.ANDROID_STUDIO)
                 .hasNoLintViolations()
         }
 
@@ -1835,7 +1835,7 @@ class ClassSignatureRuleTest {
                 )
                 """.trimIndent()
             classSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 // Set max_line_length as other the class signature would not be rewritten to single line
                 .withEditorConfigOverride(MAX_LINE_LENGTH_PROPERTY to 999)
                 .hasNoLintViolations()

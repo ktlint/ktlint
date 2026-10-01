@@ -20,7 +20,7 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.EXPERIMENTA
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.rule.engine.core.api.children
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.android_studio
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ANDROID_STUDIO
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.findParentByType
 import io.github.ktlint.core.rule.engine.core.api.hasModifier
@@ -94,7 +94,7 @@ public class BackingPropertyNamingRule :
         if (correlatedPropertyOrFunction == null) {
             emit(identifier.startOffset, "Backing property is only allowed when a matching property or function exists", false)
         } else {
-            if (codeStyle == android_studio || correlatedPropertyOrFunction.isPublic()) {
+            if (codeStyle == ANDROID_STUDIO || correlatedPropertyOrFunction.isPublic()) {
                 return
             } else {
                 emit(identifier.startOffset, "Backing property is only allowed when the matching property or function is public", false)

@@ -7,21 +7,22 @@ import com.pinterest.ktlint.rule.engine.core.api.AutocorrectDecision.NO_AUTOCORR
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfig
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfigProperty
 import io.github.ktlint.core.rule.engine.core.api.KtlintKotlinCompiler
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.ec4j.core.model.PropertyType
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import com.pinterest.ktlint.rule.engine.core.api.editorconfig.CodeStyleValue as CodeStyleValueKtlint1x
+import com.pinterest.ktlint.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY as CODE_STYLE_PROPERTY_COM_PINTEREST_KTLINT
+import com.pinterest.ktlint.rule.engine.core.api.editorconfig.CodeStyleValue as CodeStyleValueKtlintComPinterestKtlint
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.RULE_EXECUTION_PROPERTY_TYPE as RuleExecutionPropertyTypeKtlint1x
-import com.pinterest.ktlint.rule.engine.core.api.editorconfig.RuleExecution as RuleExecutionKtlint1x
-import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision as AutocorrectDecisionKtlint2
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue as CodeStyleValueKtlint2x
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig as EditorConfigKtlint2x
+import com.pinterest.ktlint.rule.engine.core.api.editorconfig.RuleExecution as RuleExecutionKtlintComPinterestKtlint
+import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision as AutocorrectDecisionIoGithubKtlint
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY as CODE_STYLE_PROPERTY_IO_GITHUB_KTLINT
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue as CodeStyleValueIoGithubKtlint
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig as EditorConfigIoGithubKtlint
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.RULE_EXECUTION_PROPERTY_TYPE as RuleExecutionPropertyTypeKtlint2x
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution as RuleExecutionKtlint2x
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution as RuleExecutionIoGithubKtlint
 
 @Suppress("DEPRECATION")
 class RuleToRuleV2KtTest {
@@ -81,7 +82,7 @@ class RuleToRuleV2KtTest {
             var delegated = false
             val ruleV2 = legacyRule(onBeforeFirstNode = { delegated = true }).toRuleV2()
 
-            ruleV2.beforeFirstNode(EditorConfigKtlint2x())
+            ruleV2.beforeFirstNode(EditorConfigIoGithubKtlint())
 
             assertThat(delegated).isTrue
         }
@@ -104,7 +105,7 @@ class RuleToRuleV2KtTest {
                     onBeforeVisitChildNodes = { _, emit -> capturedDecision = emit(0, "error", true) },
                 ).toRuleV2()
 
-            ruleV2.beforeVisitChildNodes(fakeNode()) { _, _, _ -> AutocorrectDecisionKtlint2.ALLOW_AUTOCORRECT }
+            ruleV2.beforeVisitChildNodes(fakeNode()) { _, _, _ -> AutocorrectDecisionIoGithubKtlint.ALLOW_AUTOCORRECT }
 
             assertThat(capturedDecision).isEqualTo(ALLOW_AUTOCORRECT)
         }
@@ -117,96 +118,72 @@ class RuleToRuleV2KtTest {
                     onBeforeVisitChildNodes = { _, emit -> capturedDecision = emit(0, "error", true) },
                 ).toRuleV2()
 
-            ruleV2.beforeVisitChildNodes(fakeNode()) { _, _, _ -> AutocorrectDecisionKtlint2.NO_AUTOCORRECT }
+            ruleV2.beforeVisitChildNodes(fakeNode()) { _, _, _ -> AutocorrectDecisionIoGithubKtlint.NO_AUTOCORRECT }
 
             assertThat(capturedDecision).isEqualTo(NO_AUTOCORRECT)
         }
 
         @Nested
         inner class `Given usesEditorConfigProperties containing a com-pinterest CodeStyleValue property` {
-            private val codeStylePropertyKtlint1x = com.pinterest.ktlint.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-            private val codeStylePropertyKtlint2x = CODE_STYLE_PROPERTY
-
             @Test
             fun `then toRuleV2 maps PropertyType to io-github equivalent`() {
                 val mapped =
-                    legacyRule(usesEditorConfigProperties = setOf(codeStylePropertyKtlint1x))
+                    legacyRule(usesEditorConfigProperties = setOf(CODE_STYLE_PROPERTY_COM_PINTEREST_KTLINT))
                         .toRuleV2()
                         .usesEditorConfigProperties
                         .single()
 
-                assertThat(mapped.type).isSameAs(codeStylePropertyKtlint2x.type)
+                assertThat(mapped.type).isSameAs(CODE_STYLE_PROPERTY_IO_GITHUB_KTLINT.type)
             }
 
             @Test
             fun `then toRuleV2 maps default values to io-github CodeStyleValue`() {
                 val mapped =
-                    legacyRule(usesEditorConfigProperties = setOf(codeStylePropertyKtlint1x))
+                    legacyRule(usesEditorConfigProperties = setOf(CODE_STYLE_PROPERTY_COM_PINTEREST_KTLINT))
                         .toRuleV2()
                         .usesEditorConfigProperties
                         .single()
 
-                assertThat(mapped.defaultValue).isEqualTo(codeStylePropertyKtlint2x.defaultValue)
+                assertThat(mapped.defaultValue).isEqualTo(CODE_STYLE_PROPERTY_IO_GITHUB_KTLINT.defaultValue)
                 assertThat(mapped.ktlintOfficialCodeStyleDefaultValue)
-                    .isEqualTo(codeStylePropertyKtlint2x.ktlintOfficialCodeStyleDefaultValue)
-                assertThat(mapped.intellijIdeaCodeStyleDefaultValue).isEqualTo(codeStylePropertyKtlint2x.intellijIdeaCodeStyleDefaultValue)
+                    .isEqualTo(CODE_STYLE_PROPERTY_IO_GITHUB_KTLINT.ktlintOfficialCodeStyleDefaultValue)
+                assertThat(mapped.intellijIdeaCodeStyleDefaultValue)
+                    .isEqualTo(CODE_STYLE_PROPERTY_IO_GITHUB_KTLINT.intellijIdeaCodeStyleDefaultValue)
                 assertThat(mapped.androidStudioCodeStyleDefaultValue)
-                    .isEqualTo(codeStylePropertyKtlint2x.androidStudioCodeStyleDefaultValue)
-            }
-
-            @Test
-            fun `then toRuleV2 wraps propertyMapper so that io-github CodeStyleValue is converted to com-pinterest before invoking the original mapper`() {
-                var capturedCodeStyleKtlint1x: CodeStyleValueKtlint1x? = null
-                val propertyWithMapper =
-                    EditorConfigProperty(
-                        type = codeStylePropertyKtlint1x.type,
-                        defaultValue = CodeStyleValueKtlint1x.ktlint_official,
-                        propertyMapper = { _, codeStyle ->
-                            capturedCodeStyleKtlint1x = codeStyle
-                            codeStyle
-                        },
-                    )
-                val mapped =
-                    legacyRule(usesEditorConfigProperties = setOf(propertyWithMapper)).toRuleV2().usesEditorConfigProperties.single()
-
-                mapped.propertyMapper?.invoke(null, codeStylePropertyKtlint2x.androidStudioCodeStyleDefaultValue)
-
-                assertThat(capturedCodeStyleKtlint1x).isEqualTo(CodeStyleValueKtlint1x.android_studio)
+                    .isEqualTo(CODE_STYLE_PROPERTY_IO_GITHUB_KTLINT.androidStudioCodeStyleDefaultValue)
             }
 
             @Test
             fun `then toRuleV2 wraps propertyMapper so that returned com-pinterest CodeStyleValue is converted to io-github`() {
-                val propertyWithMapper =
-                    EditorConfigProperty(
-                        type = codeStylePropertyKtlint1x.type,
-                        defaultValue = CodeStyleValueKtlint1x.ktlint_official,
-                        propertyMapper = { _, _ -> CodeStyleValueKtlint1x.intellij_idea },
-                    )
-                val mapped =
-                    legacyRule(usesEditorConfigProperties = setOf(propertyWithMapper)).toRuleV2().usesEditorConfigProperties.single()
+                val codeStylePropertyIoGithubKtlint =
+                    // Note: the rule defined is a Ktlint 1.x compatible rule using the Ktlint 1.x  code style property
+                    legacyRule(usesEditorConfigProperties = setOf(CODE_STYLE_PROPERTY_COM_PINTEREST_KTLINT))
+                        .toRuleV2()
+                        .usesEditorConfigProperties
+                        .single()
 
-                val result = mapped.propertyMapper?.invoke(null, CodeStyleValueKtlint2x.android_studio)
+                val result = codeStylePropertyIoGithubKtlint.type.parse(CodeStyleValueKtlintComPinterestKtlint.intellij_idea.name).parsed
 
-                assertThat(result).isEqualTo(CodeStyleValueKtlint2x.intellij_idea)
+                assertThat(result).isEqualTo(CodeStyleValueIoGithubKtlint.INTELLIJ_IDEA)
             }
         }
 
         @Nested
         inner class `Given usesEditorConfigProperties containing a com-pinterest RuleExecution property` {
-            private val ruleExecutionPropertyKtlint1x =
+            private val ruleExecutionPropertyComPinterestKtlint =
                 EditorConfigProperty(
                     type = RuleExecutionPropertyTypeKtlint1x,
                     name = "ktlint_some_rule",
-                    defaultValue = RuleExecutionKtlint1x.enabled,
-                    ktlintOfficialCodeStyleDefaultValue = RuleExecutionKtlint1x.enabled,
-                    intellijIdeaCodeStyleDefaultValue = RuleExecutionKtlint1x.disabled,
-                    androidStudioCodeStyleDefaultValue = RuleExecutionKtlint1x.disabled,
+                    defaultValue = RuleExecutionKtlintComPinterestKtlint.enabled,
+                    ktlintOfficialCodeStyleDefaultValue = RuleExecutionKtlintComPinterestKtlint.enabled,
+                    intellijIdeaCodeStyleDefaultValue = RuleExecutionKtlintComPinterestKtlint.disabled,
+                    androidStudioCodeStyleDefaultValue = RuleExecutionKtlintComPinterestKtlint.disabled,
                 )
 
             @Test
             fun `then toRuleV2 maps PropertyType to io-github equivalent`() {
                 val mapped =
-                    legacyRule(usesEditorConfigProperties = setOf(ruleExecutionPropertyKtlint1x))
+                    legacyRule(usesEditorConfigProperties = setOf(ruleExecutionPropertyComPinterestKtlint))
                         .toRuleV2()
                         .usesEditorConfigProperties
                         .single()
@@ -217,15 +194,15 @@ class RuleToRuleV2KtTest {
             @Test
             fun `then toRuleV2 maps default values to io-github RuleExecution`() {
                 val mapped =
-                    legacyRule(usesEditorConfigProperties = setOf(ruleExecutionPropertyKtlint1x))
+                    legacyRule(usesEditorConfigProperties = setOf(ruleExecutionPropertyComPinterestKtlint))
                         .toRuleV2()
                         .usesEditorConfigProperties
                         .single()
 
-                assertThat(mapped.defaultValue).isEqualTo(RuleExecutionKtlint2x.enabled)
-                assertThat(mapped.ktlintOfficialCodeStyleDefaultValue).isEqualTo(RuleExecutionKtlint2x.enabled)
-                assertThat(mapped.intellijIdeaCodeStyleDefaultValue).isEqualTo(RuleExecutionKtlint2x.disabled)
-                assertThat(mapped.androidStudioCodeStyleDefaultValue).isEqualTo(RuleExecutionKtlint2x.disabled)
+                assertThat(mapped.defaultValue).isEqualTo(RuleExecutionIoGithubKtlint.ENABLED)
+                assertThat(mapped.ktlintOfficialCodeStyleDefaultValue).isEqualTo(RuleExecutionIoGithubKtlint.ENABLED)
+                assertThat(mapped.intellijIdeaCodeStyleDefaultValue).isEqualTo(RuleExecutionIoGithubKtlint.DISABLED)
+                assertThat(mapped.androidStudioCodeStyleDefaultValue).isEqualTo(RuleExecutionIoGithubKtlint.DISABLED)
             }
         }
 
@@ -241,7 +218,7 @@ class RuleToRuleV2KtTest {
             val mapped =
                 legacyRule(usesEditorConfigProperties = setOf(propertyWithStringMapper)).toRuleV2().usesEditorConfigProperties.single()
 
-            val result = mapped.propertyMapper?.invoke(null, CodeStyleValueKtlint2x.ktlint_official)
+            val result = mapped.propertyMapper?.invoke(null, CodeStyleValueIoGithubKtlint.KTLINT_OFFICIAL)
 
             assertThat(result).isEqualTo("remapped-value")
         }
@@ -254,7 +231,7 @@ class RuleToRuleV2KtTest {
                     onAfterVisitChildNodes = { _, _ -> delegated = true },
                 ).toRuleV2()
 
-            ruleV2.afterVisitChildNodes(fakeNode()) { _, _, _ -> AutocorrectDecisionKtlint2.NO_AUTOCORRECT }
+            ruleV2.afterVisitChildNodes(fakeNode()) { _, _, _ -> AutocorrectDecisionIoGithubKtlint.NO_AUTOCORRECT }
 
             assertThat(delegated).isTrue
         }

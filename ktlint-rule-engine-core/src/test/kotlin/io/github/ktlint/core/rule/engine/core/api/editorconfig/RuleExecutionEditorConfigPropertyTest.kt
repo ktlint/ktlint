@@ -8,14 +8,14 @@ class RuleExecutionEditorConfigPropertyTest {
     @ParameterizedTest(name = "Value: [{0}], result: [{1}]")
     @CsvSource(
         value = [
-            "enabled,enabled",
-            " enabled,enabled",
-            "enabled ,enabled",
-            " enabled ,enabled",
-            "disabled,disabled",
-            " disabled,disabled",
-            "disabled ,disabled",
-            " disabled ,disabled",
+            "enabled,ENABLED",
+            " enabled,ENABLED",
+            "enabled ,ENABLED",
+            " enabled ,ENABLED",
+            "disabled,DISABLED",
+            " disabled,DISABLED",
+            "disabled ,DISABLED",
+            " disabled ,DISABLED",
         ],
         ignoreLeadingAndTrailingWhitespace = false,
     )

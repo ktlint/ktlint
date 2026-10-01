@@ -21,7 +21,7 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.rule.engine.core.api.column
 import io.github.ktlint.core.rule.engine.core.api.dropTrailingEolComment
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
@@ -140,15 +140,15 @@ public class ParameterListWrappingRule :
                 false
             }
 
-            codeStyle != ktlint_official && isPartOfFunctionLiteralInNonKtlintOfficialCodeStyle() -> {
+            codeStyle != KTLINT_OFFICIAL && isPartOfFunctionLiteralInNonKtlintOfficialCodeStyle() -> {
                 false
             }
 
-            codeStyle == ktlint_official && containsAnnotatedParameter() -> {
+            codeStyle == KTLINT_OFFICIAL && containsAnnotatedParameter() -> {
                 true
             }
 
-            codeStyle == ktlint_official &&
+            codeStyle == KTLINT_OFFICIAL &&
                 isPartOfFunctionLiteralStartingOnSameLineAsClosingParenthesisOfPrecedingReferenceExpression() -> {
                 false
             }

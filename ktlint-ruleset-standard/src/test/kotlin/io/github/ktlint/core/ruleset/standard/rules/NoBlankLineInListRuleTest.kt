@@ -1,7 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.test.KtLintAssertThat
 import io.github.ktlint.core.test.SPACE
 import io.github.ktlint.core.test.TAB
@@ -32,7 +32,7 @@ class NoBlankLineInListRuleTest {
                     Bar {}
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(2, 1, "Unexpected blank line(s) in super type list")
                 .isFormattedAs(formattedCode)
         }
@@ -49,7 +49,7 @@ class NoBlankLineInListRuleTest {
                     Bar {}
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 1, "Unexpected blank line(s) in super type list")
                 .isFormattedAs(formattedCode)
         }
@@ -66,7 +66,7 @@ class NoBlankLineInListRuleTest {
                     {}
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(4, 1, "Unexpected blank line(s) in super type list")
                 .isFormattedAs(formattedCode)
         }
@@ -83,7 +83,7 @@ class NoBlankLineInListRuleTest {
                 ${TAB}$TAB
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
     }
@@ -117,7 +117,7 @@ class NoBlankLineInListRuleTest {
                 }
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasLintViolation(6, 1, "Unexpected blank line(s) in type constraint list")
                 .isFormattedAs(formattedCode)
@@ -138,7 +138,7 @@ class NoBlankLineInListRuleTest {
                 }
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(6, 1, "Unexpected blank line(s) in type constraint list")
                 .isFormattedAs(formattedCode)
         }
@@ -159,7 +159,7 @@ class NoBlankLineInListRuleTest {
                 }
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(7, 1, "Unexpected blank line(s) in type constraint list")
                 .isFormattedAs(formattedCode)
         }
@@ -178,7 +178,7 @@ class NoBlankLineInListRuleTest {
                 ${TAB}$TAB
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
     }
@@ -206,7 +206,7 @@ class NoBlankLineInListRuleTest {
                     > = FooBar(Foo(), Bar())
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(2, 1, "Unexpected blank line(s) in type argument list")
                 .isFormattedAs(formattedCode)
         }
@@ -224,7 +224,7 @@ class NoBlankLineInListRuleTest {
                     > = FooBar(Foo(), Bar())
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 1, "Unexpected blank line(s) in type argument list")
                 .isFormattedAs(formattedCode)
         }
@@ -242,7 +242,7 @@ class NoBlankLineInListRuleTest {
                     > = FooBar(Foo(), Bar())
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 1, "Unexpected blank line(s) in type argument list")
                 .isFormattedAs(formattedCode)
         }
@@ -271,7 +271,7 @@ class NoBlankLineInListRuleTest {
                     > foobar()
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(2, 1, "Unexpected blank line(s) in type parameter list")
                 .isFormattedAs(formattedCode)
         }
@@ -289,7 +289,7 @@ class NoBlankLineInListRuleTest {
                     > foobar()
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 1, "Unexpected blank line(s) in type parameter list")
                 .isFormattedAs(formattedCode)
         }
@@ -307,7 +307,7 @@ class NoBlankLineInListRuleTest {
                     > foobar()
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(4, 1, "Unexpected blank line(s) in type parameter list")
                 .isFormattedAs(formattedCode)
         }
@@ -336,7 +336,7 @@ class NoBlankLineInListRuleTest {
                 )
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(2, 1, "Unexpected blank line(s) in value argument list")
                 .isFormattedAs(formattedCode)
         }
@@ -354,7 +354,7 @@ class NoBlankLineInListRuleTest {
                 )
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 1, "Unexpected blank line(s) in value argument list")
                 .isFormattedAs(formattedCode)
         }
@@ -372,7 +372,7 @@ class NoBlankLineInListRuleTest {
                 )
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(4, 1, "Unexpected blank line(s) in value argument list")
                 .isFormattedAs(formattedCode)
         }
@@ -401,7 +401,7 @@ class NoBlankLineInListRuleTest {
                 )
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(2, 1, "Unexpected blank line(s) in value parameter list")
                 .isFormattedAs(formattedCode)
         }
@@ -419,7 +419,7 @@ class NoBlankLineInListRuleTest {
                 )
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 1, "Unexpected blank line(s) in value parameter list")
                 .isFormattedAs(formattedCode)
         }
@@ -438,7 +438,7 @@ class NoBlankLineInListRuleTest {
                 )
                 """.trimIndent()
             noBlankLineInListRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(4, 1, "Unexpected blank line(s) in value parameter list")
                 .isFormattedAs(formattedCode)
         }

@@ -24,7 +24,7 @@ class NoSingleLineBlockCommentRuleTest {
             }
             """.trimIndent()
         noSingleLineBlockCommentRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.KTLINT_OFFICIAL)
             .hasLintViolation(2, 5, "Replace the block comment with an EOL comment")
             .isFormattedAs(formattedCode)
     }
@@ -125,7 +125,7 @@ class NoSingleLineBlockCommentRuleTest {
             val foo = { /* no-op */ }
             """.trimIndent()
         noSingleLineBlockCommentRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.KTLINT_OFFICIAL)
             .hasNoLintViolations()
     }
 }

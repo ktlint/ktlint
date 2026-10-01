@@ -40,7 +40,7 @@ internal class RuleExecutionRuleFilter(
         }
 
     private fun disableKtlintEntirely() =
-        editorConfig.getEditorConfigValueOrNull(RULE_EXECUTION_PROPERTY_TYPE, ALL_RULES_EXECUTION_PROPERTY.name) == RuleExecution.disabled
+        editorConfig.getEditorConfigValueOrNull(RULE_EXECUTION_PROPERTY_TYPE, ALL_RULES_EXECUTION_PROPERTY.name) == RuleExecution.DISABLED
 
     private fun EditorConfig.ruleExecutionProperties(ruleProviders: Set<RuleV2Provider>): Map<String, RuleExecution> {
         val ruleExecutionPropertyNames =
@@ -83,11 +83,11 @@ private class RuleExecutionFilter(
          */
         ruleExecution(rule.ruleId.ktLintRuleExecutionPropertyName())
             ?.let {
-                if (rule.ruleId == KTLINT_SUPPRESSION_RULE_ID && it == RuleExecution.disabled) {
+                if (rule.ruleId == KTLINT_SUPPRESSION_RULE_ID && it == RuleExecution.DISABLED) {
                     LOGGER.warn { "Rule '${rule.ruleId.value}' can not be disabled via the '.editorconfig'" }
                     true
                 } else {
-                    it == RuleExecution.enabled
+                    it == RuleExecution.ENABLED
                 }
             }
             ?: isRuleConditionallyEnabled(rule)
@@ -107,7 +107,7 @@ private class RuleExecutionFilter(
             }
 
             rule is RuleV2.OnlyWhenEnabledInEditorconfig -> {
-                ruleExecution(rule.ruleId.ktLintRuleExecutionPropertyName()) == RuleExecution.disabled
+                ruleExecution(rule.ruleId.ktLintRuleExecutionPropertyName()) == RuleExecution.DISABLED
             }
 
             else -> {
@@ -116,24 +116,24 @@ private class RuleExecutionFilter(
         }
 
     private fun isExperimentalEnabled(rule: RuleV2) =
-        ruleExecution(EXPERIMENTAL_RULES_EXECUTION_PROPERTY.name) == RuleExecution.enabled &&
-            ruleExecution(rule.ruleId.ruleSetId.ktLintRuleSetExecutionPropertyName()) != RuleExecution.disabled &&
-            ruleExecution(rule.ruleId.ktLintRuleExecutionPropertyName()) != RuleExecution.disabled
+        ruleExecution(EXPERIMENTAL_RULES_EXECUTION_PROPERTY.name) == RuleExecution.ENABLED &&
+            ruleExecution(rule.ruleId.ruleSetId.ktLintRuleSetExecutionPropertyName()) != RuleExecution.DISABLED &&
+            ruleExecution(rule.ruleId.ktLintRuleExecutionPropertyName()) != RuleExecution.DISABLED
 
     private fun isOfficialCodeStyleEnabled(rule: RuleV2) =
-        codeStyleValue == CodeStyleValue.ktlint_official &&
-            ruleExecution(rule.ruleId.ruleSetId.ktLintRuleSetExecutionPropertyName()) != RuleExecution.disabled &&
-            ruleExecution(rule.ruleId.ktLintRuleExecutionPropertyName()) != RuleExecution.disabled
+        codeStyleValue == CodeStyleValue.KTLINT_OFFICIAL &&
+            ruleExecution(rule.ruleId.ruleSetId.ktLintRuleSetExecutionPropertyName()) != RuleExecution.DISABLED &&
+            ruleExecution(rule.ruleId.ktLintRuleExecutionPropertyName()) != RuleExecution.DISABLED
 
     private fun isRuleSetEnabled(rule: RuleV2) =
         ruleExecution(rule.ruleId.ruleSetId.ktLintRuleSetExecutionPropertyName())
             .let { ruleSetExecution ->
                 if (ruleSetExecution?.name == EXPERIMENTAL_RULES_EXECUTION_PROPERTY.name) {
                     // Rules in the experimental rule set are only run when enabled explicitly.
-                    ruleSetExecution == RuleExecution.enabled
+                    ruleSetExecution == RuleExecution.ENABLED
                 } else {
                     // Rules in other rule sets are enabled by default.
-                    ruleSetExecution != RuleExecution.disabled
+                    ruleSetExecution != RuleExecution.DISABLED
                 }
             }
 

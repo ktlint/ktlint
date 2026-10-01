@@ -15,9 +15,9 @@ class MaxLineLengthEditorConfigPropertyTest {
         @ParameterizedTest(name = "Code style: {0}, default value: {1}")
         @CsvSource(
             value = [
-                "android_studio, 100",
-                "intellij_idea, ${Int.MAX_VALUE}",
-                "ktlint_official, 140",
+                "ANDROID_STUDIO, 100",
+                "INTELLIJ_IDEA, ${Int.MAX_VALUE}",
+                "KTLINT_OFFICIAL, 140",
             ],
         )
         fun `Given a null property then the property mapper returns the default value of the code style`(
@@ -32,9 +32,9 @@ class MaxLineLengthEditorConfigPropertyTest {
         @ParameterizedTest(name = "Code style: {0}, default value: {1}")
         @CsvSource(
             value = [
-                "android_studio, 100",
-                "intellij_idea, ${Int.MAX_VALUE}",
-                "ktlint_official, 140",
+                "ANDROID_STUDIO, 100",
+                "INTELLIJ_IDEA, ${Int.MAX_VALUE}",
+                "KTLINT_OFFICIAL, 140",
             ],
         )
         fun `Given a property which is unset then the property mapper returns the default value of the code style`(
@@ -86,9 +86,9 @@ class MaxLineLengthEditorConfigPropertyTest {
         @ParameterizedTest(name = "Code style: {0}, default value: {1}")
         @CsvSource(
             value = [
-                "android_studio, 100",
-                "intellij_idea, ${Int.MAX_VALUE}",
-                "ktlint_official, 140",
+                "ANDROID_STUDIO, 100",
+                "INTELLIJ_IDEA, ${Int.MAX_VALUE}",
+                "KTLINT_OFFICIAL, 140",
             ],
         )
         fun `Given an invalid value then the property mapper returns the default value of the code style`(

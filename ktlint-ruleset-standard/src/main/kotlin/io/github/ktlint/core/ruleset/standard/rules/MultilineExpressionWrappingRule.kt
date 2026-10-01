@@ -55,7 +55,7 @@ import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.Companion.FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY
-import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.default
+import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.DEFAULT
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
@@ -115,7 +115,7 @@ public class MultilineExpressionWrappingRule :
             node
                 .prevLeaf { !it.isPartOfComment }
                 .takeUnless { it.isWhiteSpaceWithNewline }
-                ?.let { prevLeaf ->
+                ?.let {
                     emit(node.startOffset, "A multiline expression should start on a new line", true)
                         .ifAutocorrectAllowed {
                             node.upsertWhitespaceBeforeMe(indentConfig.siblingIndentOf(node))
@@ -182,7 +182,7 @@ public class MultilineExpressionWrappingRule :
         null !=
             prevCodeSibling
                 ?.takeIf { it.elementType == EQ || it.elementType == OPERATION_REFERENCE }
-                ?.takeUnless { functionBodyExpressionWrapping == default && it.parent?.elementType == FUN }
+                ?.takeUnless { functionBodyExpressionWrapping == DEFAULT && it.parent?.elementType == FUN }
                 ?.takeUnless { it.isElvisOperator() }
                 ?.takeUnless {
                     it

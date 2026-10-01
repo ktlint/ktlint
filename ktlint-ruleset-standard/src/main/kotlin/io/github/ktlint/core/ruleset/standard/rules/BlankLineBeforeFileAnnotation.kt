@@ -27,7 +27,7 @@ public class BlankLineBeforeFileAnnotation :
     StandardRule("blank-line-before-file-annotation"),
     RuleV2.Experimental {
     override fun beforeFirstNode(editorConfig: EditorConfig) {
-        if (editorConfig[CODE_STYLE_PROPERTY] == CodeStyleValue.intellij_idea) {
+        if (editorConfig[CODE_STYLE_PROPERTY] == CodeStyleValue.INTELLIJ_IDEA) {
             stopTraversalOfAST()
         }
     }

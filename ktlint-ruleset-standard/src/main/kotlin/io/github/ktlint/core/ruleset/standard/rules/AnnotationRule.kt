@@ -189,7 +189,7 @@ public class AnnotationRule :
                             //     ) : @Suppress("DEPRECATION")
                             //         FooBar()
                             index == 0 &&
-                                codeStyle == CodeStyleValue.ktlint_official &&
+                                codeStyle == CodeStyleValue.KTLINT_OFFICIAL &&
                                 it.annotationOnSameLineAsClosingParenthesisOfClassParameterList()
                         }?.takeUnless { it.isWhiteSpaceWithNewline }
                         ?.let { prevLeaf ->
@@ -283,7 +283,7 @@ public class AnnotationRule :
     }
 
     private fun ASTNode.hasAnnotationBeforeConstructor() =
-        codeStyle == CodeStyleValue.ktlint_official &&
+        codeStyle == CodeStyleValue.KTLINT_OFFICIAL &&
             hasAnnotationEntry() &&
             nextCodeSibling?.elementType == CONSTRUCTOR_KEYWORD
 

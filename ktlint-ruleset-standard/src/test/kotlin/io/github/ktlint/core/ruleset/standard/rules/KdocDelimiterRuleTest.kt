@@ -845,7 +845,7 @@ class KdocDelimiterRuleTest {
     @EnumSource(
         value = CodeStyleValue::class,
         mode = EnumSource.Mode.EXCLUDE,
-        names = ["ktlint_official"],
+        names = ["KTLINT_OFFICIAL"],
     )
     fun `Given a malformed KDoc comment and a code style other than ktlint_official then the rule can still be run explicitly`(
         codeStyleValue: CodeStyleValue,
@@ -862,7 +862,7 @@ class KdocDelimiterRuleTest {
             """.trimIndent()
         kdocDelimiterRuleAssertThat(code)
             .withEditorConfigOverride(CODE_STYLE_PROPERTY to codeStyleValue)
-            .withEditorConfigOverride(KDOC_DELIMITER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled)
+            .withEditorConfigOverride(KDOC_DELIMITER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED)
             .hasLintViolation(1, 4, "Expected a single space after '/**' in a single-line KDoc comment")
             .isFormattedAs(formattedCode)
     }

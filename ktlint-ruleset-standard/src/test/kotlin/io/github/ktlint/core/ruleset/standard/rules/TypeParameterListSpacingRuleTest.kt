@@ -1,7 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.android_studio
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ANDROID_STUDIO
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
 import org.junit.jupiter.api.Test
@@ -350,7 +350,7 @@ class TypeParameterListSpacingRuleTest {
             constructor(param: T)
             """.trimIndent()
         typeParameterListSpacingRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to android_studio)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ANDROID_STUDIO)
             .hasNoLintViolations()
     }
 

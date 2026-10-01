@@ -1,7 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution.disabled
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution.enabled
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution.DISABLED
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution.ENABLED
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleExecutionEditorConfigProperty
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
@@ -174,7 +174,7 @@ class FunctionLiteralRuleTest {
                 """.trimIndent()
             functionLiteralRuleAssertThat(code)
                 .setMaxLineLength()
-                .withEditorConfigOverride(MAX_LINE_LENGTH_RULE_ID.createRuleExecutionEditorConfigProperty() to enabled)
+                .withEditorConfigOverride(MAX_LINE_LENGTH_RULE_ID.createRuleExecutionEditorConfigProperty() to ENABLED)
                 .hasLintViolations(
                     LintViolation(3, 7, "Newline expected before parameter"),
                     LintViolation(3, 20, "Newline expected before parameter"),
@@ -186,7 +186,7 @@ class FunctionLiteralRuleTest {
         fun `Given that max-line-length rule is disabled`() {
             functionLiteralRuleAssertThat(code)
                 .setMaxLineLength()
-                .withEditorConfigOverride(MAX_LINE_LENGTH_RULE_ID.createRuleExecutionEditorConfigProperty() to disabled)
+                .withEditorConfigOverride(MAX_LINE_LENGTH_RULE_ID.createRuleExecutionEditorConfigProperty() to DISABLED)
                 .hasNoLintViolations()
         }
     }

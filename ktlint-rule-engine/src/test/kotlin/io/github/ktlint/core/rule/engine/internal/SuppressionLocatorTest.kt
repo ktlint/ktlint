@@ -442,7 +442,7 @@ class SuppressionLocatorTest {
                 editorConfigOverride =
                     EMPTY_EDITOR_CONFIG_OVERRIDE
                         .plus(
-                            STANDARD_NO_FOO_IDENTIFIER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled,
+                            STANDARD_NO_FOO_IDENTIFIER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED,
                         ),
             ).format(Code.fromSnippet(code)) { _ -> AutocorrectDecision.ALLOW_AUTOCORRECT }
 
@@ -483,7 +483,7 @@ class SuppressionLocatorTest {
                 editorConfigOverride =
                     EMPTY_EDITOR_CONFIG_OVERRIDE
                         .plus(
-                            STANDARD_NO_FOO_IDENTIFIER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled,
+                            STANDARD_NO_FOO_IDENTIFIER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED,
                         ),
             ).format(Code.fromSnippet(code)) { _ -> AutocorrectDecision.ALLOW_AUTOCORRECT }
 
@@ -555,8 +555,8 @@ class SuppressionLocatorTest {
             editorConfigOverride =
                 editorConfigOverride
                     .plus(
-                        STANDARD_NO_FOO_IDENTIFIER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled,
-                        NON_STANDARD_NO_FOO_IDENTIFIER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled,
+                        STANDARD_NO_FOO_IDENTIFIER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED,
+                        NON_STANDARD_NO_FOO_IDENTIFIER_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED,
                     ),
         ).lint(Code.fromSnippet(code)) { e ->
             if (ignoreKtlintSuppressionRule && e.ruleId == KTLINT_SUPPRESSION_RULE_ID) {

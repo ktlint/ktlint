@@ -33,7 +33,7 @@ internal class EditorConfigGenerator(
         filePath: Path,
     ): String =
         editorConfig(rules, codeStyle, filePath)
-            .map { "${it.name} = ${it.sourceValue}" }
+            .map { "${it.name} = ${it.sourceValue.lowercase()}" }
             .distinct()
             .sorted()
             .joinToString(separator = System.lineSeparator())

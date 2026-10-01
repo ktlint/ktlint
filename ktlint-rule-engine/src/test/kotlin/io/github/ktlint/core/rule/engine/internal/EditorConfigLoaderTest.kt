@@ -24,6 +24,7 @@ internal class EditorConfigLoaderTest {
         ktlintTestFileSystem.close()
     }
 
+    @Suppress("EditorConfigShadowingOption", "EditorConfigPartialOverride", "EditorConfigShadowedOption")
     @ParameterizedTest
     @ValueSource(
         strings = [
@@ -585,7 +586,7 @@ internal class EditorConfigLoaderTest {
                 if (it.isUnset) {
                     "unset"
                 } else {
-                    it.sourceValue
+                    it.sourceValue.lowercase()
                 }
             "${it.name} = $value"
         }.toList()

@@ -148,7 +148,7 @@ public fun EditorConfig.maxLineLength(): Int =
     }
 
 private fun EditorConfig.maxLineLengthRuleEnabled(): Boolean =
-    RuleExecution.enabled ==
+    RuleExecution.ENABLED ==
         getEditorConfigValueOrNull(
             RULE_EXECUTION_PROPERTY_TYPE,
             MAX_LINE_LENGTH_RULE_ID.ktLintRuleExecutionPropertyName(),

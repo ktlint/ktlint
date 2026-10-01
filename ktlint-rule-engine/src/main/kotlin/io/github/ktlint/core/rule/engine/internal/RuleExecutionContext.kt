@@ -102,9 +102,9 @@ internal class RuleExecutionContext private constructor(
                     RuleId("standard:max-line-length")
                         .createRuleExecutionEditorConfigProperty(
                             if (ruleProviders.any { it.ruleId.value == "standard:max-line-length" }) {
-                                RuleExecution.enabled
+                                RuleExecution.ENABLED
                             } else {
-                                RuleExecution.disabled
+                                RuleExecution.DISABLED
                             },
                         ),
                 ),

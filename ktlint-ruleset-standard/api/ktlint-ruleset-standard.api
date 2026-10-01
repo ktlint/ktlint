@@ -240,9 +240,9 @@ public final class io/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCas
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing : java/lang/Enum {
-	public static final field camel_cases Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing;
-	public static final field upper_cases Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing;
-	public static final field upper_or_camel_cases Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing;
+	public static final field CAMEL_CASES Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing;
+	public static final field UPPER_CASES Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing;
+	public static final field UPPER_OR_CAMEL_CASES Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing;
 	public static fun values ()[Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion$EnumEntryNameCasing;
@@ -358,9 +358,9 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionSignatur
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping : java/lang/Enum {
-	public static final field always Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping;
-	public static final field default Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping;
-	public static final field multiline Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping;
+	public static final field ALWAYS Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping;
+	public static final field DEFAULT Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping;
+	public static final field MULTILINE Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping;
 	public static fun values ()[Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$FunctionBodyExpressionWrapping;
@@ -800,8 +800,8 @@ public final class io/github/ktlint/core/ruleset/standard/rules/PropertyNamingRu
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/PropertyNamingRule$Companion$ConstantNamingStyle : java/lang/Enum {
-	public static final field pascal_case Lio/github/ktlint/core/ruleset/standard/rules/PropertyNamingRule$Companion$ConstantNamingStyle;
-	public static final field screaming_snake_case Lio/github/ktlint/core/ruleset/standard/rules/PropertyNamingRule$Companion$ConstantNamingStyle;
+	public static final field PASCAL_CASE Lio/github/ktlint/core/ruleset/standard/rules/PropertyNamingRule$Companion$ConstantNamingStyle;
+	public static final field SCREAMING_SNAKE_CASE Lio/github/ktlint/core/ruleset/standard/rules/PropertyNamingRule$Companion$ConstantNamingStyle;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getRegEx ()Lkotlin/text/Regex;
 	public static fun valueOf (Ljava/lang/String;)Lio/github/ktlint/core/ruleset/standard/rules/PropertyNamingRule$Companion$ConstantNamingStyle;

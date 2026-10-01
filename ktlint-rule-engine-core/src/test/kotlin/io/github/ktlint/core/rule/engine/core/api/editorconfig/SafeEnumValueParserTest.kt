@@ -12,17 +12,16 @@ class SafeEnumValueParserTest {
                 "some-property-type",
                 null,
                 SafeEnumValueParser(SomePropertyType::class.java),
-                SomePropertyType.entries.map { it.name }.toSet(),
+                SomePropertyType.entries.map { it.name.lowercase() }.toSet(),
             )
 
         val actual = propertyType.parse(" value2 ")
 
-        assertThat(actual.parsed).isEqualTo(SomePropertyType.value2)
+        assertThat(actual.parsed).isEqualTo(SomePropertyType.VALUE2)
     }
 
-    @Suppress("EnumEntryName")
     private enum class SomePropertyType {
-        value1,
-        value2,
+        VALUE1,
+        VALUE2,
     }
 }

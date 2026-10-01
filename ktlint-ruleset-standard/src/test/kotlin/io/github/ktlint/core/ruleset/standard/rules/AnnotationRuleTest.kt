@@ -2,7 +2,7 @@ package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.ruleset.standard.rules.AnnotationRule.Companion.ANNOTATIONS_WITH_PARAMETERS_NOT_TO_BE_WRAPPED_PROPERTY
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
@@ -862,7 +862,7 @@ class AnnotationRuleTest {
                 class Foo @Inject internal constructor()
                 """.trimIndent()
             annotationRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to CodeStyleValue.INTELLIJ_IDEA)
                 .hasNoLintViolations()
         }
 
@@ -881,7 +881,7 @@ class AnnotationRuleTest {
                         internal constructor()
                     """.trimIndent()
                 annotationRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolations(
                         LintViolation(1, 10, "Expected newline before annotation"),
                         LintViolation(1, 18, "Expected newline after last annotation"),
@@ -917,7 +917,7 @@ class AnnotationRuleTest {
                     """.trimIndent()
                 annotationRuleAssertThat(code)
                     .addAdditionalRuleProvider { IndentationRule() }
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .withEditorConfigOverride(ANNOTATIONS_WITH_PARAMETERS_NOT_TO_BE_WRAPPED_PROPERTY to "Baz2")
                     .hasLintViolations(
                         LintViolation(1, 15, "Expected newline before annotation"),
@@ -946,7 +946,7 @@ class AnnotationRuleTest {
                     }
                     """.trimIndent()
                 annotationRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolations(
                         LintViolation(1, 15, "Expected newline before annotation"),
                         LintViolation(1, 27, "Expected newline after last annotation"),
@@ -970,7 +970,7 @@ class AnnotationRuleTest {
                     }
                     """.trimIndent()
                 annotationRuleAssertThat(code)
-                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                    .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                     .hasLintViolations(
                         LintViolation(1, 15, "Expected newline before annotation"),
                         LintViolation(1, 21, "Expected newline after last annotation"),

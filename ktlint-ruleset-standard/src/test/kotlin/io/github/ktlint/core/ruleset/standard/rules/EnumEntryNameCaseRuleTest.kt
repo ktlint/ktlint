@@ -1,9 +1,9 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.ruleset.standard.rules.EnumEntryNameCaseRule.Companion.ENUM_ENTRY_NAME_CASING_PROPERTY
-import io.github.ktlint.core.ruleset.standard.rules.EnumEntryNameCaseRule.Companion.EnumEntryNameCasing.camel_cases
-import io.github.ktlint.core.ruleset.standard.rules.EnumEntryNameCaseRule.Companion.EnumEntryNameCasing.upper_cases
-import io.github.ktlint.core.ruleset.standard.rules.EnumEntryNameCaseRule.Companion.EnumEntryNameCasing.upper_or_camel_cases
+import io.github.ktlint.core.ruleset.standard.rules.EnumEntryNameCaseRule.Companion.EnumEntryNameCasing.CAMEL_CASES
+import io.github.ktlint.core.ruleset.standard.rules.EnumEntryNameCaseRule.Companion.EnumEntryNameCasing.UPPER_CASES
+import io.github.ktlint.core.ruleset.standard.rules.EnumEntryNameCaseRule.Companion.EnumEntryNameCasing.UPPER_OR_CAMEL_CASES
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
 import org.junit.jupiter.api.Nested
@@ -99,7 +99,7 @@ class EnumEntryNameCaseRuleTest {
         @Test
         fun `Given that 'ktlint_enum_entry_name_casing' is set to 'UPPER_OR_CAMEL_CASES', then allow both upper cases and camel cases`() {
             enumEntryNameCaseRuleAssertThat(code)
-                .withEditorConfigOverride(ENUM_ENTRY_NAME_CASING_PROPERTY to upper_or_camel_cases)
+                .withEditorConfigOverride(ENUM_ENTRY_NAME_CASING_PROPERTY to UPPER_OR_CAMEL_CASES)
                 .hasNoLintViolations()
         }
 
@@ -107,14 +107,14 @@ class EnumEntryNameCaseRuleTest {
         fun `Given that 'ktlint_enum_entry_name_casing' is set to 'UPPER_CASES', then allow only upper cases`() {
             @Suppress("ktlint:standard:max-line-length")
             enumEntryNameCaseRuleAssertThat(code)
-                .withEditorConfigOverride(ENUM_ENTRY_NAME_CASING_PROPERTY to upper_cases)
+                .withEditorConfigOverride(ENUM_ENTRY_NAME_CASING_PROPERTY to UPPER_CASES)
                 .hasLintViolationWithoutAutoCorrect(3, 5, "Enum entry name should be uppercase underscore-separated names like \"ENUM_ENTRY\"")
         }
 
         @Test
         fun `Given that 'ktlint_enum_entry_name_casing' is set to 'CAMEL_CASES', then allow only camel cases`() {
             enumEntryNameCaseRuleAssertThat(code)
-                .withEditorConfigOverride(ENUM_ENTRY_NAME_CASING_PROPERTY to camel_cases)
+                .withEditorConfigOverride(ENUM_ENTRY_NAME_CASING_PROPERTY to CAMEL_CASES)
                 .hasLintViolationWithoutAutoCorrect(2, 5, "Enum entry name should be upper camel-case like \"EnumEntry\"")
         }
     }

@@ -50,7 +50,7 @@ class DisabledRulesTest {
                         ),
                     editorConfigOverride =
                         EditorConfigOverride.from(
-                            RuleId(disabledRuleId).createRuleExecutionEditorConfigProperty() to RuleExecution.disabled,
+                            RuleId(disabledRuleId).createRuleExecutionEditorConfigProperty() to RuleExecution.DISABLED,
                         ),
                 ).lint(Code.fromSnippet("var foo")) { e -> add(e) }
             },

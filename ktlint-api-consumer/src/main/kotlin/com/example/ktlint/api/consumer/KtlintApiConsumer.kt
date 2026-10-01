@@ -48,7 +48,7 @@ public fun main() {
                 // they are provided by the ktlint-rule-engine-core module.
                 INDENT_STYLE_PROPERTY to IndentConfig.IndentStyle.SPACE,
                 INDENT_SIZE_PROPERTY to 4,
-                EXPERIMENTAL_RULES_EXECUTION_PROPERTY to RuleExecution.enabled,
+                EXPERIMENTAL_RULES_EXECUTION_PROPERTY to RuleExecution.ENABLED,
                 //
                 // Properties defined in the ktlint-ruleset-standard can only be loaded statically when that dependency is provided at
                 // compile time. In this example project this ruleset is loaded at runtime, so following decommenting next line results in
@@ -64,8 +64,8 @@ public fun main() {
                 // The properties for enabling/disabling a rule or entire rule set can be set as well. Note that the values of this
                 // property can be set via the `RuleExecution` enum which is available at compile time as it is provided by the
                 // ktlint-rule-engine-core module.
-                editorConfigPropertyRegistry.find("ktlint_standard_function-signature") to RuleExecution.disabled,
-                editorConfigPropertyRegistry.find("ktlint_standard") to RuleExecution.disabled,
+                editorConfigPropertyRegistry.find("ktlint_standard_function-signature") to RuleExecution.DISABLED,
+                editorConfigPropertyRegistry.find("ktlint_standard") to RuleExecution.DISABLED,
                 //
                 // In case an unknown property is provided, an exception is thrown:
                 // ruleProviders.findEditorConfigProperty("unknown_property") to "some-value",

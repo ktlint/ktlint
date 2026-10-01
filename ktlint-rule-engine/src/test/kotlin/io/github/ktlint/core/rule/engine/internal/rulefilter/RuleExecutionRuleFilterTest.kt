@@ -26,8 +26,8 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { NormalRule(STANDARD_RULE_C) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty("ktlint_$STANDARD", RuleExecution.enabled),
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_C, RuleExecution.disabled),
+                        ktLintRuleExecutionEditorConfigProperty("ktlint_$STANDARD", RuleExecution.ENABLED),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_C, RuleExecution.DISABLED),
                     ),
             ).toRuleIds()
 
@@ -47,7 +47,7 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { NormalRule(STANDARD_RULE_D) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_C, RuleExecution.disabled),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_C, RuleExecution.DISABLED),
                     ),
             ).toRuleIds()
 
@@ -66,9 +66,9 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { NormalRule(STANDARD_RULE_C) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty("ktlint_$STANDARD", RuleExecution.disabled),
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_A, RuleExecution.enabled),
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_B, RuleExecution.enabled),
+                        ktLintRuleExecutionEditorConfigProperty("ktlint_$STANDARD", RuleExecution.DISABLED),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_A, RuleExecution.ENABLED),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_B, RuleExecution.ENABLED),
                     ),
             ).toRuleIds()
 
@@ -88,8 +88,8 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { ExperimentalRule(CUSTOM_RULE_C) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_B, RuleExecution.enabled),
-                        ktLintRuleExecutionEditorConfigProperty(CUSTOM_RULE_B, RuleExecution.enabled),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_B, RuleExecution.ENABLED),
+                        ktLintRuleExecutionEditorConfigProperty(CUSTOM_RULE_B, RuleExecution.ENABLED),
                     ),
             ).toRuleIds()
 
@@ -109,10 +109,10 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { ExperimentalRule(CUSTOM_RULE_C) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty("ktlint_experimental", RuleExecution.disabled),
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_B, RuleExecution.enabled),
-                        ktLintRuleExecutionEditorConfigProperty("ktlint_$CUSTOM", RuleExecution.disabled),
-                        ktLintRuleExecutionEditorConfigProperty(CUSTOM_RULE_B, RuleExecution.enabled),
+                        ktLintRuleExecutionEditorConfigProperty("ktlint_experimental", RuleExecution.DISABLED),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_B, RuleExecution.ENABLED),
+                        ktLintRuleExecutionEditorConfigProperty("ktlint_$CUSTOM", RuleExecution.DISABLED),
+                        ktLintRuleExecutionEditorConfigProperty(CUSTOM_RULE_B, RuleExecution.ENABLED),
                     ),
             ).toRuleIds()
 
@@ -132,10 +132,10 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { ExperimentalRule(CUSTOM_RULE_C) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty("ktlint_experimental", RuleExecution.enabled),
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_C, RuleExecution.disabled),
-                        ktLintRuleExecutionEditorConfigProperty("ktlint_$CUSTOM", RuleExecution.enabled),
-                        ktLintRuleExecutionEditorConfigProperty(CUSTOM_RULE_C, RuleExecution.disabled),
+                        ktLintRuleExecutionEditorConfigProperty("ktlint_experimental", RuleExecution.ENABLED),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_C, RuleExecution.DISABLED),
+                        ktLintRuleExecutionEditorConfigProperty("ktlint_$CUSTOM", RuleExecution.ENABLED),
+                        ktLintRuleExecutionEditorConfigProperty(CUSTOM_RULE_C, RuleExecution.DISABLED),
                     ),
             ).toRuleIds()
 
@@ -153,8 +153,8 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { NormalRule(STANDARD_RULE_B) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_A, RuleExecution.disabled),
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_B, RuleExecution.disabled),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_A, RuleExecution.DISABLED),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_B, RuleExecution.DISABLED),
                     ),
             ).toRuleIds()
 
@@ -169,8 +169,8 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { KtlintSuppressionRule(listOf(STANDARD_RULE_A)) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_A, RuleExecution.disabled),
-                        ktLintRuleExecutionEditorConfigProperty(KTLINT_SUPPRESSION_RULE_ID, RuleExecution.disabled),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_A, RuleExecution.DISABLED),
+                        ktLintRuleExecutionEditorConfigProperty(KTLINT_SUPPRESSION_RULE_ID, RuleExecution.DISABLED),
                     ),
             ).toRuleIds()
 
@@ -210,7 +210,7 @@ class RuleExecutionRuleFilterTest {
                 RuleV2Provider { OnlyWhenEnabledInEditorconfigRule(STANDARD_RULE_A) },
                 editorConfig =
                     EditorConfig(
-                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_A, RuleExecution.enabled),
+                        ktLintRuleExecutionEditorConfigProperty(STANDARD_RULE_A, RuleExecution.ENABLED),
                     ),
             ).toRuleIds()
 
@@ -237,7 +237,7 @@ class RuleExecutionRuleFilterTest {
             .builder()
             .type(RULE_EXECUTION_PROPERTY_TYPE)
             .name(ALL_RULES_EXECUTION_PROPERTY.name)
-            .value(RuleExecution.disabled.name)
+            .value(RuleExecution.DISABLED.name)
             .build()
 
     private fun ktLintRuleExecutionEditorConfigProperty(

@@ -100,9 +100,9 @@ public class EditorConfig(
 
     private fun <T> EditorConfigProperty<T>.getDefaultValue() =
         when (codeStyle) {
-            CodeStyleValue.android_studio -> androidStudioCodeStyleDefaultValue
-            CodeStyleValue.intellij_idea -> intellijIdeaCodeStyleDefaultValue
-            CodeStyleValue.ktlint_official -> ktlintOfficialCodeStyleDefaultValue
+            CodeStyleValue.ANDROID_STUDIO -> androidStudioCodeStyleDefaultValue
+            CodeStyleValue.INTELLIJ_IDEA -> intellijIdeaCodeStyleDefaultValue
+            CodeStyleValue.KTLINT_OFFICIAL -> ktlintOfficialCodeStyleDefaultValue
         }
 
     /**

@@ -44,7 +44,7 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 @SinceKtlint("1.0", STABLE)
 public class BlankLineBeforeDeclarationRule : StandardRule("blank-line-before-declaration") {
     override fun beforeFirstNode(editorConfig: EditorConfig) {
-        if (editorConfig[CODE_STYLE_PROPERTY] == CodeStyleValue.intellij_idea) {
+        if (editorConfig[CODE_STYLE_PROPERTY] == CodeStyleValue.INTELLIJ_IDEA) {
             stopTraversalOfAST()
         }
     }

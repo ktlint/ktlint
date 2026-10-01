@@ -733,11 +733,11 @@ private fun EditorConfigOverride.extendWithRuleSetRuleExecutionsFor(ruleProvider
                     .createRuleSetExecutionEditorConfigProperty()
             }.distinct()
             .filter { editorConfigProperty -> this.properties[editorConfigProperty] == null }
-            .map { it to RuleExecution.enabled }
+            .map { it to RuleExecution.ENABLED }
             .toList()
             .toTypedArray()
     return this.plus(*ruleSetRuleExecutions)
 }
 
 private fun EditorConfigOverride.enableExperimentalRules(): EditorConfigOverride =
-    plus(EXPERIMENTAL_RULES_EXECUTION_PROPERTY to RuleExecution.enabled)
+    plus(EXPERIMENTAL_RULES_EXECUTION_PROPERTY to RuleExecution.ENABLED)

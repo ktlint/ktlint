@@ -1,6 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
-import io.github.ktlint.core.ruleset.standard.rules.PropertyNamingRule.Companion.ConstantNamingStyle.pascal_case
+import io.github.ktlint.core.ruleset.standard.rules.PropertyNamingRule.Companion.ConstantNamingStyle.PASCAL_CASE
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.KtlintDocumentationTest
 import io.github.ktlint.core.test.LintViolation
@@ -81,7 +81,7 @@ class PropertyNamingRuleTest {
             const val ŸèšThîsIsAllowed123 = "Yes this is allowed"
             """.trimIndent()
         propertyNamingRuleAssertThat(code)
-            .withEditorConfigOverride(PropertyNamingRule.CONSTANT_NAMING_PROPERTY to pascal_case)
+            .withEditorConfigOverride(PropertyNamingRule.CONSTANT_NAMING_PROPERTY to PASCAL_CASE)
             .hasLintViolationsWithoutAutoCorrect(
                 LintViolation(1, 11, "Property name should use the pascal case notation when the value can not be changed"),
                 // FOO cannot be reported as not meeting the pascal case requirement as it could be an abbreviation of 3 separate words

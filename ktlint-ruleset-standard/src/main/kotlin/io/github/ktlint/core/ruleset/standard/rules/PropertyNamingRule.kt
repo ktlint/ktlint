@@ -91,7 +91,7 @@ public class PropertyNamingRule :
                 it == SERIAL_VERSION_UID_PROPERTY_NAME
             }?.takeUnless { it.matches(constantNamingProperty.regEx) }
             ?.let {
-                val expectedNaming = constantNamingProperty.name.replace("_", " ")
+                val expectedNaming = constantNamingProperty.name.lowercase().replace("_", " ")
                 emit(
                     identifier.startOffset,
                     "Property name should use the $expectedNaming notation when the value can not be changed",
@@ -149,7 +149,6 @@ public class PropertyNamingRule :
                     keyword.any { it.isUpperCase() }
                 }.toSet()
 
-        @Suppress("EnumEntryName")
         public enum class ConstantNamingStyle(
             public val regEx: Regex,
         ) {
@@ -157,14 +156,14 @@ public class PropertyNamingRule :
              * The name of a constant must start with an uppercase character followed by zero or more uppercase characters, numbers, or
              * underscore characters to separate words in the name. The latin characters may also be combined with strokes and diacritics.
              */
-            screaming_snake_case("[A-Z][_A-Z0-9]*".regExIgnoringDiacriticsAndStrokesOnLetters()),
+            SCREAMING_SNAKE_CASE("[A-Z][_A-Z0-9]*".regExIgnoringDiacriticsAndStrokesOnLetters()),
 
             /**
              * The name of a constant must start with an uppercase character followed by zero or more uppercase characters or numbers. Each
              * word in the name should start with an uppercase character. The latin characters may also be combined with strokes and
              * diacritics.
              */
-            pascal_case("[A-Z][a-zA-Z0-9]*".regExIgnoringDiacriticsAndStrokesOnLetters()),
+            PASCAL_CASE("[A-Z][a-zA-Z0-9]*".regExIgnoringDiacriticsAndStrokesOnLetters()),
         }
 
         public val CONSTANT_NAMING_PROPERTY_TYPE:
@@ -182,7 +181,7 @@ public class PropertyNamingRule :
         public val CONSTANT_NAMING_PROPERTY: EditorConfigProperty<ConstantNamingStyle> =
             EditorConfigProperty(
                 type = CONSTANT_NAMING_PROPERTY_TYPE,
-                defaultValue = ConstantNamingStyle.screaming_snake_case,
+                defaultValue = ConstantNamingStyle.SCREAMING_SNAKE_CASE,
             )
     }
 }

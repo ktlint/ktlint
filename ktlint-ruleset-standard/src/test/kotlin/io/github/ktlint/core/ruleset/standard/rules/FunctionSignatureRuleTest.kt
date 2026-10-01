@@ -2,13 +2,13 @@ package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.ec4j.toPropertyWithValue
 import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.Companion.FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY
 import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.Companion.FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY
 import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping
-import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.always
-import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.default
+import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.ALWAYS
+import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.DEFAULT
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRuleBuilder
@@ -762,7 +762,7 @@ class FunctionSignatureRuleTest {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,
-            names = ["default", "multiline"],
+            names = ["DEFAULT", "MULTILINE"],
         )
         fun `Given that the function signature and a single line body expression body fit on the same line then do not reformat function signature or body expression`(
             bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -795,7 +795,7 @@ class FunctionSignatureRuleTest {
             functionSignatureWrappingRuleAssertThat(code)
                 .setMaxLineLength()
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to "unset")
-                .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to always)
+                .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to ALWAYS)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasLintViolation(2, 33, "Newline expected before expression body")
                 .isFormattedAs(formattedCode)
@@ -821,7 +821,7 @@ class FunctionSignatureRuleTest {
             functionSignatureWrappingRuleAssertThat(code)
                 .withEditorConfigOverride(CODE_STYLE_PROPERTY to codeStyleValue)
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to "unset")
-                .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to always)
+                .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to ALWAYS)
                 .addAdditionalRuleProvider { IndentationRule() }
                 .hasLintViolations(
                     LintViolation(1, 34, "Newline expected before expression body"),
@@ -832,7 +832,7 @@ class FunctionSignatureRuleTest {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,
-            names = ["multiline", "always"],
+            names = ["MULTILINE", "ALWAYS"],
         )
         fun `Given that the function signature and first line of a multiline body expression body fit on the same line then do not reformat the function signature, move the body expression to a separate line`(
             bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -866,7 +866,7 @@ class FunctionSignatureRuleTest {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,
-            names = ["default", "multiline"],
+            names = ["DEFAULT", "MULTILINE"],
         )
         fun `Given that the function signature and a single line body expression body fit on the same line then do reformat as single line signature`(
             bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -901,7 +901,7 @@ class FunctionSignatureRuleTest {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,
-            names = ["default", "multiline", "always"],
+            names = ["DEFAULT", "MULTILINE", "ALWAYS"],
         )
         fun `Given that the function signature and first line of a multi line body expression body do not fit on the same line then do reformat`(
             bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -936,7 +936,7 @@ class FunctionSignatureRuleTest {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,
-            names = ["multiline", "always"],
+            names = ["MULTILINE", "ALWAYS"],
         )
         fun `Given that the function signature and the first line of a multi line body expression body fit on the same line then reformat to single line signature but keep body expression on separate line`(
             bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -973,7 +973,7 @@ class FunctionSignatureRuleTest {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,
-            names = ["default"],
+            names = ["DEFAULT"],
         )
         fun `Given that the function signature and first line of a multiline body expression body fit on the same line then do reformat as single line signature`(
             bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -1010,7 +1010,7 @@ class FunctionSignatureRuleTest {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,
-            names = ["always"],
+            names = ["ALWAYS"],
         )
         fun `Given that the function signature and first line of a multiline body expression body fit on the same line then do reformat as single line signature, keep the body expression on a separate line`(
             bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -1048,7 +1048,7 @@ class FunctionSignatureRuleTest {
     @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
     @EnumSource(
         value = FunctionBodyExpressionWrapping::class,
-        names = ["default", "multiline"],
+        names = ["DEFAULT", "MULTILINE"],
     )
     fun `Given a multiline function signature without explicit return type and start of body expression on next line then keep first line of body expression body on the same line as the last line of the function signature`(
         bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -1083,7 +1083,7 @@ class FunctionSignatureRuleTest {
     @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
     @EnumSource(
         value = FunctionBodyExpressionWrapping::class,
-        names = ["default", "multiline"],
+        names = ["DEFAULT", "MULTILINE"],
     )
     fun `Given a multiline function signature without explicit return type and start of body expression on same line as last line of function signature then do not reformat`(
         bodyExpressionWrapping: FunctionBodyExpressionWrapping,
@@ -1127,7 +1127,7 @@ class FunctionSignatureRuleTest {
             """.trimIndent()
         functionSignatureWrappingRuleAssertThat(code)
             .setMaxLineLength()
-            .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to always)
+            .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to ALWAYS)
             .addAdditionalRuleProvider { IndentationRule() }
             .hasLintViolation(5, 5, "Newline expected before expression body")
             .isFormattedAs(formattedCode)
@@ -1150,7 +1150,7 @@ class FunctionSignatureRuleTest {
                 ) = "some-result"
                 """.trimIndent()
             functionSignatureWrappingRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolations(
                     LintViolation(1, 9, "Newline expected after opening parenthesis"),
                     LintViolation(1, 17, "Parameter should start on a newline"),
@@ -1163,7 +1163,7 @@ class FunctionSignatureRuleTest {
         @EnumSource(
             value = CodeStyleValue::class,
             mode = EnumSource.Mode.EXCLUDE,
-            names = ["ktlint_official"],
+            names = ["KTLINT_OFFICIAL"],
         )
         fun `Given non-ktlint_official code style`(codeStyle: CodeStyleValue) {
             val code =
@@ -1391,7 +1391,7 @@ class FunctionSignatureRuleTest {
             }
             """.trimIndent()
         functionSignatureWrappingRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
             .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to "unset")
             .hasNoLintViolations()
     }
@@ -1409,7 +1409,7 @@ class FunctionSignatureRuleTest {
             """.trimIndent()
         functionSignatureWrappingRuleAssertThat(code)
             .setMaxLineLength()
-            .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to default)
+            .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to DEFAULT)
             .hasNoLintViolations()
     }
 
@@ -1429,7 +1429,7 @@ class FunctionSignatureRuleTest {
             """.trimIndent()
         functionSignatureWrappingRuleAssertThat(code)
             .setMaxLineLength()
-            .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to default)
+            .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to DEFAULT)
             .hasNoLintViolations()
     }
 
@@ -1458,7 +1458,7 @@ class FunctionSignatureRuleTest {
             """.trimIndent()
         functionSignatureWrappingRuleAssertThat(code)
             .setMaxLineLength()
-            .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to default)
+            .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to DEFAULT)
             .hasLintViolation(5, 4, "First line of body expression fits on same line as function signature")
             .isFormattedAs(formattedCode)
     }

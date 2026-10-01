@@ -2,7 +2,7 @@ package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.createRuleExecutionEditorConfigProperty
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
@@ -19,7 +19,7 @@ class NoConsecutiveCommentsRuleTest {
     @EnumSource(
         value = CodeStyleValue::class,
         mode = EnumSource.Mode.EXCLUDE,
-        names = ["ktlint_official"],
+        names = ["KTLINT_OFFICIAL"],
     )
     fun `Given a code style other than ktlint_official and some consecutive block comments then do no report a violation`(
         codeStyle: CodeStyleValue,
@@ -40,7 +40,7 @@ class NoConsecutiveCommentsRuleTest {
     @EnumSource(
         value = CodeStyleValue::class,
         mode = EnumSource.Mode.EXCLUDE,
-        names = ["ktlint_official"],
+        names = ["KTLINT_OFFICIAL"],
     )
     fun `Given a code style other than ktlint_official, and the rule has been enabled explicitly, and some consecutive block comments then do report a violation`(
         codeStyle: CodeStyleValue,
@@ -55,7 +55,7 @@ class NoConsecutiveCommentsRuleTest {
         @Suppress("ktlint:standard:max-line-length")
         noConsecutiveBlankLinesRuleAssertThat(code)
             .withEditorConfigOverride(CODE_STYLE_PROPERTY to codeStyle)
-            .withEditorConfigOverride(NO_CONSECUTIVE_COMMENTS_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled)
+            .withEditorConfigOverride(NO_CONSECUTIVE_COMMENTS_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED)
             .hasLintViolationsWithoutAutoCorrect(
                 LintViolation(2, 1, "a block comment may not be preceded by an EOL comment unless separated by a blank line"),
                 LintViolation(3, 1, "a KDoc may not be preceded by a block comment unless separated by a blank line"),
@@ -75,7 +75,7 @@ class NoConsecutiveCommentsRuleTest {
             /* Block comment 6 *//* Block comment 7 */
             """.trimIndent()
         noConsecutiveBlankLinesRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
             .hasLintViolationsWithoutAutoCorrect(
                 LintViolation(2, 1, "a block comment may not be preceded by a block comment"),
                 LintViolation(4, 1, "a block comment may not be preceded by a block comment"),
@@ -98,7 +98,7 @@ class NoConsecutiveCommentsRuleTest {
             /** KDoc 6 *//** KDoc 7 */
             """.trimIndent()
         noConsecutiveBlankLinesRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
             .hasLintViolationsWithoutAutoCorrect(
                 LintViolation(2, 1, "a KDoc may not be preceded by a KDoc"),
                 LintViolation(4, 1, "a KDoc may not be preceded by a KDoc"),
@@ -120,7 +120,7 @@ class NoConsecutiveCommentsRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolationWithoutAutoCorrect(2, 1, "a block comment may not be preceded by a KDoc. Reversed order is allowed though when separated by a newline.")
         }
 
@@ -132,7 +132,7 @@ class NoConsecutiveCommentsRuleTest {
                 /** KDoc */
                 """.trimIndent()
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolationWithoutAutoCorrect(2, 1, "a KDoc may not be preceded by a block comment unless separated by a blank line")
         }
 
@@ -145,7 +145,7 @@ class NoConsecutiveCommentsRuleTest {
                 /** KDoc */
                 """.trimIndent()
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
     }
@@ -161,7 +161,7 @@ class NoConsecutiveCommentsRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolationWithoutAutoCorrect(2, 1, "an EOL comment may not be preceded by a KDoc. Reversed order is allowed though when separated by a newline.")
         }
 
@@ -173,7 +173,7 @@ class NoConsecutiveCommentsRuleTest {
                 /** KDoc */
                 """.trimIndent()
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolationWithoutAutoCorrect(2, 1, "a KDoc may not be preceded by an EOL comment unless separated by a blank line")
         }
 
@@ -186,7 +186,7 @@ class NoConsecutiveCommentsRuleTest {
                 /** KDoc */
                 """.trimIndent()
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
     }
@@ -202,7 +202,7 @@ class NoConsecutiveCommentsRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolationWithoutAutoCorrect(2, 1, "a block comment may not be preceded by an EOL comment unless separated by a blank line")
         }
 
@@ -215,7 +215,7 @@ class NoConsecutiveCommentsRuleTest {
                 /* Block comment */
                 """.trimIndent()
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
 
@@ -228,7 +228,7 @@ class NoConsecutiveCommentsRuleTest {
                 """.trimIndent()
             @Suppress("ktlint:standard:max-line-length")
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolationWithoutAutoCorrect(2, 1, "an EOL comment may not be preceded by a block comment unless separated by a blank line")
         }
 
@@ -241,7 +241,7 @@ class NoConsecutiveCommentsRuleTest {
                 // EOL comment
                 """.trimIndent()
             noConsecutiveBlankLinesRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasNoLintViolations()
         }
     }
@@ -254,7 +254,7 @@ class NoConsecutiveCommentsRuleTest {
             // val bar = "bar"
             """.trimIndent()
         noConsecutiveBlankLinesRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
             .hasNoLintViolations()
     }
 }

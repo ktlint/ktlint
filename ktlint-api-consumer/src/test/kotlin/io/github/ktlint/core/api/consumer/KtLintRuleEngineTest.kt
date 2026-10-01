@@ -47,7 +47,7 @@ class KtLintRuleEngineTest {
                 ),
             editorConfigOverride =
                 from(
-                    DEMO_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled,
+                    DEMO_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED,
                 ),
             fileSystem = ktlintTestFileSystem.fileSystem,
         )
@@ -554,7 +554,7 @@ class KtLintRuleEngineTest {
                     editorConfigOverride =
                         from(
                             // Do not set END_OF_LINE_PROPERTY explicitly!
-                            DEMO_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.enabled,
+                            DEMO_RULE_ID.createRuleExecutionEditorConfigProperty() to RuleExecution.ENABLED,
                         ),
                     fileSystem = ktlintTestFileSystem.fileSystem,
                 ).format(
@@ -581,7 +581,7 @@ class KtLintRuleEngineTest {
                     ),
                 editorConfigOverride =
                     from(
-                        EXPERIMENTAL_RULES_EXECUTION_PROPERTY to RuleExecution.enabled,
+                        EXPERIMENTAL_RULES_EXECUTION_PROPERTY to RuleExecution.ENABLED,
                     ),
                 fileSystem = ktlintTestFileSystem.fileSystem,
             )

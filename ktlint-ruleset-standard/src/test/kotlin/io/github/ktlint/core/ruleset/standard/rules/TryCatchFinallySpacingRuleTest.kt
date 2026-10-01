@@ -1,7 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.test.KtLintAssertThat
 import io.github.ktlint.core.test.LintViolation
 import org.junit.jupiter.api.Nested
@@ -21,7 +21,7 @@ class TryCatchFinallySpacingRuleTest {
             }
             """.trimIndent()
         tryCatchRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
             .hasNoLintViolations()
     }
 
@@ -36,7 +36,7 @@ class TryCatchFinallySpacingRuleTest {
             }
             """.trimIndent()
         tryCatchRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
             .hasNoLintViolations()
     }
 
@@ -53,7 +53,7 @@ class TryCatchFinallySpacingRuleTest {
             }
             """.trimIndent()
         tryCatchRuleAssertThat(code)
-            .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+            .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
             .hasNoLintViolations()
     }
 
@@ -79,7 +79,7 @@ class TryCatchFinallySpacingRuleTest {
                 }
                 """.trimIndent()
             tryCatchRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 2, "A single space is required before 'catch'")
                 .isFormattedAs(formattedCode)
         }
@@ -95,7 +95,7 @@ class TryCatchFinallySpacingRuleTest {
                 }
                 """.trimIndent()
             tryCatchRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 4, "A single space is required before 'catch'")
                 .isFormattedAs(formattedCode)
         }
@@ -112,7 +112,7 @@ class TryCatchFinallySpacingRuleTest {
                 }
                 """.trimIndent()
             tryCatchRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(4, 1, "A single space is required before 'catch'")
                 .isFormattedAs(formattedCode)
         }
@@ -124,7 +124,7 @@ class TryCatchFinallySpacingRuleTest {
                 val foo = try { "try" } catch (exception: Exception) { "catch" }
                 """.trimIndent()
             tryCatchRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolations(
                     LintViolation(1, 16, "Expected a newline after '{'"),
                     LintViolation(1, 23, "Expected a newline before '}'"),
@@ -156,7 +156,7 @@ class TryCatchFinallySpacingRuleTest {
                 }
                 """.trimIndent()
             tryCatchRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 2, "A single space is required before 'finally'")
                 .isFormattedAs(formattedCode)
         }
@@ -172,7 +172,7 @@ class TryCatchFinallySpacingRuleTest {
                 }
                 """.trimIndent()
             tryCatchRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(3, 4, "A single space is required before 'finally'")
                 .isFormattedAs(formattedCode)
         }
@@ -189,7 +189,7 @@ class TryCatchFinallySpacingRuleTest {
                 }
                 """.trimIndent()
             tryCatchRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolation(4, 1, "A single space is required before 'finally'")
                 .isFormattedAs(formattedCode)
         }
@@ -201,7 +201,7 @@ class TryCatchFinallySpacingRuleTest {
                 val foo = try { "try" } finally { "finally" }
                 """.trimIndent()
             tryCatchRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolations(
                     LintViolation(1, 16, "Expected a newline after '{'"),
                     LintViolation(1, 23, "Expected a newline before '}'"),

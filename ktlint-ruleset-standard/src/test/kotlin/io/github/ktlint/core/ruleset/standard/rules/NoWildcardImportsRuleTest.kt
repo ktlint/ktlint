@@ -1,8 +1,8 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.intellij_idea
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.INTELLIJ_IDEA
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.ruleset.standard.rules.NoWildcardImportsRule.Companion.IJ_KOTLIN_PACKAGES_TO_USE_IMPORT_ON_DEMAND
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
@@ -27,7 +27,7 @@ class NoWildcardImportsRuleTest {
                 import kotlinx.android.synthetic.*
                 """.trimIndent()
             noWildcardImportsRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .hasLintViolationsWithoutAutoCorrect(
                     LintViolation(2, 1, "Wildcard import"),
                     LintViolation(4, 1, "Wildcard import"),
@@ -49,7 +49,7 @@ class NoWildcardImportsRuleTest {
                 import kotlinx.android.synthetic.*
                 """.trimIndent()
             noWildcardImportsRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .hasLintViolationsWithoutAutoCorrect(
                     LintViolation(2, 1, "Wildcard import"),
                     LintViolation(4, 1, "Wildcard import"),
@@ -69,7 +69,7 @@ class NoWildcardImportsRuleTest {
                 import react.dom.*
                 """.trimIndent()
             noWildcardImportsRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to ktlint_official)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to KTLINT_OFFICIAL)
                 .withEditorConfigOverride(IJ_KOTLIN_PACKAGES_TO_USE_IMPORT_ON_DEMAND to "unset")
                 .hasLintViolationsWithoutAutoCorrect(
                     LintViolation(2, 1, "Wildcard import"),
@@ -88,7 +88,7 @@ class NoWildcardImportsRuleTest {
                 import react.dom.*
                 """.trimIndent()
             noWildcardImportsRuleAssertThat(code)
-                .withEditorConfigOverride(CODE_STYLE_PROPERTY to intellij_idea)
+                .withEditorConfigOverride(CODE_STYLE_PROPERTY to INTELLIJ_IDEA)
                 .withEditorConfigOverride(IJ_KOTLIN_PACKAGES_TO_USE_IMPORT_ON_DEMAND to "unset")
                 .hasLintViolationsWithoutAutoCorrect(
                     LintViolation(3, 1, "Wildcard import"),

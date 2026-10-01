@@ -26,7 +26,7 @@ public class BlankLineBeforeImports :
     StandardRule("blank-line-before-imports"),
     RuleV2.Experimental {
     override fun beforeFirstNode(editorConfig: EditorConfig) {
-        if (editorConfig[CODE_STYLE_PROPERTY] == CodeStyleValue.intellij_idea) {
+        if (editorConfig[CODE_STYLE_PROPERTY] == CodeStyleValue.INTELLIJ_IDEA) {
             stopTraversalOfAST()
         }
     }

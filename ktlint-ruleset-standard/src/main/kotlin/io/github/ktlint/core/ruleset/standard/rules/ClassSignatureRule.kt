@@ -29,7 +29,7 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.EXPERIMENTA
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.rule.engine.core.api.children
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.ktlint_official
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue.KTLINT_OFFICIAL
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigProperty
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
@@ -161,7 +161,7 @@ public class ClassSignatureRule :
         val wrapPrimaryConstructorParameters =
             node.hasTooManyParameters() ||
                 node.containsMultilineParameter() ||
-                (codeStyle == ktlint_official && node.containsAnnotatedParameter()) ||
+                (codeStyle == KTLINT_OFFICIAL && node.containsAnnotatedParameter()) ||
                 (
                     isMaxLineLengthSet() &&
                         node.hasNoMaxLineLengthSuppression() &&

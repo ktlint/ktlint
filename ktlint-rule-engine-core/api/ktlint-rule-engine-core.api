@@ -504,9 +504,9 @@ public final class io/github/ktlint/core/rule/engine/core/api/editorconfig/CodeS
 }
 
 public final class io/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue : java/lang/Enum {
-	public static final field android_studio Lio/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue;
-	public static final field intellij_idea Lio/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue;
-	public static final field ktlint_official Lio/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue;
+	public static final field ANDROID_STUDIO Lio/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue;
+	public static final field INTELLIJ_IDEA Lio/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue;
+	public static final field KTLINT_OFFICIAL Lio/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lio/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue;
 	public static fun values ()[Lio/github/ktlint/core/rule/engine/core/api/editorconfig/CodeStyleValue;
@@ -573,8 +573,8 @@ public final class io/github/ktlint/core/rule/engine/core/api/editorconfig/MaxLi
 }
 
 public final class io/github/ktlint/core/rule/engine/core/api/editorconfig/RuleExecution : java/lang/Enum {
-	public static final field disabled Lio/github/ktlint/core/rule/engine/core/api/editorconfig/RuleExecution;
-	public static final field enabled Lio/github/ktlint/core/rule/engine/core/api/editorconfig/RuleExecution;
+	public static final field DISABLED Lio/github/ktlint/core/rule/engine/core/api/editorconfig/RuleExecution;
+	public static final field ENABLED Lio/github/ktlint/core/rule/engine/core/api/editorconfig/RuleExecution;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lio/github/ktlint/core/rule/engine/core/api/editorconfig/RuleExecution;
 	public static fun values ()[Lio/github/ktlint/core/rule/engine/core/api/editorconfig/RuleExecution;
