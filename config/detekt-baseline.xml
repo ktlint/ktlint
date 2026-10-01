@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ComplexCondition:AnnotationRule.kt$AnnotationRule$(node.isFollowedByOtherAnnotationEntry() &amp;&amp; node.isOnSameLineAsNextAnnotationEntry()) || (node.isPrecededByOtherAnnotationEntry() &amp;&amp; node.isOnSameLineAsPreviousAnnotationEntry())</ID>
+    <ID>ComplexCondition:ClassSignatureRule.kt$ClassSignatureRule$currentNode.elementType != ANNOTATION &amp;&amp; currentNode.elementType != ANNOTATION_ENTRY &amp;&amp; currentNode.elementType != WHITE_SPACE &amp;&amp; currentNode.elementType != EOL_COMMENT</ID>
+    <ID>ComplexCondition:CommentSpacingRule.kt$CommentSpacingRule$text.length != 2 &amp;&amp; !text.startsWith("// ") &amp;&amp; !text.startsWith("//noinspection") &amp;&amp; !text.startsWith("//region") &amp;&amp; !text.startsWith("//endregion") &amp;&amp; !text.startsWith("//language=")</ID>
+    <ID>ComplexCondition:EnumWrappingRule.kt$EnumWrappingRule$commentBeforeFirstEnumEntry || node.isMultiline() || node.hasAnnotatedEnumEntry() || node.hasCommentedEnumEntry()</ID>
+    <ID>ComplexCondition:FunctionSignatureRule.kt$FunctionSignatureRule$( node.hasNoMaxLineLengthSuppression() &amp;&amp; firstLineOfBodyExpression.length + 1 > maxLengthRemainingForFirstLineOfBodyExpression ) || (functionBodyExpressionWrapping == multiline &amp;&amp; functionBodyExpressionLines.size > 1) || functionBodyExpressionWrapping == always</ID>
+    <ID>ComplexCondition:ImportSorter.kt$ImportSorter$bestIndex == -1 &amp;&amp; path.hasAlias() &amp;&amp; allOtherAliasIndex == -1 &amp;&amp; allOtherIndex != -1</ID>
+    <ID>ComplexCondition:IndentationRule.kt$IndentationRule$codeStyle == ktlint_official &amp;&amp; node.elementType == DOT_QUALIFIED_EXPRESSION &amp;&amp; node.parent?.elementType == ARRAY_ACCESS_EXPRESSION &amp;&amp; node.parent?.parent?.elementType == CALL_EXPRESSION</ID>
+    <ID>ComplexCondition:KtLintRuleEngineTest.kt$KtLintRuleEngineTest.Format with KtLintRuleEngine$lintError.line == 2 &amp;&amp; lintError.col == 1 &amp;&amp; lintError.ruleId == DEMO_RULE_ID &amp;&amp; lintError.detail == "Bar comment"</ID>
+    <ID>ComplexCondition:KtlintSuppression.kt$forceFileAnnotation || targetPsiElement is KtClassInitializer || targetPsiElement is KtBinaryExpression || targetPsiElement is KtBlockExpression || targetPsiElement is KtPrimaryConstructor || targetPsiElement is KtFunctionLiteral || targetPsiElement is KtLambdaExpression || targetPsiElement.parent is KtStringTemplateExpression || ( targetPsiElement is KtExpression &amp;&amp; targetPsiElement.parent is KtExpression &amp;&amp; targetPsiElement.parent !is KtBlockExpression &amp;&amp; targetPsiElement.parent !is KtDeclaration ) || (targetPsiElement !is KtDeclaration &amp;&amp; targetPsiElement !is KtExpression)</ID>
+    <ID>ComplexCondition:MultilineExpressionWrappingRule.kt$MultilineExpressionWrappingRule$node.elementType in CHAINABLE_EXPRESSION &amp;&amp; !node.isPartOfSpreadOperatorExpression() &amp;&amp; (node.parent?.elementType !in CHAINABLE_EXPRESSION || node.isRightHandSideOfBinaryExpression())</ID>
+    <ID>ComplexCondition:NoEmptyClassBodyRule.kt$NoEmptyClassBodyRule$node.elementType == CLASS_BODY &amp;&amp; node.isEmptyBlockBody() &amp;&amp; !node.isPartOf(OBJECT_LITERAL) &amp;&amp; isNotCompanion(node)</ID>
+    <ID>ComplexCondition:NoEmptyFirstLineInMethodBlockRule.kt$NoEmptyFirstLineInMethodBlockRule$node.isWhiteSpaceWithNewline &amp;&amp; node.prevLeaf?.elementType == LBRACE &amp;&amp; node.isPartOf(FUN) &amp;&amp; // Allow: // fun fn() = object : Builder {\n\n fun stuff() = Unit } node.parent?.elementType != CLASS_BODY</ID>
+    <ID>ComplexCondition:NoLineBreakAfterElseRule.kt$NoLineBreakAfterElseRule$node.isWhiteSpaceWithNewline &amp;&amp; node.prevLeaf?.elementType == ELSE_KEYWORD &amp;&amp; node.nextLeaf?.elementType.let { it == IF_KEYWORD || it == LBRACE }</ID>
+    <ID>ComplexCondition:NoSemicolonsRule.kt$NoSemicolonsRule$(prevLeaf != null &amp;&amp; prevLeaf.isWhiteSpace) &amp;&amp; (nextLeaf == null || nextLeaf.isWhiteSpace)</ID>
+    <ID>ComplexCondition:NoTrailingSpacesRule.kt$NoTrailingSpacesRule$node.elementType == KDOC_TEXT &amp;&amp; node.text.endsWith(" ") &amp;&amp; ( node.nextLeaf ?.takeIf { it.nextLeaf?.elementType == KDOC_LEADING_ASTERISK || it.nextLeaf?.elementType == KDOC_END } ?.text ?.startsWith("\n") == true )</ID>
+    <ID>ComplexCondition:NoUnitReturnRule.kt$NoUnitReturnRule$node.elementType == TYPE_REFERENCE &amp;&amp; node.text == "Unit" &amp;&amp; node.parent?.elementType == FUN &amp;&amp; node.nextCodeSibling?.firstChildNode?.elementType == LBRACE</ID>
+    <ID>ComplexCondition:NoUnusedImportsRule.kt$NoUnusedImportsRule$importDirective.aliasName == null &amp;&amp; (packageName.isEmpty() || importPath.startsWith("$packageName.")) &amp;&amp; importPath.substring(packageName.length + 1).indexOf('.') == -1</ID>
+    <ID>ComplexCondition:NoUnusedImportsRule.kt$NoUnusedImportsRule$name != null &amp;&amp; (!ref.map { it.text }.contains(name) || !isAValidImport(importPath)) &amp;&amp; !OPERATOR_SET.contains(name) &amp;&amp; !name.isComponentN() &amp;&amp; !importPath.ignoreProvideDelegate()</ID>
+    <ID>ComplexCondition:SpacingAroundOperatorsRule.kt$SpacingAroundOperatorsRule$(node.elementType == LT || node.elementType == GT || node.elementType == MUL) &amp;&amp; node.parent?.elementType != OPERATION_REFERENCE</ID>
+    <ID>ComplexCondition:UnnecessaryParenthesesBeforeTrailingLambdaRule.kt$UnnecessaryParenthesesBeforeTrailingLambdaRule$node.isEmptyArgumentList() &amp;&amp; node.isPartOf(CALL_EXPRESSION) &amp;&amp; node.isNotPrecededByCallExpressionEndingWithLambdaArgument() &amp;&amp; node.nextCodeSibling?.elementType == LAMBDA_ARGUMENT &amp;&amp; node.prevCodeSibling?.elementType != CALL_EXPRESSION</ID>
+    <ID>ComplexCondition:WrappingRule.kt$WrappingRule$!newlineInBetween || // keep { p -> // } (node.elementType == LBRACE &amp;&amp; parameterListInBetween) || // keep ({ // }) and (object : C { // }) ( numberOfArgs == 1 &amp;&amp; firstArg ?.firstChildNode ?.elementType ?.let { it == OBJECT_LITERAL || it == LAMBDA_EXPRESSION } == true )</ID>
+    <ID>ComplexCondition:WrappingRule.kt$WrappingRule$!node .nextCodeLeaf ?.prevLeaf { // Skip comments, whitespace, and empty nodes !it.isPartOfComment &amp;&amp; !it.isWhiteSpaceWithoutNewline &amp;&amp; it.textLength > 0 }.isWhiteSpaceWithNewline &amp;&amp; // IDEA quirk: // if (true &amp;&amp; // true // ) { // } // instead of // if ( // true &amp;&amp; // true // ) { // } node.nextSibling?.elementType != CONDITION</ID>
+    <ID>ComplexCondition:WrappingRule.kt$WrappingRule$lbrace.followedByNewline() || lbrace.followedByEolComment() || lbrace.followedByFunctionLiteralParameterList() || lbrace.isPartOf(LONG_STRING_TEMPLATE_ENTRY)</ID>
+    <ID>ComplexCondition:WrappingRule.kt$WrappingRule$nextSibling?.elementType == COMMA &amp;&amp; !hasDestructuringDeclarationAsLastValueParameter &amp;&amp; !nextSibling.nextSibling.isWhiteSpaceWithNewline &amp;&amp; // value( // ), // a comment // c, d nextSibling.nextSibling?.nextSibling?.let { !TokenSets.COMMENTS.contains(it.elementType) } != false</ID>
+    <ID>ComplexCondition:WrappingRule.kt$WrappingRule$node.textContains('\n') &amp;&amp; entries.size > 1 &amp;&amp; // e.g. // // class A : B, C, // D // or // class A : B, C({ // }), D // // but not // // class A : B, C, D({ // }) !( entries.dropLast(1).all { it.iElementType == SUPER_TYPE_ENTRY } &amp;&amp; entries.last().iElementType == SUPER_TYPE_CALL_ENTRY )</ID>
+    <ID>ComplexCondition:WrappingRule.kt$WrappingRule$parent.elementType.let { it != FUNCTION_LITERAL &amp;&amp; it != WHEN_ENTRY } || // ... and only if expression after -> spans multiple lines !parent.textContains('\n') || // permit // when { // m -> 0 + d({ // }) // } (parent.elementType == WHEN_ENTRY &amp;&amp; mustBeFollowedByNewline(node)) || // permit // when (this) { // in 0x1F600..0x1F64F, // Emoticons // 0x200D // Zero-width Joiner // -> true // } (parent.elementType == WHEN_ENTRY &amp;&amp; node.prevLeaf.isWhiteSpaceWithNewline)</ID>
+    <ID>CyclomaticComplexMethod:AnnotationSpacingRule.kt$AnnotationSpacingRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:BlankLineBeforeDeclarationRule.kt$BlankLineBeforeDeclarationRule$private fun visitDeclaration( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:ChainWrappingRule.kt$ChainWrappingRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:ClassSignatureRule.kt$ClassSignatureRule$private fun fixWhitespacesInSuperTypeList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, wrappedPrimaryConstructor: Boolean, ): Int</ID>
+    <ID>CyclomaticComplexMethod:FunctionSignatureRule.kt$FunctionSignatureRule$private fun fixFunctionBodyExpression( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, maxLengthRemainingForFirstLineOfBodyExpression: Int, )</ID>
+    <ID>CyclomaticComplexMethod:ImportOrderingRule.kt$ImportOrderingRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:IndentationRule.kt$IndentationRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:KtlintCommandLine.kt$KtlintCommandLine$private fun format( ktLintRuleEngine: KtLintRuleEngine, code: Code, baselineLintErrors: List&lt;KtlintCliError>, ): List&lt;KtlintCliError></ID>
+    <ID>CyclomaticComplexMethod:KtlintSuppression.kt$private fun ASTNode.findParentDeclarationOrExpression(forceFileAnnotation: Boolean): ASTNode</ID>
+    <ID>CyclomaticComplexMethod:MultiLineIfElseRule.kt$MultiLineIfElseRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:NoTrailingSpacesRule.kt$NoTrailingSpacesRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:NoUnusedImportsRule.kt$NoUnusedImportsRule$override fun afterVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:ParameterListSpacingRule.kt$ParameterListSpacingRule$private fun visitValueParameterList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:ParameterWrappingRule.kt$ParameterWrappingRule$private fun rearrangeValueParameter( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:PropertyWrappingRule.kt$PropertyWrappingRule$private fun rearrangeProperty( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:RuleExecutionContext.kt$RuleExecutionContext$private fun executeRulesOnNodeRecursively( node: ASTNode, rules: List&lt;RuleV2>, autocorrectHandler: AutocorrectHandler, emitAndApprove: (offset: Int, ruleId: RuleId, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:SpacingAroundColonRule.kt$SpacingAroundColonRule$private fun removeUnexpectedNewlineBefore( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:SpacingAroundCurlyRule.kt$SpacingAroundCurlyRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:SpacingAroundOperatorsRule.kt$SpacingAroundOperatorsRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:TrailingCommaOnDeclarationSiteRule.kt$TrailingCommaOnDeclarationSiteRule$private fun ASTNode.reportAndCorrectTrailingCommaNodeBefore( inspectNode: ASTNode, isTrailingCommaAllowed: Boolean, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>CyclomaticComplexMethod:WrappingRule.kt$WrappingRule$private fun rearrangeBlock( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>EmptyFunctionBlock:KtlintKotlinCompiler.kt$LoggerFactory.&lt;no name provided>${}</ID>
+    <ID>EnumNaming:CodeStyleEditorConfigProperty.kt$CodeStyleValue$android_studio</ID>
+    <ID>EnumNaming:CodeStyleEditorConfigProperty.kt$CodeStyleValue$intellij_idea</ID>
+    <ID>EnumNaming:CodeStyleEditorConfigProperty.kt$CodeStyleValue$ktlint_official</ID>
+    <ID>EnumNaming:EnumEntryNameCaseRule.kt$EnumEntryNameCaseRule.Companion.EnumEntryNameCasing$camel_cases</ID>
+    <ID>EnumNaming:EnumEntryNameCaseRule.kt$EnumEntryNameCaseRule.Companion.EnumEntryNameCasing$upper_cases</ID>
+    <ID>EnumNaming:EnumEntryNameCaseRule.kt$EnumEntryNameCaseRule.Companion.EnumEntryNameCasing$upper_or_camel_cases</ID>
+    <ID>EnumNaming:FunctionSignatureRule.kt$FunctionSignatureRule.FunctionBodyExpressionWrapping$always</ID>
+    <ID>EnumNaming:FunctionSignatureRule.kt$FunctionSignatureRule.FunctionBodyExpressionWrapping$default</ID>
+    <ID>EnumNaming:FunctionSignatureRule.kt$FunctionSignatureRule.FunctionBodyExpressionWrapping$multiline</ID>
+    <ID>EnumNaming:PropertyNamingRule.kt$PropertyNamingRule.Companion.ConstantNamingStyle$pascal_case : ConstantNamingStyle</ID>
+    <ID>EnumNaming:PropertyNamingRule.kt$PropertyNamingRule.Companion.ConstantNamingStyle$screaming_snake_case : ConstantNamingStyle</ID>
+    <ID>EnumNaming:RuleExecutionEditorConfigProperty.kt$RuleExecution$disabled</ID>
+    <ID>EnumNaming:RuleExecutionEditorConfigProperty.kt$RuleExecution$enabled</ID>
+    <ID>EnumNaming:SafeEnumValueParserTest.kt$SafeEnumValueParserTest.SomePropertyType$value1</ID>
+    <ID>EnumNaming:SafeEnumValueParserTest.kt$SafeEnumValueParserTest.SomePropertyType$value2</ID>
+    <ID>ForbiddenComment:ASTNodeExtension.kt$// TODO: In Ktlint 2.0 replace with accessor without temporary suffix "20"</ID>
+    <ID>ForbiddenComment:IndentationRule.kt$IndentationRule$// FIXME: while we cannot assume any kind of layout inside a block comment,</ID>
+    <ID>ForbiddenComment:PublicationPlugin.kt$PublicationPlugin$// TODO: remove this once https://github.com/gradle/gradle/issues/23572 is fixed</ID>
+    <ID>ForbiddenComment:build.gradle.kts$// TODO: Use providers directly after https://github.com/gradle/gradle/issues/12247 is fixed.</ID>
+    <ID>ForbiddenComment:settings.gradle.kts$// TODO: workaround for https://github.com/gradle/gradle/issues/22879.</ID>
+    <ID>ImplicitDefaultLocale:PlainReporter.kt$PlainReporter$String.format("%-3s", col)</ID>
+    <ID>ImplicitDefaultLocale:PlainReporter.kt$PlainReporter$String.format("%-4s", ktlintCliError.col)</ID>
+    <ID>InstanceOfCheckForException:KtlintCommandLine.kt$KtlintCommandLine$e is KtLintParseException</ID>
+    <ID>LargeClass:AnnotationRuleTest.kt$AnnotationRuleTest</ID>
+    <ID>LargeClass:ArgumentListWrappingRuleTest.kt$ArgumentListWrappingRuleTest</ID>
+    <ID>LargeClass:ChainMethodContinuationRuleTest.kt$ChainMethodContinuationRuleTest</ID>
+    <ID>LargeClass:FunctionSignatureRuleTest.kt$FunctionSignatureRuleTest</ID>
+    <ID>LargeClass:IndentationRule.kt$IndentationRule : StandardRule</ID>
+    <ID>LargeClass:IndentationRuleTest.kt$IndentationRuleTest</ID>
+    <ID>LargeClass:MultiLineIfElseRuleTest.kt$MultiLineIfElseRuleTest</ID>
+    <ID>LargeClass:MultilineExpressionWrappingRuleTest.kt$MultilineExpressionWrappingRuleTest</ID>
+    <ID>LargeClass:TrailingCommaOnDeclarationSiteRuleTest.kt$TrailingCommaOnDeclarationSiteRuleTest</ID>
+    <ID>LargeClass:WrappingRuleTest.kt$WrappingRuleTest</ID>
+    <ID>LongMethod:AnnotationRule.kt$AnnotationRule$private fun visitAnnotationList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:AnnotationSpacingRule.kt$AnnotationSpacingRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:ArgumentListWrappingRuleTest.kt$ArgumentListWrappingRuleTest$@Test fun `Issue 1081 - Given `()</ID>
+    <ID>LongMethod:BinaryExpressionWrappingRuleTest.kt$BinaryExpressionWrappingRuleTest$@Test fun `Given a value argument containing a binary expression which causes the line to exceeds the maximum line length`()</ID>
+    <ID>LongMethod:ChainWrappingRule.kt$ChainWrappingRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:ClassSignatureRule.kt$ClassSignatureRule$private fun fixWhitespacesInSuperTypeList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, wrappedPrimaryConstructor: Boolean, ): Int</ID>
+    <ID>LongMethod:ClassSignatureRuleTest.kt$ClassSignatureRuleTest.CleanUpByRelatedRules$@Test fun `Given a class signature contains redundant spaces then ensure that those are removed before running the class signature rule`()</ID>
+    <ID>LongMethod:FileUtils.kt$internal fun FileSystem.fileSequence( patterns: List&lt;String>, rootDir: Path = Paths.get(".").toAbsolutePath().normalize(), ): Sequence&lt;Path></ID>
+    <ID>LongMethod:FunctionSignatureRule.kt$FunctionSignatureRule$private fun fixFunctionBodyExpression( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, maxLengthRemainingForFirstLineOfBodyExpression: Int, )</ID>
+    <ID>LongMethod:FunctionSignatureRuleTest.kt$FunctionSignatureRuleTest.CleanUpByRelatedRules$@Test fun `Given a function signature contains redundant spaces then ensure that those are removed before running the function signature rule`()</ID>
+    <ID>LongMethod:ImportOrderingRule.kt$ImportOrderingRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:IndentationRule.kt$IndentationRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:IndentationRuleTest.kt$IndentationRuleTest$@Test fun `Given a function literal with comment before the parameter list`()</ID>
+    <ID>LongMethod:IndentationRuleTest.kt$IndentationRuleTest$@Test fun `Given some property accessors`()</ID>
+    <ID>LongMethod:IndentationRuleTest.kt$IndentationRuleTest.Given a nested conditional$@Test fun `Given a non-ktlint_official code style and a while statement with method chain combined with nested conditionals`()</ID>
+    <ID>LongMethod:IndentationRuleTest.kt$IndentationRuleTest.Given a nested conditional$@Test fun `Given a non-ktlint_official code style and an if-statement with method chain combined with nested conditionals`()</ID>
+    <ID>LongMethod:JsonReporterTest.kt$JsonReporterTest$@Test fun testReportGeneration()</ID>
+    <ID>LongMethod:KotlinCommonPlugin.kt$KotlinCommonPlugin$override fun apply(target: Project): Unit</ID>
+    <ID>LongMethod:KtlintApiConsumer.kt$public fun main()</ID>
+    <ID>LongMethod:KtlintCommandLine.kt$KtlintCommandLine$private fun format( ktLintRuleEngine: KtLintRuleEngine, code: Code, baselineLintErrors: List&lt;KtlintCliError>, ): List&lt;KtlintCliError></ID>
+    <ID>LongMethod:KtlintCommandLine.kt$KtlintCommandLine$private fun lintOrFormat()</ID>
+    <ID>LongMethod:KtlintServiceLoader.kt$internal fun &lt;T> Class&lt;T>.loadFromJarFile( url: URL, excludeProviderIds: List&lt;String>, providerId: (T) -> String, customJarProviderCheck: CustomJarProviderCheck, ): List&lt;T></ID>
+    <ID>LongMethod:MultiLineIfElseRuleTest.kt$MultiLineIfElseRuleTest$@Test fun `Issue 727 - Given a deep nested if-else-if-statement without curly braces`()</ID>
+    <ID>LongMethod:NoTrailingSpacesRule.kt$NoTrailingSpacesRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:NoUnusedImportsRule.kt$NoUnusedImportsRule$override fun afterVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:ParameterWrappingRuleTest.kt$ParameterWrappingRuleTest$@Test fun `Given that equals sign before the value does not fit on the same line as the type and variable name then wrap after the equals sign`()</ID>
+    <ID>LongMethod:PublicationPlugin.kt$PublicationPlugin$override fun apply(target: Project): Unit</ID>
+    <ID>LongMethod:RuleExecutionContext.kt$RuleExecutionContext$private fun executeRulesOnNodeRecursively( node: ASTNode, rules: List&lt;RuleV2>, autocorrectHandler: AutocorrectHandler, emitAndApprove: (offset: Int, ruleId: RuleId, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:SpacingAroundAngleBracketsRuleTest.kt$SpacingAroundAngleBracketsRuleTest$@Test fun `Given a type argument list with unnecessary spaces or newlines before or after the angle brackets`()</ID>
+    <ID>LongMethod:SpacingAroundAngleBracketsRuleTest.kt$SpacingAroundAngleBracketsRuleTest$@Test fun `Given type parameter list with unnecessary spaces or newlines before or after the angle brackets`()</ID>
+    <ID>LongMethod:SpacingAroundColonRule.kt$SpacingAroundColonRule$private fun removeUnexpectedNewlineBefore( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:SpacingAroundCurlyRule.kt$SpacingAroundCurlyRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:StandardRuleSetProvider.kt$StandardRuleSetProvider$override fun getRuleProviders(): Set&lt;RuleV2Provider></ID>
+    <ID>LongMethod:TrailingCommaOnCallSiteRuleTest.kt$TrailingCommaOnCallSiteRuleTest$@Test fun `Given that the trailing comma is required on call site then add it to the collection literal when missing`()</ID>
+    <ID>LongMethod:TrailingCommaOnDeclarationSiteRule.kt$TrailingCommaOnDeclarationSiteRule$private fun ASTNode.reportAndCorrectTrailingCommaNodeBefore( inspectNode: ASTNode, isTrailingCommaAllowed: Boolean, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:WrappingRule.kt$WrappingRule$private fun rearrangeTypeConstraintList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>LongMethod:WrappingRuleTest.kt$WrappingRuleTest$@Test fun `Given a function with a multiline WHERE`()</ID>
+    <ID>LongParameterList:EditorConfigProperty.kt$EditorConfigProperty$( /** * Type of property. Could be one of default ones (see [PropertyType.STANDARD_TYPES]) or custom one. */ public val type: PropertyType&lt;T>, /** * Default value for property if it does not exist in loaded properties. This default applies to all code styles * unless the code style specific default value is set. */ public val defaultValue: T, /** * Default value for property if it does not exist in loaded properties and codestyle 'ktlint_official'. When not * set, it is defaulted to [defaultValue]. */ public val ktlintOfficialCodeStyleDefaultValue: T = defaultValue, /** * Default value for property if it does not exist in loaded properties and codestyle 'intellij_idea'. When not * set, it is defaulted to [defaultValue]. */ public val intellijIdeaCodeStyleDefaultValue: T = defaultValue, /** * Default value for property if it does not exist in loaded properties and codestyle 'android_studio'. When not * set, it is defaulted to [defaultValue]. */ public val androidStudioCodeStyleDefaultValue: T = defaultValue, /** * If set, it maps the actual value set for the property, to another valid value for that property. See example * below where * ```kotlin * propertyMapper = { property, isAndroidCodeStyle -> * when { * property == null -> * // property is not defined in ".editorconfig" file * property.isUnset -> * // property is defined in ".editorconfig" file with special value "unset" * property.sourceValue == "some-string-value" -> * // property is defined in ".editorconfig" file with a value that needs to be remapped to another * // valid value. For example the "max_line_length" property accepts value "off" but is remapped to * // "-1" in ktlint. * else -> * property.getValueAs() // or null * } * } * ``` * In case the lambda returns a null value then, the code style specific default value or the generic [defaultValue] * is used. */ public val propertyMapper: ((Property?, CodeStyleValue) -> T?)? = null, /** * Custom function that represents [T] as String. Defaults to the standard `toString()` call. Override the * default implementation in case you need a different behavior than the standard `toString()` (e.g. for * collections joinToString() is more applicable). */ public val propertyWriter: (T) -> String = { it.toString() }, /** * Optional message to be displayed whenever the value of the property is being retrieved while it has been deprecated. */ public val deprecationWarning: String? = null, /** * Optional message to be displayed whenever the value of the property is being retrieved while it has been deprecated. */ public val deprecationError: String? = null, /** * Name of the property. A property must be named in case multiple properties are defined for the same type. * Defaults to the name of the type when not set. */ public val name: String = type.name, )</ID>
+    <ID>LongParameterList:EditorConfigTest.kt$EditorConfigTest.Companion$( name: String = SOME_PROPERTY_NAME, defaultValue: String = SOME_PROPERTY_VALUE_DEFAULT, androidStudioCodeStyleDefaultValue: String? = SOME_PROPERTY_VALUE_ANDROID_STUDIO, ktlintOfficialCodeStyleDefaultValue: String? = SOME_PROPERTY_VALUE_KTLINT_OFFICIAL, intellijIdeaCodeStyleDefaultValue: String? = SOME_PROPERTY_VALUE_INTELLIJ_IDEA, deprecationError: String? = null, deprecationWarning: String? = null, propertyMapper: ((Property?, CodeStyleValue) -> String?)? = null, )</ID>
+    <ID>LongParameterList:IndentationRule.kt$IndentationRule$( fromAstNode: ASTNode, toAstNode: ASTNode = fromAstNode.lastChildLeafOrSelf, nodeIndent: String = currentIndent(), childIndent: String = indentConfig.indent, firstChildIndent: String = childIndent, lastChildIndent: String = childIndent, activated: Boolean = false, )</ID>
+    <ID>LongParameterList:ReporterAggregator.kt$ReporterAggregator$( private val baseline: Baseline, /** * Each reporter configuration consists of following elements: * - id: mandatory id of the reporter. This should be an id of a reporter which is provided by Ktlint, or in case of custom reporter * the id of a reporter defined in the given artifact. * - additional config: optional configuration for the reporter. It must be separated from the id with a '?'. * - artifact: path to a JAR file containing the custom reporter. It has to be specified after the id as * ',artifact=&lt;path-to-JAR-file>' * - output: path to file in which to store the output of the reporter * Examples: * - "plain?group_by_file" * - "custom?additionalConfig,artifact=/path/to/JAR-file,output=/path/to/output-file" */ private val reporterConfigurations: List&lt;String>, private val color: Boolean, private val colorName: String, private val stdin: Boolean, private val format: Boolean, private val relative: Boolean, )</ID>
+    <ID>LongParameterList:RuleToRuleV2KtTest.kt$RuleToRuleV2KtTest$( ruleId: String = "custom:legacy-rule", maintainer: String = "Test Maintainer", repositoryUrl: String = "https://repo.example.com", issueTrackerUrl: String = "https://issues.example.com", usesEditorConfigProperties: Set&lt;EditorConfigProperty&lt;*>> = emptySet(), onBeforeFirstNode: (EditorConfig) -> Unit = {}, onAfterLastNode: () -> Unit = {}, onBeforeVisitChildNodes: (ASTNode, (Int, String, Boolean) -> AutocorrectDecision) -> Unit = { _, _ -> }, onAfterVisitChildNodes: (ASTNode, (Int, String, Boolean) -> AutocorrectDecision) -> Unit = { _, _ -> }, )</ID>
+    <ID>LoopWithTooManyJumpStatements:CodeFormatter.kt$CodeFormatter$do</ID>
+    <ID>MagicNumber:Color.kt$Color.BLACK$30</ID>
+    <ID>MagicNumber:Color.kt$Color.BLUE$34</ID>
+    <ID>MagicNumber:Color.kt$Color.CYAN$36</ID>
+    <ID>MagicNumber:Color.kt$Color.DARK_GRAY$90</ID>
+    <ID>MagicNumber:Color.kt$Color.GREEN$32</ID>
+    <ID>MagicNumber:Color.kt$Color.LIGHT_BLUE$94</ID>
+    <ID>MagicNumber:Color.kt$Color.LIGHT_CYAN$96</ID>
+    <ID>MagicNumber:Color.kt$Color.LIGHT_GRAY$37</ID>
+    <ID>MagicNumber:Color.kt$Color.LIGHT_GREEN$92</ID>
+    <ID>MagicNumber:Color.kt$Color.LIGHT_MAGENTA$95</ID>
+    <ID>MagicNumber:Color.kt$Color.LIGHT_RED$91</ID>
+    <ID>MagicNumber:Color.kt$Color.LIGHT_YELLOW$93</ID>
+    <ID>MagicNumber:Color.kt$Color.MAGENTA$35</ID>
+    <ID>MagicNumber:Color.kt$Color.RED$31</ID>
+    <ID>MagicNumber:Color.kt$Color.WHITE$97</ID>
+    <ID>MagicNumber:Color.kt$Color.YELLOW$33</ID>
+    <ID>MagicNumber:FunctionLiteralRule.kt$FunctionLiteralRule$3</ID>
+    <ID>MagicNumber:GitHookCliktCommand.kt$GitHookCliktCommand$16</ID>
+    <ID>MagicNumber:KotlinCommonPlugin.kt$KotlinCommonPlugin$17</ID>
+    <ID>MagicNumber:KotlinCommonPlugin.kt$KotlinCommonPlugin$21</ID>
+    <ID>MagicNumber:KotlinCommonPlugin.kt$KotlinCommonPlugin$24</ID>
+    <ID>MagicNumber:KtlintApiConsumer.kt$4</ID>
+    <ID>MagicNumber:KtlintCommandLine.kt$ExitCode.EXCEPTION_STDIN$4</ID>
+    <ID>MagicNumber:KtlintCommandLine.kt$ExitCode.FILE_NOT_FOUND$5</ID>
+    <ID>MagicNumber:KtlintCommandLine.kt$ExitCode.INVALID_REPORTER_CONFIGURATION$7</ID>
+    <ID>MagicNumber:KtlintCommandLine.kt$ExitCode.INVALID_RULESET_JAR$6</ID>
+    <ID>MagicNumber:KtlintCommandLine.kt$ExitCode.PARSE_EXCEPTION_AFTER_FORMAT$123</ID>
+    <ID>MagicNumber:KtlintCommandLine.kt$ExitCode.PARSE_EXCEPTION_STDIN$3</ID>
+    <ID>MagicNumber:StringTemplateRule.kt$StringTemplateRule$3</ID>
+    <ID>MatchingDeclarationName:CodeStyleEditorConfigProperty.kt$CodeStyleValue</ID>
+    <ID>MatchingDeclarationName:RuleExecutionEditorConfigProperty.kt$RuleExecution</ID>
+    <ID>MayBeConst:CustomRuleSetProvider.kt$internal val CUSTOM_RULE_SET_ID = "custom-rule-set-id"</ID>
+    <ID>MemberNameEqualsClassName:IndentationRuleTest.kt$IndentationRuleTest.Given a multiline value declaration$@Test fun `Given a multiline value declaration`()</ID>
+    <ID>MemberNameEqualsClassName:IndentationRuleTest.kt$IndentationRuleTest.Given an annotated function declaration$@Test fun `Given an annotated function declaration`()</ID>
+    <ID>MemberNameEqualsClassName:IndentationRuleTest.kt$IndentationRuleTest.Given an enumeration class$@Test fun `Given an enumeration class`()</ID>
+    <ID>NestedBlockDepth:Baseline.kt$public fun loadBaseline( path: String, errorHandling: BaselineErrorHandling = BaselineErrorHandling.EXCEPTION, ): Baseline</ID>
+    <ID>NestedBlockDepth:BlockCommentInitialStarAlignmentRule.kt$BlockCommentInitialStarAlignmentRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:ChainMethodContinuationRule.kt$ChainMethodContinuationRule.ChainedExpression.Companion$private fun ASTNode.toChainedExpression(): ChainedExpression?</ID>
+    <ID>NestedBlockDepth:ClassSignatureRule.kt$ClassSignatureRule$private fun fixWhiteSpaceBeforeClosingParenthesis( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, multiline: Boolean, dryRun: Boolean, ): Int</ID>
+    <ID>NestedBlockDepth:ClassSignatureRule.kt$ClassSignatureRule$private fun fixWhiteSpacesBeforeFirstParameterInValueParameterList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, multiline: Boolean, dryRun: Boolean, ): Int</ID>
+    <ID>NestedBlockDepth:ClassSignatureRule.kt$ClassSignatureRule$private fun fixWhiteSpacesBetweenParametersInValueParameterList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, multiline: Boolean, dryRun: Boolean, ): Int</ID>
+    <ID>NestedBlockDepth:ClassSignatureRule.kt$ClassSignatureRule$private fun fixWhitespacesInSuperTypeList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, wrappedPrimaryConstructor: Boolean, ): Int</ID>
+    <ID>NestedBlockDepth:CommandLineTestRunner.kt$CommandLineTestRunner$private fun ktlintCommand(arguments: List&lt;String>): String</ID>
+    <ID>NestedBlockDepth:FileUtils.kt$private fun String?.normalizeWindowsPattern()</ID>
+    <ID>NestedBlockDepth:FilenameRule.kt$FilenameRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:FunctionSignatureRule.kt$FunctionSignatureRule$private fun ASTNode.getFirstCodeChild(): ASTNode?</ID>
+    <ID>NestedBlockDepth:FunctionSignatureRule.kt$FunctionSignatureRule$private fun fixWhiteSpaceBeforeClosingParenthesis( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, multiline: Boolean, dryRun: Boolean, ): Int</ID>
+    <ID>NestedBlockDepth:FunctionSignatureRule.kt$FunctionSignatureRule$private fun fixWhiteSpacesBeforeFirstParameterInValueParameterList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, multiline: Boolean, dryRun: Boolean, ): Int</ID>
+    <ID>NestedBlockDepth:FunctionSignatureRule.kt$FunctionSignatureRule$private fun fixWhiteSpacesBetweenParametersInValueParameterList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, multiline: Boolean, dryRun: Boolean, ): Int</ID>
+    <ID>NestedBlockDepth:FunctionSignatureRule.kt$FunctionSignatureRule$private fun fixWhitespaceBeforeFunctionBodyBlock( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, dryRun: Boolean, ): Int</ID>
+    <ID>NestedBlockDepth:ImportOrderingRule.kt$ImportOrderingRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:IndentationRule.kt$IndentationRule$private fun visitWhenEntry(node: ASTNode)</ID>
+    <ID>NestedBlockDepth:IndentationRule.kt$StringTemplateIndenter$fun visitClosingQuotes( expectedIndent: String, node: ASTNode, emitAndApprove: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:KtlintCommandLine.kt$KtlintCommandLine$private fun List&lt;String>.replaceWithPatternsFromStdinOrDefaultPatternsWhenEmpty(): List&lt;String></ID>
+    <ID>NestedBlockDepth:KtlintCommandLine.kt$KtlintCommandLine$private fun format( ktLintRuleEngine: KtLintRuleEngine, code: Code, baselineLintErrors: List&lt;KtlintCliError>, ): List&lt;KtlintCliError></ID>
+    <ID>NestedBlockDepth:KtlintCommandLine.kt$KtlintCommandLine$private fun lint( ktLintRuleEngine: KtLintRuleEngine, code: Code, baselineLintErrors: List&lt;KtlintCliError>, ): List&lt;KtlintCliError></ID>
+    <ID>NestedBlockDepth:ParameterListSpacingRule.kt$ParameterListSpacingRule$private fun visitValueParameterList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:PlainReporter.kt$PlainReporter$override fun after(file: String)</ID>
+    <ID>NestedBlockDepth:SpacingAroundAngleBracketsRule.kt$SpacingAroundAngleBracketsRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:SpacingAroundCurlyRule.kt$SpacingAroundCurlyRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:SpacingAroundDoubleColonRule.kt$SpacingAroundDoubleColonRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:TrailingCommaOnDeclarationSiteRule.kt$TrailingCommaOnDeclarationSiteRule$private fun ASTNode.reportAndCorrectTrailingCommaNodeBefore( inspectNode: ASTNode, isTrailingCommaAllowed: Boolean, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:TypeArgumentCommentRule.kt$TypeArgumentCommentRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:TypeArgumentListSpacingRule.kt$TypeArgumentListSpacingRule$private fun visitInsideTypeArgumentList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:TypeParameterCommentRule.kt$TypeParameterCommentRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:TypeParameterListSpacingRule.kt$TypeParameterListSpacingRule$private fun visitClassDeclaration( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:WrappingRule.kt$WrappingRule$private fun rearrangeSuperTypeList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:WrappingRule.kt$WrappingRule$private fun rearrangeTypeArgumentList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:WrappingRule.kt$WrappingRule$private fun rearrangeTypeConstraintList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>NestedBlockDepth:WrappingRule.kt$WrappingRule$private fun rearrangeValueList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>PrintStackTrace:KtlintApiConsumer.kt$e</ID>
+    <ID>PrintStackTrace:KtlintServiceLoader.kt$e</ID>
+    <ID>ReturnCount:ArgumentListWrappingRule.kt$ArgumentListWrappingRule$private fun ASTNode.isOnSameLineAsControlFlowKeyword(): Boolean</ID>
+    <ID>ReturnCount:BlankLineBeforeDeclarationRule.kt$BlankLineBeforeDeclarationRule$private fun visitDeclaration( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>ReturnCount:ChainWrappingRule.kt$ChainWrappingRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>ReturnCount:ClassSignatureRule.kt$ClassSignatureRule$private fun ASTNode.getFirstChildInSignature(): ASTNode?</ID>
+    <ID>ReturnCount:ClassSignatureRule.kt$ClassSignatureRule$private fun fixWhitespacesInSuperTypeList( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, wrappedPrimaryConstructor: Boolean, ): Int</ID>
+    <ID>ReturnCount:CommandLineTestRunner.kt$CommandLineTestRunner$private fun String?.javaVersionAsInt(): Int?</ID>
+    <ID>ReturnCount:EditorConfigDefaultsLoader.kt$EditorConfigDefaultsLoader$fun load(path: Path?): EditorConfigDefaults</ID>
+    <ID>ReturnCount:EnumEntryNameCaseRule.kt$EnumEntryNameCaseRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>ReturnCount:FileUtils.kt$internal fun FileSystem.fileSequence( patterns: List&lt;String>, rootDir: Path = Paths.get(".").toAbsolutePath().normalize(), ): Sequence&lt;Path></ID>
+    <ID>ReturnCount:FunctionSignatureRule.kt$FunctionSignatureRule$private fun ASTNode.getFirstCodeChild(): ASTNode?</ID>
+    <ID>ReturnCount:IfElseWrappingRule.kt$IfElseWrappingRule$private fun visitBranch( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, multilineIf: Boolean, )</ID>
+    <ID>ReturnCount:IndentationRule.kt$IndentationRule$private fun ASTNode.ignoreIndent(): Boolean</ID>
+    <ID>ReturnCount:KtlintSuppression.kt$private fun ASTNode.findParentDeclarationOrExpression(forceFileAnnotation: Boolean): ASTNode</ID>
+    <ID>ReturnCount:KtlintSuppressionRule.kt$KtLintDirective$fun shouldBePromotedToParentDeclaration(ruleIdValidator: (String) -> Boolean): Boolean</ID>
+    <ID>ReturnCount:KtlintSuppressionRule.kt$private fun ASTNode.ktlintDirectiveOrNull(ruleIdValidator: (String) -> Boolean): KtLintDirective?</ID>
+    <ID>ReturnCount:MultiLineIfElseRule.kt$MultiLineIfElseRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>ReturnCount:NoSemicolonsRule.kt$NoSemicolonsRule$private fun isNoSemicolonRequiredAfter(node: ASTNode): Boolean</ID>
+    <ID>ReturnCount:NoUnusedImportsRule.kt$NoUnusedImportsRule$private fun ASTNode.isExpressionForStaticImportWithExistingParentImport(): Boolean</ID>
+    <ID>ReturnCount:ParameterWrappingRule.kt$ParameterWrappingRule$private fun rearrangeValueParameter( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>ReturnCount:PatternEntry.kt$PatternEntry$internal fun isBetterMatchForPackageThan( entry: PatternEntry?, import: ImportPath, ): Boolean</ID>
+    <ID>ReturnCount:PatternEntry.kt$PatternEntry$private fun matchesPackageName(otherPackageName: String): Boolean</ID>
+    <ID>ReturnCount:PropertyWrappingRule.kt$PropertyWrappingRule$private fun rearrangeProperty( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>ReturnCount:RuleExecutionContext.kt$RuleExecutionContext.Companion$private fun PsiElement.findErrorElement(): PsiErrorElement?</ID>
+    <ID>ReturnCount:SpacingAroundOperatorsRule.kt$SpacingAroundOperatorsRule$override fun beforeVisitChildNodes( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>ReturnCount:StatementWrappingRule.kt$StatementWrappingRule$private fun visitSemiColon( node: ASTNode, emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>ReturnCount:SuppressionLocator.kt$SuppressionLocator$private fun ASTNode.createSuppressionHintFromAnnotations(): SuppressionHint?</ID>
+    <ID>ReturnCount:WrappingRule.kt$WrappingRule$private fun ASTNode.isPartOfForLoopConditionWithMultilineExpression(): Boolean</ID>
+    <ID>SerialVersionUIDInSerializableClass:KtlintCliError.kt$KtlintCliError : Serializable</ID>
+    <ID>SerialVersionUIDInSerializableClass:RuleSetProviderV3.kt$RuleSetProviderV3 : Serializable</ID>
+    <ID>SerialVersionUIDInSerializableClass:RuleSetV2Provider.kt$RuleSetV2Provider : Serializable</ID>
+    <ID>SpreadOperator:EditorConfig.kt$EditorConfig$(*additionalEditorConfigProperties.toTypedArray())</ID>
+    <ID>SpreadOperator:EditorConfigGenerator.kt$EditorConfigGenerator$( *usedEditorConfigProperties .plus(DEFAULT_EDITOR_CONFIG_PROPERTIES) .toTypedArray(), )</ID>
+    <ID>SpreadOperator:KtlintKotlinCompiler.kt$FormatPomModel$(*arrayOfNulls&lt;Class&lt;*>>(0))</ID>
+    <ID>SpreadOperator:ModifierOrderRule.kt$ModifierOrderRule.Companion$(*ORDERED_MODIFIERS)</ID>
+    <ID>SpreadOperator:Rule.kt$(*map { it }.toTypedArray())</ID>
+    <ID>SwallowedException:NoWildcardImportsRule.kt$NoWildcardImportsRule.Companion$e: IllegalArgumentException</ID>
+    <ID>SwallowedException:RuleExecutionContext.kt$RuleExecutionContext$e: RuleExecutionException</ID>
+    <ID>SwallowedException:SafeEnumValueParser.kt$SafeEnumValueParser$e: IllegalArgumentException</ID>
+    <ID>ThrowsCount:Baseline.kt$BaselineLoader$fun load(): Baseline</ID>
+    <ID>ThrowsCount:KtlintRuleEngineSuppression.kt$private fun KtlintSuppressionAtOffset.offsetFromStartOf(code: String): Int</ID>
+    <ID>ThrowsCount:RuleExecutionContext.kt$RuleExecutionContext$private fun RuleV2.execute(action: (RuleV2) -> Unit)</ID>
+    <ID>ThrowsCount:RuleExecutionContext.kt$RuleExecutionContext$private fun executeRulesOnNodeRecursively( node: ASTNode, rules: List&lt;RuleV2>, autocorrectHandler: AutocorrectHandler, emitAndApprove: (offset: Int, ruleId: RuleId, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision, )</ID>
+    <ID>TooGenericExceptionCaught:Baseline.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:KtlintCommandLine.kt$KtlintCommandLine$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:KtlintKotlinCompiler.kt$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:LoadRuleProviders.kt$t: Throwable</ID>
+    <ID>TooGenericExceptionCaught:RuleExecutionContext.kt$RuleExecutionContext$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:RuleExecutionContext.kt$RuleExecutionContext$e: Throwable</ID>
+    <ID>TooGenericExceptionThrown:KtLintTest.kt$throw RuntimeException("$path not found")</ID>
+    <ID>TooGenericExceptionThrown:MetaInfServicesTest.kt$MetaInfServicesTest$throw RuntimeException("Expected a resource to exist with path '$path'. Was the class renamed?")</ID>
+    <ID>TooManyFunctions:ASTNodeExtension.kt$com.pinterest.ktlint.rule.engine.core.api.ASTNodeExtension.kt</ID>
+    <ID>TooManyFunctions:ASTNodeExtension.kt$io.github.ktlint.core.rule.engine.core.api.ASTNodeExtension.kt</ID>
+    <ID>TooManyFunctions:AnnotationRule.kt$AnnotationRule : StandardRule</ID>
+    <ID>TooManyFunctions:ArgumentListWrappingRule.kt$ArgumentListWrappingRule : StandardRule</ID>
+    <ID>TooManyFunctions:BackingPropertyNamingRule.kt$BackingPropertyNamingRule : StandardRule</ID>
+    <ID>TooManyFunctions:ChainMethodContinuationRule.kt$ChainMethodContinuationRule : StandardRuleOfficialCodeStyle</ID>
+    <ID>TooManyFunctions:ClassSignatureRule.kt$ClassSignatureRule : StandardRule</ID>
+    <ID>TooManyFunctions:CodeFormatter.kt$CodeFormatter</ID>
+    <ID>TooManyFunctions:EditorConfig.kt$EditorConfig</ID>
+    <ID>TooManyFunctions:EnumWrappingRule.kt$EnumWrappingRule : StandardRule</ID>
+    <ID>TooManyFunctions:FilenameRule.kt$FilenameRule : StandardRule</ID>
+    <ID>TooManyFunctions:FunctionLiteralRule.kt$FunctionLiteralRule : StandardRule</ID>
+    <ID>TooManyFunctions:FunctionNamingRule.kt$FunctionNamingRule : StandardRule</ID>
+    <ID>TooManyFunctions:FunctionSignatureRule.kt$FunctionSignatureRule : StandardRule</ID>
+    <ID>TooManyFunctions:HtmlReporter.kt$HtmlReporter : ReporterV2</ID>
+    <ID>TooManyFunctions:IfElseWrappingRule.kt$IfElseWrappingRule : StandardRuleOfficialCodeStyle</ID>
+    <ID>TooManyFunctions:IndentationRule.kt$IndentationRule : StandardRule</ID>
+    <ID>TooManyFunctions:IndentationRule.kt$StringTemplateIndenter</ID>
+    <ID>TooManyFunctions:KdocDelimiterRule.kt$KdocDelimiterRule : StandardRuleOfficialCodeStyleExperimental</ID>
+    <ID>TooManyFunctions:KtlintCommandLine.kt$KtlintCommandLine : CliktCommand</ID>
+    <ID>TooManyFunctions:KtlintSuppression.kt$io.github.ktlint.core.rule.engine.internal.KtlintSuppression.kt</ID>
+    <ID>TooManyFunctions:KtlintSuppressionRule.kt$KtlintSuppressionRule : InternalRuleIgnoreKtlintSuppressions</ID>
+    <ID>TooManyFunctions:MultilineExpressionWrappingRule.kt$MultilineExpressionWrappingRule : StandardRuleOfficialCodeStyle</ID>
+    <ID>TooManyFunctions:NoUnusedImportsRule.kt$NoUnusedImportsRule : StandardRuleOnlyWhenEnabledInEditorconfigIgnoreKtlintSuppressions</ID>
+    <ID>TooManyFunctions:ParameterListSpacingRule.kt$ParameterListSpacingRule : StandardRule</ID>
+    <ID>TooManyFunctions:ParameterListWrappingRule.kt$ParameterListWrappingRule : StandardRule</ID>
+    <ID>TooManyFunctions:PropertyNamingRule.kt$PropertyNamingRule : StandardRule</ID>
+    <ID>TooManyFunctions:SpacingAroundParensRule.kt$SpacingAroundParensRule : StandardRule</ID>
+    <ID>TooManyFunctions:StringTemplateIndentRule.kt$StringTemplateIndentRule : StandardRuleOfficialCodeStyle</ID>
+    <ID>TooManyFunctions:TrailingCommaOnCallSiteRule.kt$TrailingCommaOnCallSiteRule : StandardRule</ID>
+    <ID>TooManyFunctions:TrailingCommaOnDeclarationSiteRule.kt$TrailingCommaOnDeclarationSiteRule : StandardRule</ID>
+    <ID>TooManyFunctions:WrappingRule.kt$WrappingRule : StandardRule</ID>
+    <ID>UnusedParameter:ASTNodeExtension.kt$includeEmpty: Boolean = false</ID>
+    <ID>UnusedParameter:ASTNodeExtension.kt$skipSubtree: Boolean = false</ID>
+    <ID>UnusedParameter:KtLintRuleEngine.kt$KtLintRuleEngine$defaultAutocorrect: Boolean = true</ID>
+    <ID>UnusedPrivateMember:ClassNamingRuleTest.kt$ClassNamingRuleTest.Companion$@Suppress("UnstableApiUsage") @JvmStatic private fun ktTokens()</ID>
+    <ID>UnusedPrivateMember:FunctionNamingRuleTest.kt$FunctionNamingRuleTest.Companion$@Suppress("UnstableApiUsage") @JvmStatic private fun ktTokens()</ID>
+    <ID>UnusedPrivateMember:PropertyNamingRuleTest.kt$PropertyNamingRuleTest.Companion$@Suppress("UnstableApiUsage") @JvmStatic private fun ktTokens()</ID>
+    <ID>UseCheckOrError:FunctionExpressionBodyRule.kt$FunctionExpressionBodyRule$throw IllegalStateException("Can not create function with unit type reference")</ID>
+    <ID>UseCheckOrError:KdocDelimiterRule.kt$KdocDelimiterRule$throw IllegalStateException("Cannot create KdocEnd")</ID>
+    <ID>UseCheckOrError:KtlintSuppression.kt$throw IllegalStateException("Can not create annotation '$annotation'")</ID>
+    <ID>UseCheckOrError:StringTemplateRule.kt$StringTemplateRule$throw IllegalStateException("Cannot create short string template for string '$text")</ID>
+    <ID>UseRequire:ImportLayoutParser.kt$throw IllegalArgumentException("&lt;all other imports> symbol (\"*\") must be present in the custom imports layout")</ID>
+    <ID>UseRequire:ImportLayoutParser.kt$throw IllegalArgumentException("Blank lines are not supported in the beginning or end of import list")</ID>
+  </CurrentIssues>
+</SmellBaseline>
