@@ -55,7 +55,7 @@ dependencies {
 // Directory for files to be distributed as Ktlint CLI
 val ktlintCliOutputRoot = layout.buildDirectory.dir("run")
 
-val ktlintCliFiles by tasks.registering(KtlintCliTask::class) {
+val ktlintCliFiles = tasks.register<KtlintCliTask>("ktlintCliFiles") {
     ktlintCliJarFile.set(tasks.shadowJar.get().archiveFile)
     ktlintCliWindowsBatchScriptSource.set(layout.projectDirectory.file("src/main/scripts/ktlint.bat"))
     ktlintCliOutputDirectory.set(ktlintCliOutputRoot)
@@ -65,7 +65,7 @@ val ktlintCliFiles by tasks.registering(KtlintCliTask::class) {
     }
 }
 
-val signKtlintCliFiles by tasks.registering(Sign::class) {
+val signKtlintCliFiles = tasks.register<Sign>("signKtlintCliFiles") {
     dependsOn(ktlintCliFiles)
 
     sign(ktlintCliFiles.flatMap { it.ktlintCliExecutable }.get())

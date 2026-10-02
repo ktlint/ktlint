@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.shadow) apply false
 }
 
-val ktlint: Configuration by configurations.creating
+val ktlint: Configuration = configurations.create("ktlint")
 
 dependencies {
     ktlint(projects.ktlintCli)
