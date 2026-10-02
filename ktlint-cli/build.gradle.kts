@@ -55,21 +55,23 @@ dependencies {
 // Directory for files to be distributed as Ktlint CLI
 val ktlintCliOutputRoot = layout.buildDirectory.dir("run")
 
-val ktlintCliFiles = tasks.register<KtlintCliTask>("ktlintCliFiles") {
-    ktlintCliJarFile.set(tasks.shadowJar.get().archiveFile)
-    ktlintCliWindowsBatchScriptSource.set(layout.projectDirectory.file("src/main/scripts/ktlint.bat"))
-    ktlintCliOutputDirectory.set(ktlintCliOutputRoot)
+val ktlintCliFiles =
+    tasks.register<KtlintCliTask>("ktlintCliFiles") {
+        ktlintCliJarFile.set(tasks.shadowJar.get().archiveFile)
+        ktlintCliWindowsBatchScriptSource.set(layout.projectDirectory.file("src/main/scripts/ktlint.bat"))
+        ktlintCliOutputDirectory.set(ktlintCliOutputRoot)
 
-    if (pluginManager.hasPlugin("signing")) {
-        finalizedBy("signKtlintCliFiles")
+        if (pluginManager.hasPlugin("signing")) {
+            finalizedBy("signKtlintCliFiles")
+        }
     }
-}
 
-val signKtlintCliFiles = tasks.register<Sign>("signKtlintCliFiles") {
-    dependsOn(ktlintCliFiles)
+val signKtlintCliFiles =
+    tasks.register<Sign>("signKtlintCliFiles") {
+        dependsOn(ktlintCliFiles)
 
-    sign(ktlintCliFiles.flatMap { it.ktlintCliExecutable }.get())
-}
+        sign(ktlintCliFiles.flatMap { it.ktlintCliExecutable }.get())
+    }
 
 tasks.withType<Test>().configureEach {
     dependsOn(ktlintCliFiles)
