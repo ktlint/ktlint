@@ -34,6 +34,10 @@ rootProject.name = "ktlint-root"
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+gradle.lifecycle.beforeProject {
+    group = "io.github.ktlint.core"
+}
+
 include(
     ":ktlint-api-consumer",
     ":ktlint-bom",
