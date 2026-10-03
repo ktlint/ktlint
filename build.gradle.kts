@@ -18,7 +18,7 @@ tasks.register<JavaExec>("ktlintCheck") {
     mainClass = "io.github.ktlint.core.Main"
     args(
         "**/src/**/*.kt",
-        "**.kts",
+        "**/*.kts",
         "!**/build/**",
         // Do not run with option "--log-level=debug" or "--log-level=trace" as the lint violations will be difficult
         // to spot between the amount of output lines.
@@ -35,7 +35,7 @@ tasks.register<JavaExec>("ktlintFormat") {
     args(
         "-F",
         "**/src/**/*.kt",
-        "**.kts",
+        "**/*.kts",
         "!**/build/**",
         // Do not run with option "--log-level=debug" or "--log-level=trace" as the lint violations will be difficult
         // to spot between the amount of output lines.
