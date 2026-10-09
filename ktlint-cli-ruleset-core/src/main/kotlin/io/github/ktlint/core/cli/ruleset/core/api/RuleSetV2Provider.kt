@@ -13,6 +13,10 @@ import java.io.Serializable
 public abstract class RuleSetV2Provider(
     public val id: RuleSetId,
 ) : Serializable {
+    private companion object {
+        private const val serialVersionUID: Long = 1L
+    }
+
     /**
      * Gets a group of related [RuleV2Provider]s. A provided rule is not guaranteed to be run as rules can be disabled,
      * for example via ".editorconfig" properties.

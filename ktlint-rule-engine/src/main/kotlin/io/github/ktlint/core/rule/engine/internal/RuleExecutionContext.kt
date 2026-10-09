@@ -70,7 +70,13 @@ internal class RuleExecutionContext private constructor(
             rules.forEach { rule ->
                 rule.execute { it.afterLastNode() }
             }
-        } catch (e: RuleExecutionException) {
+        } catch (
+            // e itself (the internal-only RuleExecutionException wrapper) is intentionally not chained; e.cause below is
+            // the real original exception, and chaining e instead would only add a meaningless private type to the
+            // cause chain exposed to API consumers.
+            @Suppress("SwallowedException")
+            e: RuleExecutionException,
+        ) {
             throw KtLintRuleException(
                 e.line,
                 e.col,
@@ -110,6 +116,10 @@ internal class RuleExecutionContext private constructor(
                 ),
         )
 
+    // Third-party rule implementations can throw anything; the generic catch-all below and the resulting three throw
+    // sites (two rethrows to preserve known exception types, one wrap for everything else) are the point of this
+    // function, not accidental complexity.
+    @Suppress("TooGenericExceptionCaught", "ThrowsCount")
     private fun RuleV2.execute(action: (RuleV2) -> Unit) {
         try {
             action(this)
@@ -123,6 +133,10 @@ internal class RuleExecutionContext private constructor(
         }
     }
 
+    // Each of the two try/catch blocks below (before- and after-visit) must catch Throwable, since a third-party rule
+    // implementation can throw anything, including Errors, and each has its own line/col-known vs. line/col-unknown
+    // throw site - hence four throw statements total, all load-bearing.
+    @Suppress("ThrowsCount")
     private fun executeRulesOnNodeRecursively(
         node: ASTNode,
         rules: List<RuleV2>,
@@ -149,7 +163,9 @@ internal class RuleExecutionContext private constructor(
                         emitAndApprove(offset, rule.ruleId, errorMessage, canBeAutoCorrected)
                     }
                 }
-            } catch (e: Throwable) {
+            } catch (
+                @Suppress("TooGenericExceptionCaught") e: Throwable,
+            ) {
                 if (autocorrectHandler is NoneAutocorrectHandler) {
                     val (line, col) = positionInTextLocator(node.startOffset)
                     throw RuleExecutionException(
@@ -202,7 +218,9 @@ internal class RuleExecutionContext private constructor(
                         emitAndApprove(offset, rule.ruleId, errorMessage, canBeAutoCorrected)
                     }
                 }
-            } catch (e: Throwable) {
+            } catch (
+                @Suppress("TooGenericExceptionCaught") e: Throwable,
+            ) {
                 if (autocorrectHandler is NoneAutocorrectHandler) {
                     val (line, col) = positionInTextLocator(node.startOffset)
                     throw RuleExecutionException(

@@ -54,6 +54,10 @@ internal class CodeFormatter(
             val errors = mutableSetOf<Pair<LintError, Boolean>>()
             var formatRunCount = 0
             var mutated = false
+            // This is the core format-retry loop (see "Format Loop" in CLAUDE.md); the two early-exit conditions below are
+            // deliberately kept as separate `break`s rather than merged into one boolean, to keep each one individually
+            // documented and not risk changing this well-tested control flow for a style metric.
+            @Suppress("LoopWithTooManyJumpStatements")
             do {
                 val newErrors = format(autocorrectHandler, code)
                 errors.addAll(newErrors)

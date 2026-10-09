@@ -3,6 +3,7 @@ package io.github.ktlint.core.cli.reporter.plain
 /**
  * Stripped down version of https://github.com/ziggy42/kolor (ziggy42/kolor#6).
  */
+@Suppress("MagicNumber") // These are the standard ANSI color codes; naming them individually adds no clarity.
 public enum class Color(
     public val code: Int,
 ) {

@@ -19,6 +19,10 @@ import java.io.Serializable
 public abstract class RuleSetProviderV3(
     public val id: RuleSetId,
 ) : Serializable {
+    private companion object {
+        private const val serialVersionUID: Long = 1L
+    }
+
     /**
      * Gets a group of related [com.pinterest.ktlint.rule.engine.core.api.RuleProvider]s. A provided rule is not guaranteed to be run as rules can be disabled,
      * for example via ".editorconfig" properties.

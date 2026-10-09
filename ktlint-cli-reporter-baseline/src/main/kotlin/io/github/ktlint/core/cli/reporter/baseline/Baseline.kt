@@ -80,11 +80,11 @@ public fun loadBaseline(
     with(BaselineLoader(path)) {
         try {
             load()
-        } catch (e: Exception) {
+        } catch (e: BaselineLoaderException) {
             // Delete baseline as it contains an error
             try {
                 delete()
-            } catch (e: Exception) {
+            } catch (e: BaselineLoaderException) {
                 if (errorHandling == BaselineErrorHandling.LOG) {
                     LOGGER.error { e.message }
                 } else {
@@ -111,6 +111,7 @@ private class BaselineLoader(
             .toFile()
             .takeIf { it.exists() }
 
+    @Suppress("ThrowsCount") // Each catch clause wraps a distinct XML-parsing failure into the same exception type
     fun load(): Baseline {
         require(path.isNotBlank()) { "Path for loading baseline may not be blank or empty" }
 

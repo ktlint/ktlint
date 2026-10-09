@@ -42,6 +42,7 @@ internal fun loadRuleProviders(urls: List<URL>): Set<RuleV2Provider> {
     return ruleV2Providers.toSet()
 }
 
+@Suppress("TooGenericExceptionCaught") // Loading a third-party JAR can throw Errors (e.g. LinkageError), not just Exceptions
 private fun loadRulesetProviderV3(
     url: URL,
     ruleIdsFromKtlintJars: List<String>,
@@ -63,6 +64,7 @@ private fun loadRulesetProviderV3(
         emptyList()
     }
 
+@Suppress("TooGenericExceptionCaught") // Loading a third-party JAR can throw Errors (e.g. LinkageError), not just Exceptions
 private fun loadRuleSetV2Provider(
     url: URL,
     ruleIdsFromKtlintJars: List<String>,

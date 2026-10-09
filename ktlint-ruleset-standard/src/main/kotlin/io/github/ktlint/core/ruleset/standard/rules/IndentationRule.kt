@@ -1180,6 +1180,7 @@ public class IndentationRule :
         }
     }
 
+    @Suppress("ForbiddenComment")
     private fun ASTNode.ignoreIndent(): Boolean {
         val nextLeaf = nextLeaf
         if (text.endsWith("\n") && nextLeaf.isStartOfRawStringLiteral()) {

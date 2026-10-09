@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION")
+@file:JvmName("CodeStyleEditorConfigPropertyKt") // Preserve the binary-compatible facade class name after the file rename below
 
 package com.pinterest.ktlint.rule.engine.core.api.editorconfig
 

@@ -76,7 +76,7 @@ public class NoWildcardImportsRule :
                 } catch (e: IllegalArgumentException) {
                     PropertyType.PropertyValue.invalid(
                         value,
-                        "Unexpected imports layout: $value",
+                        "Unexpected imports layout: $value (${e.message})",
                     )
                 }
             }

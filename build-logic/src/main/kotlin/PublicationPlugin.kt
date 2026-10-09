@@ -88,6 +88,7 @@ abstract class PublicationPlugin : Plugin<Project> {
         }
 
     // TODO: remove this once https://github.com/gradle/gradle/issues/23572 is fixed
+    @Suppress("ForbiddenComment")
     fun Project.localGradleProperty(name: String): Provider<String> =
         provider {
             if (hasProperty(name)) property(name)?.toString() else null

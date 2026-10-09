@@ -20,6 +20,10 @@ public class KtlintCliError(
     public val detail: String,
     public val status: Status,
 ) : Serializable {
+    private companion object {
+        private const val serialVersionUID: Long = 1L
+    }
+
     public enum class Status {
         /**
          * An error that was ignored previously by adding it to the baseline file so that it will not be reported again at later invocations

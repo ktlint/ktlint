@@ -1,3 +1,5 @@
+@file:JvmName("CodeStyleEditorConfigPropertyKt") // Preserve the binary-compatible facade class name after the file rename below
+
 package io.github.ktlint.core.rule.engine.core.api.editorconfig
 
 import org.ec4j.core.model.PropertyType

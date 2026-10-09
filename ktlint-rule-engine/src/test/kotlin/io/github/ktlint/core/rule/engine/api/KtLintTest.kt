@@ -601,7 +601,7 @@ private val ASTNode.visitNodeType: RuleExecutionCall.VisitNodeType
         }
 
 private fun getResourceAsText(path: String) =
-    (ClassLoader.getSystemClassLoader().getResourceAsStream(path) ?: throw RuntimeException("$path not found"))
+    (ClassLoader.getSystemClassLoader().getResourceAsStream(path) ?: throw IllegalStateException("$path not found"))
         .bufferedReader()
         .readText()
 

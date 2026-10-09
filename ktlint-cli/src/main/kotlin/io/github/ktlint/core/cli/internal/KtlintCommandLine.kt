@@ -469,6 +469,7 @@ internal class KtlintCommandLine : CliktCommand(name = "ktlint") {
         }
     }
 
+    @Suppress("TooGenericExceptionCaught") // Top-level error boundary: must catch anything thrown while processing arbitrary user input
     private fun format(
         ktLintRuleEngine: KtLintRuleEngine,
         code: Code,
@@ -600,6 +601,7 @@ internal class KtlintCommandLine : CliktCommand(name = "ktlint") {
         }
     }
 
+    @Suppress("TooGenericExceptionCaught") // Top-level error boundary: must catch anything thrown while processing arbitrary user input
     private fun lint(
         ktLintRuleEngine: KtLintRuleEngine,
         code: Code,
@@ -800,6 +802,7 @@ internal fun exitKtLintProcess(exitCode: ExitCode): Nothing {
     exitProcess(exitCode.value)
 }
 
+@Suppress("MagicNumber") // These are the actual, externally-relied-upon exit code values, not arbitrary numbers
 internal enum class ExitCode(
     val value: Int,
 ) {

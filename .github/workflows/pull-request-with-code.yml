@@ -51,7 +51,7 @@ jobs:
       - uses: ./.github/actions/setup-gradle-build
 
       - name: Build with release Kotlin version
-        run: ./gradlew ktlintCheck build
+        run: ./gradlew ktlintCheck detekt build
 
       - name: Check `data class`es are not part of public API
         run: |

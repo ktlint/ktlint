@@ -2,7 +2,7 @@ package com.example.ktlint.api.consumer.rules
 
 import io.github.ktlint.core.rule.engine.core.api.RuleV2Provider
 
-internal val CUSTOM_RULE_SET_ID = "custom-rule-set-id"
+internal const val CUSTOM_RULE_SET_ID = "custom-rule-set-id"
 
 internal val KTLINT_API_CONSUMER_RULE_PROVIDERS =
     setOf(

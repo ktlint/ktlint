@@ -71,7 +71,11 @@ private fun initPsiFileFactory(): PsiFileFactory {
     try {
         val kotlinCoreProjectEnvironment = createKotlinProjectEnvironment(disposable)
         return PsiFileFactory.getInstance(kotlinCoreProjectEnvironment.project)
-    } catch (t: Throwable) {
+    } catch (
+        @Suppress("TooGenericExceptionCaught") t: Throwable,
+    ) {
+        // Bootstrapping the embedded Kotlin compiler can fail with class-loading Errors, not just Exceptions, so
+        // Throwable is caught intentionally here to wrap any such failure into a single, clean exception type.
         throw UnsupportedOperationException(t)
     } finally {
         // Dispose explicitly to (possibly) prevent memory leak
@@ -115,11 +119,14 @@ private fun createKotlinProjectEnvironment(disposable: Disposable): KotlinCorePr
 private class LoggerFactory : DiagnosticLogger.Factory {
     override fun getLoggerInstance(p: String): DiagnosticLogger =
         object : DefaultLogger(null) {
+            // Intentional no-op overrides: silences the embedded Kotlin compiler's default stderr logging.
+            @Suppress("EmptyFunctionBlock")
             override fun warn(
                 message: String?,
                 t: Throwable?,
             ) {}
 
+            @Suppress("EmptyFunctionBlock")
             override fun error(
                 message: String?,
                 vararg details: String?,

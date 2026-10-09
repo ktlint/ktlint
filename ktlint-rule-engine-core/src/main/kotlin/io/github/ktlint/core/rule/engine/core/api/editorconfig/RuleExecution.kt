@@ -1,19 +1,16 @@
-@file:Suppress("DEPRECATION")
+@file:JvmName("RuleExecutionEditorConfigPropertyKt") // Preserve the binary-compatible facade class name after the file rename below
 
-package com.pinterest.ktlint.rule.engine.core.api.editorconfig
+package io.github.ktlint.core.rule.engine.core.api.editorconfig
 
-import com.pinterest.ktlint.rule.engine.core.api.RuleId
-import com.pinterest.ktlint.rule.engine.core.api.RuleSetId
+import io.github.ktlint.core.rule.engine.core.api.RuleId
+import io.github.ktlint.core.rule.engine.core.api.RuleSetId
 import org.ec4j.core.model.PropertyType
 
-@Suppress("EnumEntryName")
-@Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
 public enum class RuleExecution {
-    enabled,
-    disabled,
+    ENABLED,
+    DISABLED,
 }
 
-@Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
 public val RULE_EXECUTION_PROPERTY_TYPE: PropertyType.LowerCasingPropertyType<RuleExecution> =
     PropertyType.LowerCasingPropertyType(
         "ktlint_rule_execution",
@@ -23,35 +20,47 @@ public val RULE_EXECUTION_PROPERTY_TYPE: PropertyType.LowerCasingPropertyType<Ru
         RuleExecution.entries.map { it.name }.toSet(),
     )
 
-@Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+/**
+ * When disabled, no ktlint rules are executed. This property can be used to disable all rulesets (including internal rules) for a given
+ * glob in the '.editorconfig'.
+ */
 public val ALL_RULES_EXECUTION_PROPERTY: EditorConfigProperty<RuleExecution> =
     EditorConfigProperty(
+        // Explicitly name the rule as multiple properties exists for this property type
         name = "ktlint",
         type = RULE_EXECUTION_PROPERTY_TYPE,
-        defaultValue = RuleExecution.enabled,
+        defaultValue = RuleExecution.ENABLED,
     )
 
-@Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+/**
+ * When enabled, a rule that implements interface "Rule.Experimental" is executed unless that rule itself is explicitly disabled.
+ */
 public val EXPERIMENTAL_RULES_EXECUTION_PROPERTY: EditorConfigProperty<RuleExecution> =
     EditorConfigProperty(
+        // Explicitly name the rule as multiple properties exists for this property type
         name = "ktlint_experimental",
         type = RULE_EXECUTION_PROPERTY_TYPE,
-        defaultValue = RuleExecution.disabled,
+        defaultValue = RuleExecution.DISABLED,
     )
 
-@Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+/**
+ * Generates the rule execution '.editorconfig' property for the given [RuleSetId].
+ */
 public fun RuleSetId.createRuleSetExecutionEditorConfigProperty(
-    ruleExecution: RuleExecution = RuleExecution.enabled,
+    ruleExecution: RuleExecution = RuleExecution.ENABLED,
 ): EditorConfigProperty<RuleExecution> =
     EditorConfigProperty(
+        // Explicitly name the rule as multiple properties exists for this property type
         name = ktLintRuleSetExecutionPropertyName(),
         type = RULE_EXECUTION_PROPERTY_TYPE,
         defaultValue = ruleExecution,
     )
 
-@Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+/**
+ * Generates the rule execution '.editorconfig' property for the given [RuleId].
+ */
 public fun RuleId.createRuleExecutionEditorConfigProperty(
-    ruleExecution: RuleExecution = RuleExecution.enabled,
+    ruleExecution: RuleExecution = RuleExecution.ENABLED,
 ): EditorConfigProperty<RuleExecution> =
     EditorConfigProperty(
         name = ktLintRuleExecutionPropertyName(),
@@ -59,8 +68,12 @@ public fun RuleId.createRuleExecutionEditorConfigProperty(
         defaultValue = ruleExecution,
     )
 
-@Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+/**
+ * Constructs the name of the '.editorconfig' property that determines whether the given [RuleId] is to be executed.
+ */
 public fun RuleId.ktLintRuleExecutionPropertyName(): String = "ktlint_${value.replaceFirst(":", "_")}"
 
-@Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+/**
+ * Constructs the name of the '.editorconfig' property that determines whether the rule set with the given [RuleSetId] is to be executed.
+ */
 public fun RuleSetId.ktLintRuleSetExecutionPropertyName(): String = "ktlint_$value"

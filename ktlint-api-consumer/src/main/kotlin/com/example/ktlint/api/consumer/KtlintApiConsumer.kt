@@ -138,6 +138,6 @@ private val runtimeLoadedRuleProviders =
             ).flatMap { it.getRuleProviders() }
             .toSet()
     } catch (e: ServiceConfigurationError) {
-        LOGGER.warn { "Error while loading the rulesets:\n${e.printStackTrace()}" }
+        LOGGER.warn(e) { "Error while loading the rulesets" }
         emptySet()
     }

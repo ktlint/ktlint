@@ -55,13 +55,9 @@ private fun ASTNode.findLeafElementAt(suppression: KtlintSuppression): ASTNode =
     }
 
 private fun KtlintSuppressionAtOffset.offsetFromStartOf(code: String): Int {
-    if (line < 1 || col < 1) {
-        throw KtlintSuppressionOutOfBoundsException(this)
-    }
-
     val lines = code.split("\n")
 
-    if (line > lines.size) {
+    if (line < 1 || col < 1 || line > lines.size) {
         throw KtlintSuppressionOutOfBoundsException(this)
     }
     val startOffsetOfLineContainingLintError =

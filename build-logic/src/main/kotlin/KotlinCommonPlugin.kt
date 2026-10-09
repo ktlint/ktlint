@@ -56,7 +56,7 @@ abstract class KotlinCommonPlugin : Plugin<Project> {
 
             val requestedJdkVersion = project.findProperty("testJdkVersion")?.toString()?.toInt()
             // list of Java versions (usually only LTS versions) the developers may want to run via IDE click.
-            setOfNotNull(17, 21, requestedJdkVersion).forEach { version ->
+            setOfNotNull(LTS_JAVA_VERSION_17, LTS_JAVA_VERSION_21, requestedJdkVersion).forEach { version ->
                 tasks.register<Test>("testOnJdk$version") {
                     javaLauncher.set(
                         target
@@ -94,7 +94,7 @@ abstract class KotlinCommonPlugin : Plugin<Project> {
                         .get()
                         .metadata
                         .languageVersion
-                        .canCompileOrRun(JavaLanguageVersion.of(24))
+                        .canCompileOrRun(JavaLanguageVersion.of(JAVA_VERSION_UNSAFE_MEMORY_ACCESS_WARNING))
                 ) {
                     // Suppress warning "sun.misc.Unsafe::objectFieldOffset" on Java24+ (https://github.com/ktlint/ktlint/issues/2973)
                     jvmArgs("--sun-misc-unsafe-memory-access=allow") // Java 24+
@@ -103,6 +103,9 @@ abstract class KotlinCommonPlugin : Plugin<Project> {
         }
 
     private companion object {
+        private const val LTS_JAVA_VERSION_17 = 17
+        private const val LTS_JAVA_VERSION_21 = 21
+        private const val JAVA_VERSION_UNSAFE_MEMORY_ACCESS_WARNING = 24
         val internalNonPublishableProjects =
             setOf(
                 ":ktlint-api-consumer",

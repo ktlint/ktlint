@@ -103,7 +103,7 @@ private fun <T> Class<T>.loadProvidersFromJars(url: URL?): Set<T> =
                 URLClassLoader(url.toArray()),
             ).toSet()
     } catch (e: ServiceConfigurationError) {
-        LOGGER.warn { "Error while loading JAR file '${url.jarFilePath()}':\n${e.printStackTrace()}" }
+        LOGGER.warn(e) { "Error while loading JAR file '${url.jarFilePath()}'" }
         emptySet()
     }
 

@@ -118,5 +118,9 @@ internal abstract class GitHookCliktCommand(
             .getInstance("SHA-256")
             .digest(this)
             .let { BigInteger(it) }
-            .toString(16)
+            .toString(HEX_RADIX)
+
+    private companion object {
+        private const val HEX_RADIX = 16
+    }
 }
