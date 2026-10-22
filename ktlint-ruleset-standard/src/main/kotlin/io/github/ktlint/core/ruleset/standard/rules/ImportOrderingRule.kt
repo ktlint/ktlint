@@ -1,5 +1,8 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiWhiteSpace
+import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import io.github.ktlint.core.logger.api.initKtLintKLogger
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IMPORT_DIRECTIVE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IMPORT_LIST
@@ -21,9 +24,6 @@ import io.github.ktlint.core.ruleset.standard.rules.internal.importordering.Patt
 import io.github.ktlint.core.ruleset.standard.rules.internal.importordering.parseImportsLayout
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.ec4j.core.model.PropertyType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.PsiWhiteSpace
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.jetbrains.kotlin.psi.KtImportDirective
 
 private val LOGGER = KotlinLogging.logger {}.initKtLintKLogger()

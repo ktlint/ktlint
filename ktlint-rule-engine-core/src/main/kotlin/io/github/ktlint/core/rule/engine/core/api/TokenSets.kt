@@ -1,5 +1,6 @@
 package io.github.ktlint.core.rule.engine.core.api
 
+import com.intellij.psi.tree.TokenSet
 import io.github.ktlint.core.rule.engine.core.api.ElementType.DO_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FOR_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IF_KEYWORD
@@ -7,7 +8,6 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.OBJECT_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.TRY_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.WHEN_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.WHILE_KEYWORD
-import org.jetbrains.kotlin.com.intellij.psi.tree.TokenSet
 import org.jetbrains.kotlin.lexer.KtTokens
 
 public object TokenSets {
