@@ -5,116 +5,116 @@ public abstract class com/pinterest/ktlint/cli/ruleset/core/api/RuleSetProviderV
 }
 
 public final class com/pinterest/ktlint/rule/engine/core/api/ASTNodeExtensionKt {
-	public static final fun afterCodeSibling (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Z
-	public static final fun beforeCodeSibling (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Z
-	public static final fun betweenCodeSiblings (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Z
-	public static final fun children (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun afterCodeSibling (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Z
+	public static final fun beforeCodeSibling (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Z
+	public static final fun betweenCodeSiblings (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;Lcom/intellij/psi/tree/IElementType;)Z
+	public static final fun children (Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
 	public static final fun dropTrailingEolComment (Lkotlin/sequences/Sequence;)Lkotlin/sequences/Sequence;
-	public static final fun dummyPsiElement (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/psi/PsiElement;
-	public static final fun endOffset (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)I
-	public static final fun findChildByTypeRecursively (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun findChildByTypeRecursively (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;Z)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun findCompositeParentElementOfType (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun findParentByType (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun firstChildLeafOrSelf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getChildren20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
-	public static final fun getColumn (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)I
-	public static final fun getEndOffset20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)I
-	public static final fun getFirstChildLeafOrSelf20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getIndent20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Ljava/lang/String;
-	public static final fun getIndentWithoutNewlinePrefix (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Ljava/lang/String;
-	public static final fun getLastChildLeafOrSelf20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getLeavesBackwardsIncludingSelf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
-	public static final fun getLeavesForwardsIncludingSelf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
-	public static final fun getLeavesOnLine20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun dummyPsiElement (Lcom/intellij/lang/ASTNode;)Lcom/intellij/psi/PsiElement;
+	public static final fun endOffset (Lcom/intellij/lang/ASTNode;)I
+	public static final fun findChildByTypeRecursively (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Lcom/intellij/lang/ASTNode;
+	public static final fun findChildByTypeRecursively (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;Z)Lcom/intellij/lang/ASTNode;
+	public static final fun findCompositeParentElementOfType (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Lcom/intellij/lang/ASTNode;
+	public static final fun findParentByType (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Lcom/intellij/lang/ASTNode;
+	public static final fun firstChildLeafOrSelf (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getChildren20 (Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun getColumn (Lcom/intellij/lang/ASTNode;)I
+	public static final fun getEndOffset20 (Lcom/intellij/lang/ASTNode;)I
+	public static final fun getFirstChildLeafOrSelf20 (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getIndent20 (Lcom/intellij/lang/ASTNode;)Ljava/lang/String;
+	public static final fun getIndentWithoutNewlinePrefix (Lcom/intellij/lang/ASTNode;)Ljava/lang/String;
+	public static final fun getLastChildLeafOrSelf20 (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getLeavesBackwardsIncludingSelf (Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun getLeavesForwardsIncludingSelf (Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun getLeavesOnLine20 (Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
 	public static final fun getLineLength (Lkotlin/sequences/Sequence;)I
-	public static final fun getNextCodeLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getNextCodeSibling20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getNextLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getNextSibling20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getParent (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getPrevCodeLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getPrevCodeSibling20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getPrevLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getPrevSibling20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun getRecursiveChildren20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
-	public static final fun hasModifier (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Z
-	public static final fun hasNewLineInClosedRange (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun indent (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Z)Ljava/lang/String;
-	public static synthetic fun indent$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZILjava/lang/Object;)Ljava/lang/String;
-	public static final fun isCode (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isCodeLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isDeclaration (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isDeclaration20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isKtAnnotated (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isKtAnnotated20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isKtExpression (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isKtLoopExpression (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isLeaf20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isPartOf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/reflect/KClass;)Z
-	public static final fun isPartOf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Z
-	public static final fun isPartOf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/TokenSet;)Z
-	public static final fun isPartOfComment (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isPartOfComment20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isPartOfCompositeElementOfType (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Z
-	public static final fun isPartOfString (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isPartOfString20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isRoot (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isRoot20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isValOrVarKeyword (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isWhiteSpace (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isWhiteSpace20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isWhiteSpaceWithNewline (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isWhiteSpaceWithNewline20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isWhiteSpaceWithoutNewline (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isWhiteSpaceWithoutNewline20 (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun isWhiteSpaceWithoutNewlineOrNull (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun lastChildLeafOrSelf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun leavesInClosedRange (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
-	public static final fun leavesInOpenRange (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
-	public static final fun leavesIncludingSelf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Z)Lkotlin/sequences/Sequence;
-	public static synthetic fun leavesIncludingSelf$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZILjava/lang/Object;)Lkotlin/sequences/Sequence;
-	public static final fun leavesOnLine (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
-	public static final fun leavesOnLine (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Z)Lkotlin/sequences/Sequence;
-	public static final fun lineLength (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Z)I
-	public static synthetic fun lineLength$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZILjava/lang/Object;)I
+	public static final fun getNextCodeLeaf (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getNextCodeSibling20 (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getNextLeaf (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getNextSibling20 (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getParent (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getPrevCodeLeaf (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getPrevCodeSibling20 (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getPrevLeaf (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getPrevSibling20 (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun getRecursiveChildren20 (Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun hasModifier (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Z
+	public static final fun hasNewLineInClosedRange (Lcom/intellij/lang/ASTNode;Lcom/intellij/lang/ASTNode;)Z
+	public static final fun indent (Lcom/intellij/lang/ASTNode;Z)Ljava/lang/String;
+	public static synthetic fun indent$default (Lcom/intellij/lang/ASTNode;ZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun isCode (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isCodeLeaf (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isDeclaration (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isDeclaration20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isKtAnnotated (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isKtAnnotated20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isKtExpression (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isKtLoopExpression (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isLeaf (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isLeaf20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isPartOf (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Z
+	public static final fun isPartOf (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/TokenSet;)Z
+	public static final fun isPartOf (Lcom/intellij/lang/ASTNode;Lkotlin/reflect/KClass;)Z
+	public static final fun isPartOfComment (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isPartOfComment20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isPartOfCompositeElementOfType (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Z
+	public static final fun isPartOfString (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isPartOfString20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isRoot (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isRoot20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isValOrVarKeyword (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isWhiteSpace (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isWhiteSpace20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isWhiteSpaceWithNewline (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isWhiteSpaceWithNewline20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isWhiteSpaceWithoutNewline (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isWhiteSpaceWithoutNewline20 (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun isWhiteSpaceWithoutNewlineOrNull (Lcom/intellij/lang/ASTNode;)Z
+	public static final fun lastChildLeafOrSelf (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun leavesInClosedRange (Lcom/intellij/lang/ASTNode;Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun leavesInOpenRange (Lcom/intellij/lang/ASTNode;Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun leavesIncludingSelf (Lcom/intellij/lang/ASTNode;Z)Lkotlin/sequences/Sequence;
+	public static synthetic fun leavesIncludingSelf$default (Lcom/intellij/lang/ASTNode;ZILjava/lang/Object;)Lkotlin/sequences/Sequence;
+	public static final fun leavesOnLine (Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun leavesOnLine (Lcom/intellij/lang/ASTNode;Z)Lkotlin/sequences/Sequence;
+	public static final fun lineLength (Lcom/intellij/lang/ASTNode;Z)I
+	public static synthetic fun lineLength$default (Lcom/intellij/lang/ASTNode;ZILjava/lang/Object;)I
+	public static final fun lineLengthWithoutNewlinePrefix (Lcom/intellij/lang/ASTNode;)I
 	public static final fun lineLengthWithoutNewlinePrefix (Lkotlin/sequences/Sequence;)I
-	public static final fun lineLengthWithoutNewlinePrefix (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)I
-	public static final fun logStructure (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun nextCodeLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZZ)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static synthetic fun nextCodeLeaf$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZZILjava/lang/Object;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun nextCodeSibling (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun nextLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun nextLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZZ)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static synthetic fun nextLeaf$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZZILjava/lang/Object;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun nextSibling (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun nextSibling (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun noNewLineInClosedRange (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun noNewLineInOpenRange (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Z
-	public static final fun parent (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun parent (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun parent (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;Z)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun parent (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZLkotlin/jvm/functions/Function1;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static synthetic fun parent$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;ZILjava/lang/Object;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static synthetic fun parent$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun prevCodeLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Z)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static synthetic fun prevCodeLeaf$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZILjava/lang/Object;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun prevCodeSibling (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun prevLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun prevLeaf (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Z)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static synthetic fun prevLeaf$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZILjava/lang/Object;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun prevSibling (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun prevSibling (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static synthetic fun prevSibling$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;
-	public static final fun recursiveChildren (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
-	public static final fun recursiveChildren (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Z)Lkotlin/sequences/Sequence;
-	public static synthetic fun recursiveChildren$default (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZILjava/lang/Object;)Lkotlin/sequences/Sequence;
-	public static final fun remove (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
-	public static final fun replaceTextWith (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Ljava/lang/String;)V
-	public static final fun replaceWith (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
-	public static final fun upsertWhitespaceAfterMe (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Ljava/lang/String;)V
-	public static final fun upsertWhitespaceBeforeMe (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Ljava/lang/String;)V
+	public static final fun logStructure (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun nextCodeLeaf (Lcom/intellij/lang/ASTNode;ZZ)Lcom/intellij/lang/ASTNode;
+	public static synthetic fun nextCodeLeaf$default (Lcom/intellij/lang/ASTNode;ZZILjava/lang/Object;)Lcom/intellij/lang/ASTNode;
+	public static final fun nextCodeSibling (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun nextLeaf (Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lcom/intellij/lang/ASTNode;
+	public static final fun nextLeaf (Lcom/intellij/lang/ASTNode;ZZ)Lcom/intellij/lang/ASTNode;
+	public static synthetic fun nextLeaf$default (Lcom/intellij/lang/ASTNode;ZZILjava/lang/Object;)Lcom/intellij/lang/ASTNode;
+	public static final fun nextSibling (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun nextSibling (Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lcom/intellij/lang/ASTNode;
+	public static final fun noNewLineInClosedRange (Lcom/intellij/lang/ASTNode;Lcom/intellij/lang/ASTNode;)Z
+	public static final fun noNewLineInOpenRange (Lcom/intellij/lang/ASTNode;Lcom/intellij/lang/ASTNode;)Z
+	public static final fun parent (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;)Lcom/intellij/lang/ASTNode;
+	public static final fun parent (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;Z)Lcom/intellij/lang/ASTNode;
+	public static final fun parent (Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lcom/intellij/lang/ASTNode;
+	public static final fun parent (Lcom/intellij/lang/ASTNode;ZLkotlin/jvm/functions/Function1;)Lcom/intellij/lang/ASTNode;
+	public static synthetic fun parent$default (Lcom/intellij/lang/ASTNode;Lcom/intellij/psi/tree/IElementType;ZILjava/lang/Object;)Lcom/intellij/lang/ASTNode;
+	public static synthetic fun parent$default (Lcom/intellij/lang/ASTNode;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/intellij/lang/ASTNode;
+	public static final fun prevCodeLeaf (Lcom/intellij/lang/ASTNode;Z)Lcom/intellij/lang/ASTNode;
+	public static synthetic fun prevCodeLeaf$default (Lcom/intellij/lang/ASTNode;ZILjava/lang/Object;)Lcom/intellij/lang/ASTNode;
+	public static final fun prevCodeSibling (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun prevLeaf (Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lcom/intellij/lang/ASTNode;
+	public static final fun prevLeaf (Lcom/intellij/lang/ASTNode;Z)Lcom/intellij/lang/ASTNode;
+	public static synthetic fun prevLeaf$default (Lcom/intellij/lang/ASTNode;ZILjava/lang/Object;)Lcom/intellij/lang/ASTNode;
+	public static final fun prevSibling (Lcom/intellij/lang/ASTNode;)Lcom/intellij/lang/ASTNode;
+	public static final fun prevSibling (Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;)Lcom/intellij/lang/ASTNode;
+	public static synthetic fun prevSibling$default (Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/intellij/lang/ASTNode;
+	public static final fun recursiveChildren (Lcom/intellij/lang/ASTNode;)Lkotlin/sequences/Sequence;
+	public static final fun recursiveChildren (Lcom/intellij/lang/ASTNode;Z)Lkotlin/sequences/Sequence;
+	public static synthetic fun recursiveChildren$default (Lcom/intellij/lang/ASTNode;ZILjava/lang/Object;)Lkotlin/sequences/Sequence;
+	public static final fun remove (Lcom/intellij/lang/ASTNode;)V
+	public static final fun replaceTextWith (Lcom/intellij/lang/ASTNode;Ljava/lang/String;)V
+	public static final fun replaceWith (Lcom/intellij/lang/ASTNode;Lcom/intellij/lang/ASTNode;)V
+	public static final fun upsertWhitespaceAfterMe (Lcom/intellij/lang/ASTNode;Ljava/lang/String;)V
+	public static final fun upsertWhitespaceBeforeMe (Lcom/intellij/lang/ASTNode;Ljava/lang/String;)V
 }
 
 public final class com/pinterest/ktlint/rule/engine/core/api/AutocorrectDecision : java/lang/Enum {
@@ -131,287 +131,287 @@ public final class com/pinterest/ktlint/rule/engine/core/api/AutocorrectDecision
 
 public final class com/pinterest/ktlint/rule/engine/core/api/ElementType {
 	public static final field INSTANCE Lcom/pinterest/ktlint/rule/engine/core/api/ElementType;
-	public final fun getABSTRACT_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getACTUAL_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getANDAND ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getANNOTATED_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getANNOTATION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getANNOTATION_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getANNOTATION_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getANNOTATION_TARGET ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getARRAY_ACCESS_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getARROW ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getAS_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getAS_SAFE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getAT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBINARY_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBINARY_WITH_TYPE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBLOCK ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBLOCK_CODE_FRAGMENT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBLOCK_COMMENT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBODY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBOOLEAN_CONSTANT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBREAK ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBREAK_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getBY_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCALLABLE_REFERENCE_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCALL_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCATCH ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCATCH_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCHARACTER_CONSTANT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCHARACTER_LITERAL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCLASS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCLASS_BODY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCLASS_INITIALIZER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCLASS_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCLASS_LITERAL_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCLOSING_QUOTE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCOLLECTION_LITERAL_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCOLON ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCOLONCOLON ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCOMMA ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCOMPANION_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONDITION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONSTRUCTOR_CALLEE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONSTRUCTOR_DELEGATION_CALL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONSTRUCTOR_DELEGATION_REFERENCE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONSTRUCTOR_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONST_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONTEXT_RECEIVER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONTEXT_RECEIVER_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONTINUE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCONTINUE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getCROSSINLINE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDANGLING_NEWLINE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDATA_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDEFAULT_VISIBILITY_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDELEGATED_SUPER_TYPE_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDELEGATE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDESTRUCTURING_DECLARATION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDESTRUCTURING_DECLARATION_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDIV ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDIVEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDOT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDOT_QUALIFIED_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDOUBLE_ARROW ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDOUBLE_SEMICOLON ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDO_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDO_WHILE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDYNAMIC_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getDYNAMIC_TYPE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getELSE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getELSE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getELVIS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getENUM_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getENUM_ENTRY_SUPERCLASS_REFERENCE_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getENUM_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEOF ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEOL_COMMENT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEOL_OR_SEMICOLON ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEQEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEQEQEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getESCAPE_SEQUENCE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getESCAPE_STRING_TEMPLATE_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEXCL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEXCLEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEXCLEQEQEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEXCLEXCL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEXPECT_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEXPRESSION_CODE_FRAGMENT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getEXTERNAL_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFALSE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFIELD_IDENTIFIER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFIELD_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFILE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFILE_ANNOTATION_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFILE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFINALLY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFINALLY_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFINAL_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFLOAT_CONSTANT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFLOAT_LITERAL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFOR ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFOR_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFUN ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFUNCTION_LITERAL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFUNCTION_TYPE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFUNCTION_TYPE_RECEIVER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getFUN_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getGET_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getGT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getGTEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getHASH ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIDENTIFIER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIF ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIF_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIMPORT_ALIAS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIMPORT_DIRECTIVE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIMPORT_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIMPORT_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINDICES ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINFIX_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINITIALIZER_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINIT_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINLINE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINNER_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINTEGER_CONSTANT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINTEGER_LITERAL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINTERFACE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getINTERNAL_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIN_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIS_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getIS_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_CODE_BLOCK_TEXT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_END ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_LEADING_ASTERISK ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_MARKDOWN_ESCAPED_CHAR ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_MARKDOWN_INLINE_LINK ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_MARKDOWN_LINK ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_NAME ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_SECTION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_START ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_TAG ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_TAG_NAME ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getKDOC_TEXT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLABEL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLABELED_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLABEL_QUALIFIER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLAMBDA_ARGUMENT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLAMBDA_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLATEINIT_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLBRACE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLBRACKET ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLITERAL_STRING_TEMPLATE_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLONG_STRING_TEMPLATE_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLONG_TEMPLATE_ENTRY_END ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLONG_TEMPLATE_ENTRY_START ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLOOP_RANGE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLPAR ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getLTEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getMINUS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getMINUSEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getMINUSMINUS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getMODIFIER_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getMUL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getMULTEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getNOINLINE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getNOT_IN ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getNOT_IS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getNULL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getNULLABLE_TYPE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getNULL_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOBJECT_DECLARATION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOBJECT_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOBJECT_LITERAL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOPEN_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOPEN_QUOTE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOPERATION_REFERENCE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOPERATOR_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOROR ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOUT_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getOVERRIDE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPACKAGE_DIRECTIVE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPACKAGE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPARAM_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPARENTHESIZED ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPERC ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPERCEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPLUS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPLUSEQ ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPLUSPLUS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPOSTFIX_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPREFIX_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPRIMARY_CONSTRUCTOR ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPRIVATE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPROPERTY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPROPERTY_ACCESSOR ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPROPERTY_DELEGATE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPROPERTY_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPROTECTED_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getPUBLIC_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getQUEST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRANGE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRANGE_UNTIL ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRBRACE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRBRACKET ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRECEIVER_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getREFERENCE_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getREGULAR_STRING_PART ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getREIFIED_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRESERVED ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRETURN ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRETURN_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getRPAR ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSAFE_ACCESS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSAFE_ACCESS_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSCRIPT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSCRIPT_INITIALIZER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSEALED_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSECONDARY_CONSTRUCTOR ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSEMICOLON ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSETPARAM_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSET_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSHEBANG_COMMENT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSHORT_STRING_TEMPLATE_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSHORT_TEMPLATE_ENTRY_START ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSTRING_TEMPLATE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSUPER_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSUPER_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSUPER_TYPE_CALL_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSUPER_TYPE_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSUPER_TYPE_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getSUSPEND_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTAILREC_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTHEN ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTHIS_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTHIS_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTHROW ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTHROW_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTRUE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTRY_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPEALIAS ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPEALIAS_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPEOF_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPE_ARGUMENT_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPE_CODE_FRAGMENT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPE_CONSTRAINT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPE_CONSTRAINT_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPE_PARAMETER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPE_PARAMETER_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPE_PROJECTION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getTYPE_REFERENCE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getUSER_TYPE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getVALUE_ARGUMENT ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getVALUE_ARGUMENT_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getVALUE_ARGUMENT_NAME ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getVALUE_PARAMETER ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getVALUE_PARAMETER_LIST ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getVAL_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getVARARG_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getVAR_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHEN ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHEN_CONDITION_IN_RANGE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHEN_CONDITION_IS_PATTERN ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHEN_CONDITION_WITH_EXPRESSION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHEN_ENTRY ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHEN_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHERE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHILE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHILE_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
-	public final fun getWHITE_SPACE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
+	public final fun getABSTRACT_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getACTUAL_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getANDAND ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getANNOTATED_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getANNOTATION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getANNOTATION_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getANNOTATION_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getANNOTATION_TARGET ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getARRAY_ACCESS_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getARROW ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getAS_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getAS_SAFE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getAT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBINARY_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBINARY_WITH_TYPE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBLOCK ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBLOCK_CODE_FRAGMENT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBLOCK_COMMENT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBODY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBOOLEAN_CONSTANT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBREAK ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBREAK_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getBY_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCALLABLE_REFERENCE_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCALL_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCATCH ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCATCH_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCHARACTER_CONSTANT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCHARACTER_LITERAL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCLASS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCLASS_BODY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCLASS_INITIALIZER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCLASS_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCLASS_LITERAL_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCLOSING_QUOTE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCOLLECTION_LITERAL_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCOLON ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCOLONCOLON ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCOMMA ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCOMPANION_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONDITION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONSTRUCTOR_CALLEE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONSTRUCTOR_DELEGATION_CALL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONSTRUCTOR_DELEGATION_REFERENCE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONSTRUCTOR_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONST_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONTEXT_RECEIVER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONTEXT_RECEIVER_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONTINUE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCONTINUE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getCROSSINLINE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDANGLING_NEWLINE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDATA_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDEFAULT_VISIBILITY_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDELEGATED_SUPER_TYPE_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDELEGATE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDESTRUCTURING_DECLARATION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDESTRUCTURING_DECLARATION_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDIV ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDIVEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDOT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDOT_QUALIFIED_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDOUBLE_ARROW ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDOUBLE_SEMICOLON ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDO_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDO_WHILE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDYNAMIC_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getDYNAMIC_TYPE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getELSE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getELSE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getELVIS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getENUM_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getENUM_ENTRY_SUPERCLASS_REFERENCE_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getENUM_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEOF ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEOL_COMMENT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEOL_OR_SEMICOLON ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEQEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEQEQEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getESCAPE_SEQUENCE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getESCAPE_STRING_TEMPLATE_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEXCL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEXCLEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEXCLEQEQEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEXCLEXCL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEXPECT_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEXPRESSION_CODE_FRAGMENT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getEXTERNAL_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFALSE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFIELD_IDENTIFIER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFIELD_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFILE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFILE_ANNOTATION_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFILE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFINALLY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFINALLY_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFINAL_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFLOAT_CONSTANT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFLOAT_LITERAL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFOR ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFOR_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFUN ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFUNCTION_LITERAL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFUNCTION_TYPE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFUNCTION_TYPE_RECEIVER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getFUN_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getGET_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getGT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getGTEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getHASH ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIDENTIFIER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIF ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIF_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIMPORT_ALIAS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIMPORT_DIRECTIVE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIMPORT_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIMPORT_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINDICES ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINFIX_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINITIALIZER_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINIT_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINLINE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINNER_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINTEGER_CONSTANT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINTEGER_LITERAL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINTERFACE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getINTERNAL_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIN_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIS_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getIS_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_CODE_BLOCK_TEXT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_END ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_LEADING_ASTERISK ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_MARKDOWN_ESCAPED_CHAR ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_MARKDOWN_INLINE_LINK ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_MARKDOWN_LINK ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_NAME ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_SECTION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_START ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_TAG ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_TAG_NAME ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getKDOC_TEXT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLABEL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLABELED_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLABEL_QUALIFIER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLAMBDA_ARGUMENT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLAMBDA_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLATEINIT_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLBRACE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLBRACKET ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLITERAL_STRING_TEMPLATE_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLONG_STRING_TEMPLATE_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLONG_TEMPLATE_ENTRY_END ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLONG_TEMPLATE_ENTRY_START ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLOOP_RANGE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLPAR ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getLTEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getMINUS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getMINUSEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getMINUSMINUS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getMODIFIER_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getMUL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getMULTEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getNOINLINE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getNOT_IN ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getNOT_IS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getNULL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getNULLABLE_TYPE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getNULL_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOBJECT_DECLARATION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOBJECT_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOBJECT_LITERAL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOPEN_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOPEN_QUOTE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOPERATION_REFERENCE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOPERATOR_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOROR ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOUT_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getOVERRIDE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPACKAGE_DIRECTIVE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPACKAGE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPARAM_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPARENTHESIZED ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPERC ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPERCEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPLUS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPLUSEQ ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPLUSPLUS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPOSTFIX_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPREFIX_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPRIMARY_CONSTRUCTOR ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPRIVATE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPROPERTY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPROPERTY_ACCESSOR ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPROPERTY_DELEGATE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPROPERTY_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPROTECTED_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getPUBLIC_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getQUEST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRANGE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRANGE_UNTIL ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRBRACE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRBRACKET ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRECEIVER_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getREFERENCE_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getREGULAR_STRING_PART ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getREIFIED_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRESERVED ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRETURN ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRETURN_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getRPAR ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSAFE_ACCESS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSAFE_ACCESS_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSCRIPT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSCRIPT_INITIALIZER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSEALED_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSECONDARY_CONSTRUCTOR ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSEMICOLON ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSETPARAM_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSET_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSHEBANG_COMMENT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSHORT_STRING_TEMPLATE_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSHORT_TEMPLATE_ENTRY_START ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSTRING_TEMPLATE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSUPER_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSUPER_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSUPER_TYPE_CALL_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSUPER_TYPE_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSUPER_TYPE_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getSUSPEND_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTAILREC_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTHEN ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTHIS_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTHIS_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTHROW ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTHROW_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTRUE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTRY_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPEALIAS ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPEALIAS_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPEOF_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPE_ARGUMENT_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPE_CODE_FRAGMENT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPE_CONSTRAINT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPE_CONSTRAINT_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPE_PARAMETER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPE_PARAMETER_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPE_PROJECTION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getTYPE_REFERENCE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getUSER_TYPE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getVALUE_ARGUMENT ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getVALUE_ARGUMENT_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getVALUE_ARGUMENT_NAME ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getVALUE_PARAMETER ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getVALUE_PARAMETER_LIST ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getVAL_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getVARARG_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getVAR_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHEN ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHEN_CONDITION_IN_RANGE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHEN_CONDITION_IS_PATTERN ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHEN_CONDITION_WITH_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHEN_ENTRY ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHEN_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHERE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHILE ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHILE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
+	public final fun getWHITE_SPACE ()Lcom/intellij/psi/tree/IElementType;
 }
 
 public class com/pinterest/ktlint/rule/engine/core/api/Rule {
 	public fun <init> (Lcom/pinterest/ktlint/rule/engine/core/api/RuleId;Lcom/pinterest/ktlint/rule/engine/core/api/Rule$About;Ljava/util/Set;Ljava/util/Set;)V
 	public synthetic fun <init> (Lcom/pinterest/ktlint/rule/engine/core/api/RuleId;Lcom/pinterest/ktlint/rule/engine/core/api/Rule$About;Ljava/util/Set;Ljava/util/Set;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun afterLastNode ()V
-	public fun afterVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZLkotlin/jvm/functions/Function3;)V
+	public fun afterVisitChildNodes (Lcom/intellij/lang/ASTNode;ZLkotlin/jvm/functions/Function3;)V
 	public fun beforeFirstNode (Lcom/pinterest/ktlint/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;ZLkotlin/jvm/functions/Function3;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;ZLkotlin/jvm/functions/Function3;)V
 	public fun getAbout ()Lcom/pinterest/ktlint/rule/engine/core/api/Rule$About;
 	public fun getRuleId ()Lcom/pinterest/ktlint/rule/engine/core/api/RuleId;
 	public fun getUsesEditorConfigProperties ()Ljava/util/Set;
@@ -468,13 +468,13 @@ public final class com/pinterest/ktlint/rule/engine/core/api/Rule$VisitorModifie
 }
 
 public abstract interface class com/pinterest/ktlint/rule/engine/core/api/RuleAutocorrectApproveHandler {
-	public fun afterVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
+	public fun afterVisitChildNodes (Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
 }
 
 public final class com/pinterest/ktlint/rule/engine/core/api/RuleAutocorrectApproveHandler$DefaultImpls {
-	public static fun afterVisitChildNodes (Lcom/pinterest/ktlint/rule/engine/core/api/RuleAutocorrectApproveHandler;Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
-	public static fun beforeVisitChildNodes (Lcom/pinterest/ktlint/rule/engine/core/api/RuleAutocorrectApproveHandler;Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
+	public static fun afterVisitChildNodes (Lcom/pinterest/ktlint/rule/engine/core/api/RuleAutocorrectApproveHandler;Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
+	public static fun beforeVisitChildNodes (Lcom/pinterest/ktlint/rule/engine/core/api/RuleAutocorrectApproveHandler;Lcom/intellij/lang/ASTNode;Lkotlin/jvm/functions/Function3;)V
 }
 
 public final class com/pinterest/ktlint/rule/engine/core/api/RuleId {

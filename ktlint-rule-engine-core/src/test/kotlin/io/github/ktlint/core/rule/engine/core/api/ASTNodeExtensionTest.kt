@@ -1,5 +1,7 @@
 package io.github.ktlint.core.rule.engine.core.api
 
+import com.intellij.lang.ASTNode
+import com.intellij.lang.FileASTNode
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
@@ -26,8 +28,6 @@ import io.github.ktlint.core.test.SPACE
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatNoException
 import org.assertj.core.api.Assertions.entry
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.psi.KtAnnotated
 import org.jetbrains.kotlin.psi.psiUtil.leaves
 import org.junit.jupiter.api.Nested
