@@ -217,4 +217,17 @@ class CallExpressionWrappingRuleTest {
             .setMaxLineLength()
             .hasNoLintViolations()
     }
+
+    @Test
+    fun `Given a call expression inside a string template, ending after the max-line-length then ignore the expression as strings may exceed the max-line-length`() {
+        val code =
+            $$"""
+            // $$MAX_LINE_LENGTH_MARKER                    $$EOL_CHAR
+            fun foo() =
+                "fooooooooooooooooooooooo ${arrayOf("bar").contentToString()}"
+            """.trimIndent()
+        callExpressionWrappingRuleAssertThat(code)
+            .setMaxLineLength()
+            .hasNoLintViolations()
+    }
 }
