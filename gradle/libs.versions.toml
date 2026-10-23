@@ -2,7 +2,7 @@
 # The java-compilation version is the latest supported (not necessarily LTS) version of Java. It should be identical to Java-version used in
 # `actions/setup-java`. Value is used in KotlinCommonPlugin
 #noinspection UnusedVersionCatalogEntry
-java-compilation = "26"
+java-compilation = "27"
 # The java-target version is the lowest supported LTS version of Java. Jar's produced are bytecode compatible with this version. Value is
 # used in KotlinCommonPlugin
 #noinspection UnusedVersionCatalogEntry
