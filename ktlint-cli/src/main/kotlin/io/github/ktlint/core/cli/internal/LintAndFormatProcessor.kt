@@ -34,6 +34,7 @@ internal class LintAndFormatProcessor(
     private val format: Boolean,
     private val ignoreAutocorrectFailures: Boolean,
     private val forceLintAfterFormat: Boolean,
+    private val rerunFormatAfterAutocorrect: Boolean,
     private val relative: Boolean,
     private val limit: Int,
     private val ktLintRuleEngine: KtLintRuleEngine,
@@ -125,7 +126,7 @@ internal class LintAndFormatProcessor(
         try {
             val formatAutocorrectDecisionHandler = createFormatAutocorrectDecisionHandler(baselineLintErrors, ktlintCliErrors)
             ktLintRuleEngine
-                .format(code, callback = formatAutocorrectDecisionHandler)
+                .format(code, rerunAfterAutocorrect = rerunFormatAfterAutocorrect, callback = formatAutocorrectDecisionHandler)
                 .also { formattedCode -> processFormatResults(code, formattedCode, ktlintCliErrors) }
         } catch (e: KtLintParseException) {
             if (code.isStdIn) {
