@@ -9,6 +9,7 @@ import com.intellij.openapi.util.UserDataHolderBase
 import com.intellij.pom.PomModel
 import com.intellij.pom.PomModelAspect
 import com.intellij.pom.PomTransaction
+import com.intellij.pom.event.PomModelListener
 import com.intellij.pom.impl.PomTransactionBase
 import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.PsiFile
@@ -162,5 +163,20 @@ private class FormatPomModel :
             return constructor.newInstance() as T
         }
         return null
+    }
+
+    override fun addModelListener(listener: PomModelListener) {
+        TODO("Not yet implemented")
+    }
+
+    override fun addModelListener(
+        listener: PomModelListener,
+        parentDisposable: Disposable,
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun removeModelListener(listener: PomModelListener) {
+        TODO("Not yet implemented")
     }
 }
