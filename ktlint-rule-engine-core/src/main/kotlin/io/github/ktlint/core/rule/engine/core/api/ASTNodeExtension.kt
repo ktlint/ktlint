@@ -29,7 +29,6 @@ import org.jetbrains.kotlin.psi.KtElement
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.psiUtil.leaves
 import org.jetbrains.kotlin.psi.psiUtil.parents
-import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementType
 import org.jetbrains.kotlin.psi.stubs.elements.KtTokenSets
 import org.jetbrains.kotlin.util.prefixIfNot
 
@@ -691,7 +690,6 @@ public fun ASTNode.dummyPsiElement(): PsiElement =
                 is IFileElementType -> createDummyKtFile()
                 is KtKeywordToken -> this as PsiElement
                 is KtNodeType -> (elementType as KtNodeType).createPsi(this)
-                is KtStubElementType<*, *> -> (elementType as KtStubElementType<*, *>).createPsiFromAst(this)
                 is KtToken -> this as PsiElement
                 else -> throw NotImplementedError("Cannot create dummy psi for $elementType (${elementType::class})")
             }

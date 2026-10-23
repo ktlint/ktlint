@@ -30,7 +30,6 @@ import org.jetbrains.kotlin.psi.KtExpression
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtLoopExpression
 import org.jetbrains.kotlin.psi.psiUtil.leaves
-import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementType
 import org.jetbrains.kotlin.psi.stubs.elements.KtTokenSets
 import org.jetbrains.kotlin.util.prefixIfNot
 import org.jetbrains.kotlin.utils.addToStdlib.applyIf
@@ -1044,7 +1043,6 @@ public fun ASTNode.dummyPsiElement(): PsiElement =
                 is IFileElementType -> createDummyKtFile()
                 is KtKeywordToken -> this as PsiElement
                 is KtNodeType -> (elementType as KtNodeType).createPsi(this)
-                is KtStubElementType<*, *> -> (elementType as KtStubElementType<*, *>).createPsiFromAst(this)
                 is KtToken -> this as PsiElement
                 else -> throw NotImplementedError("Cannot create dummy psi for $elementType (${elementType::class})")
             }
