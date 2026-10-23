@@ -7,8 +7,8 @@ java-compilation = "26"
 # used in KotlinCommonPlugin
 #noinspection UnusedVersionCatalogEntry
 java-target = "17"
-kotlin = "2.4.21"
-kotlinDev = "2.4.21"
+kotlin = "2.5.0-Beta2"
+kotlinDev = "2.5.0-Beta2"
 
 [plugins]
 detekt = { id = "dev.detekt", version = "2.0.0-alpha.6" }
