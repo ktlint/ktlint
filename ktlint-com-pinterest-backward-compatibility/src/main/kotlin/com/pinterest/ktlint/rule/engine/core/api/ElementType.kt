@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
 import org.jetbrains.kotlin.kdoc.lexer.KDocTokens
 import org.jetbrains.kotlin.kdoc.parser.KDocElementTypes
 import org.jetbrains.kotlin.lexer.KtTokens
+import org.jetbrains.kotlin.psi.KtImplementationDetail
 import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementTypes
 import io.github.ktlint.core.rule.engine.core.api.ElementType as IoGithubKtlintElementType
 
@@ -96,6 +97,8 @@ public object ElementType {
     public val FUNCTION_LITERAL: IElementType = IoGithubKtlintElementType.FUNCTION_LITERAL
     public val ANNOTATED_EXPRESSION: IElementType = IoGithubKtlintElementType.ANNOTATED_EXPRESSION
     public val REFERENCE_EXPRESSION: IElementType = IoGithubKtlintElementType.REFERENCE_EXPRESSION
+
+    @OptIn(KtImplementationDetail::class)
     public val ENUM_ENTRY_SUPERCLASS_REFERENCE_EXPRESSION: IElementType = KtStubElementTypes.ENUM_ENTRY_SUPERCLASS_REFERENCE_EXPRESSION
     public val OPERATION_REFERENCE: IElementType = IoGithubKtlintElementType.OPERATION_REFERENCE
     public val LABEL: IElementType = IoGithubKtlintElementType.LABEL
@@ -111,6 +114,8 @@ public object ElementType {
     public val CALL_EXPRESSION: IElementType = IoGithubKtlintElementType.CALL_EXPRESSION
     public val ARRAY_ACCESS_EXPRESSION: IElementType = IoGithubKtlintElementType.ARRAY_ACCESS_EXPRESSION
     public val INDICES: IElementType = IoGithubKtlintElementType.INDICES
+
+    @OptIn(KtImplementationDetail::class)
     public val DOT_QUALIFIED_EXPRESSION: IElementType = KtStubElementTypes.DOT_QUALIFIED_EXPRESSION
     public val CALLABLE_REFERENCE_EXPRESSION: IElementType = IoGithubKtlintElementType.CALLABLE_REFERENCE_EXPRESSION
     public val CLASS_LITERAL_EXPRESSION: IElementType = IoGithubKtlintElementType.CLASS_LITERAL_EXPRESSION

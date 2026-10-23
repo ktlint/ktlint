@@ -31,6 +31,7 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.CompositeElement
 import org.jetbrains.kotlin.kdoc.lexer.KDocTokens.MARKDOWN_LINK
 import org.jetbrains.kotlin.psi.KtDotQualifiedExpression
+import org.jetbrains.kotlin.psi.KtIdeApi
 import org.jetbrains.kotlin.psi.KtImportDirective
 import org.jetbrains.kotlin.psi.KtNonPublicApi
 import org.jetbrains.kotlin.psi.KtPackageDirective
@@ -61,6 +62,7 @@ public class NoUnusedImportsRule :
     // 	      at org.jetbrains.kotlin.psi.KtElementImplStub.delete(KtElementImplStub.java:99)
     @OptIn(KtNonPublicApi::class)
     private fun ASTNode.deleteImportDirective() {
+        @OptIn(KtIdeApi::class)
         psi.safeAs<KtImportDirective>()?.rawDelete()
     }
 
