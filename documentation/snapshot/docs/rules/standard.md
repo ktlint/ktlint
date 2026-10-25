@@ -4512,8 +4512,6 @@ Braces are helpful for following reasons:
 - Bodies of the when-conditions are all aligned at same column position
 - Closing braces helps in separating the when-conditions
 
-This rule is not incorporated in the Kotlin Coding conventions, nor in the Android Kotlin Styleguide. It is based on similar behavior in enforcing consistent use of braces in if-else statements. As of that the rule is only enabled automatically for code style `ktlint_official`. It can be enabled explicitly for other code styles.
-
 === "[:material-heart:](#) Ktlint"
 
     ```kotlin
@@ -4576,6 +4574,9 @@ Suppress or disable rule (1)
     ```editorconfig
     ktlint_standard_when-entry-bracing = disabled
     ```
+
+!!! Note
+    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or when the rule is enabled explicitly.
 
 ## Wrapping
 
