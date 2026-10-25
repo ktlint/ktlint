@@ -50,7 +50,7 @@ Suppress or disable rule (1)
     ```
 
 !!! Note
-    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or `android_studion` or when the rule is enabled explicitly.
+    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or `android_studio` or when the rule is enabled explicitly.
 
 ## Blank line before imports
 
@@ -90,7 +90,7 @@ Suppress or disable rule (1)
     ```
 
 !!! Note
-    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or `android_studion` or when the rule is enabled explicitly.
+    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or `android_studio` or when the rule is enabled explicitly.
 
 ## Blank line before package
 
@@ -130,7 +130,7 @@ Suppress or disable rule (1)
     ```
 
 !!! Note
-    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or `android_studion` or when the rule is enabled explicitly.
+    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or `android_studio` or when the rule is enabled explicitly.
 
 ## Call expression wrapping
 
