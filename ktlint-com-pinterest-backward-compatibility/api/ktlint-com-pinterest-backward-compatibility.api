@@ -192,7 +192,6 @@ public final class com/pinterest/ktlint/rule/engine/core/api/ElementType {
 	public final fun getDIV ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getDIVEQ ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getDOT ()Lcom/intellij/psi/tree/IElementType;
-	public final fun getDOT_QUALIFIED_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getDOUBLE_ARROW ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getDOUBLE_SEMICOLON ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getDO_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
@@ -203,7 +202,6 @@ public final class com/pinterest/ktlint/rule/engine/core/api/ElementType {
 	public final fun getELSE_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getELVIS ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getENUM_ENTRY ()Lcom/intellij/psi/tree/IElementType;
-	public final fun getENUM_ENTRY_SUPERCLASS_REFERENCE_EXPRESSION ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getENUM_KEYWORD ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getEOF ()Lcom/intellij/psi/tree/IElementType;
 	public final fun getEOL_COMMENT ()Lcom/intellij/psi/tree/IElementType;
