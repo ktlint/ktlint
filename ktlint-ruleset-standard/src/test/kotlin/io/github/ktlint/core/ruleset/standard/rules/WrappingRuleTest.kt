@@ -195,6 +195,30 @@ internal class WrappingRuleTest {
     }
 
     @Test
+    fun `Given a multiline raw string literal with the closing quotes directly after the text, and the string-template-indent rule enabled`() {
+        val code =
+            """
+            val foo =
+                $MULTILINE_STRING_QUOTE
+                text
+                text$MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val formattedCode =
+            """
+            val foo =
+                $MULTILINE_STRING_QUOTE
+                text
+                text
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        wrappingRuleAssertThat(code)
+            .addAdditionalRuleProvider { StringTemplateIndentRule() }
+            .hasLintViolations(
+                LintViolation(4, 9, "Missing newline before \"\"\""),
+            ).isFormattedAs(formattedCode)
+    }
+
+    @Test
     fun `Given some parameter lists`() {
         val code =
             """
