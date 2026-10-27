@@ -3,6 +3,7 @@ package io.github.ktlint.core.ruleset.standard.rules
 import io.github.ktlint.core.logger.api.initKtLintKLogger
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALL_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.COLON
+import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.EQ
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IDENTIFIER
 import io.github.ktlint.core.rule.engine.core.api.ElementType.PROPERTY
@@ -82,6 +83,7 @@ public class PropertyWrappingRule :
         fixChildIfDoesNotFit(COLON, fromNode) { it.requireNewlineAfterLeaf() } ||
             fixChildIfDoesNotFit(TYPE_REFERENCE, fromNode) { it.requireNewlineBeforeLeaf() } ||
             fixChildIfDoesNotFit(EQ, fromNode) { it.requireNewlineAfterLeaf() } ||
+            fixChildIfDoesNotFit(DOT_QUALIFIED_EXPRESSION, fromNode) { it.requireNewlineBeforeLeaf() } ||
             fixChildIfDoesNotFit(CALL_EXPRESSION, fromNode) { it.requireNewlineBeforeLeaf() }
     }
 
