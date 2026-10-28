@@ -61,7 +61,7 @@ public class CallExpressionWrappingRule :
     }
 
     override fun beforeVisitChildNodes(node: ASTNode) {
-        if (node.elementType == CALL_EXPRESSION) {
+        if (node.elementType == CALL_EXPRESSION && !node.textContains('\n')) {
             node.visitCallExpression()
         }
     }
@@ -80,7 +80,7 @@ public class CallExpressionWrappingRule :
 
     private fun ASTNode.visitReferenceExpressionValueArgumentList() {
         require(elementType == VALUE_ARGUMENT_LIST)
-        if (textContains('\n') || exceedsMaxLineLength(lastChildLeafOrSelf)) {
+        if (exceedsMaxLineLength(lastChildLeafOrSelf)) {
             findChildByType(LPAR)
                 ?.takeUnless { it.nextSibling.isWhiteSpaceWithNewline }
                 ?.let { lpar ->
@@ -100,7 +100,7 @@ public class CallExpressionWrappingRule :
 
     private fun ASTNode.visitLambdaArgument() {
         require(elementType == LAMBDA_ARGUMENT)
-        if (textContains('\n') || exceedsMaxLineLength(lastChildLeafOrSelf)) {
+        if (exceedsMaxLineLength(lastChildLeafOrSelf)) {
             val functionLiteral =
                 findChildByType(LAMBDA_EXPRESSION)
                     ?.findChildByType(FUNCTION_LITERAL)
