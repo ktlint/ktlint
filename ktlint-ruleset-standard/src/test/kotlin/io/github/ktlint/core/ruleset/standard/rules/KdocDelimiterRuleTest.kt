@@ -862,8 +862,10 @@ class KdocDelimiterRuleTest {
         kdocDelimiterRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(1, 8, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
+                LintViolation(1, 9, "Expected a single space before '*/' in a single-line KDoc comment"),
                 LintViolation(2, 9, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
                 LintViolation(3, 10, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
+                LintViolation(3, 11, "Expected a single space before '*/' in a single-line KDoc comment"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -889,15 +891,23 @@ class KdocDelimiterRuleTest {
         val code =
             """
             /** **Foo***/
+            /** Foo ***/
+            /** Foo  ***/
             """.trimIndent()
         val formattedCode =
             """
             /** **Foo** */
+            /** Foo ** */
+            /** Foo  ** */
             """.trimIndent()
         kdocDelimiterRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(1, 10, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
                 LintViolation(1, 12, "Expected a single space before '*/' in a single-line KDoc comment"),
+                LintViolation(2, 9, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
+                LintViolation(2, 11, "Expected a single space before '*/' in a single-line KDoc comment"),
+                LintViolation(3, 10, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
+                LintViolation(3, 12, "Expected a single space before '*/' in a single-line KDoc comment"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -918,8 +928,10 @@ class KdocDelimiterRuleTest {
         kdocDelimiterRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(1, 20, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
+                LintViolation(1, 21, "Expected a single space before '*/' in a single-line KDoc comment"),
                 LintViolation(2, 21, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
                 LintViolation(3, 22, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment"),
+                LintViolation(3, 23, "Expected a single space before '*/' in a single-line KDoc comment"),
             ).isFormattedAs(formattedCode)
     }
 }
