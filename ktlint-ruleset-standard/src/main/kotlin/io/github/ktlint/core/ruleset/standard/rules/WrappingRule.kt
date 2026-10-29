@@ -409,7 +409,7 @@ public class WrappingRule :
                 ?.forEach { child ->
                     when (child.elementType) {
                         COMMA -> child.rearrangeCommaInTypeConstraintList()
-                        TYPE_CONSTRAINT -> child.rearrangeTypeConstraintInTypeConstraintList()
+                        TYPE_CONSTRAINT -> child.rearrangeTypeConstraintInTypeConstraintList(whereKeyword = this)
                     }
                 }
         }
@@ -443,18 +443,14 @@ public class WrappingRule :
             }
     }
 
-    private fun ASTNode.rearrangeTypeConstraintInTypeConstraintList() {
+    private fun ASTNode.rearrangeTypeConstraintInTypeConstraintList(whereKeyword: ASTNode) {
         require(elementType == TYPE_CONSTRAINT)
         prevSibling { !it.isPartOfComment }
             .let { prevSibling ->
                 if (prevSibling.isWhiteSpaceWithoutNewline) {
                     emit(startOffset, "A newline was expected before '$text'") {
-                        upsertWhitespaceBeforeMe(
-                            indentConfig.siblingIndentOf(
-                                parent { it.elementType == FUN }
-                                    ?.findChildByType(WHERE_KEYWORD)!!,
-                            ),
-                        )
+                        // The type constraint list can belong to a class as well as to a function
+                        upsertWhitespaceBeforeMe(indentConfig.siblingIndentOf(whereKeyword))
                     }
                 }
             }
