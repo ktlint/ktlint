@@ -1999,6 +1999,27 @@ internal class WrappingRuleTest {
     }
 
     @Test
+    fun `Given a class with a multiline WHERE and two type constraints on the same line then wrap the second type constraint`() {
+        val code =
+            """
+            class Foo<A, B, C>
+                where A : Number, B : Runnable,
+                      C : Comparable<C>
+            """.trimIndent()
+        val formattedCode =
+            """
+            class Foo<A, B, C>
+                where A : Number,
+                      B : Runnable,
+                      C : Comparable<C>
+            """.trimIndent()
+        wrappingRuleAssertThat(code)
+            .addAdditionalRuleProvider { IndentationRule() }
+            .hasLintViolation(2, 23, "A newline was expected before 'B : Runnable'")
+            .isFormattedAs(formattedCode)
+    }
+
+    @Test
     fun `Given a function with a multiline WHERE`() {
         val code =
             """
