@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.EXPERIMENTAL
@@ -13,7 +14,6 @@ import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * @see https://youtrack.jetbrains.com/issue/KT-35088

@@ -1,5 +1,19 @@
 package io.github.ktlint.core.rule.engine.core.api
 
+import com.intellij.lang.ASTNode
+import com.intellij.mock.MockComponentManager
+import com.intellij.openapi.Disposable
+import com.intellij.openapi.diagnostic.DefaultLogger
+import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.util.UserDataHolderBase
+import com.intellij.pom.PomModel
+import com.intellij.pom.PomModelAspect
+import com.intellij.pom.PomTransaction
+import com.intellij.pom.event.PomModelListener
+import com.intellij.pom.impl.PomTransactionBase
+import com.intellij.pom.tree.TreeAspect
+import com.intellij.psi.PsiFile
+import com.intellij.psi.PsiFileFactory
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK
 import io.github.ktlint.core.rule.engine.core.api.ElementType.SCRIPT
 import io.github.ktlint.core.rule.engine.core.api.ElementType.SCRIPT_INITIALIZER
@@ -7,24 +21,11 @@ import org.jetbrains.kotlin.cli.jvm.compiler.IdeaStandaloneExecutionSetup
 import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreApplicationEnvironment
 import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreApplicationEnvironmentMode
 import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreProjectEnvironment
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.mock.MockComponentManager
-import org.jetbrains.kotlin.com.intellij.openapi.Disposable
-import org.jetbrains.kotlin.com.intellij.openapi.diagnostic.DefaultLogger
-import org.jetbrains.kotlin.com.intellij.openapi.util.Disposer
-import org.jetbrains.kotlin.com.intellij.openapi.util.UserDataHolderBase
-import org.jetbrains.kotlin.com.intellij.pom.PomModel
-import org.jetbrains.kotlin.com.intellij.pom.PomModelAspect
-import org.jetbrains.kotlin.com.intellij.pom.PomTransaction
-import org.jetbrains.kotlin.com.intellij.pom.impl.PomTransactionBase
-import org.jetbrains.kotlin.com.intellij.pom.tree.TreeAspect
-import org.jetbrains.kotlin.com.intellij.psi.PsiFile
-import org.jetbrains.kotlin.com.intellij.psi.PsiFileFactory
 import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.idea.KotlinLanguage
 import org.jetbrains.kotlin.parsing.KotlinParserDefinition
 import sun.reflect.ReflectionFactory
-import org.jetbrains.kotlin.com.intellij.openapi.diagnostic.Logger as DiagnosticLogger
+import com.intellij.openapi.diagnostic.Logger as DiagnosticLogger
 
 private const val IDEA_HOME_PATH_PROPERTY = "idea.home.path"
 private const val IDEA_CONFIG_PATH_PROPERTY = "idea.config.path"
@@ -162,5 +163,20 @@ private class FormatPomModel :
             return constructor.newInstance() as T
         }
         return null
+    }
+
+    override fun addModelListener(listener: PomModelListener) {
+        TODO("Not yet implemented")
+    }
+
+    override fun addModelListener(
+        listener: PomModelListener,
+        parentDisposable: Disposable,
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun removeModelListener(listener: PomModelListener) {
+        TODO("Not yet implemented")
     }
 }

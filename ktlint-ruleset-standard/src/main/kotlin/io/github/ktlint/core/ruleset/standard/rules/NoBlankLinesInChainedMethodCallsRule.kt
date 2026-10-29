@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
@@ -7,7 +8,6 @@ import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("0.46", SinceKtlint.Status.STABLE)
 public class NoBlankLinesInChainedMethodCallsRule : StandardRule("no-blank-lines-in-chained-method-calls") {

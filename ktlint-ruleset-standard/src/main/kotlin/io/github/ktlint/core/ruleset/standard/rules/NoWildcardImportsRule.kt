@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IMPORT_DIRECTIVE
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
@@ -9,7 +10,6 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigPrope
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import io.github.ktlint.core.ruleset.standard.rules.internal.importordering.PatternEntry
 import org.ec4j.core.model.PropertyType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.psi.KtImportDirective
 
 @SinceKtlint("0.2", STABLE)

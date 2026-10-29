@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.tree.IElementType
 import io.github.ktlint.core.logger.api.initKtLintKLogger
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALL_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.COLON
@@ -28,8 +30,6 @@ import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
 
 private val LOGGER = KotlinLogging.logger {}.initKtLintKLogger()
 

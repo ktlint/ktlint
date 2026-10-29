@@ -1,5 +1,7 @@
 package io.github.ktlint.core.rule.engine.api
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.tree.IElementType
 import io.github.ktlint.core.rule.engine.api.AutoCorrectErrorRule.Companion.AUTOCORRECT_ERROR_RULE_ID
 import io.github.ktlint.core.rule.engine.api.AutoCorrectErrorRule.Companion.ERROR_MESSAGE_CAN_BE_AUTOCORRECTED
 import io.github.ktlint.core.rule.engine.api.AutoCorrectErrorRule.Companion.ERROR_MESSAGE_CAN_NOT_BE_AUTOCORRECTED
@@ -29,8 +31,6 @@ import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.rules.IndentationRule
 import org.assertj.core.api.Assertions.assertThat
 import org.ec4j.core.model.PropertyType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 

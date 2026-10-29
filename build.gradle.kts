@@ -25,7 +25,13 @@ detekt {
     baseline = rootDir.resolve("config/detekt-baseline.xml")
 }
 
-val ktlint: Configuration = configurations.create("ktlint")
+val ktlint: Configuration =
+    configurations.create("ktlint") {
+        attributes {
+            attribute(Category.CATEGORY_ATTRIBUTE, named(Category.LIBRARY))
+            attribute(TargetJvmEnvironment.TARGET_JVM_ENVIRONMENT_ATTRIBUTE, named(TargetJvmEnvironment.STANDARD_JVM))
+        }
+    }
 
 dependencies {
     ktlint(projects.ktlintCli)

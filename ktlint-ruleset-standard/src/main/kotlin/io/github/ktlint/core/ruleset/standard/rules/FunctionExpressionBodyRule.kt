@@ -1,5 +1,9 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.impl.source.tree.LeafPsiElement
+import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
+import com.intellij.psi.tree.IElementType
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK
 import io.github.ktlint.core.rule.engine.core.api.ElementType.COLON
 import io.github.ktlint.core.rule.engine.core.api.ElementType.EQ
@@ -30,10 +34,6 @@ import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
-import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
 
 /**
  * [Kotlin Coding Conventions](https://kotlinlang.org/docs/coding-conventions.html#functions):

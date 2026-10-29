@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CLASS
@@ -32,7 +33,6 @@ import io.github.ktlint.core.rule.engine.core.api.prevCodeSibling
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * Insert a blank line before declarations. No blank line is inserted before between a class or method signature and the first declaration

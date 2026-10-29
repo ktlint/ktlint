@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALL_EXPRESSION
@@ -26,7 +27,6 @@ import io.github.ktlint.core.rule.engine.core.api.nextCodeSibling
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import io.github.ktlint.core.ruleset.standard.rules.internal.regExIgnoringDiacriticsAndStrokesOnLetters
 import org.ec4j.core.model.PropertyType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtFunction
 import org.jetbrains.kotlin.psi.KtImportDirective

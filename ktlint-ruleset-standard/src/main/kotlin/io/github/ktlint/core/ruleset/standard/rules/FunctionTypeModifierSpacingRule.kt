@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUNCTION_TYPE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.MODIFIER_LIST
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -11,7 +12,6 @@ import io.github.ktlint.core.rule.engine.core.api.nextCodeSibling
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * Lints and formats a single space between the modifier list and the function type

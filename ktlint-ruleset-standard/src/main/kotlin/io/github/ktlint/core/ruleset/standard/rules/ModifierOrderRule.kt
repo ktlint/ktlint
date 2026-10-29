@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.tree.TokenSet
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ABSTRACT_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ACTUAL_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
@@ -32,8 +34,6 @@ import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.tree.TokenSet
 
 @SinceKtlint("0.7", STABLE)
 public class ModifierOrderRule : StandardRule("modifier-order") {

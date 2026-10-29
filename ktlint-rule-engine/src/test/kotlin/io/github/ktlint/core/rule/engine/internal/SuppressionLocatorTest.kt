@@ -1,5 +1,6 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.EditorConfigOverride
 import io.github.ktlint.core.rule.engine.api.EditorConfigOverride.Companion.EMPTY_EDITOR_CONFIG_OVERRIDE
@@ -21,7 +22,6 @@ import io.github.ktlint.core.rule.engine.internal.rules.KTLINT_SUPPRESSION_RULE_
 import io.github.ktlint.core.ruleset.standard.rules.IndentationRule
 import io.github.ktlint.core.ruleset.standard.rules.NoUnusedImportsRule
 import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 

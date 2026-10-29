@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALLABLE_REFERENCE_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CLASS_LITERAL_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.COLONCOLON
@@ -15,7 +16,6 @@ import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("0.37", STABLE)
 public class SpacingAroundDoubleColonRule : StandardRule("double-colon-spacing") {

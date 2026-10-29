@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.tree.TokenSet
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK_COMMENT
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CONSTRUCTOR_CALLEE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.EOL_COMMENT
@@ -26,8 +28,6 @@ import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.tree.TokenSet
 import org.jetbrains.kotlin.psi.psiUtil.siblings
 
 /**

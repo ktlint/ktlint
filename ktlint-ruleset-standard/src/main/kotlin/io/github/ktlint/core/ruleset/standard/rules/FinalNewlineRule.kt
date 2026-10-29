@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
@@ -11,8 +13,6 @@ import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithoutNewline
 import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 
 @SinceKtlint("0.9", STABLE)
 public class FinalNewlineRule :

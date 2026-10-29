@@ -4,7 +4,6 @@ import io.github.ktlint.core.logger.api.initKtLintKLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.ec4j.core.Resource
 import org.ec4j.core.ResourcePropertiesService
-import org.jetbrains.kotlin.konan.file.File
 import java.nio.charset.StandardCharsets
 import java.nio.file.FileVisitResult
 import java.nio.file.Files
@@ -15,6 +14,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
 import kotlin.concurrent.read
 import kotlin.concurrent.write
 import kotlin.io.path.isDirectory
+import kotlin.io.path.name
 import kotlin.system.measureTimeMillis
 
 private val LOGGER = KotlinLogging.logger {}.initKtLintKLogger()
@@ -73,7 +73,7 @@ internal class EditorConfigFinder(
                         filePath: Path,
                         fileAttrs: BasicFileAttributes,
                     ): FileVisitResult {
-                        if (filePath.File().name == ".editorconfig") {
+                        if (filePath.name == ".editorconfig") {
                             LOGGER.trace { "- File: $filePath: add to list of accessed files" }
                             result.add(filePath)
                         }

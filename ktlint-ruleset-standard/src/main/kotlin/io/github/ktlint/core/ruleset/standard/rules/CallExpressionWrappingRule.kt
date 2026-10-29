@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ARROW
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALL_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUNCTION_LITERAL
@@ -32,7 +33,6 @@ import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("2.0", SinceKtlint.Status.EXPERIMENTAL)
 public class CallExpressionWrappingRule :

@@ -44,7 +44,7 @@ tasks.withType<KotlinCompile>().configureEach {
 val buildLogicJavaTarget =
     JvmTarget
         .entries
-        .filterNot { it == JvmTarget.JVM_1_8 }
+        .filterNot { it == JvmTarget.JVM_1_8 || it == JvmTarget.JVM_28 }
         .maxBy { it.target.toInt() }
         .also {
             logger.lifecycle("Set build logic Java Target: $it")

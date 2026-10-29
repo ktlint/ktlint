@@ -1,5 +1,9 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import com.intellij.lang.ASTNode
+import com.intellij.lang.FileASTNode
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiErrorElement
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.KtLintParseException
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
@@ -22,10 +26,6 @@ import io.github.ktlint.core.rule.engine.internal.rulefilter.InternalRuleProvide
 import io.github.ktlint.core.rule.engine.internal.rulefilter.RuleExecutionRuleFilter
 import io.github.ktlint.core.rule.engine.internal.rulefilter.applyRuleFilters
 import io.github.ktlint.core.rule.engine.internal.rules.KTLINT_SUPPRESSION_RULE_ID
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
-import org.jetbrains.kotlin.com.intellij.psi.PsiElement
-import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement
 import kotlin.io.path.pathString
 
 internal class RuleExecutionContext private constructor(

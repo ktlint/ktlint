@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATED_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
@@ -59,7 +60,6 @@ import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.Functi
 import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.DEFAULT
 import io.github.ktlint.core.ruleset.standard.rules.FunctionSignatureRule.FunctionBodyExpressionWrapping.MULTILINE
 import org.ec4j.core.model.PropertyType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.utils.addToStdlib.ifTrue
 
 @SinceKtlint("0.46", EXPERIMENTAL)

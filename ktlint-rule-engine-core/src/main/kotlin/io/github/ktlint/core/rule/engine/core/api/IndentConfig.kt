@@ -1,12 +1,12 @@
 package io.github.ktlint.core.rule.engine.core.api
 
+import com.intellij.lang.ASTNode
 import dev.drewhamilton.poko.Poko
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig.IndentStyle.SPACE
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig.IndentStyle.TAB
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
 import org.ec4j.core.model.PropertyType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @Poko
 public class IndentConfig(

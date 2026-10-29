@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IMPORT_LIST
 import io.github.ktlint.core.rule.engine.core.api.ElementType.PACKAGE_DIRECTIVE
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -12,7 +13,6 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.psi.psiUtil.siblings
 
 /**

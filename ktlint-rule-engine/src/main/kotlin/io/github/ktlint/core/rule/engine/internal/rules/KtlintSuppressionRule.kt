@@ -1,5 +1,7 @@
 package io.github.ktlint.core.rule.engine.internal.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.tree.TokenSet
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK_COMMENT
@@ -42,8 +44,6 @@ import io.github.ktlint.core.rule.engine.internal.rules.KtLintDirective.Suppress
 import io.github.ktlint.core.rule.engine.internal.rules.KtLintDirective.SuppressionIdChange.ValidSuppressionId
 import io.github.ktlint.core.rule.engine.internal.rules.KtLintDirective.SuppressionIdChange.ValidSuppressionId.Companion.KTLINT_SUPPRESSION_ALL
 import io.github.ktlint.core.rule.engine.internal.toFullyQualifiedKtlintSuppressionId
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.tree.TokenSet
 import org.jetbrains.kotlin.psi.psiUtil.siblings
 import org.jetbrains.kotlin.utils.addToStdlib.applyIf
 import kotlin.text.removePrefix

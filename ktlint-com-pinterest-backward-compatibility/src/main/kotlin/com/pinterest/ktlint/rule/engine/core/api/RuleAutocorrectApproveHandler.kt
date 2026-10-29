@@ -2,7 +2,7 @@
 
 package com.pinterest.ktlint.rule.engine.core.api
 
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
+import com.intellij.lang.ASTNode
 
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
 public interface RuleAutocorrectApproveHandler {

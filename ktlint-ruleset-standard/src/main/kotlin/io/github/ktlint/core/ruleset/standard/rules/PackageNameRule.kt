@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.PACKAGE_DIRECTIVE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.REFERENCE_EXPRESSION
@@ -9,7 +10,6 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.rule.engine.core.api.nextCodeSibling
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import io.github.ktlint.core.ruleset.standard.rules.internal.regExIgnoringDiacriticsAndStrokesOnLetters
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * https://kotlinlang.org/docs/coding-conventions.html#naming-rules

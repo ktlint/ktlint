@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC_END
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC_START
@@ -15,7 +16,6 @@ import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * Checks external wrapping of KDoc comment. Wrapping inside the KDoc comment is not altered.

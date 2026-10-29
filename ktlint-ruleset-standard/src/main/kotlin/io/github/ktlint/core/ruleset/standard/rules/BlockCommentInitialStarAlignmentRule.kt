@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK_COMMENT
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
@@ -7,7 +8,6 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.rule.engine.core.api.indentWithoutNewlinePrefix
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * When present, align the initial star in a block comment.

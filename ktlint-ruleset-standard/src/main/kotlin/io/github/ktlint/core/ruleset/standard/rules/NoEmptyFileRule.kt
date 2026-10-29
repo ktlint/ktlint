@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IMPORT_LIST
 import io.github.ktlint.core.rule.engine.core.api.ElementType.PACKAGE_DIRECTIVE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.SCRIPT
@@ -11,7 +12,6 @@ import io.github.ktlint.core.rule.engine.core.api.children
 import io.github.ktlint.core.rule.engine.core.api.isCode
 import io.github.ktlint.core.rule.engine.core.api.isRoot
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("0.50", EXPERIMENTAL)
 @SinceKtlint("1.0", STABLE)

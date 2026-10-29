@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUN
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IDENTIFIER
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -10,7 +11,6 @@ import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
 import io.github.ktlint.core.rule.engine.core.api.nextSibling
 import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("0.46", EXPERIMENTAL)
 @SinceKtlint("0.49", STABLE)

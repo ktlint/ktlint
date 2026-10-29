@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RBRACE
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
@@ -8,7 +9,6 @@ import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("0.10", STABLE)
 public class NoBlankLineBeforeRbraceRule : StandardRule("no-blank-line-before-rbrace") {

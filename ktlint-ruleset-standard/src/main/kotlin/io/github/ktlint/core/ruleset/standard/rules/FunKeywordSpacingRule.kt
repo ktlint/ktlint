@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUN_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IDENTIFIER
 import io.github.ktlint.core.rule.engine.core.api.ElementType.WHITE_SPACE
@@ -11,8 +13,6 @@ import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 
 /**
  * Lints and formats the spacing after the fun keyword

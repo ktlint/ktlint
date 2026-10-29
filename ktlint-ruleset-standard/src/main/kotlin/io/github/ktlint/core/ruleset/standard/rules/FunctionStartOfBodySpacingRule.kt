@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK
 import io.github.ktlint.core.rule.engine.core.api.ElementType.EQ
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUN
@@ -14,7 +15,6 @@ import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * Lints and formats the spacing after the fun keyword

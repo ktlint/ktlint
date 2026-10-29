@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC
 import io.github.ktlint.core.rule.engine.core.api.ElementType.VALUE_PARAMETER
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -8,7 +9,6 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.rule.engine.core.api.isPartOfComment
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * The AST allows comments to be placed anywhere. This however can lead to code which is unnecessarily hard to read. Or, it makes

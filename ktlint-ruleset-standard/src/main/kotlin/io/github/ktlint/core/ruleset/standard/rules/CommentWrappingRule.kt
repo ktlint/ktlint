@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK_COMMENT
 import io.github.ktlint.core.rule.engine.core.api.ElementType.LBRACE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RBRACE
@@ -19,7 +20,6 @@ import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.psi.psiUtil.leaves
 
 /**

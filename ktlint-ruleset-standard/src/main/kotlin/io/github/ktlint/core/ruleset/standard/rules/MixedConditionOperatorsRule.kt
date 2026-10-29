@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.tree.TokenSet
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANDAND
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BINARY_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.OPERATION_REFERENCE
@@ -10,8 +12,6 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.EXPERIMENTA
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.tree.TokenSet
 
 /**
  * Conditions should not use a both '&&' and '||' operators between operators at the same level. By using parenthesis the expression is to

@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALL_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CLOSING_QUOTE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPRESSION
@@ -23,7 +24,6 @@ import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("0.9", STABLE)
 public class StringTemplateRule : StandardRule("string-template") {

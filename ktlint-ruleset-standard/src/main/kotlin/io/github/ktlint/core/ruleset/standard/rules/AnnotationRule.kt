@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATED_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
@@ -52,7 +53,6 @@ import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import org.ec4j.core.model.PropertyType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.descriptors.annotations.AnnotationUseSiteTarget
 import org.jetbrains.kotlin.psi.psiUtil.siblings
 import org.jetbrains.kotlin.utils.addToStdlib.ifTrue
