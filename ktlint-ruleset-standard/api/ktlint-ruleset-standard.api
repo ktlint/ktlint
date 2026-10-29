@@ -679,15 +679,6 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoMultipleSpaces
 	public static final fun getNO_MULTIPLE_SPACES_RULE_ID ()Lio/github/ktlint/core/rule/engine/core/api/RuleId;
 }
 
-public final class io/github/ktlint/core/ruleset/standard/rules/NoSemicolonsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
-	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
-}
-
-public final class io/github/ktlint/core/ruleset/standard/rules/NoSemicolonsRuleKt {
-	public static final fun getNO_SEMICOLONS_RULE_ID ()Lio/github/ktlint/core/rule/engine/core/api/RuleId;
-}
-
 public final class io/github/ktlint/core/ruleset/standard/rules/NoSingleLineBlockCommentRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
 	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
@@ -820,6 +811,15 @@ public final class io/github/ktlint/core/ruleset/standard/rules/PropertyWrapping
 
 public final class io/github/ktlint/core/ruleset/standard/rules/PropertyWrappingRuleKt {
 	public static final fun getPROPERTY_WRAPPING_RULE_ID ()Lio/github/ktlint/core/rule/engine/core/api/RuleId;
+}
+
+public final class io/github/ktlint/core/ruleset/standard/rules/SemicolonRule : io/github/ktlint/core/ruleset/standard/StandardRule {
+	public fun <init> ()V
+	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+}
+
+public final class io/github/ktlint/core/ruleset/standard/rules/SemicolonRuleKt {
+	public static final fun getNO_SEMICOLONS_RULE_ID ()Lio/github/ktlint/core/rule/engine/core/api/RuleId;
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundAngleBracketsRule : io/github/ktlint/core/ruleset/standard/StandardRule {

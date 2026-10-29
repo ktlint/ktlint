@@ -5,13 +5,11 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.ARROW
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CLASS
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CLASS_BODY
-import io.github.ktlint.core.rule.engine.core.api.ElementType.ENUM_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ENUM_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUNCTION_LITERAL
 import io.github.ktlint.core.rule.engine.core.api.ElementType.LBRACE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.MODIFIER_LIST
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RBRACE
-import io.github.ktlint.core.rule.engine.core.api.ElementType.SEMICOLON
 import io.github.ktlint.core.rule.engine.core.api.ElementType.VALUE_PARAMETER_LIST
 import io.github.ktlint.core.rule.engine.core.api.ElementType.WHEN
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
@@ -72,10 +70,6 @@ public class StatementWrappingRule :
 
             CLASS_BODY, WHEN -> {
                 node.visitBlock()
-            }
-
-            SEMICOLON -> {
-                node.visitSemiColon()
             }
         }
     }
@@ -183,25 +177,6 @@ public class StatementWrappingRule :
 
     private inline val ASTNode.indentAsParent: String
         get() = parent!!.indent
-
-    private fun ASTNode.visitSemiColon() {
-        val previousCodeLeaf = prevCodeLeaf
-        val nextCodeLeaf = nextCodeLeaf
-        if (previousCodeLeaf != null && nextCodeLeaf != null) {
-            when {
-                previousCodeLeaf.parent?.elementType == ENUM_ENTRY && nextCodeLeaf.elementType == RBRACE -> {
-                    // Allow
-                    // enum class INDEX2 { ONE, TWO, THREE; }
-                }
-
-                noNewLineInClosedRange(previousCodeLeaf, nextCodeLeaf) -> {
-                    emit(startOffset + 1, """Missing newline after '$text'""") {
-                        upsertWhitespaceAfterMe(previousCodeLeaf.indent)
-                    }
-                }
-            }
-        }
-    }
 }
 
 public val STATEMENT_WRAPPING_RULE_ID: RuleId = StatementWrappingRule().ruleId
