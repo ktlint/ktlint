@@ -247,4 +247,50 @@ class WhenEntryBracingTest {
                 LintViolation(7, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
             ).isFormattedAs(formattedCode)
     }
+
+    @Test
+    fun `Given a when-statement with an entry with braces and more than three entries without braces then add braces to all entries`() {
+        val code =
+            """
+            val foo =
+                when (bar) {
+                    BAR1 -> "bar1"
+                    BAR2 -> "bar2"
+                    BAR3 -> "bar3"
+                    BAR4 -> {
+                        "bar4"
+                    }
+                    else -> null
+                }
+            """.trimIndent()
+        val formattedCode =
+            """
+            val foo =
+                when (bar) {
+                    BAR1 -> {
+                        "bar1"
+                    }
+                    BAR2 -> {
+                        "bar2"
+                    }
+                    BAR3 -> {
+                        "bar3"
+                    }
+                    BAR4 -> {
+                        "bar4"
+                    }
+                    else -> {
+                        null
+                    }
+                }
+            """.trimIndent()
+        @Suppress("ktlint:standard:max-line-length")
+        whenEntryBracingRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(3, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
+                LintViolation(4, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
+                LintViolation(5, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
+                LintViolation(9, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
+            ).isFormattedAs(formattedCode)
+    }
 }
