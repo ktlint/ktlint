@@ -449,12 +449,7 @@ public class WrappingRule :
             .let { prevSibling ->
                 if (prevSibling.isWhiteSpaceWithoutNewline) {
                     emit(startOffset, "A newline was expected before '$text'") {
-                        upsertWhitespaceBeforeMe(
-                            indentConfig.siblingIndentOf(
-                                parent { it.elementType == FUN }
-                                    ?.findChildByType(WHERE_KEYWORD)!!,
-                            ),
-                        )
+                        upsertWhitespaceBeforeMe(indentConfig.siblingIndentOf(parent!!))
                     }
                 }
             }
