@@ -158,7 +158,7 @@ public class ClassSignatureRule :
                 containsEolComment()
         fixWhiteSpacesInValueParameterList(multiline = wrapPrimaryConstructorParameters, dryRun = false)
         fixWhitespacesInSuperTypeList(wrapPrimaryConstructor = wrapPrimaryConstructorParameters)
-        fixClassBody()
+        fixClassBody(dryRun = false)
     }
 
     private fun ASTNode.containsEolComment() =
@@ -175,7 +175,8 @@ public class ClassSignatureRule :
         val length =
             actualClassSignatureLength +
                 // Calculate the white space correction in case the signature would be rewritten to a single line
-                fixWhiteSpacesInValueParameterList(multiline = false, dryRun = true)
+                fixWhiteSpacesInValueParameterList(multiline = false, dryRun = true) +
+                fixClassBody(dryRun = true)
         return hasNoMaxLineLengthSuppression() && length > maxLineLength
     }
 
@@ -585,17 +586,25 @@ public class ClassSignatureRule :
             ?.prevLeaf { !it.isPartOfComment }
             .isWhiteSpaceWithNewline
 
-    private fun ASTNode.fixClassBody() {
+    private fun ASTNode.fixClassBody(dryRun: Boolean): Int {
+        var whiteSpaceCorrection = 0
+
         findChildByType(CLASS_BODY)
             ?.let { classBody ->
                 if (classBody.prevLeaf?.text != " ") {
-                    emit(classBody.startOffset, "Expected a single space before class body") {
-                        classBody
-                            .prevLeaf
-                            ?.upsertWhitespaceAfterMe(" ")
+                    if (dryRun) {
+                        whiteSpaceCorrection++
+                    } else {
+                        emit(classBody.startOffset, "Expected a single space before class body") {
+                            classBody
+                                .prevLeaf
+                                ?.upsertWhitespaceAfterMe(" ")
+                        }
                     }
                 }
             }
+
+        return whiteSpaceCorrection
     }
 
     private fun isMaxLineLengthSet() = maxLineLength != MAX_LINE_LENGTH_PROPERTY_OFF
