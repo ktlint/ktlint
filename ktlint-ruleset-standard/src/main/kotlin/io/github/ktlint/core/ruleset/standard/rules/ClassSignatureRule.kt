@@ -121,11 +121,6 @@ public class ClassSignatureRule :
             )
     }
 
-    private fun ASTNode.superTypes() =
-        findChildByType(SUPER_TYPE_LIST)
-            ?.children
-            ?.filter { it.isCode && it.elementType != COMMA }
-
     private fun ASTNode.hasMultilineSuperTypeList() = findChildByType(SUPER_TYPE_LIST)?.textContains('\n') == true
 
     private fun ASTNode.getFirstChildInSignature(): ASTNode? {
@@ -422,37 +417,48 @@ public class ClassSignatureRule :
     }
 
     private fun ASTNode.fixWhitespacesInSuperTypeList(wrapPrimaryConstructor: Boolean) {
-        val superTypes = superTypes() ?: return
-
-        fixWhitespacesInSuperTypeCallEntry(superTypes)
-
-        if (superTypes.count() == 1) {
-            val superType = superTypes.first()
-            if (wrapPrimaryConstructor) {
-                // Format
-                //     class ClassWithPrimaryConstructorWhichWillBeWrapped(...) :
-                //         SomeSuperTypeEntry
-                // to
-                //     class ClassWithPrimaryConstructorWhichWillBeWrapped(
-                //         ...
-                //     ) : SomeSuperTypeEntry
-                superType.fixWhiteSpacesInSuperTypeListWithSingleEntryAndWrappedPrimaryConstructor()
-            } else {
-                fixWhiteSpacesInSuperTypeListWithSingleEntryAndUnwrappedPrimaryConstructor(superType)
+        when (countSuperTypes()) {
+            0 -> {
+                return
             }
-        } else {
-            fixWhitespacesInSuperTypeListWithMultipleEntries(superTypes)
+
+            1 -> {
+                fixWhitespaceInSuperTypeCallEntry()
+                if (wrapPrimaryConstructor) {
+                    // Format
+                    //     class ClassWithPrimaryConstructorWhichWillBeWrapped(...) :
+                    //         SomeSuperTypeEntry
+                    // to
+                    //     class ClassWithPrimaryConstructorWhichWillBeWrapped(
+                    //         ...
+                    //     ) : SomeSuperTypeEntry
+                    fixWhiteSpacesInSuperTypeListWithSingleEntryAndWrappedPrimaryConstructor()
+                } else {
+                    fixWhiteSpacesInSuperTypeListWithSingleEntryAndUnwrappedPrimaryConstructor()
+                }
+            }
+
+            else -> {
+                reorderSuperTypeCallEntry()
+                fixWhitespacesInSuperTypeListWithMultipleEntries()
+            }
         }
     }
 
-    private fun fixWhitespacesInSuperTypeCallEntry(superTypes: Sequence<ASTNode>) {
-        superTypes
-            .firstOrNull { it.elementType == SUPER_TYPE_CALL_ENTRY }
+    private fun ASTNode.countSuperTypes(): Int =
+        findChildByType(SUPER_TYPE_LIST)
+            ?.children
+            .orEmpty()
+            .count { it.isCode && it.elementType != COMMA }
+
+    private fun ASTNode.reorderSuperTypeCallEntry() {
+        val firstSuperType = findFirstSuperType()
+        findChildByType(SUPER_TYPE_LIST)!!
+            .findChildByType(SUPER_TYPE_CALL_ENTRY)
             ?.let { superTypeCallEntry ->
-                if (superTypeCallEntry != superTypes.first()) {
+                if (superTypeCallEntry != firstSuperType) {
                     emit(superTypeCallEntry.startOffset, "Super type call must be first super type") {
                         val superTypeList = superTypeCallEntry.parent!!
-                        val originalFirstSuperType = superTypes.first()
                         val commaBeforeSuperTypeCall = requireNotNull(superTypeCallEntry.prevSibling { it.elementType == COMMA })
 
                         // Remove the whitespace before the super type call and do not insert a new whitespace as it will be fixed later
@@ -461,37 +467,47 @@ public class ClassSignatureRule :
                             ?.takeIf { it.isWhiteSpace }
                             ?.remove()
 
-                        superTypeList.addChild(superTypeCallEntry, originalFirstSuperType)
-                        superTypeList.addChild(commaBeforeSuperTypeCall, originalFirstSuperType)
+                        superTypeList.addChild(commaBeforeSuperTypeCall, superTypeList.firstChildNode)
+                        superTypeList.addChild(superTypeCallEntry, superTypeList.firstChildNode)
                     }
                 }
+            }
+    }
 
+    private fun ASTNode.fixWhitespaceInSuperTypeCallEntry() {
+        findChildByType(SUPER_TYPE_LIST)
+            ?.findChildByType(SUPER_TYPE_CALL_ENTRY)
+            ?.findChildByType(WHITE_SPACE)
+            ?.let { whitespace ->
                 // Disallow:
                 //    class Foo : Bar<String> ("foobar")
-                superTypeCallEntry
-                    .findChildByType(WHITE_SPACE)
-                    ?.let { whitespace ->
-                        emit(whitespace.startOffset, "No whitespace expected") { whitespace.remove() }
-                    }
+                emit(whitespace.startOffset, "No whitespace expected") { whitespace.remove() }
             }
     }
 
     private fun ASTNode.fixWhiteSpacesInSuperTypeListWithSingleEntryAndWrappedPrimaryConstructor() {
-        prevLeaf
+        val firstSuperType = findFirstSuperType()
+        firstSuperType
+            .prevLeaf
             .takeIf { it.isWhiteSpaceWithNewline }
             ?.takeUnless { it.prevSibling?.elementType == EOL_COMMENT }
             ?.let { whiteSpaceBeforeSuperType ->
                 val expectedWhitespace = " "
                 if (whiteSpaceBeforeSuperType.text != expectedWhitespace) {
-                    emit(startOffset, "Expected single space before the super type") {
-                        upsertWhitespaceBeforeMe(expectedWhitespace)
+                    emit(firstSuperType.startOffset, "Expected single space before the super type") {
+                        firstSuperType.upsertWhitespaceBeforeMe(expectedWhitespace)
                     }
                 }
             }
     }
 
-    private fun ASTNode.fixWhiteSpacesInSuperTypeListWithSingleEntryAndUnwrappedPrimaryConstructor(superType: ASTNode) {
-        val superTypeFirstChildNode = superType.firstChildNode
+    private fun ASTNode.findFirstSuperType() =
+        findChildByType(SUPER_TYPE_LIST)!!
+            .children
+            .first { it.isCode && it.elementType != COMMA }
+
+    private fun ASTNode.fixWhiteSpacesInSuperTypeListWithSingleEntryAndUnwrappedPrimaryConstructor() {
+        val superTypeFirstChildNode = findFirstSuperType().firstChildNode
         val whiteSpaceBeforeIdentifierOfSuperTypeFirstChildNode = superTypeFirstChildNode?.prevLeaf?.takeIf { it.isWhiteSpace }
 
         whiteSpaceBeforeIdentifierOfSuperTypeFirstChildNode
@@ -518,10 +534,12 @@ public class ClassSignatureRule :
             }
     }
 
-    private fun ASTNode.fixWhitespacesInSuperTypeListWithMultipleEntries(superTypes: Sequence<ASTNode>) {
-        require(superTypes.count() > 1)
-        superTypes
-            .forEachIndexed { index, superType ->
+    private fun ASTNode.fixWhitespacesInSuperTypeListWithMultipleEntries() {
+        findChildByType(SUPER_TYPE_LIST)
+            ?.children
+            ?.filter { it.isCode && it.elementType != COMMA }
+            ?.also { require(it.count() > 1) { "Expected multiple super types in list. Found ${it.count()}" } }
+            ?.forEachIndexed { index, superType ->
                 val firstChildNodeInSuperType = superType.firstChildNode
                 firstChildNodeInSuperType
                     ?.prevLeaf
