@@ -108,7 +108,7 @@ internal class CodeFormatter(
         code: Code,
     ): Set<Pair<LintError, Boolean>> {
         val errors: MutableSet<Pair<LintError, Boolean>> = mutableSetOf()
-        executeRules(VisitorProvider(ruleProviders).rules, autocorrectHandler, code).let { ruleErrors -> errors.addAll(ruleErrors) }
+        format(VisitorProvider(ruleProviders).rules, autocorrectHandler, code).let { ruleErrors -> errors.addAll(ruleErrors) }
         return errors
     }
 
@@ -124,13 +124,13 @@ internal class CodeFormatter(
         return hasErrorsWhichCanBeAutocorrected
     }
 
-    private fun RuleExecutionContext.executeRules(
-        rules: List<RuleV2>,
+    private fun RuleExecutionContext.format(
+        groupedRules: List<List<RuleV2>>,
         autocorrectHandler: AutocorrectHandler,
         code: Code,
     ): Set<Pair<LintError, Boolean>> {
         val errors = mutableSetOf<Pair<LintError, Boolean>>()
-        executeRules(rules, autocorrectHandler) { offset, ruleId, errorMessage, canBeAutoCorrected ->
+        executeRules(groupedRules, autocorrectHandler) { offset, ruleId, errorMessage, canBeAutoCorrected ->
             val (line, col) = positionInTextLocator(offset)
             val lintError = LintError(line, col, ruleId, errorMessage, canBeAutoCorrected)
 
