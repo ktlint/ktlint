@@ -466,8 +466,15 @@ public class WrappingRule :
             ?.let { it.psi as KtStringTemplateExpression }
             ?.takeIf { it.isMultiLine() }
             ?.takeIf { it.isFollowedByTrimIndent() || it.isFollowedByTrimMargin() }
-            ?.takeUnless { prevSibling?.text.isNullOrBlank() }
-            ?.let {
+            // The newline before the closing quotes can also be at the end of the previous sibling, e.g. when the string-template-indent
+            // rule has already inserted it
+            ?.takeUnless {
+                prevSibling
+                    ?.text
+                    .orEmpty()
+                    .substringAfterLast('\n')
+                    .isBlank()
+            }?.let {
                 // rewriting
                 // """
                 //     text
