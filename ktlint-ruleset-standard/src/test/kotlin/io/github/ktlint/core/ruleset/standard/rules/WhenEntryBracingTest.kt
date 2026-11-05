@@ -250,6 +250,8 @@ class WhenEntryBracingTest {
 
     @Test
     fun `Given a when-statement with an entry with braces and more than three entries without braces then add braces to all entries`() {
+        // KtlintRuleEngine executes 3 consecutive runs of format whenever an auto correctable violation is found. Ensure that all when
+        // entries of the when-statement will be formatted when it has more than 3 when entries that need to be fixed.
         val code =
             """
             val foo =
