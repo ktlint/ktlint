@@ -31,6 +31,7 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.jetbrains.kotlin.psi.KtBlockExpression
+import org.jetbrains.kotlin.psi.KtImplementationDetail
 import org.jetbrains.kotlin.psi.psiUtil.leaves
 
 /**
@@ -153,6 +154,7 @@ public class MultiLineIfElseRule :
             .firstOrNull()
             .takeIf { it.isWhiteSpace }
             ?.replaceTextWith(" ")
+        @OptIn(KtImplementationDetail::class)
         KtBlockExpression(null).let { blockExpression ->
             val previousChild = firstChildNode
             replaceChild(firstChildNode, blockExpression)
