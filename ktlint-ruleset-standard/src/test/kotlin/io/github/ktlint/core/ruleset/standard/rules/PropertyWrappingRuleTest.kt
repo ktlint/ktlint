@@ -102,4 +102,24 @@ internal class PropertyWrappingRuleTest {
             .hasLintViolation(2, 50, "Missing newline before \"TypeWithALongName(123)\"")
             .isFormattedAs(formattedCode)
     }
+
+    @Test
+    fun `Should not wrap the argument list when wrapping the DOT_QUALIFIED_EXPRESSION before the argument list prevents exceeding the max line length`() {
+        val code =
+            """
+            // $MAX_LINE_LENGTH_MARKER  $EOL_CHAR
+            val foo = Foo.foooooooooooo(1)
+            """.trimIndent()
+        val formattedCode =
+            """
+            // $MAX_LINE_LENGTH_MARKER  $EOL_CHAR
+            val foo =
+                Foo.foooooooooooo(1)
+            """.trimIndent()
+        propertyWrappingRuleAssertThat(code)
+            .setMaxLineLength()
+            .addAdditionalRuleProvider { ArgumentListWrappingRule() }
+            .hasLintViolation(2, 10, "Missing newline before \"Foo.foooooooooooo(1)\"")
+            .isFormattedAs(formattedCode)
+    }
 }

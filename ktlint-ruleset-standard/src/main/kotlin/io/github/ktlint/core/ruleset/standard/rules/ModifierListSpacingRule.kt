@@ -10,7 +10,6 @@ import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.EXPERIMENTAL
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
-import io.github.ktlint.core.rule.engine.core.api.children
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
@@ -18,6 +17,7 @@ import io.github.ktlint.core.rule.engine.core.api.isPartOfComment
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
 import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.nextSibling
+import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
@@ -48,12 +48,13 @@ public class ModifierListSpacingRule :
     }
 
     override fun beforeVisitChildNodes(node: ASTNode) {
-        if (node.elementType == MODIFIER_LIST) {
-            node
-                .children
-                .forEach { it.visitModifierChild() }
-            // The whitespace of the last entry of the modifier list is actually placed outside the modifier list
-            node.visitModifierChild()
+        if (node.parent?.elementType == MODIFIER_LIST) {
+            if (node == node.parent!!.lastChildNode) {
+                // The whitespace/comment after the last modifier is actually placed outside the modifier list
+                node.parent!!.visitModifierChild()
+            } else {
+                node.visitModifierChild()
+            }
         }
     }
 

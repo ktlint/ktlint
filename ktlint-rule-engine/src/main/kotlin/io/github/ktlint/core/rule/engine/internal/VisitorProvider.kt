@@ -21,30 +21,17 @@ internal class VisitorProvider(
      * [EditorConfig].
      */
     ruleProviders: Set<RuleV2Provider>,
-    /**
-     * Creates a new [RuleProviderSorter]. Only to be used in unit tests where the same set of rules are used with distinct
-     * [RuleV2.VisitorModifier]s.
-     */
-    recreateRuleSorter: Boolean = false,
 ) {
-    /**
-     * The list of [ruleProvidersSorted] is sorted based on the [RuleV2.VisitorModifier] of the rules.
-     */
-    private val ruleProvidersSorted: List<RuleV2Provider> =
-        if (recreateRuleSorter) {
-            RuleProviderSorter()
-        } else {
-            RULE_PROVIDER_SORTER
-        }.getSortedRuleProviders(ruleProviders)
+    private val ruleProvidersGroupedAndSorted: List<List<RuleV2Provider>> =
+        RULE_PROVIDER_SORTER.getGroupedAndSortedRuleProviders(ruleProviders)
 
-    internal val rules: List<RuleV2>
+    internal val rules: List<List<RuleV2>>
         get() {
-            if (ruleProvidersSorted.isEmpty()) {
+            if (ruleProvidersGroupedAndSorted.isEmpty()) {
                 LOGGER.debug { "Skipping file as no enabled rules are found to be executed" }
                 return emptyList()
             }
-            return ruleProvidersSorted.map {
-                it.createNewRuleInstance()
-            }
+            return ruleProvidersGroupedAndSorted
+                .map { group -> group.map { it.createNewRuleInstance() } }
         }
 }

@@ -21,11 +21,11 @@ import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.internal.rulefilter.InternalRuleProvidersFilter
 import io.github.ktlint.core.rule.engine.internal.rulefilter.RuleExecutionRuleFilter
 import io.github.ktlint.core.rule.engine.internal.rulefilter.applyRuleFilters
-import io.github.ktlint.core.rule.engine.internal.rules.KTLINT_SUPPRESSION_RULE_ID
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement
+import org.jetbrains.kotlin.com.intellij.psi.TokenType.DUMMY_HOLDER
 import kotlin.io.path.pathString
 
 internal class RuleExecutionContext private constructor(
@@ -38,16 +38,12 @@ internal class RuleExecutionContext private constructor(
     private var suppressionLocator = SuppressionLocator(editorConfig)
 
     fun executeRules(
-        rules: List<RuleV2>,
+        groupedRules: List<List<RuleV2>>,
         autocorrectHandler: AutocorrectHandler,
         emitAndApprove: (offset: Int, ruleId: RuleId, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision,
     ) {
-        // Whenever the KtlintSuppressionRule finds a "ktlint-disable" directive, it will traverse up in the AST Node Tree to add a Suppress
-        // annotation. Therefore, this rule needs to run on the entire AST Node before processing other rules.
-        executeRulesOnAST(rules.filter { it.ruleId == KTLINT_SUPPRESSION_RULE_ID }, autocorrectHandler, emitAndApprove)
-
-        // Process all other rules on the same AST Node before proceeding to the next AST Node.
-        executeRulesOnAST(rules.filterNot { it.ruleId == KTLINT_SUPPRESSION_RULE_ID }, autocorrectHandler, emitAndApprove)
+        // Run each group of rules on the entire AST
+        groupedRules.forEach { rules -> executeRulesOnAST(rules, autocorrectHandler, emitAndApprove) }
     }
 
     /**
@@ -251,7 +247,10 @@ internal class RuleExecutionContext private constructor(
     private fun ASTNode.hasBeenReplaced() =
         // When references below are set to null this means that the node in the original AST has been replaced with a new node. Any further
         // processing of this node might result in unexpected problems.
-        elementType != FILE && nextSibling == null && prevSibling == null && parent == null
+        elementType != FILE &&
+            nextSibling == null &&
+            prevSibling == null &&
+            (parent == null || parent?.elementType == DUMMY_HOLDER)
 
     private enum class VisitChildNodesResult {
         STOP,

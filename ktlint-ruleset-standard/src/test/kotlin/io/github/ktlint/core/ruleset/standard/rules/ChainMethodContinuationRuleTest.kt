@@ -650,7 +650,11 @@ class ChainMethodContinuationRuleTest {
                 """.trimIndent()
             chainMethodContinuationRuleAssertThat(code)
                 .setMaxLineLength()
-                .addAdditionalRuleProvider { ArgumentListWrappingRule() }
+                .withRerunFormatAfterAutocorrect(
+                    "Once the ChainMethodContinuationRule rule has ran, the function body expression becomes a multiline expression. As " +
+                        "the root call expression 'requireNot(...)' has already been processed, the MultilineExpressionWrappingRule will " +
+                        "not be triggered until the next format round.",
+                ).addAdditionalRuleProvider { ArgumentListWrappingRule() }
                 .addAdditionalRuleProvider { FunctionLiteralRule() }
                 .addAdditionalRuleProvider { MultilineExpressionWrappingRule() }
                 .addAdditionalRuleProvider { IndentationRule() }

@@ -10,28 +10,27 @@ import org.junit.jupiter.api.Test
 
 class RuleProviderSorterTest {
     @Test
-    fun `Multiple normal rules in the same rule set are run in alphabetical order`() {
+    fun `Multiple standard rules are run in alphabetical order`() {
         val actual =
             RuleProviderSorter()
-                .getSortedRuleProviders(
+                .getGroupedAndSortedRuleProviders(
                     ruleProviders =
                         createRuleProviders(
                             NormalRule(STANDARD_RULE_B),
                             NormalRule(STANDARD_RULE_A),
                         ),
-                ).map { it.ruleId }
+                ).map { ruleProviders -> ruleProviders.map { it.ruleId } }
 
         assertThat(actual).containsExactly(
-            STANDARD_RULE_A,
-            STANDARD_RULE_B,
+            listOf(STANDARD_RULE_A, STANDARD_RULE_B),
         )
     }
 
     @Test
-    fun `Multiple normal rules in different rule sets are run in alphabetical order but grouped in order standard, experimental and custom`() {
+    fun `Multiple rules in different rule sets are run in alphabetical order but grouped in order standard, and custom`() {
         val actual =
             RuleProviderSorter()
-                .getSortedRuleProviders(
+                .getGroupedAndSortedRuleProviders(
                     ruleProviders =
                         createRuleProviders(
                             ExperimentalRule(STANDARD_RULE_B),
@@ -43,18 +42,22 @@ class RuleProviderSorterTest {
                             NormalRule(CUSTOM_RULE_SET_B_RULE_B),
                             NormalRule(CUSTOM_RULE_SET_B_RULE_A),
                         ),
-                ).map { it.ruleId }
+                ).map { ruleProviders -> ruleProviders.map { it.ruleId } }
 
         assertThat(actual).containsExactly(
-            STANDARD_RULE_A,
-            STANDARD_RULE_B,
-            STANDARD_RULE_C,
-            STANDARD_RULE_D,
+            listOf(
+                STANDARD_RULE_A,
+                STANDARD_RULE_B,
+                STANDARD_RULE_C,
+                STANDARD_RULE_D,
+            ),
             // Rules from custom rule sets are all grouped together
-            CUSTOM_RULE_SET_A_RULE_A,
-            CUSTOM_RULE_SET_A_RULE_B,
-            CUSTOM_RULE_SET_B_RULE_A,
-            CUSTOM_RULE_SET_B_RULE_B,
+            listOf(
+                CUSTOM_RULE_SET_A_RULE_A,
+                CUSTOM_RULE_SET_A_RULE_B,
+                CUSTOM_RULE_SET_B_RULE_A,
+                CUSTOM_RULE_SET_B_RULE_B,
+            ),
         )
     }
 
