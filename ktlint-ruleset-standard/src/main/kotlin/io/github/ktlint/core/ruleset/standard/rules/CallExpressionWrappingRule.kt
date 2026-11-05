@@ -10,6 +10,7 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.LPAR
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RBRACE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.REFERENCE_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RPAR
+import io.github.ktlint.core.rule.engine.core.api.ElementType.STRING_TEMPLATE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.VALUE_ARGUMENT_LIST
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig.Companion.DEFAULT_INDENT_CONFIG
@@ -21,6 +22,7 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.MAX_LINE_LENGTH_PROPERTY
+import io.github.ktlint.core.rule.engine.core.api.findParentByType
 import io.github.ktlint.core.rule.engine.core.api.hasNoMaxLineLengthSuppression
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.lastChildLeafOrSelf
@@ -65,11 +67,15 @@ public class CallExpressionWrappingRule :
     }
 
     private fun ASTNode.visitCallExpression() {
-        findChildByType(REFERENCE_EXPRESSION)
-            ?.nextSibling { it.elementType == VALUE_ARGUMENT_LIST }
-            ?.visitReferenceExpressionValueArgumentList()
-        findChildByType(LAMBDA_ARGUMENT)
-            ?.visitLambdaArgument()
+        if (findParentByType(STRING_TEMPLATE) == null) {
+            findChildByType(REFERENCE_EXPRESSION)
+                ?.nextSibling { it.elementType == VALUE_ARGUMENT_LIST }
+                ?.visitReferenceExpressionValueArgumentList()
+            findChildByType(LAMBDA_ARGUMENT)
+                ?.visitLambdaArgument()
+        } else {
+            // Ignore call expressions inside string template as strings are allowed to exceed max-line-length
+        }
     }
 
     private fun ASTNode.visitReferenceExpressionValueArgumentList() {
