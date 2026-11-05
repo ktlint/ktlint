@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RANGE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RANGE_UNTIL
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -10,7 +11,6 @@ import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.lexer.KtSingleValueToken
 
 @SinceKtlint("0.13", STABLE)

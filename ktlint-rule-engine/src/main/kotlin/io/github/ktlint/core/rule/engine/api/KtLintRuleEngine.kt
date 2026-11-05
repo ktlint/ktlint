@@ -2,6 +2,7 @@
 
 package io.github.ktlint.core.rule.engine.api
 
+import com.intellij.lang.FileASTNode
 import io.github.ktlint.core.rule.engine.api.EditorConfigDefaults.Companion.EMPTY_EDITOR_CONFIG_DEFAULTS
 import io.github.ktlint.core.rule.engine.api.EditorConfigOverride.Companion.EMPTY_EDITOR_CONFIG_OVERRIDE
 import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision
@@ -21,7 +22,6 @@ import io.github.ktlint.core.rule.engine.internal.NoneAutocorrectHandler
 import io.github.ktlint.core.rule.engine.internal.RuleExecutionContext.Companion.createRuleExecutionContext
 import io.github.ktlint.core.rule.engine.internal.ThreadSafeEditorConfigCache.Companion.THREAD_SAFE_EDITOR_CONFIG_CACHE
 import org.ec4j.core.Resource
-import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import java.nio.charset.StandardCharsets
 import java.nio.file.FileSystem
 import java.nio.file.FileSystems

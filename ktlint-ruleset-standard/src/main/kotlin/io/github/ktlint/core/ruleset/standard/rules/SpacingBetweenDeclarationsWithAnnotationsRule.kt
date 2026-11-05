@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.MODIFIER_LIST
 import io.github.ktlint.core.rule.engine.core.api.ElementType.PROPERTY_ACCESSOR
@@ -17,7 +18,6 @@ import io.github.ktlint.core.rule.engine.core.api.prevCodeLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevCodeSibling
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.psi.psiUtil.leaves
 
 /**

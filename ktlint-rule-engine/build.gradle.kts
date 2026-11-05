@@ -4,9 +4,9 @@ plugins {
 
 dependencies {
     implementation(projects.ktlintLogger)
+    implementation(libs.kotlin.analysisApiImplementation)
 
     api(projects.ktlintRuleEngineCore)
-    api(libs.kotlin.compiler)
     api(libs.ec4j)
 
     testImplementation(projects.ktlintTest)

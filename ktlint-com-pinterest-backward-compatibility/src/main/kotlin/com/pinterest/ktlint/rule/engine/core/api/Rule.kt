@@ -2,6 +2,7 @@
 
 package com.pinterest.ktlint.rule.engine.core.api
 
+import com.intellij.lang.ASTNode
 import com.pinterest.ktlint.rule.engine.core.api.AutocorrectDecision.ALLOW_AUTOCORRECT
 import com.pinterest.ktlint.rule.engine.core.api.AutocorrectDecision.NO_AUTOCORRECT
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfig
@@ -9,7 +10,6 @@ import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfigProper
 import com.pinterest.ktlint.rule.engine.core.internal.IdNamingPolicy
 import dev.drewhamilton.poko.Poko
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY_TYPE as CODE_STYLE_PROPERTY_TYPE_COM_PINTEREST_KTLINT
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.CodeStyleValue as CodeStyleValueComPinterestKtlint
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.RULE_EXECUTION_PROPERTY_TYPE as RULE_EXECUTION_PROPERTY_TYPE_COM_PINTEREST_KTLINT

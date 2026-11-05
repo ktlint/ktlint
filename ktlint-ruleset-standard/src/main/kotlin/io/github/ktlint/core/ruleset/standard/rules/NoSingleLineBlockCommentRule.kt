@@ -1,5 +1,8 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.impl.source.tree.LeafPsiElement
+import com.intellij.psi.impl.source.tree.PsiCommentImpl
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK_COMMENT
 import io.github.ktlint.core.rule.engine.core.api.ElementType.EOL_COMMENT
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -17,9 +20,6 @@ import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiCommentImpl
 import org.jetbrains.kotlin.psi.psiUtil.leaves
 
 /**

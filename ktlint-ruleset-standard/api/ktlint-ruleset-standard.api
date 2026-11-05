@@ -11,7 +11,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/AnnotationRule :
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/AnnotationRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/AnnotationRule$Companion {
@@ -24,7 +24,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/AnnotationRuleKt
 
 public final class io/github/ktlint/core/ruleset/standard/rules/AnnotationSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/AnnotationSpacingRuleKt {
@@ -35,7 +35,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ArgumentListWrap
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/ArgumentListWrappingRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ArgumentListWrappingRule$Companion {
@@ -49,7 +49,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ArgumentListWrap
 public final class io/github/ktlint/core/ruleset/standard/rules/BackingPropertyNamingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BackingPropertyNamingRuleKt {
@@ -59,7 +59,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/BackingPropertyN
 public final class io/github/ktlint/core/ruleset/standard/rules/BinaryExpressionWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BinaryExpressionWrappingRuleKt {
@@ -69,7 +69,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/BinaryExpression
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeDeclarationRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeDeclarationRuleKt {
@@ -79,7 +79,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeD
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeFileAnnotation : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$Experimental {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeFileAnnotationKt {
@@ -89,7 +89,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeF
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeImports : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$Experimental {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeImportsKt {
@@ -99,7 +99,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforeI
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforePackage : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$Experimental {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBeforePackageKt {
@@ -110,7 +110,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBetween
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/BlankLineBetweenWhenConditions$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBetweenWhenConditions$Companion {
@@ -123,7 +123,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/BlankLineBetween
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BlockCommentInitialStarAlignmentRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/BlockCommentInitialStarAlignmentRuleKt {
@@ -133,7 +133,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/BlockCommentInit
 public final class io/github/ktlint/core/ruleset/standard/rules/CallExpressionWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$Experimental {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/CallExpressionWrappingRuleKt {
@@ -144,7 +144,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ChainMethodConti
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/ChainMethodContinuationRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ChainMethodContinuationRule$Companion {
@@ -158,7 +158,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ChainMethodConti
 public final class io/github/ktlint/core/ruleset/standard/rules/ChainWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ChainWrappingRuleKt {
@@ -167,7 +167,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ChainWrappingRul
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ClassNamingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ClassNamingRuleKt {
@@ -178,7 +178,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ClassSignatureRu
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/ClassSignatureRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ClassSignatureRule$Companion {
@@ -191,7 +191,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ClassSignatureRu
 
 public final class io/github/ktlint/core/ruleset/standard/rules/CommentSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/CommentSpacingRuleKt {
@@ -200,7 +200,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/CommentSpacingRu
 
 public final class io/github/ktlint/core/ruleset/standard/rules/CommentWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/CommentWrappingRuleKt {
@@ -210,7 +210,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/CommentWrappingR
 public final class io/github/ktlint/core/ruleset/standard/rules/ContextParameterListWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ContextParameterListWrappingRuleKt {
@@ -220,7 +220,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ContextParameter
 public final class io/github/ktlint/core/ruleset/standard/rules/ContextReceiverWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ContextReceiverWrappingRuleKt {
@@ -231,7 +231,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCas
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCaseRule$Companion {
@@ -255,7 +255,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/EnumEntryNameCas
 public final class io/github/ktlint/core/ruleset/standard/rules/EnumWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/EnumWrappingRuleKt {
@@ -265,7 +265,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/EnumWrappingRule
 public final class io/github/ktlint/core/ruleset/standard/rules/ExpressionOperandWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$Experimental {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ExpressionOperandWrappingRuleKt {
@@ -274,7 +274,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ExpressionOperan
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FilenameRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FilenameRuleKt {
@@ -284,7 +284,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FilenameRuleKt {
 public final class io/github/ktlint/core/ruleset/standard/rules/FinalNewlineRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FinalNewlineRuleKt {
@@ -293,7 +293,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FinalNewlineRule
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunKeywordSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunKeywordSpacingRuleKt {
@@ -303,7 +303,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunKeywordSpacin
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionExpressionBodyRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionExpressionBodyRuleKt {
@@ -313,7 +313,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionExpressi
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionLiteralRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionLiteralRuleKt {
@@ -324,7 +324,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionNamingRu
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/FunctionNamingRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionNamingRule$Companion {
@@ -338,7 +338,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionNamingRu
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionReturnTypeSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionReturnTypeSpacingRuleKt {
@@ -349,7 +349,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionSignatur
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionSignatureRule$Companion {
@@ -372,7 +372,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionSignatur
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionStartOfBodySpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionStartOfBodySpacingRuleKt {
@@ -381,7 +381,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionStartOfB
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionTypeModifierSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionTypeModifierSpacingRuleKt {
@@ -390,7 +390,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionTypeModi
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionTypeReferenceSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/FunctionTypeReferenceSpacingRuleKt {
@@ -400,7 +400,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/FunctionTypeRefe
 public final class io/github/ktlint/core/ruleset/standard/rules/IfElseBracingRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/IfElseBracingRuleKt {
@@ -410,7 +410,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/IfElseBracingRul
 public final class io/github/ktlint/core/ruleset/standard/rules/IfElseWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/IfElseWrappingRuleKt {
@@ -421,7 +421,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ImportOrderingRu
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/ImportOrderingRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ImportOrderingRule$Companion {
@@ -436,9 +436,9 @@ public final class io/github/ktlint/core/ruleset/standard/rules/IndentationRule 
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/IndentationRule$Companion;
 	public fun <init> ()V
 	public fun afterLastNode ()V
-	public fun afterVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun afterVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/IndentationRule$Companion {
@@ -452,7 +452,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/IndentationRuleK
 
 public final class io/github/ktlint/core/ruleset/standard/rules/KdocDelimiterRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$Experimental, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/KdocDelimiterRuleKt {
@@ -461,7 +461,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/KdocDelimiterRul
 
 public final class io/github/ktlint/core/ruleset/standard/rules/KdocRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/KdocRuleKt {
@@ -470,7 +470,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/KdocRuleKt {
 
 public final class io/github/ktlint/core/ruleset/standard/rules/KdocWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/KdocWrappingRuleKt {
@@ -480,7 +480,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/KdocWrappingRule
 public final class io/github/ktlint/core/ruleset/standard/rules/LambdaReturnRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$Experimental {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/LambdaReturnRuleKt {
@@ -491,7 +491,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/MaxLineLengthRul
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/MaxLineLengthRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/MaxLineLengthRule$Companion {
@@ -505,7 +505,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/MaxLineLengthRul
 
 public final class io/github/ktlint/core/ruleset/standard/rules/MixedConditionOperatorsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/MixedConditionOperatorsRuleKt {
@@ -515,7 +515,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/MixedConditionOp
 public final class io/github/ktlint/core/ruleset/standard/rules/ModifierListSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ModifierListSpacingRuleKt {
@@ -524,7 +524,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ModifierListSpac
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ModifierOrderRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ModifierOrderRuleKt {
@@ -534,7 +534,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ModifierOrderRul
 public final class io/github/ktlint/core/ruleset/standard/rules/MultiLineIfElseRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/MultiLineIfElseRuleKt {
@@ -544,7 +544,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/MultiLineIfElseR
 public final class io/github/ktlint/core/ruleset/standard/rules/MultilineExpressionWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/MultilineExpressionWrappingRuleKt {
@@ -554,7 +554,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/MultilineExpress
 public final class io/github/ktlint/core/ruleset/standard/rules/MultilineLoopRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/MultilineLoopRuleKt {
@@ -563,7 +563,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/MultilineLoopRul
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineAtStartOfFileRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$Experimental {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineAtStartOfFileRuleKt {
@@ -572,7 +572,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineAtSta
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineBeforeRbraceRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineBeforeRbraceRuleKt {
@@ -581,7 +581,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineBefor
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineInListRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineInListRuleKt {
@@ -590,7 +590,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLineInLis
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLinesInChainedMethodCallsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLinesInChainedMethodCallsRuleKt {
@@ -599,7 +599,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoBlankLinesInCh
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoConsecutiveBlankLinesRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoConsecutiveBlankLinesRuleKt {
@@ -608,7 +608,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoConsecutiveBla
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoConsecutiveCommentsRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoConsecutiveCommentsRuleKt {
@@ -617,7 +617,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoConsecutiveCom
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyClassBodyRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyClassBodyRuleKt {
@@ -626,7 +626,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyClassBody
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFileRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFileRuleKt {
@@ -636,7 +636,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFileRuleK
 public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFirstLineInClassBodyRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFirstLineInClassBodyRuleKt {
@@ -645,7 +645,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFirstLine
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFirstLineInMethodBlockRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFirstLineInMethodBlockRuleKt {
@@ -654,7 +654,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoEmptyFirstLine
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoLineBreakAfterElseRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoLineBreakAfterElseRuleKt {
@@ -663,7 +663,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoLineBreakAfter
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoLineBreakBeforeAssignmentRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoLineBreakBeforeAssignmentRuleKt {
@@ -672,7 +672,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoLineBreakBefor
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoMultipleSpacesRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoMultipleSpacesRuleKt {
@@ -681,7 +681,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoMultipleSpaces
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoSemicolonsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoSemicolonsRuleKt {
@@ -690,7 +690,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoSemicolonsRule
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoSingleLineBlockCommentRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoSingleLineBlockCommentRuleKt {
@@ -699,7 +699,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoSingleLineBloc
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoTrailingSpacesRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoTrailingSpacesRuleKt {
@@ -708,7 +708,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoTrailingSpaces
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoUnitReturnRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoUnitReturnRuleKt {
@@ -717,7 +717,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoUnitReturnRule
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoUnusedImportsRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/IgnoreKtlintSuppressions, io/github/ktlint/core/rule/engine/core/api/RuleV2$OnlyWhenEnabledInEditorconfig {
 	public fun <init> ()V
-	public fun afterVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun afterVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoUnusedImportsRuleKt {
@@ -728,7 +728,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoWildcardImport
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/NoWildcardImportsRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NoWildcardImportsRule$Companion {
@@ -741,7 +741,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NoWildcardImport
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NullableTypeSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/NullableTypeSpacingRuleKt {
@@ -750,7 +750,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/NullableTypeSpac
 
 public final class io/github/ktlint/core/ruleset/standard/rules/PackageNameRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/PackageNameRuleKt {
@@ -760,7 +760,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/PackageNameRuleK
 public final class io/github/ktlint/core/ruleset/standard/rules/ParameterListSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ParameterListSpacingRuleKt {
@@ -770,7 +770,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ParameterListSpa
 public final class io/github/ktlint/core/ruleset/standard/rules/ParameterListWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ParameterListWrappingRuleKt {
@@ -780,7 +780,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ParameterListWra
 public final class io/github/ktlint/core/ruleset/standard/rules/ParameterWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ParameterWrappingRuleKt {
@@ -791,7 +791,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/PropertyNamingRu
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/PropertyNamingRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/PropertyNamingRule$Companion {
@@ -815,7 +815,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/PropertyNamingRu
 public final class io/github/ktlint/core/ruleset/standard/rules/PropertyWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/PropertyWrappingRuleKt {
@@ -824,7 +824,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/PropertyWrapping
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundAngleBracketsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundAngleBracketsRuleKt {
@@ -833,7 +833,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundAng
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundColonRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundColonRuleKt {
@@ -842,7 +842,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundCol
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundCommaRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundCommaRuleKt {
@@ -852,7 +852,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundCom
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundCurlyRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundCurlyRuleKt {
@@ -861,7 +861,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundCur
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundDotRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundDotRuleKt {
@@ -870,7 +870,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundDot
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundDoubleColonRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundDoubleColonRuleKt {
@@ -879,7 +879,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundDou
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundKeywordRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundKeywordRuleKt {
@@ -888,7 +888,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundKey
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundOperatorsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundOperatorsRuleKt {
@@ -897,7 +897,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundOpe
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundParensRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundParensRuleKt {
@@ -906,7 +906,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundPar
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundRangeOperatorRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundRangeOperatorRuleKt {
@@ -915,7 +915,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundRan
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundSquareBracketsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundSquareBracketsRuleKt {
@@ -924,7 +924,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundSqu
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundUnaryOperatorRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundUnaryOperatorRuleKt {
@@ -933,7 +933,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingAroundUna
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenDeclarationsWithAnnotationsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenDeclarationsWithAnnotationsRuleKt {
@@ -942,7 +942,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenDe
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenDeclarationsWithCommentsRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenDeclarationsWithCommentsRuleKt {
@@ -951,7 +951,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenDe
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenFunctionNameAndOpeningParenthesisRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenFunctionNameAndOpeningParenthesisRuleKt {
@@ -961,7 +961,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/SpacingBetweenFu
 public final class io/github/ktlint/core/ruleset/standard/rules/StatementWrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/StatementWrappingRuleKt {
@@ -971,7 +971,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/StatementWrappin
 public final class io/github/ktlint/core/ruleset/standard/rules/StringTemplateIndentRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/StringTemplateIndentRuleKt {
@@ -980,7 +980,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/StringTemplateIn
 
 public final class io/github/ktlint/core/ruleset/standard/rules/StringTemplateRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/StringTemplateRuleKt {
@@ -989,7 +989,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/StringTemplateRu
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ThenSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ThenSpacingRuleKt {
@@ -1000,7 +1000,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/TrailingCommaOnC
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/TrailingCommaOnCallSiteRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TrailingCommaOnCallSiteRule$Companion {
@@ -1015,7 +1015,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/TrailingCommaOnD
 	public static final field Companion Lio/github/ktlint/core/ruleset/standard/rules/TrailingCommaOnDeclarationSiteRule$Companion;
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TrailingCommaOnDeclarationSiteRule$Companion {
@@ -1029,7 +1029,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/TrailingCommaOnD
 public final class io/github/ktlint/core/ruleset/standard/rules/TryCatchFinallySpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TryCatchFinallySpacingRuleKt {
@@ -1038,7 +1038,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/TryCatchFinallyS
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TypeArgumentCommentRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TypeArgumentCommentRuleKt {
@@ -1048,7 +1048,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/TypeArgumentComm
 public final class io/github/ktlint/core/ruleset/standard/rules/TypeArgumentListSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TypeArgumentListSpacingRuleKt {
@@ -1057,7 +1057,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/TypeArgumentList
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TypeParameterCommentRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TypeParameterCommentRuleKt {
@@ -1067,7 +1067,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/TypeParameterCom
 public final class io/github/ktlint/core/ruleset/standard/rules/TypeParameterListSpacingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/TypeParameterListSpacingRuleKt {
@@ -1076,7 +1076,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/TypeParameterLis
 
 public final class io/github/ktlint/core/ruleset/standard/rules/UnnecessaryParenthesesBeforeTrailingLambdaRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/UnnecessaryParenthesesBeforeTrailingLambdaRuleKt {
@@ -1085,7 +1085,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/UnnecessaryParen
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ValueArgumentCommentRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ValueArgumentCommentRuleKt {
@@ -1094,7 +1094,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ValueArgumentCom
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ValueParameterCommentRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/ValueParameterCommentRuleKt {
@@ -1104,7 +1104,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/ValueParameterCo
 public final class io/github/ktlint/core/ruleset/standard/rules/WhenEntryBracing : io/github/ktlint/core/ruleset/standard/StandardRule, io/github/ktlint/core/rule/engine/core/api/RuleV2$OfficialCodeStyle {
 	public fun <init> ()V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/WhenEntryBracingKt {
@@ -1113,9 +1113,9 @@ public final class io/github/ktlint/core/ruleset/standard/rules/WhenEntryBracing
 
 public final class io/github/ktlint/core/ruleset/standard/rules/WrappingRule : io/github/ktlint/core/ruleset/standard/StandardRule {
 	public fun <init> ()V
-	public fun afterVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun afterVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 	public fun beforeFirstNode (Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfig;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/WrappingRuleKt {

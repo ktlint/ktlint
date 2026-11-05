@@ -1,9 +1,9 @@
 package yourpkgname
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.VAR_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 public class NoVarRule :
     RuleV2(
