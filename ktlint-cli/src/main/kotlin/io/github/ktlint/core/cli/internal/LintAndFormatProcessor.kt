@@ -124,10 +124,13 @@ internal class LintAndFormatProcessor(
     ): List<KtlintCliError> {
         val ktlintCliErrors = mutableListOf<KtlintCliError>()
         try {
-            val formatAutocorrectDecisionHandler = createFormatAutocorrectDecisionHandler(baselineLintErrors, ktlintCliErrors)
             ktLintRuleEngine
-                .format(code, rerunAfterAutocorrect = rerunFormatAfterAutocorrect, callback = formatAutocorrectDecisionHandler)
-                .also { formattedCode -> processFormatResults(code, formattedCode, ktlintCliErrors) }
+                .format(
+                    code,
+                    rerunAfterAutocorrect = rerunFormatAfterAutocorrect,
+                    onLintAfterMaxFormatRuns = createOnLintAfterMaxFormatRunsCallback(baselineLintErrors, ktlintCliErrors),
+                    onAutocorrectDecision = createOnAutocorrectDecisionCallback(baselineLintErrors, ktlintCliErrors),
+                ).also { formattedCode -> processFormatResults(code, formattedCode, ktlintCliErrors) }
         } catch (e: KtLintParseException) {
             if (code.isStdIn) {
                 if (code.script) {
@@ -237,7 +240,7 @@ internal class LintAndFormatProcessor(
         }
     }
 
-    private fun createFormatAutocorrectDecisionHandler(
+    private fun createOnAutocorrectDecisionCallback(
         baselineLintErrors: List<KtlintCliError>,
         ktlintCliErrors: MutableList<KtlintCliError>,
     ): (LintError) -> AutocorrectDecision =
@@ -257,6 +260,19 @@ internal class LintAndFormatProcessor(
                             NO_AUTOCORRECT
                         }
                     } ?: NO_AUTOCORRECT
+            }
+        }
+
+    private fun createOnLintAfterMaxFormatRunsCallback(
+        baselineLintErrors: List<KtlintCliError>,
+        ktlintCliErrors: MutableList<KtlintCliError>,
+    ): (LintError) -> Unit =
+        { lintError ->
+            if (lintError.canBeAutoCorrected) {
+                lintError
+                    .toLintKtlintCliError()
+                    .takeIf { baselineLintErrors.doesNotContain(it) }
+                    ?.let { ktlintCliError -> ktlintCliErrors.add(ktlintCliError) }
             }
         }
 

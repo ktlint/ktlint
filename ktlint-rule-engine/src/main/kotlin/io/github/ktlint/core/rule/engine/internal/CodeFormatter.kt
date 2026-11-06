@@ -18,39 +18,26 @@ private val LOGGER = KotlinLogging.logger {}.initKtLintKLogger()
 internal class CodeFormatter(
     val ktLintRuleEngine: KtLintRuleEngine,
 ) {
+    /**
+     * Formats or lints the given [code]. The formatted code is returned.
+     *
+     * The [autocorrectHandler] is called for each [LintError] to determine whether the API Consumer intends to autocorrect the [LintError].
+     * In case code is only to be linted, the [autocorrectHandler] should return the [NO_AUTOCORRECT] decision for each [LintError].
+     *
+     * The [onLint] is called for each [LintError] found during any of the format rounds.
+     *
+     * The [onLintAfterMaxFormatRuns] is called for each [LintError] that is found after [maxFormatRunsPerFile] rounds of formatting have
+     * not yet resolved all [LintError] that potentially can be autocorrected but still was not fixed.
+     */
     fun format(
         code: Code,
         autocorrectHandler: AutocorrectHandler,
-        callback: (LintError, Boolean) -> Unit = { _, _ -> },
+        onLint: (LintError, Boolean) -> Unit = { _, _ -> },
+        onLintAfterMaxFormatRuns: (LintError) -> Unit = { _ -> },
         maxFormatRunsPerFile: Int,
     ): String {
         LOGGER.debug { "Starting with processing file '${code.fileNameOrStdin()}'" }
 
-        val (formattedCode, errors) = format(code, autocorrectHandler, maxFormatRunsPerFile)
-
-// This list of errors also contains the unfixed errors that can be autocorrected when maxFormatRunsPerFile is reached. They are however
-// not processed by the autocorrectHandler and as of that will not appear the kltintCliError list of the LintAndFormatProcessor.
-        errors
-            .sortedWith(lintErrorLineAndColumnComparator { it.first })
-            .forEach { (e, corrected) -> callback(e, corrected) }
-
-        return (formattedCode.prefixIfNot(code.utf8Bom())).also {
-            LOGGER.debug { "Finished with processing file '${code.fileNameOrStdin()}'" }
-        }
-    }
-
-    private fun Code.utf8Bom() =
-        if (content.startsWith(KtLintRuleEngine.UTF8_BOM)) {
-            KtLintRuleEngine.UTF8_BOM
-        } else {
-            ""
-        }
-
-    private fun format(
-        code: Code,
-        autocorrectHandler: AutocorrectHandler,
-        maxFormatRunsPerFile: Int,
-    ): Pair<String, Set<Pair<LintError, Boolean>>> {
         with(RuleExecutionContext.createRuleExecutionContext(ktLintRuleEngine, code)) {
             val lineSeparator = code.determineLineSeparator(editorConfig[END_OF_LINE_PROPERTY])
             var codeContent = formattedCode(lineSeparator)
@@ -93,21 +80,35 @@ internal class CodeFormatter(
                     .takeIfNotEmpty()
                     ?.filter { it.canBeAutoCorrected }
                     ?.let { lintErrors ->
-                        lintErrors.forEach { errors.add(Pair(it, false)) }
+                        lintErrors.forEach { onLintAfterMaxFormatRuns(it) }
                         LOGGER.warn {
                             "Format was not able to resolve all violations which (theoretically) can be autocorrected in file " +
                                 "${code.filePathOrStdin()} in $maxFormatRunsPerFile consecutive runs of format."
                         }
                     }
             }
+
+            errors
+                .sortedWith(lintErrorLineAndColumnComparator { it.first })
+                .forEach { (e, corrected) -> onLint(e, corrected) }
+
             return if (mutated) {
-                Pair(formattedCode(lineSeparator), errors)
+                formattedCode(lineSeparator).prefixIfNot(code.utf8Bom())
             } else {
                 // None of the format runs has found
-                Pair(code.content, errors)
+                code.content
+            }.also {
+                LOGGER.debug { "Finished with processing file '${code.fileNameOrStdin()}'" }
             }
         }
     }
+
+    private fun Code.utf8Bom() =
+        if (content.startsWith(KtLintRuleEngine.UTF8_BOM)) {
+            KtLintRuleEngine.UTF8_BOM
+        } else {
+            ""
+        }
 
     private fun RuleExecutionContext.formattedCode(lineSeparator: String) = rootNode.text.replace("\n", lineSeparator)
 
