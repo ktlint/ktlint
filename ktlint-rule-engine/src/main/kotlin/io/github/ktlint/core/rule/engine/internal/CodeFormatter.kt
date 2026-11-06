@@ -17,37 +17,23 @@ private val LOGGER = KotlinLogging.logger {}.initKtLintKLogger()
 internal class CodeFormatter(
     val ktLintRuleEngine: KtLintRuleEngine,
 ) {
+    /**
+     * Formats or lints the given [code]. The formatted code is returned.
+     *
+     * The [autocorrectHandler] is called for each [LintError] to determine whether the API Consumer intends to autocorrect the [LintError].
+     * In case code is only to be linted, the [autocorrectHandler] should return the [NO_AUTOCORRECT] decision for each [LintError].
+     *
+     * The [onLintAfterMaxFormatRuns] is called for each [LintError] that is found after [maxFormatRunsPerFile] rounds of formatting have
+     * not yet resolved all [LintError] that potentially can be autocorrected but still was not fixed.
+     */
     fun format(
         code: Code,
         autocorrectHandler: AutocorrectHandler,
-        callback: (LintError, Boolean) -> Unit = { _, _ -> },
+        onLintAfterMaxFormatRuns: (LintError) -> Unit = { _ -> },
         maxFormatRunsPerFile: Int,
     ): String {
         LOGGER.debug { "Starting with processing file '${code.fileNameOrStdin()}'" }
 
-        val (formattedCode, errors) = format(code, autocorrectHandler, maxFormatRunsPerFile)
-
-        errors
-            .sortedWith(lintErrorLineAndColumnComparator { it.first })
-            .forEach { (e, corrected) -> callback(e, corrected) }
-
-        return (formattedCode.prefixIfNot(code.utf8Bom())).also {
-            LOGGER.debug { "Finished with processing file '${code.fileNameOrStdin()}'" }
-        }
-    }
-
-    private fun Code.utf8Bom() =
-        if (content.startsWith(KtLintRuleEngine.UTF8_BOM)) {
-            KtLintRuleEngine.UTF8_BOM
-        } else {
-            ""
-        }
-
-    private fun format(
-        code: Code,
-        autocorrectHandler: AutocorrectHandler,
-        maxFormatRunsPerFile: Int,
-    ): Pair<String, Set<Pair<LintError, Boolean>>> {
         with(RuleExecutionContext.createRuleExecutionContext(ktLintRuleEngine, code)) {
             val lineSeparator = code.determineLineSeparator(editorConfig[END_OF_LINE_PROPERTY])
             var codeContent = formattedCode(lineSeparator)
@@ -82,24 +68,35 @@ internal class CodeFormatter(
                 mutated = true
                 formatRunCount++
             } while (formatRunCount < maxFormatRunsPerFile)
-            if (mutated && formatRunCount == maxFormatRunsPerFile && autocorrectHandler !is NoneAutocorrectHandler) {
+            if (mutated && formatRunCount == maxFormatRunsPerFile && autocorrectHandler !is NoAutocorrectHandler) {
                 // It is unknown if the last format run introduces new lint violations which can be autocorrected. So run lint once more
-                // so that the user can be informed about this correctly.
-                if (hasLintErrorsAfterFormat()) {
+                // so that the user can be informed about this correctly. The lint errors are added to the format errors so that the
+                // report can indicate how many errors will be fixed when ktlint is run again.
+                if (hasLintErrorsAfterFormat(NoAutocorrectHandler(onLintAfterMaxFormatRuns))) {
                     LOGGER.warn {
                         "Format was not able to resolve all violations which (theoretically) can be autocorrected in file " +
                             "${code.filePathOrStdin()} in $maxFormatRunsPerFile consecutive runs of format."
                     }
                 }
             }
+
             return if (mutated) {
-                Pair(formattedCode(lineSeparator), errors)
+                formattedCode(lineSeparator).prefixIfNot(code.utf8Bom())
             } else {
                 // None of the format runs has found
-                Pair(code.content, errors)
+                code.content
+            }.also {
+                LOGGER.debug { "Finished with processing file '${code.fileNameOrStdin()}'" }
             }
         }
     }
+
+    private fun Code.utf8Bom() =
+        if (content.startsWith(KtLintRuleEngine.UTF8_BOM)) {
+            KtLintRuleEngine.UTF8_BOM
+        } else {
+            ""
+        }
 
     private fun RuleExecutionContext.formattedCode(lineSeparator: String) = rootNode.text.replace("\n", lineSeparator)
 
@@ -112,16 +109,14 @@ internal class CodeFormatter(
         return errors
     }
 
-    private fun RuleExecutionContext.hasLintErrorsAfterFormat(): Boolean {
-        var hasErrorsWhichCanBeAutocorrected = false
-        executeRules(VisitorProvider(ruleProviders).rules, NoneAutocorrectHandler) { _, _, _, canBeAutoCorrected ->
-            if (canBeAutoCorrected) {
-                hasErrorsWhichCanBeAutocorrected = true
-            }
-            // No need to ask for approval in lint mode
-            NO_AUTOCORRECT
+    private fun RuleExecutionContext.hasLintErrorsAfterFormat(noAutocorrectHandler: NoAutocorrectHandler): Boolean {
+        var hasLintErrors = false
+        executeRules(VisitorProvider(ruleProviders).rules, noAutocorrectHandler) { offset, ruleId, errorMessage, canBeAutoCorrected ->
+            hasLintErrors = true
+            val (line, col) = positionInTextLocator(offset)
+            noAutocorrectHandler.autocorrectDecision(LintError(line, col, ruleId, errorMessage, canBeAutoCorrected))
         }
-        return hasErrorsWhichCanBeAutocorrected
+        return hasLintErrors
     }
 
     private fun RuleExecutionContext.format(
@@ -172,10 +167,6 @@ internal class CodeFormatter(
         }
 
     private fun Code.doesNotContain(char: Char) = content.lastIndexOf(char) != -1
-
-    private fun <T> lintErrorLineAndColumnComparator(transformer: (T) -> LintError) =
-        compareBy<T> { transformer(it).line }
-            .then(compareBy { transformer(it).col })
 
     private fun LintError.logMessage(code: Code) =
         "${code.fileNameOrStdin()}:$line:$col: $detail ($ruleId)" +

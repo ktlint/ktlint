@@ -12,14 +12,22 @@ internal sealed interface AutocorrectHandler {
 }
 
 /**
- * Do not autocorrect any [LintError]s
+ * Invokes the [onLint] is for every [LintError], and returns the [NO_AUTOCORRECT] decision.
  */
-internal data object NoneAutocorrectHandler : AutocorrectHandler {
-    override fun autocorrectDecision(lintError: LintError) = NO_AUTOCORRECT
+internal class NoAutocorrectHandler(
+    private val onLint: (LintError) -> Unit,
+) : AutocorrectHandler {
+    override fun autocorrectDecision(lintError: LintError): AutocorrectDecision {
+        onLint(lintError)
+        return NO_AUTOCORRECT
+    }
 }
 
-internal class LintErrorAutocorrectHandler(
-    private val callback: (LintError) -> AutocorrectDecision,
+/**
+ * Invokes the [onAutocorrect] is for every [LintError], and let API Consumer determine the [AutocorrectDecision].
+ */
+internal class CustomAutocorrectHandler(
+    private val onAutocorrect: (LintError) -> AutocorrectDecision,
 ) : AutocorrectHandler {
-    override fun autocorrectDecision(lintError: LintError) = callback(lintError)
+    override fun autocorrectDecision(lintError: LintError) = onAutocorrect(lintError)
 }

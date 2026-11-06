@@ -228,7 +228,7 @@ internal class RuleExecutionContext private constructor(
             @Suppress("TooGenericExceptionCaught") t: Throwable,
         ) {
             val (line, col) =
-                if (autocorrectHandler is NoneAutocorrectHandler) {
+                if (autocorrectHandler is NoAutocorrectHandler) {
                     positionInTextLocator(node.startOffset)
                 } else {
                     // line/col cannot be reliably mapped as exception might originate from a node not present in the original AST
