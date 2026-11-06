@@ -12,12 +12,12 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
 import io.github.ktlint.core.rule.engine.core.api.propertyTypes
 import io.github.ktlint.core.rule.engine.core.util.safeAs
 import io.github.ktlint.core.rule.engine.internal.CodeFormatter
+import io.github.ktlint.core.rule.engine.internal.CustomAutocorrectHandler
 import io.github.ktlint.core.rule.engine.internal.EditorConfigFinder
 import io.github.ktlint.core.rule.engine.internal.EditorConfigGenerator
 import io.github.ktlint.core.rule.engine.internal.EditorConfigLoader
 import io.github.ktlint.core.rule.engine.internal.EditorConfigLoaderEc4j
-import io.github.ktlint.core.rule.engine.internal.LintErrorAutocorrectHandler
-import io.github.ktlint.core.rule.engine.internal.NoneAutocorrectHandler
+import io.github.ktlint.core.rule.engine.internal.NoAutocorrectHandler
 import io.github.ktlint.core.rule.engine.internal.RuleExecutionContext.Companion.createRuleExecutionContext
 import io.github.ktlint.core.rule.engine.internal.ThreadSafeEditorConfigCache.Companion.THREAD_SAFE_EDITOR_CONFIG_CACHE
 import org.ec4j.core.Resource
@@ -83,8 +83,7 @@ public class KtLintRuleEngine(
     ) {
         codeFormatter.format(
             code = code,
-            autocorrectHandler = NoneAutocorrectHandler,
-            onLint = { lintError, _ -> callback(lintError) },
+            autocorrectHandler = NoAutocorrectHandler(callback),
             maxFormatRunsPerFile = 1,
         )
     }
@@ -115,7 +114,7 @@ public class KtLintRuleEngine(
         codeFormatter
             .format(
                 code = code,
-                autocorrectHandler = LintErrorAutocorrectHandler(onAutocorrectDecision),
+                autocorrectHandler = CustomAutocorrectHandler(onAutocorrectDecision),
                 onLintAfterMaxFormatRuns = onLintAfterMaxFormatRuns,
                 maxFormatRunsPerFile =
                     if (rerunAfterAutocorrect) {
