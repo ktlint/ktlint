@@ -34,47 +34,52 @@ public class PlainReporter(
             if (groupByFile) {
                 acc.getOrPut(file) { ArrayList() }.add(ktlintCliError)
             } else {
-                val column =
-                    if (pad) {
-                        String.format("%-4s", ktlintCliError.col)
-                    } else {
-                        ktlintCliError.col
-                    }
-                out.println(
-                    "${colorFileName(file)}${":".colored()}${ktlintCliError.line}${":$column:".colored()} " +
-                        "${ktlintCliError.detail} ${"(${ktlintCliError.ruleId})".colored()}",
-                )
+                ktlintCliError.printError(file)
             }
         }
+        ktlintCliError.updateSummaryCount()
+    }
+
+    private fun KtlintCliError.printError(file: String) {
+        val column =
+            if (pad) {
+                String.format("%-4s", col)
+            } else {
+                col
+            }
+        out.println("${colorFileName(file)}${":".colored()}${line}${":$column:".colored()} $detail ${"(${ruleId})".colored()}")
+    }
+
+    private fun KtlintCliError.updateSummaryCount() {
         summaryCount
-            .compute(ktlintCliError.causedBy()) { _, previous ->
+            .compute(causedBy()) { _, previous ->
                 val statusCount = previous ?: StatusCount()
-                when (ktlintCliError.status) {
+                when (status) {
                     BASELINE_IGNORED -> {
                         statusCount.copy(
-                            countBaselineIgnored = statusCount.countBaselineIgnored + 1,
-                            countNotIgnored = statusCount.countNotIgnored + 1,
+                            baselineIgnored = statusCount.baselineIgnored + 1,
+                            notIgnored = statusCount.notIgnored + 1,
                         )
                     }
 
                     LINT_CAN_NOT_BE_AUTOCORRECTED, KOTLIN_PARSE_EXCEPTION, KTLINT_RULE_ENGINE_EXCEPTION -> {
                         statusCount.copy(
-                            countLintCannotBeAutocorrected = statusCount.countLintCannotBeAutocorrected + 1,
-                            countNotIgnored = statusCount.countNotIgnored + 1,
+                            lintCannotBeAutocorrected = statusCount.lintCannotBeAutocorrected + 1,
+                            notIgnored = statusCount.notIgnored + 1,
                         )
                     }
 
                     LINT_CAN_BE_AUTOCORRECTED -> {
                         statusCount.copy(
-                            countLintCanBeAutocorrected = statusCount.countLintCanBeAutocorrected + 1,
-                            countNotIgnored = statusCount.countNotIgnored + 1,
+                            lintCanBeAutocorrected = statusCount.lintCanBeAutocorrected + 1,
+                            notIgnored = statusCount.notIgnored + 1,
                         )
                     }
 
                     FORMAT_IS_AUTOCORRECTED -> {
                         statusCount.copy(
-                            countFormatIsAutocorrected = statusCount.countFormatIsAutocorrected + 1,
-                            countNotIgnored = statusCount.countNotIgnored + 1,
+                            formatIsAutocorrected = statusCount.formatIsAutocorrected + 1,
+                            notIgnored = statusCount.notIgnored + 1,
                         )
                     }
                 }
@@ -93,9 +98,7 @@ public class PlainReporter(
                         } else {
                             col
                         }
-                    out.println(
-                        "  $line${":$column".colored()} $detail ${"($ruleId)".colored()}",
-                    )
+                    out.println("  $line${":$column".colored()} $detail ${"($ruleId)".colored()}")
                 }
             }
         }
@@ -103,89 +106,67 @@ public class PlainReporter(
 
     override fun afterAll() {
         if (summaryCount.isNotEmpty()) {
-            val maxCategoryLength = maxOf(summaryCount.keys.maxOf { it.length }, CATEGORY_HEADER.length)
-            val sumOfFormatIsAutocorrectedLength = summaryCount.values.sumOf { it.countFormatIsAutocorrected }
-            val sumOfLintCanBeAutocorrected = summaryCount.values.sumOf { it.countLintCanBeAutocorrected }
-            val sumOfLintCannotBeAutocorrected = summaryCount.values.sumOf { it.countLintCannotBeAutocorrected }
-            val sumOfTotalLength = summaryCount.values.sumOf { it.countNotIgnored }
-            val separatorLine =
-                "  |-${"-".repeat(maxCategoryLength)}-|---------------|----------------------|-------------------------|-------|"
-            out.println("")
-            out.println("Summary of violations (descending on total) by by rule:")
-            out.println(separatorLine)
-            out.println(
-                "  | ${CATEGORY_HEADER.padEnd(maxCategoryLength)} " +
-                    "| $AUTOCORRECTED_HEADER " +
-                    "| $CAN_BE_AUTOCORRECTED_HEADER " +
-                    "| $CANNOT_BE_AUTOCORRECTED_HEADER " +
-                    "| $TOTAL_HEADER " +
-                    "|",
-            )
-            out.println(separatorLine)
-            summaryCount
-                .toList()
-                .sortedWith(COUNT_DESC_AND_RULE_ID_ASC_COMPARATOR)
-                .forEach { (category, counts) ->
-                    out.println(
-                        "  | ${category.padEnd(maxCategoryLength)} " +
-                            "| ${columnValue(
-                                counts.countFormatIsAutocorrected,
-                                sumOfFormatIsAutocorrectedLength.toString().length,
-                                AUTOCORRECTED_HEADER.length,
-                            )} " +
-                            "| ${columnValue(
-                                counts.countLintCanBeAutocorrected,
-                                sumOfLintCanBeAutocorrected.toString().length,
-                                CAN_BE_AUTOCORRECTED_HEADER.length,
-                            )} " +
-                            "| ${columnValue(
-                                counts.countLintCannotBeAutocorrected,
-                                sumOfLintCannotBeAutocorrected.toString().length,
-                                CANNOT_BE_AUTOCORRECTED_HEADER.length,
-                            )} " +
-                            "| ${columnValue(
-                                counts.countNotIgnored,
-                                sumOfTotalLength.toString().length,
-                                TOTAL_HEADER.length,
-                            )} " +
-                            "|",
-                    )
-                }
-            out.println(separatorLine)
-            out.println(
-                "  | ${"Total".padEnd(maxCategoryLength)} " +
-                    "| ${columnValue(
-                        sumOfFormatIsAutocorrectedLength,
-                        sumOfFormatIsAutocorrectedLength.toString().length,
-                        AUTOCORRECTED_HEADER.length,
-                    )} " +
-                    "| ${columnValue(
-                        sumOfLintCanBeAutocorrected,
-                        sumOfLintCanBeAutocorrected.toString().length,
-                        CAN_BE_AUTOCORRECTED_HEADER.length,
-                    )} " +
-                    "| ${columnValue(
-                        sumOfLintCannotBeAutocorrected,
-                        sumOfLintCannotBeAutocorrected.toString().length,
-                        CANNOT_BE_AUTOCORRECTED_HEADER.length,
-                    )} " +
-                    "| ${columnValue(
-                        sumOfTotalLength,
-                        sumOfTotalLength.toString().length,
-                        TOTAL_HEADER.length,
-                    )} " +
-                    "|",
-            )
-            out.println(separatorLine)
+            printSummary()
         }
+    }
+
+    private fun printSummary() {
+        val maxCategoryLength = maxOf(summaryCount.keys.maxOf { it.length }, CATEGORY_HEADER.length)
+        val sumOfFormatIsAutocorrected = summaryCount.values.sumOf { it.formatIsAutocorrected }
+        val sumOfLintCanBeAutocorrected = summaryCount.values.sumOf { it.lintCanBeAutocorrected }
+        val sumOfLintCannotBeAutocorrected = summaryCount.values.sumOf { it.lintCannotBeAutocorrected }
+        val sumOfTotal = summaryCount.values.sumOf { it.notIgnored }
+        val separatorLine =
+            "  |-${"-".repeat(maxCategoryLength)}-|---------------|----------------------|-------------------------|-------|"
+        out.println("")
+        out.println("Summary of violations (descending on total) by by rule:")
+        out.println(separatorLine)
+        out.println(
+            "  | ${CATEGORY_HEADER.padEnd(maxCategoryLength)} " +
+                "| $AUTOCORRECTED_HEADER " +
+                "| $CAN_BE_AUTOCORRECTED_HEADER " +
+                "| $CANNOT_BE_AUTOCORRECTED_HEADER " +
+                "| $TOTAL_HEADER " +
+                "|",
+        )
+        out.println(separatorLine)
+        summaryCount
+            .toList()
+            .sortedWith(COUNT_DESC_AND_RULE_ID_ASC_COMPARATOR)
+            .forEach { (category, counts) ->
+                out.println(
+                    "  | ${category.padEnd(maxCategoryLength)} " +
+                        "| ${columnValue(counts.formatIsAutocorrected, sumOfFormatIsAutocorrected, AUTOCORRECTED_HEADER)} " +
+                        "| ${columnValue(counts.lintCanBeAutocorrected, sumOfLintCanBeAutocorrected, CAN_BE_AUTOCORRECTED_HEADER)} " +
+                        "| ${columnValue(
+                            counts.lintCannotBeAutocorrected,
+                            sumOfLintCannotBeAutocorrected,
+                            CANNOT_BE_AUTOCORRECTED_HEADER
+                        )} " +
+                        "| ${columnValue(counts.notIgnored, sumOfTotal, TOTAL_HEADER)} " +
+                        "|",
+                )
+            }
+        out.println(separatorLine)
+        out.println(
+            "  | ${"Total".padEnd(maxCategoryLength)} " +
+                "| ${columnValue(sumOfFormatIsAutocorrected, sumOfFormatIsAutocorrected, AUTOCORRECTED_HEADER)} " +
+                "| ${columnValue(sumOfLintCanBeAutocorrected, sumOfLintCanBeAutocorrected, CAN_BE_AUTOCORRECTED_HEADER)} " +
+                "| ${columnValue(sumOfLintCannotBeAutocorrected, sumOfLintCannotBeAutocorrected, CANNOT_BE_AUTOCORRECTED_HEADER)} " +
+                "| ${columnValue(sumOfTotal, sumOfTotal, TOTAL_HEADER)} " +
+                "|",
+        )
+        out.println(separatorLine)
     }
 
     private fun columnValue(
         value: Long,
-        maxValueWidth: Int,
-        columnWidth: Int,
+        maxValue: Long,
+        columnHeader: String,
     ): String {
         val stringValue = value.toString()
+        val columnWidth = columnHeader.length
+        val maxValueWidth = maxValue.toString().length
         val padColumnRight = maxOf(0, columnWidth - maxValueWidth) / 2
         val padValueLeft = maxOf(0, maxValueWidth - stringValue.length)
         val padColumnLeft = maxOf(0, columnWidth - padColumnRight - maxValueWidth)
@@ -213,17 +194,17 @@ public class PlainReporter(
         }
 
     private data class StatusCount(
-        val countBaselineIgnored: Long = 0,
-        val countLintCannotBeAutocorrected: Long = 0,
-        val countLintCanBeAutocorrected: Long = 0,
-        val countFormatIsAutocorrected: Long = 0,
-        val countNotIgnored: Long = 0,
+        val baselineIgnored: Long = 0,
+        val lintCannotBeAutocorrected: Long = 0,
+        val lintCanBeAutocorrected: Long = 0,
+        val formatIsAutocorrected: Long = 0,
+        val notIgnored: Long = 0,
     )
 
     private companion object {
         val COUNT_DESC_AND_RULE_ID_ASC_COMPARATOR =
             Comparator<Pair<String, StatusCount>> { left, right ->
-                compareValuesBy(left, right) { it.second.countNotIgnored }
+                compareValuesBy(left, right) { it.second.notIgnored }
             }.reversed()
                 .thenComparator { left, right ->
                     compareValuesBy(left, right) { it.first }
