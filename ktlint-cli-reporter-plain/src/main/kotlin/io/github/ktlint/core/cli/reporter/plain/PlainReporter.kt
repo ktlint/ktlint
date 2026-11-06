@@ -47,7 +47,7 @@ public class PlainReporter(
             } else {
                 col
             }
-        out.println("${colorFileName(file)}${":".colored()}${line}${":$column:".colored()} $detail ${"(${ruleId})".colored()}")
+        out.println("${colorFileName(file)}${":".colored()}${line}${":$column:".colored()} $detail ${"($ruleId)".colored()}")
     }
 
     private fun KtlintCliError.updateSummaryCount() {
@@ -141,7 +141,7 @@ public class PlainReporter(
                         "| ${columnValue(
                             counts.lintCannotBeAutocorrected,
                             sumOfLintCannotBeAutocorrected,
-                            CANNOT_BE_AUTOCORRECTED_HEADER
+                            CANNOT_BE_AUTOCORRECTED_HEADER,
                         )} " +
                         "| ${columnValue(counts.notIgnored, sumOfTotal, TOTAL_HEADER)} " +
                         "|",
