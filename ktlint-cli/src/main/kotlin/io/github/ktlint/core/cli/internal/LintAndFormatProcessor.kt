@@ -355,7 +355,7 @@ internal class LintAndFormatProcessor(
         val ktlintCliErrors = mutableListOf<KtlintCliError>()
         try {
             ktLintRuleEngine.lint(code) { lintError ->
-                val ktlintCliError = toLintKtlintCliError(lintError)
+                val ktlintCliError = lintError.toLintKtlintCliError()
                 if (baselineLintErrors.doesNotContain(ktlintCliError) && !ignoreAutocorrectFailures) {
                     ktlintCliErrors.add(ktlintCliError)
                     containsUnfixedLintErrors.set(true)
@@ -404,14 +404,19 @@ internal class LintAndFormatProcessor(
         return ktlintCliErrors.toList()
     }
 
-    private fun toLintKtlintCliError(lintError: LintError): KtlintCliError =
+    private fun LintError.toLintKtlintCliError(): KtlintCliError =
         KtlintCliError(
-            line = lintError.line,
-            col = lintError.col,
-            ruleId = lintError.ruleId.value,
-            detail = lintError.detail,
+            line = line,
+            col = col,
+            ruleId = ruleId.value,
+            detail =
+                if (canBeAutoCorrected) {
+                    "$detail (can be auto-corrected)"
+                } else {
+                    "$detail (cannot be auto-corrected)"
+                },
             status =
-                if (lintError.canBeAutoCorrected) {
+                if (canBeAutoCorrected) {
                     LINT_CAN_BE_AUTOCORRECTED
                 } else {
                     LINT_CAN_NOT_BE_AUTOCORRECTED

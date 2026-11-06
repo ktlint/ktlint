@@ -11,6 +11,7 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.END_OF_LINE_PROPE
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.ec4j.core.model.PropertyType
 import org.jetbrains.kotlin.util.prefixIfNot
+import org.jetbrains.kotlin.utils.addToStdlib.takeIfNotEmpty
 
 private val LOGGER = KotlinLogging.logger {}.initKtLintKLogger()
 
@@ -27,6 +28,8 @@ internal class CodeFormatter(
 
         val (formattedCode, errors) = format(code, autocorrectHandler, maxFormatRunsPerFile)
 
+// This list of errors also contains the unfixed errors that can be autocorrected when maxFormatRunsPerFile is reached. They are however
+// not processed by the autocorrectHandler and as of that will not appear the kltintCliError list of the LintAndFormatProcessor.
         errors
             .sortedWith(lintErrorLineAndColumnComparator { it.first })
             .forEach { (e, corrected) -> callback(e, corrected) }
@@ -84,13 +87,18 @@ internal class CodeFormatter(
             } while (formatRunCount < maxFormatRunsPerFile)
             if (mutated && formatRunCount == maxFormatRunsPerFile && autocorrectHandler !is NoneAutocorrectHandler) {
                 // It is unknown if the last format run introduces new lint violations which can be autocorrected. So run lint once more
-                // so that the user can be informed about this correctly.
-                if (hasLintErrorsAfterFormat()) {
-                    LOGGER.warn {
-                        "Format was not able to resolve all violations which (theoretically) can be autocorrected in file " +
-                            "${code.filePathOrStdin()} in $maxFormatRunsPerFile consecutive runs of format."
+                // so that the user can be informed about this correctly. The lint errors are added to the format errors so that the
+                // report can indicate how many errors will be fixed when ktlint is run again.
+                hasLintErrorsAfterFormat()
+                    .takeIfNotEmpty()
+                    ?.filter { it.canBeAutoCorrected }
+                    ?.let { lintErrors ->
+                        lintErrors.forEach { errors.add(Pair(it, false)) }
+                        LOGGER.warn {
+                            "Format was not able to resolve all violations which (theoretically) can be autocorrected in file " +
+                                "${code.filePathOrStdin()} in $maxFormatRunsPerFile consecutive runs of format."
+                        }
                     }
-                }
             }
             return if (mutated) {
                 Pair(formattedCode(lineSeparator), errors)
@@ -112,16 +120,15 @@ internal class CodeFormatter(
         return errors
     }
 
-    private fun RuleExecutionContext.hasLintErrorsAfterFormat(): Boolean {
-        var hasErrorsWhichCanBeAutocorrected = false
-        executeRules(VisitorProvider(ruleProviders).rules, NoneAutocorrectHandler) { _, _, _, canBeAutoCorrected ->
-            if (canBeAutoCorrected) {
-                hasErrorsWhichCanBeAutocorrected = true
-            }
+    private fun RuleExecutionContext.hasLintErrorsAfterFormat(): Set<LintError> {
+        val errors: MutableSet<LintError> = mutableSetOf()
+        executeRules(VisitorProvider(ruleProviders).rules, NoneAutocorrectHandler) { offset, ruleId, errorMessage, canBeAutoCorrected ->
+            val (line, col) = positionInTextLocator(offset)
+            errors.add(LintError(line, col, ruleId, errorMessage, canBeAutoCorrected))
             // No need to ask for approval in lint mode
             NO_AUTOCORRECT
         }
-        return hasErrorsWhichCanBeAutocorrected
+        return errors
     }
 
     private fun RuleExecutionContext.format(
