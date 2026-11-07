@@ -117,8 +117,9 @@ public class SpacingAroundColonRule : StandardRule("colon-spacing") {
     private fun ASTNode.removeUnexpectedNewlineBetweenCommentAndColon() {
         require(elementType == COLON)
         val beforeAnchor = nextLeaf
+        val anchor = beforeAnchor?.takeIf { it.treeParent == parent }
         previousNonCodeSiblings()
-            .forEach { parent?.addChild(it, beforeAnchor) }
+            .forEach { parent?.addChild(it, anchor) }
         beforeAnchor.takeIf { it.isWhiteSpace }?.remove()
     }
 
