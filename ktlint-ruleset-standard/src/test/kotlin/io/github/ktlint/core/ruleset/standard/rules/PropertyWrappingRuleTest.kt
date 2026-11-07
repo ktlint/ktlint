@@ -4,6 +4,7 @@ import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRuleBuilder
 import io.github.ktlint.core.test.LintViolation
+import io.github.ktlint.core.test.MULTILINE_STRING_QUOTE
 import org.junit.jupiter.api.Test
 
 internal class PropertyWrappingRuleTest {
@@ -121,5 +122,20 @@ internal class PropertyWrappingRuleTest {
             .addAdditionalRuleProvider { ArgumentListWrappingRule() }
             .hasLintViolation(2, 10, "Missing newline before \"Foo.foooooooooooo(1)\"")
             .isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Issue 3458 - Given a property with a multiline raw string value for which the first line fits then do not wrap`() {
+        val code =
+            """
+            // $MAX_LINE_LENGTH_MARKER                              $EOL_CHAR
+            val code = $MULTILINE_STRING_QUOTE
+                import java.util.concurrent.atomic.AtomicBoolean
+                data class O (var isDefault: AtomicBoolean)
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        propertyWrappingRuleAssertThat(code)
+            .setMaxLineLength()
+            .hasNoLintViolations()
     }
 }

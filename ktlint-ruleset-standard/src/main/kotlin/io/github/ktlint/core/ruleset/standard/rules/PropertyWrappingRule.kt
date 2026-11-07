@@ -118,7 +118,10 @@ public class PropertyWrappingRule :
         val stopAtLeaf = astNode.lastChildLeafOrSelf
         return leavesForwardsIncludingSelf
             .takeWhile { !it.isWhiteSpaceWithNewline && it.prevLeaf != stopAtLeaf }
-            .sumOf { it.textLength }
+            .joinToString(separator = "") { it.text }
+            // A leaf which is not a whitespace, like the content of a multiline string template, can contain a newline
+            .substringBefore('\n')
+            .length
     }
 
     private fun ASTNode.requireNewlineBeforeLeaf() {
