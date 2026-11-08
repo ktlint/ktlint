@@ -37,7 +37,6 @@ internal class CodeFormatter(
         with(RuleExecutionContext.createRuleExecutionContext(ktLintRuleEngine, code)) {
             val lineSeparator = code.determineLineSeparator(editorConfig[END_OF_LINE_PROPERTY])
             var codeContent = formattedCode(lineSeparator)
-            val errors = mutableSetOf<Pair<LintError, Boolean>>()
             var formatRunCount = 0
             var mutated = false
             // This is the core format-retry loop (see "Format Loop" in CLAUDE.md); the two early-exit conditions below are
@@ -47,7 +46,6 @@ internal class CodeFormatter(
             do {
                 LOGGER.trace { "Start formatting round ${formatRunCount + 1} on file '${code.fileNameOrStdin()}'" }
                 val newErrors = format(autocorrectHandler, code)
-                errors.addAll(newErrors)
                 if (newErrors.none { it.first.canBeAutoCorrected && it.second }) {
                     // No errors found which can and may be autocorrected
                     break
