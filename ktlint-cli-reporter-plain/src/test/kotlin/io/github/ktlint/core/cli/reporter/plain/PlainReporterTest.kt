@@ -43,6 +43,14 @@ class PlainReporterTest {
             KtlintCliError(1, 1, "rule-1", "description-error-at-position-1:1", FORMAT_IS_AUTOCORRECTED),
         )
 
+        repeat(10) { line ->
+            reporter.onLintError(
+                "file-4.kt",
+                @Suppress("ktlint:standard:argument-list-wrapping")
+                KtlintCliError(line, 1, "some-long-rule", "description-error-at-position-$line:1", FORMAT_IS_AUTOCORRECTED),
+            )
+        }
+
         reporter.afterAll()
 
         assertThat(String(out.toByteArray())).isEqualTo(
@@ -51,9 +59,16 @@ class PlainReporterTest {
             |file-2.kt:1:10: description-error-at-position-1:10 (rule-1)
             |file-2.kt:2:20: description-error-at-position-2:20 (rule-2)
             |
-            |Summary error count (descending) by rule:
-            |  rule-1: 2
-            |  rule-2: 1
+            |Summary of violations (descending on total) by by rule:
+            |  |----------------|---------------|----------------------|-------------------------|-------|
+            |  | Category       | Autocorrected | Can be autocorrected | Cannot be autocorrected | Total |
+            |  |----------------|---------------|----------------------|-------------------------|-------|
+            |  | some-long-rule |       10      |           0          |            0            |   10  |
+            |  | rule-1         |        1      |           2          |            0            |    3  |
+            |  | rule-2         |        1      |           1          |            0            |    2  |
+            |  |----------------|---------------|----------------------|-------------------------|-------|
+            |  | Total          |       12      |           3          |            0            |   15  |
+            |  |----------------|---------------|----------------------|-------------------------|-------|
             |
             """.trimMargin().replace("\n", System.lineSeparator()),
         )
@@ -86,9 +101,15 @@ class PlainReporterTest {
             |file-2.kt:18:51: Not a valid Kotlin file (18:51 unexpected tokens (use ';' to separate expressions on the same line)) (cannot be auto-corrected) () ()
             |file-3.kt:18:51: Something else ()
             |
-            |Summary error count (descending) by rule:
-            |  Not a valid Kotlin file: 2
-            |  Unknown: 1
+            |Summary of violations (descending on total) by by rule:
+            |  |-------------------------|---------------|----------------------|-------------------------|-------|
+            |  | Category                | Autocorrected | Can be autocorrected | Cannot be autocorrected | Total |
+            |  |-------------------------|---------------|----------------------|-------------------------|-------|
+            |  | Not a valid Kotlin file |       0       |           0          |            2            |   2   |
+            |  | Unknown                 |       0       |           1          |            0            |   1   |
+            |  |-------------------------|---------------|----------------------|-------------------------|-------|
+            |  | Total                   |       0       |           1          |            2            |   3   |
+            |  |-------------------------|---------------|----------------------|-------------------------|-------|
             |
             """.trimMargin().replace("\n", System.lineSeparator()),
         )

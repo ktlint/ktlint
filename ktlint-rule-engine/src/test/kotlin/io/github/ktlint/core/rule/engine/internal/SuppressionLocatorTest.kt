@@ -540,7 +540,8 @@ class SuppressionLocatorTest {
         editorConfigOverride: EditorConfigOverride = EMPTY_EDITOR_CONFIG_OVERRIDE,
         ruleProviders: Set<RuleV2Provider> = emptySet(),
         ignoreKtlintSuppressionRule: Boolean = true,
-    ) = ArrayList<LintError>().apply {
+    ): List<LintError> {
+        val lintErrors = mutableListOf<LintError>()
         KtLintRuleEngine(
             ruleProviders =
                 setOf(
@@ -559,9 +560,10 @@ class SuppressionLocatorTest {
             if (ignoreKtlintSuppressionRule && e.ruleId == KTLINT_SUPPRESSION_RULE_ID) {
                 // This class should be able to test code snippets containing the deprecated ktlint-directives
             } else {
-                add(e)
+                lintErrors.add(e)
             }
         }
+        return lintErrors.sortedWith(lintErrorLineAndColumnComparator { it })
     }
 
     private fun lintError(
@@ -569,6 +571,10 @@ class SuppressionLocatorTest {
         column: Int,
         ruleId: String,
     ) = LintError(line, column, RuleId(ruleId), "Line should not contain a foo identifier", false)
+
+    private fun <T> lintErrorLineAndColumnComparator(transformer: (T) -> LintError) =
+        compareBy<T> { transformer(it).line }
+            .then(compareBy { transformer(it).col })
 
     private companion object {
         val NON_STANDARD_RULE_SET_ID = "custom".also { require(it != RuleSetId.STANDARD.value) }
