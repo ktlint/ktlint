@@ -141,4 +141,20 @@ internal class PropertyWrappingRuleTest {
             .setMaxLineLength()
             .hasNoLintViolations()
     }
+
+    @Test
+    fun `Issue 3458 - Given a property with a call expression for which the first line fits on the same line then do not wrap`() {
+        val code =
+            """
+            // $MAX_LINE_LENGTH_MARKER                                        $EOL_CHAR
+            internal val fooBar =
+                setOf(
+                    "foo",
+                    "bar",
+                )
+            """.trimIndent()
+        propertyWrappingRuleAssertThat(code)
+            .setMaxLineLength()
+            .hasNoLintViolations()
+    }
 }

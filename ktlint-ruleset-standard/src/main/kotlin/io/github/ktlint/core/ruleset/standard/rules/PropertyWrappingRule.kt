@@ -129,7 +129,7 @@ public class PropertyWrappingRule :
         //    val foo = """
         //        some long text
         //    """.trimIndent()
-        (elementType == WHITE_SPACE || elementType == REGULAR_STRING_PART) && text == "\n"
+        (elementType == WHITE_SPACE || elementType == REGULAR_STRING_PART) && textContains('\n')
 
     private fun ASTNode.requireNewlineBeforeLeaf() {
         emit(startOffset - 1, """Missing newline before "$text"""") {
