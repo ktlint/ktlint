@@ -1258,4 +1258,46 @@ class SemicolonRuleTest {
                 ).isFormattedAs(formattedCode)
         }
     }
+
+    @Test
+    fun `Given multiple statements on a single line and a space before the semicolon then do not leave a trailing space`() {
+        val code =
+            """
+            fun foo() {
+                val bar1 = 1 ; val bar2 = 2
+            }
+            """.trimIndent()
+        val formattedCode =
+            """
+            fun foo() {
+                val bar1 = 1
+                val bar2 = 2
+            }
+            """.trimIndent()
+        semicolonRuleAssertThat(code)
+            .hasLintViolation(2, 18, "Replace ';' with newline")
+            .isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Given multiple statements on a single line separated by two semicolons then do not join the statements`() {
+        val code =
+            """
+            fun foo() {
+                val bar1 = 1 ; ; val bar2 = 2
+            }
+            """.trimIndent()
+        val formattedCode =
+            """
+            fun foo() {
+                val bar1 = 1
+                val bar2 = 2
+            }
+            """.trimIndent()
+        semicolonRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(2, 18, "Replace ';' with newline"),
+                LintViolation(2, 20, "Replace ';' with newline"),
+            ).isFormattedAs(formattedCode)
+    }
 }
