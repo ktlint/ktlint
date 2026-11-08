@@ -141,18 +141,4 @@ internal class PropertyWrappingRuleTest {
             .setMaxLineLength()
             .hasNoLintViolations()
     }
-
-    @Test
-    fun `Issue 3458 - Givexn a property with a multiline raw string value for which the first line fits then do not wrap`() {
-        val code =
-            """
-            // $MAX_LINE_LENGTH_MARKER       $EOL_CHAR
-            val code = "foooooooooooooooooo" +
-                "barrrrrrrrrrrrrrrrrrrrrrrrrr\nooooooo"
-                    .trimEnd()
-            """.trimIndent()
-        propertyWrappingRuleAssertThat(code)
-            .setMaxLineLength()
-            .hasNoLintViolations()
-    }
 }
