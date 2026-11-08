@@ -125,14 +125,31 @@ internal class PropertyWrappingRuleTest {
     }
 
     @Test
-    fun `Issue 3458 - Given a property with a multiline raw string value for which the first line fits then do not wrap`() {
+    fun `Issue 3458 - Given a property with a multiline raw string value for which the first line fits on the same line then do not wrap`() {
+        val code =
+            // Before fixing issue 3456 the entire raw string literal was considered to be on the same line as the property declaration as
+            // the newline after the opening quote was ignored, and the total length of the property declaration exceeded the max line
+            // length.
+            """
+            // $MAX_LINE_LENGTH_MARKER                             $EOL_CHAR
+            val code = $MULTILINE_STRING_QUOTE
+                Fooooo
+                Barrrr
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        propertyWrappingRuleAssertThat(code)
+            .setMaxLineLength()
+            .hasNoLintViolations()
+    }
+
+    @Test
+    fun `Issue 3458 - Givexn a property with a multiline raw string value for which the first line fits then do not wrap`() {
         val code =
             """
-            // $MAX_LINE_LENGTH_MARKER                              $EOL_CHAR
-            val code = $MULTILINE_STRING_QUOTE
-                import java.util.concurrent.atomic.AtomicBoolean
-                data class O (var isDefault: AtomicBoolean)
-                $MULTILINE_STRING_QUOTE.trimIndent()
+            // $MAX_LINE_LENGTH_MARKER       $EOL_CHAR
+            val code = "foooooooooooooooooo" +
+                "barrrrrrrrrrrrrrrrrrrrrrrrrr\nooooooo"
+                    .trimEnd()
             """.trimIndent()
         propertyWrappingRuleAssertThat(code)
             .setMaxLineLength()
