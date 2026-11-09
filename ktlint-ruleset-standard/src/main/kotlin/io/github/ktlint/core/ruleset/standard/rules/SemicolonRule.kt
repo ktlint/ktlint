@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATED_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BLOCK
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BODY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CLASS
@@ -9,8 +10,10 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.EOL_COMMENT
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FILE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FOR
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUN
+import io.github.ktlint.core.rule.engine.core.api.ElementType.FUNCTION_LITERAL
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IF
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IMPORT_DIRECTIVE
+import io.github.ktlint.core.rule.engine.core.api.ElementType.LAMBDA_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.LBRACE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.OBJECT_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.PROPERTY
@@ -30,12 +33,14 @@ import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithoutNewline
 import io.github.ktlint.core.rule.engine.core.api.nextCodeLeaf
 import io.github.ktlint.core.rule.engine.core.api.nextCodeSibling
 import io.github.ktlint.core.rule.engine.core.api.nextLeaf
+import io.github.ktlint.core.rule.engine.core.api.nextSibling
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevCodeLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevCodeSibling
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.remove
+import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
@@ -53,8 +58,12 @@ public class SemicolonRule : StandardRule(id = "semicolon") {
             if (isUnnecessarySemicolon()) {
                 // Remove semicolon and whitespace
                 emit(this.startOffset, "Unnecessary semicolon") {
+                    // Remove spaces before the semicolon as it would otherwise become a trailing whitespace
                     val prevLeaf = prevLeaf
                     val nextLeaf = nextLeaf
+                    prevLeaf
+                        ?.takeIf { it.isWhiteSpaceWithoutNewline }
+                        ?.remove()
                     if (prevLeaf.isNonNullWhitespace() && nextLeaf.isNonNullWhitespace()) {
                         if (prevLeaf.isWhiteSpaceWithNewline && nextLeaf.isWhiteSpaceWithoutNewline) {
                             // Keep the newline before the semicolon
@@ -63,6 +72,9 @@ public class SemicolonRule : StandardRule(id = "semicolon") {
                             prevLeaf!!.remove()
                         }
                     }
+                    nextLeaf
+                        ?.takeIf { it.isWhiteSpaceWithNewline && it.text.startsWith(" ") }
+                        ?.let { it.replaceTextWith("\n" + it.text.substringAfterLast("\n")) }
                     remove()
                 }
             } else if (nextLeaf.isWhiteSpaceWithoutNewline || !nextLeaf.isWhiteSpace) {
@@ -104,11 +116,11 @@ public class SemicolonRule : StandardRule(id = "semicolon") {
                 false
             }
 
-            isLastLeafOrFollowedByRbrace() -> {
-                true
+            isEnumClassWithoutValues() -> {
+                false
             }
 
-            isEnumClassWithoutValues() -> {
+            isFollowedByFunctionLiteral() -> {
                 false
             }
 
@@ -140,7 +152,11 @@ public class SemicolonRule : StandardRule(id = "semicolon") {
             }
 
             else -> {
-                parent?.elementType == BLOCK && nextCodeLeaf?.elementType != LBRACE
+                parent?.elementType == BLOCK &&
+                    (
+                        nextCodeLeaf?.elementType != LBRACE ||
+                            nextLeaf?.isWhiteSpaceWithNewline == true
+                    )
             }
         }
     }
@@ -160,9 +176,24 @@ public class SemicolonRule : StandardRule(id = "semicolon") {
             ?.hasModifier(ENUM_KEYWORD)
             ?: false
 
+    private fun ASTNode.isFollowedByFunctionLiteral(): Boolean {
+        require(elementType == SEMICOLON)
+        return if (nextCodeSibling?.elementType == ANNOTATED_EXPRESSION) {
+            null !=
+                nextCodeSibling
+                    ?.findChildByType(LAMBDA_EXPRESSION)
+                    ?.findChildByType(FUNCTION_LITERAL)
+                    ?.findChildByType(LBRACE)
+        } else {
+            nextCodeLeaf
+                ?.let { it.elementType == LBRACE && it.parent?.elementType == FUNCTION_LITERAL }
+                ?: false
+        }
+    }
+
     private fun ASTNode.isLastLeafOrFollowedByRbrace(): Boolean {
         require(elementType == SEMICOLON)
-        return nextLeaf == null || nextLeaf?.nextCodeLeaf?.elementType == RBRACE
+        return nextLeaf == null || nextCodeLeaf?.elementType == RBRACE
     }
 
     private fun ASTNode.isUnnecessarySemicolon(): Boolean {
@@ -171,7 +202,8 @@ public class SemicolonRule : StandardRule(id = "semicolon") {
             (nextLeaf.isWhiteSpaceWithoutNewline && nextLeaf?.nextLeaf?.elementType == EOL_COMMENT) ||
             prevCodeLeaf == null ||
             prevCodeSibling?.elementType == LBRACE ||
-            prevSibling.isWhiteSpaceWithNewline
+            prevSibling.isWhiteSpaceWithNewline ||
+            nextSibling.isWhiteSpaceWithNewline
     }
 
     private fun ASTNode?.isNonNullWhitespace(): Boolean = this != null && isWhiteSpace
