@@ -2,6 +2,7 @@ package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
+import io.github.ktlint.core.test.SPACE
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -1328,6 +1329,35 @@ class SemicolonRuleTest {
                 LintViolation(5, 19, "Replace ';' with newline"),
                 LintViolation(6, 18, "Replace ';' with newline"),
                 LintViolation(6, 20, "Replace ';' with newline"),
+            ).isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Given single statements on a single line and a space before the semicolon then do not leave a trailing space`() {
+        val code =
+            """
+            fun foo() {
+                val bar1 = 1 ;
+                val bar2 = 2;
+                val bar3 = 3;$SPACE
+                val bar4 = 4 ;$SPACE
+            }
+            """.trimIndent()
+        val formattedCode =
+            """
+            fun foo() {
+                val bar1 = 1
+                val bar2 = 2
+                val bar3 = 3
+                val bar4 = 4
+            }
+            """.trimIndent()
+        semicolonRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(2, 18, "Unnecessary semicolon"),
+                LintViolation(3, 17, "Unnecessary semicolon"),
+                LintViolation(4, 17, "Unnecessary semicolon"),
+                LintViolation(5, 18, "Unnecessary semicolon"),
             ).isFormattedAs(formattedCode)
     }
 }
