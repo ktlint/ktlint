@@ -53,14 +53,25 @@ public class SemicolonRule : StandardRule(id = "semicolon") {
             if (isUnnecessarySemicolon()) {
                 // Remove semicolon and whitespace
                 emit(this.startOffset, "Unnecessary semicolon") {
+                    val prevLeaf = prevLeaf
+                    val nextLeaf = nextLeaf
                     if (prevLeaf.isNonNullWhitespace() && nextLeaf.isNonNullWhitespace()) {
-                        prevLeaf!!.remove()
+                        if (prevLeaf.isWhiteSpaceWithNewline && nextLeaf.isWhiteSpaceWithoutNewline) {
+                            // Keep the newline before the semicolon
+                            nextLeaf!!.remove()
+                        } else {
+                            prevLeaf!!.remove()
+                        }
                     }
                     remove()
                 }
             } else if (nextLeaf.isWhiteSpaceWithoutNewline || !nextLeaf.isWhiteSpace) {
                 // Remove semicolon and add a newline
                 emit(this.startOffset, """Replace ';' with newline""") {
+                    // Remove the whitespace before the semicolon as it would otherwise become a trailing whitespace
+                    prevLeaf
+                        ?.takeIf { it.isWhiteSpaceWithoutNewline }
+                        ?.remove()
                     upsertWhitespaceAfterMe(prevCodeLeaf!!.indent)
                     remove()
                 }

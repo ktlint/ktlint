@@ -1258,4 +1258,76 @@ class SemicolonRuleTest {
                 ).isFormattedAs(formattedCode)
         }
     }
+
+    @Test
+    fun `Given multiple statements on a single line and a space before the semicolon then wrap`() {
+        val code =
+            """
+            fun foo() {
+                val bar1 = 1; val bar2 = 2
+                val bar3 = 3 ;val bar4 = 4
+                val bar5 = 5; val bar6 = 6
+                val bar7 = 7 ; val bar8 = 8
+            }
+            """.trimIndent()
+        val formattedCode =
+            """
+            fun foo() {
+                val bar1 = 1
+                val bar2 = 2
+                val bar3 = 3
+                val bar4 = 4
+                val bar5 = 5
+                val bar6 = 6
+                val bar7 = 7
+                val bar8 = 8
+            }
+            """.trimIndent()
+        semicolonRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(2, 17, "Replace ';' with newline"),
+                LintViolation(3, 18, "Replace ';' with newline"),
+                LintViolation(4, 17, "Replace ';' with newline"),
+                LintViolation(5, 18, "Replace ';' with newline"),
+            ).isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Given multiple statements on a single line separated by two semicolons without statement in between then wrap the statements`() {
+        val code =
+            """
+            fun foo() {
+                // Note: ";;" without whitespace in between results in Kotlin compilation error
+                val bar1 = 1; ;val bar2 = 2
+                val bar3 = 3 ; ;val bar4 = 4
+                val bar5 = 5; ; val bar6 = 6
+                val bar7 = 7 ; ; val bar8 = 8
+            }
+            """.trimIndent()
+        val formattedCode =
+            """
+            fun foo() {
+                // Note: ";;" without whitespace in between results in Kotlin compilation error
+                val bar1 = 1
+                val bar2 = 2
+                val bar3 = 3
+                val bar4 = 4
+                val bar5 = 5
+                val bar6 = 6
+                val bar7 = 7
+                val bar8 = 8
+            }
+            """.trimIndent()
+        semicolonRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(3, 17, "Replace ';' with newline"),
+                LintViolation(3, 19, "Replace ';' with newline"),
+                LintViolation(4, 18, "Replace ';' with newline"),
+                LintViolation(4, 20, "Replace ';' with newline"),
+                LintViolation(5, 17, "Replace ';' with newline"),
+                LintViolation(5, 19, "Replace ';' with newline"),
+                LintViolation(6, 18, "Replace ';' with newline"),
+                LintViolation(6, 20, "Replace ';' with newline"),
+            ).isFormattedAs(formattedCode)
+    }
 }
