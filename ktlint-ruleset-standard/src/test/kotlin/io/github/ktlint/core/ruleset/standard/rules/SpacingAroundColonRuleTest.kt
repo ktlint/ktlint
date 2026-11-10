@@ -483,5 +483,26 @@ class SpacingAroundColonRuleTest {
                     LintViolation(11, 15, "Unexpected newline before \":\""),
                 ).isFormattedAs(formattedCode)
         }
+
+        @Test
+        fun `Class with a comment and colon on next line`() {
+            val code =
+                """
+                class Foo
+                // comment
+                :Bar
+                """.trimIndent()
+            val formattedCode =
+                """
+                class Foo : Bar
+                // comment
+
+                """.trimIndent()
+            spacingAroundColonRuleAssertThat(code)
+                .hasLintViolations(
+                    LintViolation(2, 11, "Unexpected newline before \":\""),
+                    LintViolation(3, 2, "Missing spacing after \":\""),
+                ).isFormattedAs(formattedCode)
+        }
     }
 }
