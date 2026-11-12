@@ -5,7 +5,7 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC_TAG
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.STABLE
-import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
+import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithoutNewline
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 public class NoMultipleSpacesRule : StandardRule("no-multi-spaces") {
     override fun beforeVisitChildNodes(node: ASTNode) {
         node
-            .takeIf { node.isWhiteSpace }
+            .takeIf { node.isWhiteSpaceWithoutNewline }
             .takeUnless { node.isPossibleAlignmentOfKdocTag() }
             ?.let {
                 val beforeIndentation = node.removeIndentation()

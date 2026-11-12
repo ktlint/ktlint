@@ -33,7 +33,6 @@ import io.github.ktlint.core.rule.engine.core.api.isPartOfString
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithoutNewline
-import io.github.ktlint.core.rule.engine.core.api.leavesBackwardsIncludingSelf
 import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.nextSibling
 import io.github.ktlint.core.rule.engine.core.api.parent
@@ -44,6 +43,7 @@ import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
+import org.jetbrains.kotlin.psi.psiUtil.leaves
 
 @SinceKtlint("0.1", STABLE)
 public class SpacingAroundCurlyRule :
@@ -126,23 +126,22 @@ public class SpacingAroundCurlyRule :
             ?.takeIf { parent?.elementType == CLASS_BODY || parent?.elementType == BLOCK }
             ?.let { whitespace ->
                 emit(startOffset, "Unexpected newline before \"$text\"") {
-                    if (whitespace.isPrecededByEolComment()) {
+                    if (whitespace.isPrecededByComment()) {
                         // All consecutive whitespaces and comments preceding the curly have to be moved after the curly brace
                         whitespace
-                            .leavesBackwardsIncludingSelf
+                            .leaves(forward = false)
                             .takeWhile { !it.isCode }
                             .toList()
-                            .reversed()
-                            .takeIf { it.isNotEmpty() }
-                            ?.let { leavesToMoveAfterCurly ->
-                                parent?.addChildren(
-                                    leavesToMoveAfterCurly.first(),
-                                    leavesToMoveAfterCurly.last(),
-                                    nextSibling,
-                                )
-                            }
+                            .forEach { parent?.addChild(it, nextSibling) }
+                        // Fix white space before the CLASS_BODY / BLOCK
+                        parent?.upsertWhitespaceBeforeMe(" ")
+                        // Fix whitespace after LBRACE only when missing
+                        if (parent?.findChildByType(LBRACE)?.nextLeaf?.isWhiteSpace == false) {
+                            parent?.findChildByType(LBRACE)?.upsertWhitespaceAfterMe(" ")
+                        }
+                    } else {
+                        whitespace.replaceTextWith(" ")
                     }
-                    whitespace.replaceTextWith(" ")
                 }
             }
         return Pair(spacingBefore, spacingAfter)
@@ -161,7 +160,7 @@ public class SpacingAroundCurlyRule :
         return Pair(spacingBefore, spacingAfter)
     }
 
-    private fun ASTNode.isPrecededByEolComment() =
+    private fun ASTNode.isPrecededByComment() =
         prevLeaf
             ?.isPartOfComment
             ?: false

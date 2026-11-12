@@ -1013,15 +1013,15 @@ class TrailingCommaOnDeclarationSiteRuleTest {
                 }
             }
             """.trimIndent()
-        val noSemicolonsRuleAssertThat =
-            assertThatRuleBuilder { NoSemicolonsRule() }
+        val semicolonRuleAssertThat =
+            assertThatRuleBuilder { SemicolonRule() }
                 // Keep formatted code readable
                 .addAdditionalRuleProvider { IndentationRule() }
                 .addAdditionalRuleProvider { TrailingCommaOnDeclarationSiteRule() }
                 .withEditorConfigOverride(TRAILING_COMMA_ON_DECLARATION_SITE_PROPERTY to true)
                 .assertThat()
 
-        noSemicolonsRuleAssertThat(code)
+        semicolonRuleAssertThat(code)
             .hasNoLintViolationsForRuleId(NO_SEMICOLONS_RULE_ID)
             .isFormattedAs(formattedCode)
     }

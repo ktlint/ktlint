@@ -79,7 +79,7 @@ class NoMultipleSpacesRuleTest {
     }
 
     @Test
-    fun `Given a line having one or more trailing spaces followed by an indented line should not remove the newline and indentation`() {
+    fun `Given a line having one or more trailing spaces then ignore the trailing spaces as they are handled by the no-trailing-spaces rule`() {
         val code =
             """
             class Foo1 {$SPACE
@@ -89,17 +89,6 @@ class NoMultipleSpacesRuleTest {
                 fun foo2() = 42
             }
             """.trimIndent()
-        val formattedCode =
-            """
-            class Foo1 {$SPACE
-                fun foo1() = 42
-            }
-            class Foo2 {$SPACE
-                fun foo2() = 42
-            }
-            """.trimIndent()
-        noMultipleSpacesRuleAssertThat(code)
-            .hasLintViolation(4, 14, "Unnecessary long whitespace")
-            .isFormattedAs(formattedCode)
+        noMultipleSpacesRuleAssertThat(code).hasNoLintViolations()
     }
 }

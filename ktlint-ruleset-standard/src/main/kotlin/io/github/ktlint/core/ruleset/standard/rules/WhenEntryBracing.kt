@@ -85,7 +85,7 @@ public class WhenEntryBracing :
         return findChildByType(ARROW)
             ?.siblings()
             .orEmpty()
-            .any { it.isWhiteSpaceWithNewline }
+            .any { it.textContains('\n') }
     }
 
     private fun ASTNode.addBracesToWhenEntry() {

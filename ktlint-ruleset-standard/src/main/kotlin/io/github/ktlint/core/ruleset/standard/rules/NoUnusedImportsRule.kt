@@ -50,6 +50,7 @@ public class NoUnusedImportsRule :
         )
     private val parentExpressions = mutableSetOf<String>()
     private val imports = mutableMapOf<ImportPath, ASTNode>()
+    private val duplicateImports = mutableListOf<ASTNode>()
     private var packageName = ""
     private var foundByKeyword = false
 
@@ -75,10 +76,7 @@ public class NoUnusedImportsRule :
             IMPORT_DIRECTIVE -> {
                 val importPath = (psi as KtImportDirective).importPath!!
                 if (imports.containsKey(importPath)) {
-                    // Emit directly when same import occurs more than once
-                    emit(startOffset, "Unused import") {
-                        this.psi.safeAs<KtImportDirective>()?.delete()
-                    }
+                    duplicateImports.add(this)
                 } else {
                     imports[importPath] = this
                 }
@@ -148,6 +146,10 @@ public class NoUnusedImportsRule :
 
         imports.forEach { (_, node) ->
             node.visitImport()
+        }
+
+        duplicateImports.forEach {
+            emit(it.startOffset, "Unused import") { it.removeImportDirective() }
         }
     }
 
@@ -231,7 +233,7 @@ public class NoUnusedImportsRule :
             }
 
             else -> {
-                nextLeaf
+                nextSibling
                     ?.takeIf { it.isWhiteSpaceWithNewline }
                     ?.remove()
             }

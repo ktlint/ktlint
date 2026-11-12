@@ -195,6 +195,30 @@ internal class WrappingRuleTest {
     }
 
     @Test
+    fun `Given a multiline raw string literal with the closing quotes directly after the text, and the string-template-indent rule enabled`() {
+        val code =
+            """
+            val foo =
+                $MULTILINE_STRING_QUOTE
+                text
+                text$MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val formattedCode =
+            """
+            val foo =
+                $MULTILINE_STRING_QUOTE
+                text
+                text
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        wrappingRuleAssertThat(code)
+            .addAdditionalRuleProvider { StringTemplateIndentRule() }
+            .hasLintViolations(
+                LintViolation(4, 9, "Missing newline before \"\"\""),
+            ).isFormattedAs(formattedCode)
+    }
+
+    @Test
     fun `Given some parameter lists`() {
         val code =
             """
@@ -1996,6 +2020,27 @@ internal class WrappingRuleTest {
                 LintViolation(15, 5, "No whitespace was expected before ','"),
                 LintViolation(15, 7, "A newline was expected before 'T : Comparable<T>'"),
             ).isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Given a class with a multiline WHERE and two type constraints on the same line then wrap the second type constraint`() {
+        val code =
+            """
+            class Foo<A, B, C>
+                where A : Number, B : Runnable,
+                      C : Comparable<C>
+            """.trimIndent()
+        val formattedCode =
+            """
+            class Foo<A, B, C>
+                where A : Number,
+                      B : Runnable,
+                      C : Comparable<C>
+            """.trimIndent()
+        wrappingRuleAssertThat(code)
+            .addAdditionalRuleProvider { IndentationRule() }
+            .hasLintViolation(2, 23, "A newline was expected before 'B : Runnable'")
+            .isFormattedAs(formattedCode)
     }
 
     @Test

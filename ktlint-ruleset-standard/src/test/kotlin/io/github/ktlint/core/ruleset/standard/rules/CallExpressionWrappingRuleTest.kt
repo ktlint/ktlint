@@ -99,8 +99,7 @@ class CallExpressionWrappingRuleTest {
             """
             // $MAX_LINE_LENGTH_MARKER   $EOL_CHAR
             val foo = barrrr() {
-                message ->
-                "some message"
+                message -> "some message"
             }
             """.trimIndent()
         callExpressionWrappingRuleAssertThat(code)

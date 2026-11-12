@@ -12,12 +12,12 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.CodeStyleValue
 import io.github.ktlint.core.rule.engine.core.api.propertyTypes
 import io.github.ktlint.core.rule.engine.core.util.safeAs
 import io.github.ktlint.core.rule.engine.internal.CodeFormatter
+import io.github.ktlint.core.rule.engine.internal.CustomAutocorrectHandler
 import io.github.ktlint.core.rule.engine.internal.EditorConfigFinder
 import io.github.ktlint.core.rule.engine.internal.EditorConfigGenerator
 import io.github.ktlint.core.rule.engine.internal.EditorConfigLoader
 import io.github.ktlint.core.rule.engine.internal.EditorConfigLoaderEc4j
-import io.github.ktlint.core.rule.engine.internal.LintErrorAutocorrectHandler
-import io.github.ktlint.core.rule.engine.internal.NoneAutocorrectHandler
+import io.github.ktlint.core.rule.engine.internal.NoAutocorrectHandler
 import io.github.ktlint.core.rule.engine.internal.RuleExecutionContext.Companion.createRuleExecutionContext
 import io.github.ktlint.core.rule.engine.internal.ThreadSafeEditorConfigCache.Companion.THREAD_SAFE_EDITOR_CONFIG_CACHE
 import org.ec4j.core.Resource
@@ -83,24 +83,24 @@ public class KtLintRuleEngine(
     ) {
         codeFormatter.format(
             code = code,
-            autocorrectHandler = NoneAutocorrectHandler,
-            callback = { lintError, _ -> callback(lintError) },
+            autocorrectHandler = NoAutocorrectHandler(callback),
             maxFormatRunsPerFile = 1,
         )
     }
 
     /**
-     * Formats style violations in [code]. Whenever a [LintError] is found the [callback] is invoked. If the [LintError] can be
+     * Formats style violations in [code]. Whenever a [LintError] is found the [onAutocorrectDecision] is invoked. If the [LintError] can be
      * autocorrected, the API Consumer determines whether that [LintError] is to autocorrected, or not.
      *
-     * When autocorrecting a [LintError] it is possible that other violations are introduced. By default, format is run up until
-     * [MAX_FORMAT_RUNS_PER_FILE] times. It is still possible that violations remain after the last run. This is a trait-off between solving
-     * as many errors as possible versus bad performance in case an endless loop of violations exists. In case the [callback] is implemented
-     * to let the user of the API Consumer to decide which [LintError] it to be autocorrected, or not, it might be better to disable this
-     * behavior by disabling [rerunAfterAutocorrect].
+     * When autocorrecting a [LintError] it is possible that other violations are introduced. When [rerunAfterAutocorrect] is enabled,
+     * format is run up until [MAX_FORMAT_RUNS_PER_FILE] times. It is still possible that violations remain after the last run. This is a
+     * trait-off between solving as many errors as possible versus bad performance in case an endless loop of violations exists. In case the
+     * [onAutocorrectDecision] is implemented to let the user of the API Consumer to decide which [LintError] it to be autocorrected, or
+     * not, it might be better to disable this behavior by disabling [rerunAfterAutocorrect]. For [LintError]'s found after the maximum
+     * number of format rounds is reached, and that can be autocorrected, the [onLintAfterMaxFormatRuns] is invoked.
      *
-     * [callback] is invoked once for each [LintError] found during any runs. As of that the [callback] might be invoked multiple times for
-     * the same [LintError].
+     * [onAutocorrectDecision] is invoked once for each [LintError] found during any format round. As of that the [onAutocorrectDecision]
+     * might be invoked multiple times for the same [LintError].
      *
      * @throws KtLintParseException if text is not a valid Kotlin code
      * @throws KtLintRuleException in case of internal failure caused by a bug in rule implementation
@@ -108,18 +108,21 @@ public class KtLintRuleEngine(
     public fun format(
         code: Code,
         rerunAfterAutocorrect: Boolean = true,
-        callback: (LintError) -> AutocorrectDecision,
+        onLintAfterMaxFormatRuns: (LintError) -> Unit = { _ -> },
+        onAutocorrectDecision: (LintError) -> AutocorrectDecision,
     ): String =
-        codeFormatter.format(
-            code = code,
-            autocorrectHandler = LintErrorAutocorrectHandler(callback),
-            maxFormatRunsPerFile =
-                if (rerunAfterAutocorrect) {
-                    MAX_FORMAT_RUNS_PER_FILE
-                } else {
-                    1
-                },
-        )
+        codeFormatter
+            .format(
+                code = code,
+                autocorrectHandler = CustomAutocorrectHandler(onAutocorrectDecision),
+                onLintAfterMaxFormatRuns = onLintAfterMaxFormatRuns,
+                maxFormatRunsPerFile =
+                    if (rerunAfterAutocorrect) {
+                        MAX_FORMAT_RUNS_PER_FILE
+                    } else {
+                        1
+                    },
+            )
 
     /**
      * Generates Kotlin `.editorconfig` file section content based on a path to a file or directory. Given that path, all '.editorconfig'

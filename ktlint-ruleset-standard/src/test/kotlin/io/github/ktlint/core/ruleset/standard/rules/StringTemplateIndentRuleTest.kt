@@ -2,7 +2,7 @@ package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
-import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRuleBuilder
+import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
 import io.github.ktlint.core.test.MULTILINE_STRING_QUOTE
 import io.github.ktlint.core.test.TAB
@@ -11,9 +11,7 @@ import org.junit.jupiter.api.Test
 
 @Suppress("RemoveCurlyBracesFromTemplate")
 class StringTemplateIndentRuleTest {
-    private val stringTemplateIndentRuleAssertThat =
-        assertThatRuleBuilder { StringTemplateIndentRule() }
-            .assertThat()
+    private val stringTemplateIndentRuleAssertThat = assertThatRule { StringTemplateIndentRule() }
 
     @Test
     fun `Do not move a multiline string literal after return statement to a new line as that results in a compilation error`() {
@@ -210,7 +208,7 @@ class StringTemplateIndentRuleTest {
                 LintViolation(2, 13, "Expected newline before multiline string template"),
                 LintViolation(3, 13, "Unexpected indent of raw string literal"),
                 LintViolation(4, 13, "Unexpected indent of raw string literal"),
-                LintViolation(4, 29, "Expected newline after multiline string template"),
+                LintViolation(4, 29, "Expected newline after 'trimIndent' in a multiline string template"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -244,7 +242,7 @@ class StringTemplateIndentRuleTest {
                 LintViolation(6, 1, "Unexpected indent of multiline string closing quotes"),
             ).hasLintViolations(
                 LintViolation(2, 13, "Expected newline before multiline string template"),
-                LintViolation(6, 17, "Expected newline after multiline string template"),
+                LintViolation(6, 17, "Expected newline after 'trimIndent' in a multiline string template"),
             ).isFormattedAs(formattedCode)
     }
 

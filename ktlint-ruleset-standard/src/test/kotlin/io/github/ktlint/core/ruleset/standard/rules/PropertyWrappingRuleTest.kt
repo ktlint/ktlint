@@ -4,6 +4,7 @@ import io.github.ktlint.core.test.KtLintAssertThat.Companion.EOL_CHAR
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.MAX_LINE_LENGTH_MARKER
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRuleBuilder
 import io.github.ktlint.core.test.LintViolation
+import io.github.ktlint.core.test.MULTILINE_STRING_QUOTE
 import org.junit.jupiter.api.Test
 
 internal class PropertyWrappingRuleTest {
@@ -101,5 +102,59 @@ internal class PropertyWrappingRuleTest {
             .setMaxLineLength()
             .hasLintViolation(2, 50, "Missing newline before \"TypeWithALongName(123)\"")
             .isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Should not wrap the argument list when wrapping the DOT_QUALIFIED_EXPRESSION before the argument list prevents exceeding the max line length`() {
+        val code =
+            """
+            // $MAX_LINE_LENGTH_MARKER  $EOL_CHAR
+            val foo = Foo.foooooooooooo(1)
+            """.trimIndent()
+        val formattedCode =
+            """
+            // $MAX_LINE_LENGTH_MARKER  $EOL_CHAR
+            val foo =
+                Foo.foooooooooooo(1)
+            """.trimIndent()
+        propertyWrappingRuleAssertThat(code)
+            .setMaxLineLength()
+            .addAdditionalRuleProvider { ArgumentListWrappingRule() }
+            .hasLintViolation(2, 10, "Missing newline before \"Foo.foooooooooooo(1)\"")
+            .isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Issue 3458 - Given a property with a multiline raw string value for which the first line fits on the same line then do not wrap`() {
+        val code =
+            // Before fixing issue 3456 the entire raw string literal was considered to be on the same line as the property declaration as
+            // the newline after the opening quote was ignored, and the total length of the property declaration exceeded the max line
+            // length.
+            """
+            // $MAX_LINE_LENGTH_MARKER                             $EOL_CHAR
+            val code = $MULTILINE_STRING_QUOTE
+                Fooooo
+                Barrrr
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        propertyWrappingRuleAssertThat(code)
+            .setMaxLineLength()
+            .hasNoLintViolations()
+    }
+
+    @Test
+    fun `Issue 3458 - Given a property with a call expression for which the first line fits on the same line then do not wrap`() {
+        val code =
+            """
+            // $MAX_LINE_LENGTH_MARKER                                        $EOL_CHAR
+            internal val fooBar =
+                setOf(
+                    "foo",
+                    "bar",
+                )
+            """.trimIndent()
+        propertyWrappingRuleAssertThat(code)
+            .setMaxLineLength()
+            .hasNoLintViolations()
     }
 }

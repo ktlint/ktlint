@@ -3,10 +3,13 @@ package io.github.ktlint.core.ruleset.standard.rules
 import io.github.ktlint.core.logger.api.initKtLintKLogger
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALL_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.COLON
+import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.EQ
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IDENTIFIER
 import io.github.ktlint.core.rule.engine.core.api.ElementType.PROPERTY
+import io.github.ktlint.core.rule.engine.core.api.ElementType.REGULAR_STRING_PART
 import io.github.ktlint.core.rule.engine.core.api.ElementType.TYPE_REFERENCE
+import io.github.ktlint.core.rule.engine.core.api.ElementType.WHITE_SPACE
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig.Companion.DEFAULT_INDENT_CONFIG
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -82,6 +85,7 @@ public class PropertyWrappingRule :
         fixChildIfDoesNotFit(COLON, fromNode) { it.requireNewlineAfterLeaf() } ||
             fixChildIfDoesNotFit(TYPE_REFERENCE, fromNode) { it.requireNewlineBeforeLeaf() } ||
             fixChildIfDoesNotFit(EQ, fromNode) { it.requireNewlineAfterLeaf() } ||
+            fixChildIfDoesNotFit(DOT_QUALIFIED_EXPRESSION, fromNode) { it.requireNewlineBeforeLeaf() } ||
             fixChildIfDoesNotFit(CALL_EXPRESSION, fromNode) { it.requireNewlineBeforeLeaf() }
     }
 
@@ -115,9 +119,17 @@ public class PropertyWrappingRule :
     private fun ASTNode.sumOfTextLengthUntil(astNode: ASTNode): Int {
         val stopAtLeaf = astNode.lastChildLeafOrSelf
         return leavesForwardsIncludingSelf
-            .takeWhile { !it.isWhiteSpaceWithNewline && it.prevLeaf != stopAtLeaf }
+            .takeWhile { !it.isNewline() && it.prevLeaf != stopAtLeaf }
             .sumOf { it.textLength }
     }
+
+    private fun ASTNode.isNewline() =
+        // Handle newline in raw string literal the same as normal whitespace element. In this way the newline after the opening quotes in
+        // the raw string literal is seen as the last leaf on the same line as the property declaration.
+        //    val foo = """
+        //        some long text
+        //    """.trimIndent()
+        (elementType == WHITE_SPACE || elementType == REGULAR_STRING_PART) && textContains('\n')
 
     private fun ASTNode.requireNewlineBeforeLeaf() {
         emit(startOffset - 1, """Missing newline before "$text"""") {

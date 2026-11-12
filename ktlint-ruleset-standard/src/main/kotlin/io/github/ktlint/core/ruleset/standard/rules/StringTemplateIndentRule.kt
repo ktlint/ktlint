@@ -11,11 +11,14 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.FUN
 import io.github.ktlint.core.rule.engine.core.api.ElementType.LITERAL_STRING_TEMPLATE_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.OPEN_QUOTE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.OPERATION_REFERENCE
+import io.github.ktlint.core.rule.engine.core.api.ElementType.PROPERTY
+import io.github.ktlint.core.rule.engine.core.api.ElementType.REFERENCE_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.REGULAR_STRING_PART
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RETURN_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RPAR
 import io.github.ktlint.core.rule.engine.core.api.ElementType.STRING_TEMPLATE
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
+import io.github.ktlint.core.rule.engine.core.api.KtlintKotlinCompiler
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import io.github.ktlint.core.rule.engine.core.api.SinceKtlint
@@ -34,6 +37,7 @@ import io.github.ktlint.core.rule.engine.core.api.nextSibling
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevCodeLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
+import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
@@ -82,54 +86,93 @@ public class StringTemplateIndentRule :
     }
 
     override fun beforeVisitChildNodes(node: ASTNode) {
+        if (node.isMultilineStringTemplateFollowedByTrimIndent()) {
+            val stringTemplateContainsMixedIndentationCharacters = node.isPartOfStringTemplateContainingMixedIndentationCharacters()
+            val newIndent = node.stringTemplateIndent()
+            when {
+                node.elementType == OPEN_QUOTE -> {
+                    node.visitOpeningQuote(stringTemplateContainsMixedIndentationCharacters, newIndent)
+                }
+
+                node.nextSibling?.elementType == CLOSING_QUOTE -> {
+                    node.checkAndFixNewLineBeforeClosingQuotes(stringTemplateContainsMixedIndentationCharacters)
+                }
+
+                else -> {
+                    node
+                        .parent
+                        ?.let { stringTemplate ->
+                            require(stringTemplate.elementType == STRING_TEMPLATE)
+                            if (stringTemplateContainsMixedIndentationCharacters) {
+                                // It can not be determined with certainty how mixed indentation characters should be interpreted. The trimIndent
+                                // function handles tabs and spaces equally (one tabs equals one space) while the user might expect that the tab
+                                // size in the indentation is more than one space.
+                                emit(
+                                    stringTemplate.startOffset,
+                                    "Indentation of multiline raw string literal should not contain both tab(s) and space(s)",
+                                )
+                            } else {
+                                stringTemplate.indentStringTemplate(newIndent)
+                            }
+                        }
+                }
+            }
+        }
+        if (isTrimIndentAfterMultilineStringTemplate(node)) {
+            node.visitTrimIndentAfterMultilineStringLiteral()
+        }
+    }
+
+    private fun ASTNode.isMultilineStringTemplateFollowedByTrimIndent(): Boolean =
+        parent
+            ?.takeIf { it.elementType == STRING_TEMPLATE }
+            ?.let { it.containsLiteralStringTemplateEntryWithNewline() && it.isFollowedByTrimIndent() }
+            ?: false
+
+    private fun ASTNode.visitOpeningQuote(
+        stringTemplateContainsMixedIndentationCharacters: Boolean,
+        newIndent: String,
+    ) {
+        require(elementType == OPEN_QUOTE)
+        parent!!
+            .takeUnless { it.isPrecededByWhitespaceWithNewline() }
+            ?.takeUnless { it.isPrecededByReturnKeyword() }
+            ?.takeUnless { it.isFunctionBodyExpressionOnSameLine() }
+            ?.let { whiteSpace ->
+                emit(startOffset, "Expected newline before multiline string template") {
+                    whiteSpace.upsertWhitespaceBeforeMe(indentConfig.childIndentOf(whiteSpace.parent!!))
+                }
+            }
+        if (!stringTemplateContainsMixedIndentationCharacters) {
+            checkAndFixNewLineAfterOpeningQuotes(newIndent)
+        }
+    }
+
+    private fun isTrimIndentAfterMultilineStringTemplate(node: ASTNode): Boolean =
         node
-            .takeIf { it.elementType == STRING_TEMPLATE }
-            ?.let { stringTemplate ->
-                if (stringTemplate.containsLiteralStringTemplateEntryWithNewline() && stringTemplate.isFollowedByTrimIndent()) {
-                    stringTemplate
-                        .takeUnless { it.isPrecededByWhitespaceWithNewline() }
-                        ?.takeUnless { it.isPrecededByReturnKeyword() }
-                        ?.takeUnless { it.isFunctionBodyExpressionOnSameLine() }
-                        ?.let { whiteSpace ->
-                            emit(stringTemplate.startOffset, "Expected newline before multiline string template") {
-                                whiteSpace.upsertWhitespaceBeforeMe(indentConfig.childIndentOf(whiteSpace.parent!!))
-                            }
-                        }
-                    stringTemplate
-                        .getFirstLeafAfterTrimIndent()
-                        ?.takeUnless { it.isWhiteSpaceWithNewline }
-                        ?.takeUnless { it.elementType == COMMA }
-                        ?.takeUnless { it.parent?.elementType == DOT_QUALIFIED_EXPRESSION }
-                        ?.takeUnless { it.parent?.elementType == BINARY_EXPRESSION && it.nextSibling?.elementType == OPERATION_REFERENCE }
-                        ?.let { nextLeaf ->
-                            emit(nextLeaf.startOffset, "Expected newline after multiline string template") {
-                                nextLeaf.upsertWhitespaceBeforeMe(indentConfig.childIndentOf(stringTemplate.parent!!))
-                            }
-                        }
+            .takeIf { it.elementType == REFERENCE_EXPRESSION && it.text == "trimIndent" }
+            ?.parent
+            ?.prevSibling { it.elementType == STRING_TEMPLATE }
+            ?.containsLiteralStringTemplateEntryWithNewline()
+            ?: false
 
-                    if (stringTemplate.containsMixedIndentationCharacters()) {
-                        // It can not be determined with certainty how mixed indentation characters should be interpreted. The trimIndent
-                        // function handles tabs and spaces equally (one tabs equals one space) while the user might expect that the tab
-                        // size in the indentation is more than one space.
-                        emit(
-                            stringTemplate.startOffset,
-                            "Indentation of multiline raw string literal should not contain both tab(s) and space(s)",
-                        )
-                        return
-                    }
-
-                    val indent = stringTemplate.getIndent()
-                    indentStringTemplate(node, indent)
+    private fun ASTNode.visitTrimIndentAfterMultilineStringLiteral() {
+        require(elementType == REFERENCE_EXPRESSION)
+        parent
+            ?.takeIf { it.elementType == CALL_EXPRESSION }
+            ?.lastChildLeafOrSelf
+            ?.nextLeaf
+            ?.takeUnless { it.isWhiteSpaceWithNewline }
+            ?.takeUnless { it.elementType == COMMA }
+            ?.takeUnless { it.parent?.elementType == DOT_QUALIFIED_EXPRESSION }
+            ?.takeUnless {
+                it.parent?.elementType == BINARY_EXPRESSION && it.nextSibling?.elementType == OPERATION_REFERENCE
+            }?.let { nextLeaf ->
+                emit(nextLeaf.startOffset, "Expected newline after 'trimIndent' in a multiline string template") {
+                    nextLeaf.upsertWhitespaceBeforeMe(indentConfig.parentIndentOf(nextLeaf))
                 }
             }
     }
-
-    private fun ASTNode.getFirstLeafAfterTrimIndent() =
-        takeIf { it.elementType == STRING_TEMPLATE }
-            ?.takeIf { it.isFollowedByTrimIndent() }
-            ?.parent
-            ?.lastChildLeafOrSelf
-            ?.nextLeaf
 
     private fun ASTNode.isPrecededByWhitespaceWithNewline() = prevLeaf.isWhiteSpaceWithNewline
 
@@ -153,13 +196,14 @@ public class StringTemplateIndentRule :
             ?.prevCodeLeaf
             ?.takeIf { it.elementType == RPAR }
 
-    private fun ASTNode.getIndent(): String {
+    private fun ASTNode.stringTemplateIndent(): String {
+        require(parent!!.elementType == STRING_TEMPLATE)
         // When executing this rule, the indentation rule may not have run yet. The functionality to determine the correct indentation level
         // is out of scope of this rule as it is owned by the indentation rule. Therefore, the indentation of the line at which the
         // string template is found, is assumed to be correct and is used to indent all lines of the string template. The indent will be
         // fixed once the indent rule is run as well.
-        val firstWhiteSpaceLeafOnSameLine = this.prevLeaf { it.isWhiteSpaceWithNewline }
-        return if (prevLeaf == firstWhiteSpaceLeafOnSameLine) {
+        val firstWhiteSpaceLeafOnSameLine = parent!!.prevLeaf { it.isWhiteSpaceWithNewline }
+        return if (parent!!.prevLeaf == firstWhiteSpaceLeafOnSameLine) {
             // The string template already is on a separate new line. Keep the current indent.
             firstWhiteSpaceLeafOnSameLine.getTextAfterLastNewline()
         } else {
@@ -175,9 +219,15 @@ public class StringTemplateIndentRule :
             ?.last()
             ?: ""
 
+    private fun ASTNode.isPartOfStringTemplateContainingMixedIndentationCharacters(): Boolean =
+        parent
+            ?.takeIf { it.elementType == STRING_TEMPLATE }
+            ?.containsMixedIndentationCharacters()
+            ?: false
+
     private fun ASTNode.containsMixedIndentationCharacters(): Boolean {
         require(containsLiteralStringTemplateEntryWithNewline())
-        val nonBlankLines = this.getNonBlankLines()
+        val nonBlankLines = getNonBlankLines()
         val prefixLength =
             nonBlankLines
                 .minOfOrNull { it.indentLength() }
@@ -201,35 +251,14 @@ public class StringTemplateIndentRule :
             .filterNot { it.isBlank() }
     }
 
-    private fun indentStringTemplate(
-        node: ASTNode,
-        newIndent: String,
-    ) {
-        // Get the max prefix length that all lines in the multiline string have in common. All whitespace characters are counted as
-        // one single position. Note that the way of counting should be in sync with the way this is done by the trimIndent
-        // function.
-        val prefixLength =
-            node
-                .text
-                .split("\n")
-                .asSequence()
-                .filterNot {
-                    // For a multiline raw string literal it is very unlikely that text after the opening quotes do contain indentation
-                    // characters (it really looks ugly). In such a case this text should be ignored when calculating the common prefix
-                    // length as otherwise it is probably set to 0.
-                    it.startsWith(RAW_STRING_LITERAL_QUOTES)
-                }.map {
-                    // Indentation before the closing quotes however is relevant to take into account
-                    it.removeSuffix(RAW_STRING_LITERAL_QUOTES)
-                }.filterNot { it.isBlank() }
-                .minOfOrNull { it.indentLength() } ?: 0
-
-        checkAndFixNewLineAfterOpeningQuotes(node, newIndent)
-
-        node
-            .children
-            .filterNot { it.elementType == OPEN_QUOTE }
+    private fun ASTNode.indentStringTemplate(newIndent: String) {
+        require(elementType == STRING_TEMPLATE)
+        val prefixLength = calculateCommonPrefixLength()
+        children
             .filterNot {
+                // Opening quotes are indented by IndentationRule
+                it.elementType == OPEN_QUOTE
+            }.filterNot {
                 // Blank lines inside the string template should not be indented
                 it.text == "\n"
             }.forEach {
@@ -263,31 +292,39 @@ public class StringTemplateIndentRule :
                     }
                 }
             }
-
-        checkAndFixNewLineBeforeClosingQuotes(node, newIndent)
     }
 
-    private fun checkAndFixNewLineAfterOpeningQuotes(
-        node: ASTNode,
-        indent: String,
-    ) {
-        val firstNodeAfterOpeningQuotes =
-            node
-                // The string template can start with an INTERPOLATION_PREFIX (multi dollar string interpolation, see
-                // https://kotlinlang.org/docs/strings.html#multi-dollar-string-interpolation), which is to be skipped.
-                .findChildByType(OPEN_QUOTE)
-                ?.nextLeaf
-                ?: return
-        if (firstNodeAfterOpeningQuotes.text.isNotBlank()) {
-            emit(
-                firstNodeAfterOpeningQuotes.startOffset + firstNodeAfterOpeningQuotes.text.length,
-                "Missing newline after the opening quotes of the raw string literal",
-            ) {
-                (firstNodeAfterOpeningQuotes as LeafPsiElement).rawInsertBeforeMe(
-                    LeafPsiElement(REGULAR_STRING_PART, "\n" + indent),
-                )
+    private fun ASTNode.calculateCommonPrefixLength(): Int =
+        // Get the max prefix length that all lines in the multiline string have in common. All whitespace characters are counted as one
+        // single position. Note that the way of counting should be in sync with the way this is done by the trimIndent function.
+        text
+            .split("\n")
+            .asSequence()
+            .filterNot {
+                // For a multiline raw string literal it is very unlikely that text after the opening quotes do contain indentation
+                // characters (it really looks ugly). In such a case this text should be ignored when calculating the common prefix length
+                // as otherwise it is probably set to 0.
+                it.startsWith(RAW_STRING_LITERAL_QUOTES)
+            }.map {
+                // Indentation before the closing quotes however is relevant to take into account
+                it.removeSuffix(RAW_STRING_LITERAL_QUOTES)
+            }.filterNot { it.isBlank() }
+            .minOfOrNull { it.indentLength() } ?: 0
+
+    private fun ASTNode.checkAndFixNewLineAfterOpeningQuotes(indent: String) {
+        require(elementType == OPEN_QUOTE)
+        nextLeaf
+            ?.takeIf { it.text.isNotBlank() }
+            ?.let { firstNodeAfterOpeningQuotes ->
+                emit(
+                    firstNodeAfterOpeningQuotes.startOffset + firstNodeAfterOpeningQuotes.text.length,
+                    "Missing newline after the opening quotes of the raw string literal",
+                ) {
+                    (firstNodeAfterOpeningQuotes as LeafPsiElement).rawInsertBeforeMe(
+                        LeafPsiElement(REGULAR_STRING_PART, "\n" + indent),
+                    )
+                }
             }
-        }
     }
 
     private fun checkAndFixWrongIndentationChar(
@@ -321,22 +358,37 @@ public class StringTemplateIndentRule :
         }
     }
 
-    private fun checkAndFixNewLineBeforeClosingQuotes(
-        node: ASTNode,
-        indent: String,
-    ) {
-        val lastNodeBeforeClosingQuotes = node.lastChildNode.prevLeaf ?: return
-        if (lastNodeBeforeClosingQuotes.text.isNotBlank()) {
-            emit(
-                lastNodeBeforeClosingQuotes.startOffset + lastNodeBeforeClosingQuotes.text.length,
-                "Missing newline before the closing quotes of the raw string literal",
-            ) {
-                (lastNodeBeforeClosingQuotes as LeafPsiElement).rawInsertAfterMe(
-                    LeafPsiElement(REGULAR_STRING_PART, "\n" + indent),
-                )
+    private fun ASTNode.checkAndFixNewLineBeforeClosingQuotes(stringTemplateContainsMixedIndentationCharacters: Boolean) {
+        require(nextSibling?.elementType == CLOSING_QUOTE)
+        takeUnless { stringTemplateContainsMixedIndentationCharacters }
+            ?.firstChildLeafOrSelf
+            ?.takeIf { it.text.isNotBlank() }
+            ?.let { lastNodeBeforeClosingQuotes ->
+                emit(
+                    lastNodeBeforeClosingQuotes.startOffset + lastNodeBeforeClosingQuotes.text.length,
+                    "Missing newline before the closing quotes of the raw string literal",
+                ) {
+                    createEmptyMultilineRawStringTemplate()
+                        .children
+                        .filter { it.elementType == LITERAL_STRING_TEMPLATE_ENTRY }
+                        .let { literalStringTemplateEntries ->
+                            parent!!.addChildren(literalStringTemplateEntries.first(), literalStringTemplateEntries.last(), nextSibling)
+                        }
+                }
             }
-        }
     }
+
+    private fun createEmptyMultilineRawStringTemplate(): ASTNode =
+        KtlintKotlinCompiler
+            .createASTNodeFromText(
+                """
+                val foo =
+                    ${'"'}${'"'}${'"'}
+                    ${'"'}${'"'}${'"'}
+                """.trimIndent(),
+            )?.findChildByType(PROPERTY)
+            ?.findChildByType(STRING_TEMPLATE)
+            ?: error("Cannot create an empty raw string template")
 
     private fun ASTNode.containsLiteralStringTemplateEntryWithNewline(): Boolean {
         require(elementType == STRING_TEMPLATE)
@@ -366,15 +418,15 @@ public class StringTemplateIndentRule :
             indexOfFirst { !it.isWhitespace() }
                 .let {
                     if (it == -1) {
-                        this.length
+                        length
                     } else {
                         it
                     }
                 }
         val safeIndex = kotlin.math.min(firstNonWhitespaceIndex, index)
         return Pair(
-            first = this.take(safeIndex),
-            second = this.substring(safeIndex),
+            first = take(safeIndex),
+            second = substring(safeIndex),
         )
     }
 

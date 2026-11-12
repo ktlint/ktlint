@@ -295,4 +295,44 @@ class WhenEntryBracingTest {
                 LintViolation(9, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
             ).isFormattedAs(formattedCode)
     }
+
+    @Test
+    fun `Given a when-statement containing a when entries with a multiline call expression not contained in a block then add braces to all entries`() {
+        val code =
+            """
+            val foo =
+                when (bar) {
+                    BAR1 -> listOf(
+                        "bar1"
+                    )
+                    BAR2 -> "bar2"
+                    else -> null
+                }
+            """.trimIndent()
+        val formattedCode =
+            """
+            val foo =
+                when (bar) {
+                    BAR1 -> {
+                        listOf(
+                            "bar1"
+                        )
+                    }
+                    BAR2 -> {
+                        "bar2"
+                    }
+                    else -> {
+                        null
+                    }
+                }
+            """.trimIndent()
+        @Suppress("ktlint:standard:max-line-length")
+        whenEntryBracingRuleAssertThat(code)
+            .addAdditionalRuleProvider { IndentationRule() }
+            .hasLintViolations(
+                LintViolation(3, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
+                LintViolation(6, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
+                LintViolation(7, 17, "Body of when entry should be surrounded by braces if any when entry body is surrounded by braces or has a multiline body"),
+            ).isFormattedAs(formattedCode)
+    }
 }

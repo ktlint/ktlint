@@ -82,8 +82,13 @@ class ClassSignatureRuleTest {
                 .setMaxLineLength()
                 .addAdditionalRuleProvider { FunctionStartOfBodySpacingRule() }
                 .withEditorConfigOverride(FORCE_MULTILINE_WHEN_PARAMETER_COUNT_GREATER_OR_EQUAL_THAN_PROPERTY to "unset")
-                .hasLintViolation(2, 34, "Expected a single space before class body")
-                .isFormattedAs(formattedCode)
+                .hasLintViolations(
+                    LintViolation(2, 11, "Newline expected after opening parenthesis"),
+                    LintViolation(2, 19, "Parameter should start on a newline"),
+                    LintViolation(2, 27, "Parameter should start on a newline"),
+                    LintViolation(2, 33, "Newline expected before closing parenthesis"),
+                    LintViolation(2, 34, "Expected a single space before class body"),
+                ).isFormattedAs(formattedCode)
         }
 
         @Test
