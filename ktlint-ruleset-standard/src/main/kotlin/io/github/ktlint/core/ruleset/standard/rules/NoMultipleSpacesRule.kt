@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC_MARKDOWN_LINK
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC_TAG
 import io.github.ktlint.core.rule.engine.core.api.RuleId
@@ -10,7 +11,6 @@ import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("0.2", STABLE)
 public class NoMultipleSpacesRule : StandardRule("no-multi-spaces") {

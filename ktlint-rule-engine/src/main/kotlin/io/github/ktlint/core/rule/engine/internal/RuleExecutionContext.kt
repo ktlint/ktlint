@@ -1,5 +1,10 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import com.intellij.lang.ASTNode
+import com.intellij.lang.FileASTNode
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiErrorElement
+import com.intellij.psi.TokenType.DUMMY_HOLDER
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.KtLintParseException
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
@@ -21,11 +26,7 @@ import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.internal.rulefilter.InternalRuleProvidersFilter
 import io.github.ktlint.core.rule.engine.internal.rulefilter.RuleExecutionRuleFilter
 import io.github.ktlint.core.rule.engine.internal.rulefilter.applyRuleFilters
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
-import org.jetbrains.kotlin.com.intellij.psi.PsiElement
-import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement
-import org.jetbrains.kotlin.com.intellij.psi.TokenType.DUMMY_HOLDER
+import io.github.ktlint.core.rule.engine.internal.rules.KTLINT_SUPPRESSION_RULE_ID
 import kotlin.io.path.pathString
 
 internal class RuleExecutionContext private constructor(

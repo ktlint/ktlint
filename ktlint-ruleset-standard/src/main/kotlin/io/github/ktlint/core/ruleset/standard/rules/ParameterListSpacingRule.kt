@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.COLON
 import io.github.ktlint.core.rule.engine.core.api.ElementType.COMMA
@@ -32,7 +33,6 @@ import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.psi.psiUtil.siblings
 
 /**

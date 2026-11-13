@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CLASS_BODY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.COMPANION_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUN
@@ -26,7 +27,6 @@ import io.github.ktlint.core.rule.engine.core.api.hasModifier
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import io.github.ktlint.core.ruleset.standard.rules.internal.regExIgnoringDiacriticsAndStrokesOnLetters
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * https://kotlinlang.org/docs/coding-conventions.html#property-names

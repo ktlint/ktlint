@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALL_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUN
@@ -42,8 +44,6 @@ import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceAfterMe
 import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import org.jetbrains.kotlin.psi.psiUtil.children
 import org.jetbrains.kotlin.psi.psiUtil.leaves
 

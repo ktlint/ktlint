@@ -1,5 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.impl.source.tree.CompositeElement
 import io.github.ktlint.core.rule.engine.core.api.ElementType.BY_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CALL_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPRESSION
@@ -27,12 +29,9 @@ import io.github.ktlint.core.rule.engine.core.api.remove
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.rule.engine.core.util.safeAs
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.CompositeElement
 import org.jetbrains.kotlin.kdoc.lexer.KDocTokens.MARKDOWN_LINK
 import org.jetbrains.kotlin.psi.KtDotQualifiedExpression
 import org.jetbrains.kotlin.psi.KtImportDirective
-import org.jetbrains.kotlin.psi.KtNonPublicApi
 import org.jetbrains.kotlin.psi.KtPackageDirective
 import org.jetbrains.kotlin.resolve.ImportPath
 
@@ -54,16 +53,6 @@ public class NoUnusedImportsRule :
     private val duplicateImports = mutableListOf<ASTNode>()
     private var packageName = ""
     private var foundByKeyword = false
-
-    // `ktImportDirective.delete()` with Kotlin 2.4.0 results in exception below (`KtElementStub` is a superclass of `KtImportDirective`)
-    //    Caused by: java.lang.IllegalStateException: Cannot mutate Kotlin PSI because KtPsiMutationService is missing
-    // 	      at org.jetbrains.kotlin.psi.KtPsiMutationService$Companion.getInstance(KtPsiMutationService.kt:365)
-    // 	      at org.jetbrains.kotlin.psi.KtPsiMutationService.getInstance(KtPsiMutationService.kt)
-    // 	      at org.jetbrains.kotlin.psi.KtElementImplStub.delete(KtElementImplStub.java:99)
-    @OptIn(KtNonPublicApi::class)
-    private fun ASTNode.deleteImportDirective() {
-        psi.safeAs<KtImportDirective>()?.rawDelete()
-    }
 
     override fun afterVisitChildNodes(node: ASTNode) {
         if (node.elementType == FILE) {
@@ -198,7 +187,7 @@ public class NoUnusedImportsRule :
                         .takeIf { it.isWhiteSpaceWithNewline }
                         ?.remove()
                 }
-                deleteImportDirective()
+                this.psi.safeAs<KtImportDirective>()?.delete()
             }
         }
     }

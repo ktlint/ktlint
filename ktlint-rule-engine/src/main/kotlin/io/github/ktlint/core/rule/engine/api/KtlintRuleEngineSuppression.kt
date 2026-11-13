@@ -1,11 +1,11 @@
 package io.github.ktlint.core.rule.engine.api
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.RuleId
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.internal.RuleExecutionContext
 import io.github.ktlint.core.rule.engine.internal.insertKtlintRuleSuppression
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 /**
  * A [Suppress] annotation can only be inserted at specific locations. This function is intended for API Consumers. It updates given [code]
