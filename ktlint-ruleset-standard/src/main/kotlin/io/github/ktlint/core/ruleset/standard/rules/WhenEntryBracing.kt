@@ -85,13 +85,15 @@ public class WhenEntryBracing :
         return findChildByType(ARROW)
             ?.siblings()
             .orEmpty()
-            .any { it.isWhiteSpaceWithNewline }
+            .any { it.textContains('\n') }
     }
 
     private fun ASTNode.addBracesToWhenEntry() {
         children
             .filter { it.elementType == WHEN_ENTRY }
             .filter { !it.hasBlockAfterArrow() }
+            // Collect the entries before changing any of them, as replacing an entry ends the lazy sequence of children
+            .toList()
             .forEach { whenEntry ->
                 whenEntry
                     .findChildByType(ARROW)

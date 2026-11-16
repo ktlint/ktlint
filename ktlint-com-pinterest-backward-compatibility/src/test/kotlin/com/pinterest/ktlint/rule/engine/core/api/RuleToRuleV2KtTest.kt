@@ -142,7 +142,7 @@ class RuleToRuleV2KtTest {
                     ruleProviders = setOf(RuleProvider { legacyRule }.toRuleV2Provider()),
                 ).format(
                     Code.fromSnippet(code),
-                    callback = { lintError ->
+                    onAutocorrectDecision = { lintError ->
                         // Emulate behavior of the API consumer (for example Ktlint IntelliJ Plugin in manual mode where the user indicates
                         // that only the "bar" comment is to be fixed.
                         if (lintError.detail == "Node: // bar") {
@@ -188,7 +188,7 @@ class RuleToRuleV2KtTest {
                     ruleProviders = setOf(RuleProvider { legacyRule }.toRuleV2Provider()),
                 ).format(
                     Code.fromSnippet(code),
-                    callback = { lintError ->
+                    onAutocorrectDecision = { lintError ->
                         // Emulate behavior of the API consumer (for example Ktlint IntelliJ Plugin in manual mode where the user indicates
                         // that only the "bar" comment is to be fixed.
                         if (lintError.detail == "Node: // bar") {

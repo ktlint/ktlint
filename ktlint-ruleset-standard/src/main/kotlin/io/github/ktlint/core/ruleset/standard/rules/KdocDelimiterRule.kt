@@ -301,28 +301,31 @@ public class KdocDelimiterRule :
                             kdocEnd.endOffset - VALID_KDOC_END.length,
                             "Expected a single space before '*/' in a single-line KDoc comment",
                         ) {
-                            replaceKDocText(this.text.trimEnd(' ') + "$extraClosingAsterisks ")
+                            replaceKDocText(text.trimEnd(' ') + "$extraClosingAsterisks ")
                         }
                     } else {
                         // The additional asterisk is unneeded and should not be moved to KDOC_TEXT
-                        Unit
-                    }
-                } else {
-                    val kdocSectionContent = text + extraClosingAsterisks
-                    kdocSectionContent
-                        .takeLastWhile { it == ' ' }
-                        .takeUnless { it.length == 1 }
-                        ?.let {
+                        if (doesNotEndWithSingleTrailingSpace()) {
                             emit(
                                 kdocEnd.endOffset - VALID_KDOC_END.length,
                                 "Expected a single space before '*/' in a single-line KDoc comment",
                             ) {
-                                replaceKDocText(this.text.trimEnd(' ') + "$extraClosingAsterisks ")
+                                replaceKDocText(text.trimEnd(' ') + " ")
                             }
                         }
+                    }
+                } else {
+                    // Multiple additional asterisks found before closing '*/'. It might be context dependent whether the additional closing
+                    // asterisks have a meaning to the developer. The same applies if multiple whitespace precede those additional
+                    // asterisks. So we just insert the required space and leave additional fixing to the developer.
+                    emit(kdocEnd.endOffset - VALID_KDOC_END.length, "Expected a single space before '*/' in a single-line KDoc comment") {
+                        replaceKDocText("$text$extraClosingAsterisks ")
+                    }
                 }
             }
     }
+
+    private fun ASTNode.doesNotEndWithSingleTrailingSpace() = text.takeLastWhile { it == ' ' }.length != 1
 
     private fun ASTNode.replaceKDocText(text: String) {
         require(elementType == KDOC_TEXT)
@@ -391,20 +394,16 @@ public class KdocDelimiterRule :
         if (prevLeaf?.elementType == KDOC_START) return
 
         if (text == "*/") {
-            prevSibling!!
-                .text
-                .takeLastWhile { it == ' ' }
-                .takeUnless { it.length == 1 }
-                ?.let {
-                    emit(startOffset, "Expected a single space before '*/' in a single-line KDoc comment") {
-                        prevSibling!!
-                            .lastChildLeafOrSelf
-                            .let { kdocText -> kdocText.replaceKDocText(kdocText.text.trimEnd(' ') + " ") }
-                    }
+            if (prevSibling!!.doesNotEndWithSingleTrailingSpace()) {
+                emit(startOffset, "Expected a single space before '*/' in a single-line KDoc comment") {
+                    prevSibling!!
+                        .lastChildLeafOrSelf
+                        .let { kdocText -> kdocText.replaceKDocText(kdocText.text.trimEnd(' ') + " ") }
                 }
+            }
         } else {
             emit(startOffset, "Unexpected '*' before closing delimiter '*/' in a single-line KDoc comment") {
-                (this as LeafPsiElement).rawReplaceWithText(VALID_KDOC_END)
+                replaceTextWith(VALID_KDOC_END)
             }
         }
     }

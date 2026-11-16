@@ -1,6 +1,7 @@
 package io.github.ktlint.core.rule.engine.internal.rules
 
 import io.github.ktlint.core.rule.engine.core.api.RuleId
+import io.github.ktlint.core.rule.engine.core.api.RuleSetId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigProperty
 
@@ -18,7 +19,11 @@ public open class InternalRule internal constructor(
     id: String,
     override val usesEditorConfigProperties: Set<EditorConfigProperty<*>> = emptySet(),
 ) : RuleV2(
-        ruleId = RuleId("internal:$id"),
+        ruleId = RuleId("${INTERNAL_RULESET_ID.value}:$id"),
         usesEditorConfigProperties = usesEditorConfigProperties,
         about = INTERNAL_RULE_ABOUT,
-    )
+    ) {
+    internal companion object {
+        val INTERNAL_RULESET_ID = RuleSetId("internal")
+    }
+}

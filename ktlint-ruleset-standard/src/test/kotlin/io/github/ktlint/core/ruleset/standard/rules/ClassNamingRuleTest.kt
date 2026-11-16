@@ -1,6 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
-import io.github.ktlint.core.test.KtLintAssertThat
+import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -9,8 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.provider.ValueSource
 
 class ClassNamingRuleTest {
-    private val classNamingRuleAssertThat =
-        KtLintAssertThat.assertThatRule { ClassNamingRule() }
+    private val classNamingRuleAssertThat = assertThatRule { ClassNamingRule() }
 
     @Nested
     inner class `Given a class declaration` {

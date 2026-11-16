@@ -91,6 +91,10 @@ public class KtLintAssertThat(
     private var filePath: String? = null
     private var kotlinScript = false
 
+    // It is preferred that a test case formats all lint violations in a single pass instead of using the default behavior of
+    // KtlintRuleEngine where format is rerun automatically when a lint violation is autocorrected.
+    private var rerunAfterAutocorrect = false
+
     /**
      * Set the [EditorConfigOverride] properties to be used by the rule. This function can be called multiple times. Properties which have
      * been set before, are silently overwritten with the new vale.
@@ -143,6 +147,16 @@ public class KtLintAssertThat(
      */
     public fun asKotlinScript(kotlinScript: Boolean = true): KtLintAssertThat {
         this.kotlinScript = kotlinScript
+        return this
+    }
+
+    /**
+     * KtLintAssertThat disables the default behavior of KtlintRuleEngine to rerun format when a lint violation has been corrected. In rare
+     * cases it is still needed to run a unit test with the default behavior enabled for given [reason].
+     */
+    public fun withRerunFormatAfterAutocorrect(reason: String): KtLintAssertThat {
+        LOGGER.debug { "Enable rerun of format when not all violations can be fixed in a single round: $reason" }
+        this.rerunAfterAutocorrect = true
         return this
     }
 
@@ -294,6 +308,7 @@ public class KtLintAssertThat(
             code = code(),
             editorConfigOverride = editorConfigProperties.toEditorConfigOverride(),
             additionalRuleProviders = additionalRuleProviders.toSet(),
+            rerunAfterAutocorrect = rerunAfterAutocorrect,
         )
 
     private fun MutableSet<Pair<EditorConfigProperty<*>, *>>.toEditorConfigOverride() =
@@ -380,6 +395,7 @@ public class KtLintAssertThatAssertable(
      *  lint errors for those rules are suppressed.
      */
     private val additionalRuleProviders: Set<RuleV2Provider>,
+    private val rerunAfterAutocorrect: Boolean,
 ) : AbstractAssert<KtLintAssertThatAssertable, String>(code.content, KtLintAssertThatAssertable::class.java) {
     /**
      * Asserts that the code does not contain any [LintViolation]s caused by the rule associated with the KtLintAssertThat.
@@ -677,7 +693,7 @@ public class KtLintAssertThatAssertable(
         val lintErrors = mutableSetOf<LintError>()
         val formattedCode =
             createKtLintRuleEngine()
-                .format(code) { lintError ->
+                .format(code, rerunAfterAutocorrect = rerunAfterAutocorrect) { lintError ->
                     lintErrors.add(lintError)
                     AutocorrectDecision.ALLOW_AUTOCORRECT
                 }

@@ -65,7 +65,6 @@ import io.github.ktlint.core.ruleset.standard.rules.NoEmptyFirstLineInMethodBloc
 import io.github.ktlint.core.ruleset.standard.rules.NoLineBreakAfterElseRule
 import io.github.ktlint.core.ruleset.standard.rules.NoLineBreakBeforeAssignmentRule
 import io.github.ktlint.core.ruleset.standard.rules.NoMultipleSpacesRule
-import io.github.ktlint.core.ruleset.standard.rules.NoSemicolonsRule
 import io.github.ktlint.core.ruleset.standard.rules.NoSingleLineBlockCommentRule
 import io.github.ktlint.core.ruleset.standard.rules.NoTrailingSpacesRule
 import io.github.ktlint.core.ruleset.standard.rules.NoUnitReturnRule
@@ -78,6 +77,7 @@ import io.github.ktlint.core.ruleset.standard.rules.ParameterListWrappingRule
 import io.github.ktlint.core.ruleset.standard.rules.ParameterWrappingRule
 import io.github.ktlint.core.ruleset.standard.rules.PropertyNamingRule
 import io.github.ktlint.core.ruleset.standard.rules.PropertyWrappingRule
+import io.github.ktlint.core.ruleset.standard.rules.SemicolonRule
 import io.github.ktlint.core.ruleset.standard.rules.SpacingAroundAngleBracketsRule
 import io.github.ktlint.core.ruleset.standard.rules.SpacingAroundColonRule
 import io.github.ktlint.core.ruleset.standard.rules.SpacingAroundCommaRule
@@ -176,7 +176,6 @@ public class StandardRuleSetProvider : RuleSetV2Provider(RuleSetId.STANDARD) {
             RuleV2Provider { NoLineBreakAfterElseRule() },
             RuleV2Provider { NoLineBreakBeforeAssignmentRule() },
             RuleV2Provider { NoMultipleSpacesRule() },
-            RuleV2Provider { NoSemicolonsRule() },
             RuleV2Provider { NoSingleLineBlockCommentRule() },
             RuleV2Provider { NoTrailingSpacesRule() },
             RuleV2Provider { NoUnitReturnRule() },
@@ -189,6 +188,7 @@ public class StandardRuleSetProvider : RuleSetV2Provider(RuleSetId.STANDARD) {
             RuleV2Provider { ParameterWrappingRule() },
             RuleV2Provider { PropertyNamingRule() },
             RuleV2Provider { PropertyWrappingRule() },
+            RuleV2Provider { SemicolonRule() },
             RuleV2Provider { SpacingAroundAngleBracketsRule() },
             RuleV2Provider { SpacingAroundColonRule() },
             RuleV2Provider { SpacingAroundCommaRule() },

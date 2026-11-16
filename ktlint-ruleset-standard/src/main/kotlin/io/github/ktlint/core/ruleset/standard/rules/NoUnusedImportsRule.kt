@@ -33,7 +33,6 @@ import org.jetbrains.kotlin.kdoc.lexer.KDocTokens.MARKDOWN_LINK
 import org.jetbrains.kotlin.psi.KtDotQualifiedExpression
 import org.jetbrains.kotlin.psi.KtIdeApi
 import org.jetbrains.kotlin.psi.KtImportDirective
-import org.jetbrains.kotlin.psi.KtNonPublicApi
 import org.jetbrains.kotlin.psi.KtPackageDirective
 import org.jetbrains.kotlin.resolve.ImportPath
 
@@ -52,19 +51,9 @@ public class NoUnusedImportsRule :
         )
     private val parentExpressions = mutableSetOf<String>()
     private val imports = mutableMapOf<ImportPath, ASTNode>()
+    private val duplicateImports = mutableListOf<ASTNode>()
     private var packageName = ""
     private var foundByKeyword = false
-
-    // `ktImportDirective.delete()` with Kotlin 2.4.0 results in exception below (`KtElementStub` is a superclass of `KtImportDirective`)
-    //    Caused by: java.lang.IllegalStateException: Cannot mutate Kotlin PSI because KtPsiMutationService is missing
-    // 	      at org.jetbrains.kotlin.psi.KtPsiMutationService$Companion.getInstance(KtPsiMutationService.kt:365)
-    // 	      at org.jetbrains.kotlin.psi.KtPsiMutationService.getInstance(KtPsiMutationService.kt)
-    // 	      at org.jetbrains.kotlin.psi.KtElementImplStub.delete(KtElementImplStub.java:99)
-    @OptIn(KtNonPublicApi::class)
-    private fun ASTNode.deleteImportDirective() {
-        @OptIn(KtIdeApi::class)
-        psi.safeAs<KtImportDirective>()?.rawDelete()
-    }
 
     override fun afterVisitChildNodes(node: ASTNode) {
         if (node.elementType == FILE) {
@@ -88,8 +77,7 @@ public class NoUnusedImportsRule :
             IMPORT_DIRECTIVE -> {
                 val importPath = (psi as KtImportDirective).importPath!!
                 if (imports.containsKey(importPath)) {
-                    // Emit directly when same import occurs more than once
-                    emit(startOffset, "Unused import") { deleteImportDirective() }
+                    duplicateImports.add(this)
                 } else {
                     imports[importPath] = this
                 }
@@ -160,6 +148,10 @@ public class NoUnusedImportsRule :
         imports.forEach { (_, node) ->
             node.visitImport()
         }
+
+        duplicateImports.forEach {
+            emit(it.startOffset, "Unused import") { it.removeImportDirective() }
+        }
     }
 
     private fun ASTNode.visitImport() {
@@ -196,7 +188,7 @@ public class NoUnusedImportsRule :
                         .takeIf { it.isWhiteSpaceWithNewline }
                         ?.remove()
                 }
-                deleteImportDirective()
+                this.psi.safeAs<KtImportDirective>()?.delete()
             }
         }
     }
@@ -242,7 +234,7 @@ public class NoUnusedImportsRule :
             }
 
             else -> {
-                nextLeaf
+                nextSibling
                     ?.takeIf { it.isWhiteSpaceWithNewline }
                     ?.remove()
             }

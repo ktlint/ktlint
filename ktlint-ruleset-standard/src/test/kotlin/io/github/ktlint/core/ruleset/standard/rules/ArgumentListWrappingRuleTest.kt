@@ -325,13 +325,13 @@ class ArgumentListWrappingRuleTest {
                     "some message"
                 }
             """.trimIndent()
-        @Suppress("ktlint:standard:max-line-length")
         argumentListWrappingRuleAssertThat(code)
             .setMaxLineLength()
             .addAdditionalRuleProvider { CallExpressionWrappingRule() }
             .addAdditionalRuleProvider { ChainMethodContinuationRule() }
             .addAdditionalRuleProvider { IndentationRule() }
             .addAdditionalRuleProvider { MultilineExpressionWrappingRule() }
+            .addAdditionalRuleProvider { PropertyWrappingRule() }
             .hasNoLintViolationsExceptInAdditionalRules()
             .isFormattedAs(formattedCode)
     }
@@ -1076,7 +1076,14 @@ class ArgumentListWrappingRuleTest {
                     """.trimIndent()
                 argumentListWrappingRuleAssertThat(code)
                     .setMaxLineLength()
-                    .addAdditionalRuleProvider { FunctionSignatureRule() }
+                    .withRerunFormatAfterAutocorrect(
+                        "In the first formatting round the FunctionSignatureRule wraps the function body as it does not fit on the " +
+                            "same line. In this same round, after wrapping the body, the body still does not fit on a single line " +
+                            "which causes the ArgumentListWrappingRule to wrap the arguments. After this wrapping the first line of " +
+                            "body does fit on the same line as the function signature. But will not be triggered until the next " +
+                            "formatting round because the FUN AST Node to which the FunctionSignatureRule is anchored has already " +
+                            "been processed.",
+                    ).addAdditionalRuleProvider { FunctionSignatureRule() }
                     .addAdditionalRuleProvider { IndentationRule() }
                     .withEditorConfigOverride(FUNCTION_BODY_EXPRESSION_WRAPPING_PROPERTY to DEFAULT)
                     .isFormattedAs(formattedCode)

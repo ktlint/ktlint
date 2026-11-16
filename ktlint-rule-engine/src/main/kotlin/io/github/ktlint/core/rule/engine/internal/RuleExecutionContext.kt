@@ -4,6 +4,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.FileASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiErrorElement
+import com.intellij.psi.TokenType.DUMMY_HOLDER
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.KtLintParseException
 import io.github.ktlint.core.rule.engine.api.KtLintRuleEngine
@@ -38,16 +39,12 @@ internal class RuleExecutionContext private constructor(
     private var suppressionLocator = SuppressionLocator(editorConfig)
 
     fun executeRules(
-        rules: List<RuleV2>,
+        groupedRules: List<List<RuleV2>>,
         autocorrectHandler: AutocorrectHandler,
         emitAndApprove: (offset: Int, ruleId: RuleId, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision,
     ) {
-        // Whenever the KtlintSuppressionRule finds a "ktlint-disable" directive, it will traverse up in the AST Node Tree to add a Suppress
-        // annotation. Therefore, this rule needs to run on the entire AST Node before processing other rules.
-        executeRulesOnAST(rules.filter { it.ruleId == KTLINT_SUPPRESSION_RULE_ID }, autocorrectHandler, emitAndApprove)
-
-        // Process all other rules on the same AST Node before proceeding to the next AST Node.
-        executeRulesOnAST(rules.filterNot { it.ruleId == KTLINT_SUPPRESSION_RULE_ID }, autocorrectHandler, emitAndApprove)
+        // Run each group of rules on the entire AST
+        groupedRules.forEach { rules -> executeRulesOnAST(rules, autocorrectHandler, emitAndApprove) }
     }
 
     /**
@@ -232,7 +229,7 @@ internal class RuleExecutionContext private constructor(
             @Suppress("TooGenericExceptionCaught") t: Throwable,
         ) {
             val (line, col) =
-                if (autocorrectHandler is NoneAutocorrectHandler) {
+                if (autocorrectHandler is NoAutocorrectHandler) {
                     positionInTextLocator(node.startOffset)
                 } else {
                     // line/col cannot be reliably mapped as exception might originate from a node not present in the original AST
@@ -251,7 +248,10 @@ internal class RuleExecutionContext private constructor(
     private fun ASTNode.hasBeenReplaced() =
         // When references below are set to null this means that the node in the original AST has been replaced with a new node. Any further
         // processing of this node might result in unexpected problems.
-        elementType != FILE && nextSibling == null && prevSibling == null && parent == null
+        elementType != FILE &&
+            nextSibling == null &&
+            prevSibling == null &&
+            (parent == null || parent?.elementType == DUMMY_HOLDER)
 
     private enum class VisitChildNodesResult {
         STOP,

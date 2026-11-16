@@ -311,7 +311,7 @@ Suppress or disable rule (1)
     ```
 
 !!! Note
-    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or `android_studion` or when the rule is enabled explicitly.
+    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or `android_studio` or when the rule is enabled explicitly.
 
 ## Block comment initial star alignment
 
@@ -2686,51 +2686,6 @@ Suppress or disable rule (1)
     ktlint_standard_no-multi-spaces = disabled
     ```
 
-## No semicolons
-
-Avoid using unnecessary semicolons.
-
-=== "[:material-heart:](#) Ktlint"
-
-    ```kotlin
-    fun foo() {
-        bar()
-
-        bar()
-    }
-    ```
-=== "[:material-heart-off-outline:](#) Disallowed"
-
-    ```kotlin
-    fun foo() {
-        ;
-        bar()
-        ;
-
-        bar()
-
-        ;
-    }
-    ```
-
-Rule id: `standard:no-semi`
-
-Suppress or disable rule (1)
-{ .annotate }
-
-1. Suppress rule in code with annotation below:
-    ```kotlin
-    @Suppress("ktlint:standard:no-semi")
-    ```
-   Enable rule via `.editorconfig`
-    ```editorconfig
-    ktlint_standard_no-semi = enabled
-    ```
-   Disable rule via `.editorconfig`
-    ```editorconfig
-    ktlint_standard_no-semi = disabled
-    ```
-
 ## No trailing whitespaces
 
 Rule id: `standard:no-trailing-spaces`
@@ -2851,6 +2806,53 @@ Suppress or disable rule (1)
    Disable rule via `.editorconfig`
     ```editorconfig
     ktlint_standard_no-wildcard-imports = disabled
+    ```
+
+## Semicolon
+
+!!! Note: this rule was known a the `no-semi` rule in Ktlint `1.x` and before. As of Ktlint `2.x` this rule has been rebranded to `semicolon`. It now also takes care of wrapping statements on the same line which are separated by a semicolon which previously was a responsibility of the `statement-wrapping` rule.
+
+Avoid using unnecessary semicolons. Wrap statements on same line separated by semicolon.
+
+=== "[:material-heart:](#) Ktlint"
+
+    ```kotlin
+    fun foo() {
+        bar()
+
+        bar()
+    }
+    ```
+=== "[:material-heart-off-outline:](#) Disallowed"
+
+    ```kotlin
+    fun foo() {
+        ;
+        bar()
+        ;
+
+        bar()
+
+        ;
+    }
+    ```
+
+Rule id: `standard:semicolon`
+
+Suppress or disable rule (1)
+{ .annotate }
+
+1. Suppress rule in code with annotation below:
+    ```kotlin
+    @Suppress("ktlint:standard:semicolon")
+    ```
+   Enable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_semicolon = enabled
+    ```
+   Disable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_no-semicolon = disabled
     ```
 
 ## Spacing
@@ -4512,8 +4514,6 @@ Braces are helpful for following reasons:
 - Bodies of the when-conditions are all aligned at same column position
 - Closing braces helps in separating the when-conditions
 
-This rule is not incorporated in the Kotlin Coding conventions, nor in the Android Kotlin Styleguide. It is based on similar behavior in enforcing consistent use of braces in if-else statements. As of that the rule is only enabled automatically for code style `ktlint_official`. It can be enabled explicitly for other code styles.
-
 === "[:material-heart:](#) Ktlint"
 
     ```kotlin
@@ -4576,6 +4576,9 @@ Suppress or disable rule (1)
     ```editorconfig
     ktlint_standard_when-entry-bracing = disabled
     ```
+
+!!! Note
+    This rule is only run when `ktlint_code_style` is set to `ktlint_official` or when the rule is enabled explicitly.
 
 ## Wrapping
 

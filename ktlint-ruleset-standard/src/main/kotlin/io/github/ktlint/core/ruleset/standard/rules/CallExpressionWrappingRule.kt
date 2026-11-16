@@ -11,6 +11,7 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.LPAR
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RBRACE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.REFERENCE_EXPRESSION
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RPAR
+import io.github.ktlint.core.rule.engine.core.api.ElementType.STRING_TEMPLATE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.VALUE_ARGUMENT_LIST
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig.Companion.DEFAULT_INDENT_CONFIG
@@ -22,6 +23,7 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.MAX_LINE_LENGTH_PROPERTY
+import io.github.ktlint.core.rule.engine.core.api.findParentByType
 import io.github.ktlint.core.rule.engine.core.api.hasNoMaxLineLengthSuppression
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.lastChildLeafOrSelf
@@ -59,22 +61,26 @@ public class CallExpressionWrappingRule :
     }
 
     override fun beforeVisitChildNodes(node: ASTNode) {
-        if (node.elementType == CALL_EXPRESSION) {
+        if (node.elementType == CALL_EXPRESSION && !node.textContains('\n')) {
             node.visitCallExpression()
         }
     }
 
     private fun ASTNode.visitCallExpression() {
-        findChildByType(REFERENCE_EXPRESSION)
-            ?.nextSibling { it.elementType == VALUE_ARGUMENT_LIST }
-            ?.visitReferenceExpressionValueArgumentList()
-        findChildByType(LAMBDA_ARGUMENT)
-            ?.visitLambdaArgument()
+        if (findParentByType(STRING_TEMPLATE) == null) {
+            findChildByType(REFERENCE_EXPRESSION)
+                ?.nextSibling { it.elementType == VALUE_ARGUMENT_LIST }
+                ?.visitReferenceExpressionValueArgumentList()
+            findChildByType(LAMBDA_ARGUMENT)
+                ?.visitLambdaArgument()
+        } else {
+            // Ignore call expressions inside string template as strings are allowed to exceed max-line-length
+        }
     }
 
     private fun ASTNode.visitReferenceExpressionValueArgumentList() {
         require(elementType == VALUE_ARGUMENT_LIST)
-        if (textContains('\n') || exceedsMaxLineLength(lastChildLeafOrSelf)) {
+        if (exceedsMaxLineLength(lastChildLeafOrSelf)) {
             findChildByType(LPAR)
                 ?.takeUnless { it.nextSibling.isWhiteSpaceWithNewline }
                 ?.let { lpar ->
@@ -94,7 +100,7 @@ public class CallExpressionWrappingRule :
 
     private fun ASTNode.visitLambdaArgument() {
         require(elementType == LAMBDA_ARGUMENT)
-        if (textContains('\n') || exceedsMaxLineLength(lastChildLeafOrSelf)) {
+        if (exceedsMaxLineLength(lastChildLeafOrSelf)) {
             val functionLiteral =
                 findChildByType(LAMBDA_EXPRESSION)
                     ?.findChildByType(FUNCTION_LITERAL)

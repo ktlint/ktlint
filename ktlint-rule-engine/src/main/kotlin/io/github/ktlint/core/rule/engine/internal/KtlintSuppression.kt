@@ -295,7 +295,8 @@ private fun ASTNode.createSuppressAnnotation(
                 this.elementType != VALUE_PARAMETER
             ) {
                 val annotatedExpression = targetNode.createAnnotatedExpression(suppressType, suppressions)
-                parent!!.replaceChild(targetNode, annotatedExpression)
+                parent!!.addChild(annotatedExpression.findChildByType(ANNOTATION_ENTRY)!!, targetNode)
+                parent!!.addChild(PsiWhiteSpaceImpl(indent), targetNode)
             } else {
                 val modifierListWithAnnotation = createModifierListWithAnnotationEntry(suppressType, suppressions)
                 parent!!.addChild(modifierListWithAnnotation.findChildByType(ANNOTATION_ENTRY)!!, this)

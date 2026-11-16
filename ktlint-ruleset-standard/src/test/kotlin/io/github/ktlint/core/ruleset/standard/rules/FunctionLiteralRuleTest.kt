@@ -449,8 +449,6 @@ class FunctionLiteralRuleTest {
             """
             // $MAX_LINE_LENGTH_MARKER    $EOL_CHAR
             val foobar = { it.foo().foobar().foobar2() }
-            val foo = bar.filter { it > 2 }!!.takeIf { it.count() > 100 }.map { it * it }
-                ?.sum()!!
             """.trimIndent()
         val formattedCode =
             """
@@ -458,6 +456,26 @@ class FunctionLiteralRuleTest {
             val foobar = {
                 it.foo().foobar().foobar2()
             }
+            """.trimIndent()
+        functionLiteralRuleAssertThat(code)
+            .setMaxLineLength()
+            .hasLintViolations(
+                LintViolation(2, 14, "Newline expected after opening brace"),
+                LintViolation(2, 44, "Newline expected before closing brace"),
+            ).isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Given a multiline dot qualified expression containing a function literal that exceeds the maximum line length`() {
+        val code =
+            """
+            // $MAX_LINE_LENGTH_MARKER    $EOL_CHAR
+            val foo = bar.filter { it > 2 }!!.takeIf { it.count() > 100 }.map { it * it }
+                ?.sum()!!
+            """.trimIndent()
+        val formattedCode =
+            """
+            // $MAX_LINE_LENGTH_MARKER    $EOL_CHAR
             val foo =
                 bar
                     .filter { it > 2 }!!
@@ -467,19 +485,19 @@ class FunctionLiteralRuleTest {
                     ?.sum()!!
             """.trimIndent()
         functionLiteralRuleAssertThat(code)
-            .addAdditionalRuleProvider { MultilineExpressionWrappingRule() }
-            .addAdditionalRuleProvider { ChainMethodContinuationRule() }
+            .withRerunFormatAfterAutocorrect(
+                "Both the ChainMethodContinuationRule and MultilineExpressionWrappingRule use the DOT_QUALIFIED_EXPRESSION as an anchor. " +
+                    "The ChainMethodContinuationRule wraps the 'filter', 'takeIf' and 'map' to separate lines. Next the " +
+                    "MultilineExpressionWrappingRule wraps the root of the DOT_QUALIFIED_EXPRESSION, causing the remaining lines of the " +
+                    "expression to be indented one level deeper. As a result of that, the 'takeIf' exceeds the maximum line length and " +
+                    "it gets wrapped. At this stage the RBRACE of the function literal and the DOT of the next chained methods are on " +
+                    "separate lines. As the ChainMethodContinuationRule has already ran on the expression, this will only be fixed in " +
+                    "the next format round",
+            ).addAdditionalRuleProvider { ChainMethodContinuationRule() }
             .addAdditionalRuleProvider { IndentationRule() }
-            .addAdditionalRuleProvider { ArgumentListWrappingRule() }
+            .addAdditionalRuleProvider { MultilineExpressionWrappingRule() }
             .setMaxLineLength()
-            .hasLintViolations(
-                LintViolation(2, 14, "Newline expected after opening brace"),
-                LintViolation(2, 44, "Newline expected before closing brace"),
-                LintViolation(3, 42, "Newline expected after opening brace"),
-                LintViolation(3, 61, "Newline expected before closing brace"),
-                LintViolation(3, 67, "Newline expected after opening brace"),
-                LintViolation(3, 77, "Newline expected before closing brace"),
-            ).isFormattedAs(formattedCode)
+            .isFormattedAs(formattedCode)
     }
 
     @Test

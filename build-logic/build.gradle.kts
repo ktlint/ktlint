@@ -1,20 +1,12 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
-    `java-gradle-plugin`
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.sam.with.receiver)
+    `kotlin-dsl`
 }
 
 repositories {
     mavenCentral()
-}
-
-samWithReceiver {
-    annotation("org.gradle.api.HasImplicitReceiver")
 }
 
 kotlin {
@@ -28,14 +20,7 @@ kotlin {
     )
 
     compilerOptions {
-        // Match language version enforced by current Gradle version https://docs.gradle.org/current/userguide/compatibility.html#kotlin
-        apiVersion.set(KotlinVersion.KOTLIN_2_2)
-    }
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    compilerOptions {
-        freeCompilerArgs.add("-Xsuppress-version-warnings") // ignores deprecated kotlin language version
+        freeCompilerArgs.add("-Xcontext-parameters")
     }
 }
 
@@ -87,7 +72,6 @@ dependencies {
             libs.kotlin.plugin.asProvider()
         }
     implementation(kotlinPlugin)
-    implementation(gradleKotlinDsl())
     implementation(libs.dokka)
     implementation(libs.poko)
     implementation(libs.gradle.maven.publish.plugin)

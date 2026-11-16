@@ -178,6 +178,13 @@ internal class KtlintCommandLine : CliktCommand(name = "ktlint") {
             hidden = true,
         ).flag()
 
+    private val noRerunFormatAfterAutocorrect: Boolean by
+        option(
+            "--no-rerun-format-after-autocorrect",
+            help = "Do not rerun format after a lint violation has been autocorrected",
+            hidden = true,
+        ).flag(default = false)
+
     private val baselinePath: String by
         option("--baseline", help = "Defines a baseline file to check against")
             .default("")
@@ -219,6 +226,7 @@ internal class KtlintCommandLine : CliktCommand(name = "ktlint") {
             format = format,
             ignoreAutocorrectFailures = ignoreAutocorrectFailures,
             forceLintAfterFormat = forceLintAfterFormat,
+            rerunFormatAfterAutocorrect = !noRerunFormatAfterAutocorrect,
             relative = relative,
             limit = limit,
             ktLintRuleEngine = ktLintRuleEngine(),
