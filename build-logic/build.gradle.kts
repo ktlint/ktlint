@@ -9,15 +9,16 @@ repositories {
     mavenCentral()
 }
 
+val javaCompilationTarget =
+    libs
+        .versions
+        .java
+        .compilation
+        .get()
+        .toInt()
+
 kotlin {
-    jvmToolchain(
-        libs
-            .versions
-            .java
-            .compilation
-            .get()
-            .toInt(),
-    )
+    jvmToolchain(javaCompilationTarget)
 
     compilerOptions {
         freeCompilerArgs.add("-Xcontext-parameters")
@@ -29,10 +30,12 @@ kotlin {
 val buildLogicJavaTarget =
     JvmTarget
         .entries
-        .filterNot { it == JvmTarget.JVM_1_8 || it == JvmTarget.JVM_28 }
+        .filterNot { it == JvmTarget.JVM_1_8 }
+        .filter { it.target.toInt() <= javaCompilationTarget }
         .maxBy { it.target.toInt() }
         .also {
-            logger.lifecycle("Set build logic Java Target: $it")
+            logger.lifecycle("Current Java version: $javaCompilationTarget")
+            logger.lifecycle("Set build logic Java Target (max version supported by Gradle): $it")
         }
 tasks.withType<KotlinJvmCompile>().configureEach {
     compilerOptions.jvmTarget.set(buildLogicJavaTarget)
