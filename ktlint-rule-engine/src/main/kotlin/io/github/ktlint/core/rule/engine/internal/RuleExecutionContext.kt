@@ -26,7 +26,6 @@ import io.github.ktlint.core.rule.engine.core.api.prevSibling
 import io.github.ktlint.core.rule.engine.internal.rulefilter.InternalRuleProvidersFilter
 import io.github.ktlint.core.rule.engine.internal.rulefilter.RuleExecutionRuleFilter
 import io.github.ktlint.core.rule.engine.internal.rulefilter.applyRuleFilters
-import io.github.ktlint.core.rule.engine.internal.rules.KTLINT_SUPPRESSION_RULE_ID
 import kotlin.io.path.pathString
 
 internal class RuleExecutionContext private constructor(

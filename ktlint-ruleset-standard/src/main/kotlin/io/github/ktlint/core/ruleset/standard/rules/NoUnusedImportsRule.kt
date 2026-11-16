@@ -31,7 +31,6 @@ import io.github.ktlint.core.rule.engine.core.util.safeAs
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import org.jetbrains.kotlin.kdoc.lexer.KDocTokens.MARKDOWN_LINK
 import org.jetbrains.kotlin.psi.KtDotQualifiedExpression
-import org.jetbrains.kotlin.psi.KtIdeApi
 import org.jetbrains.kotlin.psi.KtImportDirective
 import org.jetbrains.kotlin.psi.KtPackageDirective
 import org.jetbrains.kotlin.resolve.ImportPath

@@ -1,7 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
 import com.intellij.lang.ASTNode
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC_END
 import io.github.ktlint.core.rule.engine.core.api.ElementType.KDOC_LEADING_ASTERISK
