@@ -483,5 +483,51 @@ class SpacingAroundColonRuleTest {
                     LintViolation(11, 15, "Unexpected newline before \":\""),
                 ).isFormattedAs(formattedCode)
         }
+
+        @Test
+        fun `Issue 3460 - Given a class with a EOL comment before the colon and super type list`() {
+            val code =
+                """
+                class Foo
+                    // comment
+                    :Bar
+                """.trimIndent()
+            val formattedCode =
+                """
+                class Foo :
+                    // comment
+                    Bar
+                """.trimIndent()
+            spacingAroundColonRuleAssertThat(code)
+                .addAdditionalRuleProvider { IndentationRule() }
+                .hasLintViolations(
+                    LintViolation(2, 15, "Unexpected newline before \":\""),
+                    LintViolation(3, 6, "Missing spacing after \":\""),
+                ).isFormattedAs(formattedCode)
+        }
+
+        @Test
+        fun `Issue 3460 - Given a class with a body, and an EOL comment before the colon and super type list`() {
+            val code =
+                """
+                class Foo
+                    // comment
+                    :Bar {
+                }
+                """.trimIndent()
+            val formattedCode =
+                """
+                class Foo :
+                    // comment
+                    Bar {
+                }
+                """.trimIndent()
+            spacingAroundColonRuleAssertThat(code)
+                .addAdditionalRuleProvider { IndentationRule() }
+                .hasLintViolations(
+                    LintViolation(2, 15, "Unexpected newline before \":\""),
+                    LintViolation(3, 6, "Missing spacing after \":\""),
+                ).isFormattedAs(formattedCode)
+        }
     }
 }

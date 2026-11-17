@@ -2,6 +2,10 @@ name: Publish release documentation
 permissions:
   contents: write
 
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
 on:
   push:
     branches: ['master']
