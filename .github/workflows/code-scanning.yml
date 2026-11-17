@@ -118,22 +118,15 @@ jobs:
           # when the Kotlin version is not yet supported. Treat this as a warning, not a failure.
           echo "codeql-init: ${{steps.codeql-init.outcome}}"
           echo "codeql-analys: ${{steps.codeql-analyze.outcome}}"
-          if grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep -q "Install a version lower than"; then
-            echo "RUNNER_TEMP: $RUNNER_TEMP"
-            echo "With text too recent:" $(grep -r "is too recent" "$RUNNER_TEMP")
-            echo "With text install version lower than:" $(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1)
-            msg=$(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1)
+          echo "codeql-init ouput results: ${{steps.codeql-init.outputs.result}}"
+          echo "codeql-analyze ouput results: ${{steps.codeql-analyze.outputs.result}}"
+          msg=$(grep -r "is too recent" ${{steps.codeql-init.outputs.result}} ${{steps.codeql-analyze.outputs.result}} 2>/dev/null | grep "Install a version lower than" | head -1)
+          echo "Msg: $msg"
+          if "$msg" != ""; then
             echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
-          elif "${{ steps.codeql-analyze.outcome }}" == "failure"; then
-            echo "CodeQL analysis for Kotlin failed for an unexpected reason. Failing the job."
+          elif "${{ steps.codeql-init.outcome }}" == "failure" || "${{ steps.codeql-analyze.outcome }}" == "failure"; then
+            echo "CodeQL init/analysis for Kotlin failed for an unexpected reason. Failing the job."
             exit 1
           else
-            echo "Nothing to do"
+            echo "No failure found in CodeQL init/analysis"
           fi
-
-      - if: matrix.language == 'kotlin' && success()
-        name: Perform CodeQL Analysis
-        id: codeql-analyze-2
-        uses: github/codeql-action/analyze@v4
-        with:
-          category: "/language:${{matrix.language}}"
