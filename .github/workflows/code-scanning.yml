@@ -116,19 +116,19 @@ jobs:
           #   "Kotlin version 2.5.0-RC is too recent. CodeQL currently supports versions below 2.4.30"
           #   "The Kotlin version installed (`2.5.0-RC`) is too recent for this version of CodeQL. Install a version lower than 2.4.30."
           # when the Kotlin version is not yet supported. Treat this as a warning, not a failure.
+          echo "codeql-init: ${{steps.codeql-init.outcome}}"
+          echo "codeql-analys: ${{steps.codeql-analyze.outcome}}"
           if grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep -q "Install a version lower than"; then
             echo "RUNNER_TEMP: $RUNNER_TEMP"
             echo "With text too recent: $(grep -r "is too recent" "$RUNNER_TEMP")"
             echo "With text install version lower than: $(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1)"
             msg=$(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1
             echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
+          elif "${{ steps.codeql-analyze.outcome }}" == "failure"; then
+            echo "CodeQL analysis for Kotlin failed for an unexpected reason. Failing the job."
+            exit 1
           else
-            if ${{ steps.codeql-analyze.outcome }} == 'failure'; then
-              echo "CodeQL analysis for Kotlin failed for an unexpected reason. Failing the job."
-              exit 1
-            else
-              echo "Nothing to do"
-            fi
+            echo "Nothing to do"
           fi
 
       - if: matrix.language == 'kotlin' && success()
