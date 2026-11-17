@@ -79,14 +79,14 @@ jobs:
           category: "/language:${{matrix.language}}"
 
       - if: matrix.language == 'kotlin'
-        name: Build with release Kotlin version
+        name: Report CodeQL Init outcome
         id: report-codeql-init-outcome
         continue-on-error: true
         shell: bash
         run: echo ${{steps.codeql-init.outcome}}
 
       - if: matrix.language == 'kotlin'
-        name: Build with release Kotlin version
+        name: Report CodeQL Analyze outcome
         id: report-codeql-analyze-outcome
         continue-on-error: true
         shell: bash
@@ -120,9 +120,9 @@ jobs:
           echo "codeql-analys: ${{steps.codeql-analyze.outcome}}"
           if grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep -q "Install a version lower than"; then
             echo "RUNNER_TEMP: $RUNNER_TEMP"
-            echo "With text too recent: $(grep -r "is too recent" "$RUNNER_TEMP")"
-            echo "With text install version lower than: $(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1)"
-            msg=$(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1
+            echo "With text too recent:" $(grep -r "is too recent" "$RUNNER_TEMP")
+            echo "With text install version lower than:" $(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1)
+            msg=$(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1)
             echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
           elif "${{ steps.codeql-analyze.outcome }}" == "failure"; then
             echo "CodeQL analysis for Kotlin failed for an unexpected reason. Failing the job."
