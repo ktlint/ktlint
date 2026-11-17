@@ -48,6 +48,9 @@ jobs:
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
+        id: codeql-init
+        # Allow failure for Kotlin: CodeQL may not yet support the current Kotlin compiler version.
+        continue-on-error: ${{ matrix.language == 'kotlin' }}
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
@@ -62,10 +65,30 @@ jobs:
       # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       - if: matrix.language == 'kotlin'
         name: Build with release Kotlin version
+        id: kotlin-build
+        continue-on-error: true
         shell: bash
         run: ./gradlew build -x test --no-build-cache
 
       - name: Perform CodeQL Analysis
+        id: codeql-analyze
+        # Allow failure for Kotlin: CodeQL may not yet support the current Kotlin compiler version.
+        continue-on-error: ${{ matrix.language == 'kotlin' }}
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{matrix.language}}"
+
+      - if: matrix.language == 'kotlin' && (steps.codeql-init.outcome == 'failure' || steps.codeql-analyze.outcome == 'failure')
+        name: Check whether CodeQL failure is due to unsupported Kotlin version
+        shell: bash
+        run: |
+          # CodeQL logs a message like:
+          #   "Kotlin version 2.5.0-RC is too recent. CodeQL currently supports versions below 2.4.30"
+          # when the Kotlin version is not yet supported. Treat this as a warning, not a failure.
+          if grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep -q "CodeQL currently supports"; then
+            msg=$(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "CodeQL currently supports" | head -1 | sed 's/.*\(Kotlin version.*\)/\1/')
+            echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
+          else
+            echo "CodeQL analysis for Kotlin failed for an unexpected reason. Failing the job."
+            exit 1
+          fi
