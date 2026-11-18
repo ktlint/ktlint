@@ -78,7 +78,7 @@ jobs:
         with:
           category: "/language:${{matrix.language}}"
           output: ${{ runner.temp }}/codeql-sarif
-          post-processed-sarif-path: ${{ runner.temp }}/codeql-analyze.sarif
+          post-processed-sarif-path: ${{ runner.temp }}/codeql-analyze-post-proces.sarif
 
       - if: matrix.language == 'kotlin'
         name: Report CodeQL Init outcome
@@ -130,11 +130,15 @@ jobs:
             echo "::warning::Could not read the CodeQL Sarif file (SARIF or jq unavailable)."
             exit 1
           fi
-          echo "======== $SARIF_FILE ====="
-          cat $SARIF_FILE
-          echo ""
-          echo "======== POST_PROCES_SARIF ====="
-          cat POST_PROCES_SARIF
+          if [ -f $SARIF_FILE ]; then
+            echo "======== $SARIF_FILE ====="
+            cat $SARIF_FILE
+          fi
+          if [ -f $POST_PROCES_SARIF ]; then
+            echo ""
+            echo "======== $POST_PROCES_SARIF ====="
+            cat $POST_PROCES_SARIF
+          fi
 #          msg=$(grep -r "is too recent" ${{steps.codeql-init.outputs.result}} ${{steps.codeql-analyze.outputs.result}} 2>/dev/null | grep "Install a version lower than" | head -1)
 #          echo "Msg: $msg"
 #          if "$msg" != ""; then
