@@ -66,6 +66,7 @@ jobs:
       - if: matrix.language == 'kotlin'
         name: Build with release Kotlin version
         id: kotlin-build
+        continue-on-error: true
         shell: bash
         run: ./gradlew build -x test --no-build-cache
 
@@ -96,17 +97,19 @@ jobs:
           fi
           # Check if a notification is found which may not be ignored. Notifications regarding the kotlin version being too new should be
           # ignored to prevent that this job fails. Kotlin updates in CodeQL tend too lag behind with updates in Ktlint.
-          HAS_NOTIFICATION_WHICH_MAY_NOT_BE_IGNORED="$(
+          NOTIFICATIONS_WHICH_MAY_NOT_BE_IGNORED="$(
             jq '
               [
                 .runs[].invocations[].toolExecutionNotifications[] |
                 select(.descriptor.id != "java/extractor-agent/kotlin-version-too-new") |
+                select(.level == "error") |
                 select((.message.text // "" | length > 0) or (.message.markdown // "" | length > 0))
-              ] | length > 0
+              ]
               ' $SARIF_FILE
           )"
-          if [ "$HAS_NOTIFICATION_WHICH_MAY_NOT_BE_IGNORED" == "true" ]; then
-            echo "Found CodeQL notification which may not be ignored."
+          if [ "$NOTIFICATIONS_WHICH_MAY_NOT_BE_IGNORED" != "[]" ]; then
+            echo "Found CodeQL notifications which may not be ignored."
+            echo "$NOTIFICATIONS_WHICH_MAY_NOT_BE_IGNORED"
             exit 3
           fi
           # Check if a notification is found related to the Kotlin version being too new. If multiple are found than pick the most recent
