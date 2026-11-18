@@ -49,7 +49,7 @@ jobs:
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         id: codeql-init
-        # Allow failure for Kotlin: CodeQL may not yet support the current Kotlin compiler version.
+        # Allow failure for Kotlin when current Kotlin compiler is not yet be supported. So we check for that in the codeql-report step.
         continue-on-error: ${{ matrix.language == 'kotlin' }}
         uses: github/codeql-action/init@v4
         with:
@@ -66,86 +66,65 @@ jobs:
       - if: matrix.language == 'kotlin'
         name: Build with release Kotlin version
         id: kotlin-build
-        continue-on-error: true
         shell: bash
         run: ./gradlew build -x test --no-build-cache
 
       - name: Perform CodeQL Analysis
         id: codeql-analyze
-        # Allow failure for Kotlin: CodeQL may not yet support the current Kotlin compiler version.
+        # Allow failure for Kotlin when current Kotlin compiler is not yet be supported. So we check for that in the codeql-report step.
         continue-on-error: ${{ matrix.language == 'kotlin' }}
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{matrix.language}}"
+          # Set output directory so that we can pick up the sarif file from the java/kotlin analysis in the last step
           output: ${{ runner.temp }}/codeql-sarif
-          post-processed-sarif-path: ${{ runner.temp }}/codeql-analyze-post-proces.sarif
 
       - if: matrix.language == 'kotlin'
-        name: Report CodeQL Init outcome
-        id: report-codeql-init-outcome
-        continue-on-error: true
-        shell: bash
-        run: echo ${{steps.codeql-init.outcome}}
-
-      - if: matrix.language == 'kotlin'
-        name: Report CodeQL Analyze outcome
-        id: report-codeql-analyze-outcome
-        continue-on-error: true
-        shell: bash
-        run: echo ${{steps.codeql-analyze.outcome}}
-
-      - if: matrix.language == 'kotlin' && (steps.codeql-init.outcome == 'failure' || steps.codeql-analyze.outcome == 'failure')
+        id: codeql-report
         name: Check whether CodeQL failure is due to unsupported Kotlin version
         shell: bash
-        run: |
-          # CodeQL logs a message like:
-          #   "Kotlin version 2.5.0-RC is too recent. CodeQL currently supports versions below 2.4.30"
-          #   "The Kotlin version installed (`2.5.0-RC`) is too recent for this version of CodeQL. Install a version lower than 2.4.30."
-          # when the Kotlin version is not yet supported. Treat this as a warning, not a failure.
-          if grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep -q "Install a version lower than"; then
-            msg=$(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1 | sed 's/.*\(Kotlin version.*\)/\1/')
-            echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
-          else
-            echo "CodeQL analysis for Kotlin failed for an unexpected reason. Failing the job."
-            exit 1
-          fi
-
-      - if: matrix.language == 'kotlin'
-        name: Check whether CodeQL failure is due to unsupported Kotlin version 2
-        shell: bash
         env:
-          SARIF_DIR: ${{ runner.temp }}/codeql-sarif
-          POST_PROCES_SARIF: ${{ runner.temp }}/codeql-analyze-post-proces.sarif
+          SARIF_FILE: ${{ runner.temp }}/codeql-sarif/java.sarif
         run: |
-          # CodeQL logs a message like:
-          #   "Kotlin version 2.5.0-RC is too recent. CodeQL currently supports versions below 2.4.30"
-          #   "The Kotlin version installed (`2.5.0-RC`) is too recent for this version of CodeQL. Install a version lower than 2.4.30."
-          # when the Kotlin version is not yet supported. Treat this as a warning, not a failure.
-          echo "codeql-init: ${{steps.codeql-init.outcome}}"
-          echo "codeql-analys: ${{steps.codeql-analyze.outcome}}"
-          echo "Sarif files: $(find "$SARIF_DIR" -maxdepth 1)"
-          SARIF_FILE="$(find "$SARIF_DIR" -maxdepth 1 -name '*.sarif' -print -quit 2>/dev/null || true)"
-          echo "Sarif file: $SARIF_FILE"
-          if [ -z "$SARIF_FILE" ] || ! command -v jq >/dev/null 2>&1; then
-            echo "::warning::Could not read the CodeQL Sarif file (SARIF or jq unavailable)."
+          if [ ! -f $SARIF_FILE ]; then
+            echo "::warning::Cannot find file "$SARIF_FILE" which contains the result of the Java/Kotlin CodeQL analysis".
             exit 1
           fi
-          if [ -f $SARIF_FILE ]; then
-            echo "======== $SARIF_FILE ====="
-            cat $SARIF_FILE
+          if ! command -v jq >/dev/null 2>&1; then
+            echo "::warning::jq command not available"
+            exit 2
           fi
-          if [ -f $POST_PROCES_SARIF ]; then
-            echo ""
-            echo "======== $POST_PROCES_SARIF ====="
-            cat $POST_PROCES_SARIF
+          # Check if a notification is found which may not be ignored. Notifications regarding the kotlin version being too new should be
+          # ignored to prevent that this job fails. Kotlin updates in CodeQL tend too lag behind with updates in Ktlint.
+          HAS_NOTIFICATION_WHICH_MAY_NOT_BE_IGNORED="$(
+            jq '
+              [
+                .runs[].invocations[].toolExecutionNotifications[] |
+                select(.descriptor.id != "java/extractor-agent/kotlin-version-too-new") |
+                select((.message.text // "" | length > 0) or (.message.markdown // "" | length > 0))
+              ] | length > 0
+              ' $SARIF_FILE
+          )"
+          if [ "$HAS_NOTIFICATION_WHICH_MAY_NOT_BE_IGNORED" == "true" ]; then
+            echo "Found CodeQL notification which may not be ignored."
+            exit 3
           fi
-#          msg=$(grep -r "is too recent" ${{steps.codeql-init.outputs.result}} ${{steps.codeql-analyze.outputs.result}} 2>/dev/null | grep "Install a version lower than" | head -1)
-#          echo "Msg: $msg"
-#          if "$msg" != ""; then
-#            echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
-#          elif "${{ steps.codeql-init.outcome }}" == "failure" || "${{ steps.codeql-analyze.outcome }}" == "failure"; then
-#            echo "CodeQL init/analysis for Kotlin failed for an unexpected reason. Failing the job."
-#            exit 1
-#          else
-#            echo "No failure found in CodeQL init/analysis"
-#          fi
+          # Check if a notification is found related to the Kotlin version being too new. If multiple are found than pick the most recent
+          # message.
+          MESSAGE_KOTLIN_VERSION_TOO_NEW="$(
+            jq '
+              [
+                .runs[].invocations[].toolExecutionNotifications[] |
+                select(.descriptor.id == "java/extractor-agent/kotlin-version-too-new")
+              ] |
+              sort_by(.timeUtc) |
+              last |
+              .message.text
+              ' $SARIF_FILE
+          )"
+          if [ $MESSAGE_KOTLIN_VERSION_TOO_NEW != "null" ]; then
+            # If only notifications are found related to Kotlin version being to new, then do not fail the CodeQL job.
+            echo "::warning::$MESSAGE_KOTLIN_VERSION_TOO_NEW"
+          else
+            echo "No CodeQL notification found that should fail the job"
+          fi
