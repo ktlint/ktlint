@@ -1,6 +1,7 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CLASS_BODY
+import io.github.ktlint.core.rule.engine.core.api.ElementType.COMPANION_BLOCK
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CONST_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FILE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.GET_KEYWORD
@@ -103,7 +104,7 @@ public class PropertyNamingRule :
 
     private fun ASTNode.isObjectValue() =
         parent?.elementType == CLASS_BODY &&
-            parent?.parent?.elementType == OBJECT_DECLARATION &&
+            (parent?.parent?.elementType == OBJECT_DECLARATION || parent?.parent?.elementType == COMPANION_BLOCK) &&
             containsValKeyword() &&
             !hasModifier(OVERRIDE_KEYWORD)
 

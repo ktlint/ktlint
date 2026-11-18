@@ -185,6 +185,33 @@ class PropertyNamingRuleTest {
         propertyNamingRuleAssertThat(code).hasNoLintViolations()
     }
 
+    @Test
+    fun `Given a non-const val with a screaming snake case name in a companion block then do not report it`() {
+        val code =
+            """
+            class Foo {
+                companion {
+                    val FOO_BAR = Bar("bar")
+                }
+            }
+            """.trimIndent()
+        propertyNamingRuleAssertThat(code).hasNoLintViolations()
+    }
+
+    @Test
+    fun `Given a non-const var with a screaming snake case name in a companion block then report it`() {
+        val code =
+            """
+            class Foo {
+                companion {
+                    var FOO_BAR = Bar("bar")
+                }
+            }
+            """.trimIndent()
+        propertyNamingRuleAssertThat(code)
+            .hasLintViolationWithoutAutoCorrect(3, 13, "Property name should start with a lowercase letter and use camel case")
+    }
+
     @Nested
     inner class `Issue 2017 - Given property is serialVersionUID` {
         @Test
