@@ -48,6 +48,9 @@ jobs:
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
+        id: codeql-init
+        # Allow failure for Kotlin: CodeQL may not yet support the current Kotlin compiler version.
+        continue-on-error: ${{ matrix.language == 'kotlin' }}
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
@@ -62,10 +65,68 @@ jobs:
       # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       - if: matrix.language == 'kotlin'
         name: Build with release Kotlin version
+        id: kotlin-build
+        continue-on-error: true
         shell: bash
         run: ./gradlew build -x test --no-build-cache
 
       - name: Perform CodeQL Analysis
+        id: codeql-analyze
+        # Allow failure for Kotlin: CodeQL may not yet support the current Kotlin compiler version.
+        continue-on-error: ${{ matrix.language == 'kotlin' }}
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{matrix.language}}"
+
+      - if: matrix.language == 'kotlin'
+        name: Report CodeQL Init outcome
+        id: report-codeql-init-outcome
+        continue-on-error: true
+        shell: bash
+        run: echo ${{steps.codeql-init.outcome}}
+
+      - if: matrix.language == 'kotlin'
+        name: Report CodeQL Analyze outcome
+        id: report-codeql-analyze-outcome
+        continue-on-error: true
+        shell: bash
+        run: echo ${{steps.codeql-analyze.outcome}}
+
+      - if: matrix.language == 'kotlin' && (steps.codeql-init.outcome == 'failure' || steps.codeql-analyze.outcome == 'failure')
+        name: Check whether CodeQL failure is due to unsupported Kotlin version
+        shell: bash
+        run: |
+          # CodeQL logs a message like:
+          #   "Kotlin version 2.5.0-RC is too recent. CodeQL currently supports versions below 2.4.30"
+          #   "The Kotlin version installed (`2.5.0-RC`) is too recent for this version of CodeQL. Install a version lower than 2.4.30."
+          # when the Kotlin version is not yet supported. Treat this as a warning, not a failure.
+          if grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep -q "Install a version lower than"; then
+            msg=$(grep -r "is too recent" "$RUNNER_TEMP" 2>/dev/null | grep "Install a version lower than" | head -1 | sed 's/.*\(Kotlin version.*\)/\1/')
+            echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
+          else
+            echo "CodeQL analysis for Kotlin failed for an unexpected reason. Failing the job."
+            exit 1
+          fi
+
+      - if: matrix.language == 'kotlin'
+        name: Check whether CodeQL failure is due to unsupported Kotlin version 2
+        shell: bash
+        run: |
+          # CodeQL logs a message like:
+          #   "Kotlin version 2.5.0-RC is too recent. CodeQL currently supports versions below 2.4.30"
+          #   "The Kotlin version installed (`2.5.0-RC`) is too recent for this version of CodeQL. Install a version lower than 2.4.30."
+          # when the Kotlin version is not yet supported. Treat this as a warning, not a failure.
+          echo "codeql-init: ${{steps.codeql-init.outcome}}"
+          echo "codeql-analys: ${{steps.codeql-analyze.outcome}}"
+          echo "codeql-init ouput results: ${{steps.codeql-init.outputs.result}}"
+          echo "codeql-analyze ouput results: ${{steps.codeql-analyze.outputs.result}}"
+          msg=$(grep -r "is too recent" ${{steps.codeql-init.outputs.result}} ${{steps.codeql-analyze.outputs.result}} 2>/dev/null | grep "Install a version lower than" | head -1)
+          echo "Msg: $msg"
+          if "$msg" != ""; then
+            echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
+          elif "${{ steps.codeql-init.outcome }}" == "failure" || "${{ steps.codeql-analyze.outcome }}" == "failure"; then
+            echo "CodeQL init/analysis for Kotlin failed for an unexpected reason. Failing the job."
+            exit 1
+          else
+            echo "No failure found in CodeQL init/analysis"
+          fi

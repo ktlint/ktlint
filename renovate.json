@@ -2,5 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "description": "clikt 5.2.0 calls java.util.List.removeLast(), which fails ktlint-cli tests on JDK 17 (https://github.com/ajalt/clikt/issues/657).",
+      "matchPackageNames": ["com.github.ajalt.clikt:*"],
+      "allowedVersions": "!/^5\\.2\\.0$/"
+    }
   ]
 }

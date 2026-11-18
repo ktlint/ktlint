@@ -62,6 +62,10 @@ abstract class KotlinCommonPlugin : Plugin<Project> {
         project.tasks.withType<KotlinCompile>().configureEach {
             // Convert Java version (e.g. "1.8" or "11") to Kotlin JvmTarget ("8" resp. "11")
             compilerOptions.jvmTarget.set(JvmTarget.fromTarget(JavaVersion.toVersion(javaTargetVersion).toString()))
+            // Restrict API usage to the target JDK version, preventing accidental use of newer JDK APIs that would cause
+            // NoSuchMethodError/ClassNotFoundException at runtime on the minimum supported JDK.
+            // See https://jakewharton.com/kotlins-jdk-release-compatibility-flag/
+            compilerOptions.freeCompilerArgs.add("-Xjdk-release=${javaTargetVersion.asInt()}")
         }
     }
 
