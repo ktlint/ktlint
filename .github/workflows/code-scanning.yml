@@ -77,6 +77,8 @@ jobs:
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{matrix.language}}"
+          output: ${{ runner.temp }}/codeql-sarif
+          post-processed-sarif-path: ${{ runner.temp }}/codeql-analyze.sarif
 
       - if: matrix.language == 'kotlin'
         name: Report CodeQL Init outcome
@@ -111,6 +113,9 @@ jobs:
       - if: matrix.language == 'kotlin'
         name: Check whether CodeQL failure is due to unsupported Kotlin version 2
         shell: bash
+        env:
+          SARIF_DIR: ${{ runner.temp }}/codeql-sarif
+          POST_PROCES_SARIF: ${{ runner.temp }}/codeql-analyze-post-proces.sarif
         run: |
           # CodeQL logs a message like:
           #   "Kotlin version 2.5.0-RC is too recent. CodeQL currently supports versions below 2.4.30"
@@ -118,15 +123,25 @@ jobs:
           # when the Kotlin version is not yet supported. Treat this as a warning, not a failure.
           echo "codeql-init: ${{steps.codeql-init.outcome}}"
           echo "codeql-analys: ${{steps.codeql-analyze.outcome}}"
-          echo "codeql-init ouput results: ${{steps.codeql-init.outputs.result}}"
-          echo "codeql-analyze ouput results: ${{steps.codeql-analyze.outputs.result}}"
-          msg=$(grep -r "is too recent" ${{steps.codeql-init.outputs.result}} ${{steps.codeql-analyze.outputs.result}} 2>/dev/null | grep "Install a version lower than" | head -1)
-          echo "Msg: $msg"
-          if "$msg" != ""; then
-            echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
-          elif "${{ steps.codeql-init.outcome }}" == "failure" || "${{ steps.codeql-analyze.outcome }}" == "failure"; then
-            echo "CodeQL init/analysis for Kotlin failed for an unexpected reason. Failing the job."
+          echo "Sarif files: $(find "$SARIF_DIR" -maxdepth 1)"
+          SARIF_FILE="$(find "$SARIF_DIR" -maxdepth 1 -name '*.sarif' -print -quit 2>/dev/null || true)"
+          echo "Sarif file: $SARIF_FILE"
+          if [ -z "$SARIF_FILE" ] || ! command -v jq >/dev/null 2>&1; then
+            echo "::warning::Could not read the CodeQL Sarif file (SARIF or jq unavailable)."
             exit 1
-          else
-            echo "No failure found in CodeQL init/analysis"
           fi
+          echo "======== $SARIF_FILE ====="
+          cat $SARIF_FILE
+          echo ""
+          echo "======== POST_PROCES_SARIF ====="
+          cat POST_PROCES_SARIF
+#          msg=$(grep -r "is too recent" ${{steps.codeql-init.outputs.result}} ${{steps.codeql-analyze.outputs.result}} 2>/dev/null | grep "Install a version lower than" | head -1)
+#          echo "Msg: $msg"
+#          if "$msg" != ""; then
+#            echo "::warning::CodeQL Kotlin analysis skipped: ${msg}. Upgrade github/codeql-action once support is available."
+#          elif "${{ steps.codeql-init.outcome }}" == "failure" || "${{ steps.codeql-analyze.outcome }}" == "failure"; then
+#            echo "CodeQL init/analysis for Kotlin failed for an unexpected reason. Failing the job."
+#            exit 1
+#          else
+#            echo "No failure found in CodeQL init/analysis"
+#          fi
