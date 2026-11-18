@@ -21,7 +21,6 @@ import io.github.ktlint.core.rule.engine.core.api.isPartOfComment
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithoutNewline
-import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.nextSibling
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
@@ -116,7 +115,7 @@ public class SpacingAroundColonRule : StandardRule("colon-spacing") {
 
     private fun ASTNode.removeUnexpectedNewlineBetweenCommentAndColon() {
         require(elementType == COLON)
-        val beforeAnchor = nextLeaf
+        val beforeAnchor = nextSibling
         previousNonCodeSiblings()
             .forEach { parent?.addChild(it, beforeAnchor) }
         beforeAnchor.takeIf { it.isWhiteSpace }?.remove()
