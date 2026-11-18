@@ -2,6 +2,14 @@
 
 package com.pinterest.ktlint.rule.engine.core.api
 
+import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import com.intellij.psi.impl.source.tree.CompositeElement
+import com.intellij.psi.impl.source.tree.LeafElement
+import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
+import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.IFileElementType
+import com.intellij.psi.tree.TokenSet
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.EOL_COMMENT
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.FILE
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.MODIFIER_LIST
@@ -14,13 +22,6 @@ import io.github.ktlint.core.rule.engine.core.api.KtlintKotlinCompiler
 import io.github.ktlint.core.rule.engine.core.api.TokenSets
 import io.github.ktlint.core.rule.engine.core.api.remove
 import org.jetbrains.kotlin.KtNodeType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.psi.PsiElement
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.CompositeElement
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafElement
-import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
-import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType
-import org.jetbrains.kotlin.com.intellij.psi.tree.TokenSet
 import org.jetbrains.kotlin.lexer.KtKeywordToken
 import org.jetbrains.kotlin.lexer.KtToken
 import org.jetbrains.kotlin.psi.KtAnnotated
@@ -29,8 +30,6 @@ import org.jetbrains.kotlin.psi.KtExpression
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtLoopExpression
 import org.jetbrains.kotlin.psi.psiUtil.leaves
-import org.jetbrains.kotlin.psi.stubs.elements.KtFileElementType
-import org.jetbrains.kotlin.psi.stubs.elements.KtStubElementType
 import org.jetbrains.kotlin.psi.stubs.elements.KtTokenSets
 import org.jetbrains.kotlin.util.prefixIfNot
 import org.jetbrains.kotlin.utils.addToStdlib.applyIf
@@ -1041,10 +1040,9 @@ public fun ASTNode.dummyPsiElement(): PsiElement =
             // Create a dummy Psi element based on the current node, so that we can store the Psi Type for this ElementType.
             // Creating this cache entry once per elementType is cheaper than accessing the psi for every node.
             when (elementType) {
-                is KtFileElementType -> createDummyKtFile()
+                is IFileElementType -> createDummyKtFile()
                 is KtKeywordToken -> this as PsiElement
                 is KtNodeType -> (elementType as KtNodeType).createPsi(this)
-                is KtStubElementType<*, *> -> (elementType as KtStubElementType<*, *>).createPsiFromAst(this)
                 is KtToken -> this as PsiElement
                 else -> throw NotImplementedError("Cannot create dummy psi for $elementType (${elementType::class})")
             }

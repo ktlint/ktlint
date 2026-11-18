@@ -22,7 +22,7 @@ runs:
         distribution: 'zulu'
         java-version: | # last version (set as default) should match all `jvmToolchain(xxx)` calls in the project
           ${{ inputs.additional-java-versions }}
-          26
+          27
 
       # Please note these settings will override the ones set via `gradle.properties` committed to the repository - https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_configuration_properties
       # List of optimizations:

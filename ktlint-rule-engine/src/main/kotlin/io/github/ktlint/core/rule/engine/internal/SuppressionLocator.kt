@@ -1,5 +1,6 @@
 package io.github.ktlint.core.rule.engine.internal
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.CONSTRUCTOR_CALLEE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RBRACE
@@ -15,7 +16,6 @@ import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.recursiveChildren
 import io.github.ktlint.core.rule.engine.internal.SuppressionLocator.CommentSuppressionHint.Type.BLOCK_END
 import io.github.ktlint.core.rule.engine.internal.SuppressionLocator.CommentSuppressionHint.Type.BLOCK_START
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 internal class SuppressionLocator(
     editorConfig: EditorConfig,

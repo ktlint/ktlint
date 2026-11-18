@@ -1,10 +1,10 @@
 package io.github.ktlint.core.rule.engine.core.api
 
+import com.intellij.lang.ASTNode
 import dev.drewhamilton.poko.Poko
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigProperty
 import io.github.ktlint.core.rule.engine.core.internal.IdNamingPolicy
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @Poko
 public class RuleId(

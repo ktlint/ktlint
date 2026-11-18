@@ -78,7 +78,7 @@ public final class io/github/ktlint/core/rule/engine/api/KtLintRuleEngine {
 	public final fun lint (Lio/github/ktlint/core/rule/engine/api/Code;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun lint$default (Lio/github/ktlint/core/rule/engine/api/KtLintRuleEngine;Lio/github/ktlint/core/rule/engine/api/Code;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun reloadEditorConfigFile (Ljava/nio/file/Path;)V
-	public final fun transformToAst (Lio/github/ktlint/core/rule/engine/api/Code;)Lorg/jetbrains/kotlin/com/intellij/lang/FileASTNode;
+	public final fun transformToAst (Lio/github/ktlint/core/rule/engine/api/Code;)Lcom/intellij/lang/FileASTNode;
 	public final fun trimMemory ()V
 }
 
@@ -143,7 +143,7 @@ public class io/github/ktlint/core/rule/engine/internal/rules/InternalRule : io/
 
 public final class io/github/ktlint/core/rule/engine/internal/rules/KtlintSuppressionRule : io/github/ktlint/core/rule/engine/internal/rules/InternalRule, io/github/ktlint/core/rule/engine/core/api/IgnoreKtlintSuppressions {
 	public fun <init> (Ljava/util/List;)V
-	public fun beforeVisitChildNodes (Lorg/jetbrains/kotlin/com/intellij/lang/ASTNode;)V
+	public fun beforeVisitChildNodes (Lcom/intellij/lang/ASTNode;)V
 }
 
 public final class io/github/ktlint/core/rule/engine/internal/rules/KtlintSuppressionRuleKt {

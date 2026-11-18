@@ -1,5 +1,6 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.rule.engine.core.api.ElementType.ELSE_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.IF_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.LBRACE
@@ -11,7 +12,6 @@ import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevLeaf
 import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import io.github.ktlint.core.ruleset.standard.StandardRule
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 @SinceKtlint("0.15", STABLE)
 public class NoLineBreakAfterElseRule : StandardRule("no-line-break-after-else") {

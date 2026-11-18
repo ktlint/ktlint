@@ -2,6 +2,8 @@
 
 package com.pinterest.ktlint.rule.engine.core.api
 
+import com.intellij.lang.ASTNode
+import com.intellij.lang.FileASTNode
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.ANNOTATION_ENTRY
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.CLASS
 import com.pinterest.ktlint.rule.engine.core.api.ElementType.CLASS_BODY
@@ -27,8 +29,6 @@ import io.github.ktlint.core.test.SPACE
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatNoException
 import org.assertj.core.api.Assertions.entry
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.psi.KtAnnotated
 import org.jetbrains.kotlin.psi.psiUtil.leaves
 import org.junit.jupiter.api.Nested
