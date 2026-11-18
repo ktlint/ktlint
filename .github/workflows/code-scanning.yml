@@ -102,6 +102,7 @@ jobs:
               [
                 .runs[].invocations[].toolExecutionNotifications[] |
                 select(.descriptor.id != "java/extractor-agent/kotlin-version-too-new") |
+                select(.level == "error") |
                 select((.message.text // "" | length > 0) or (.message.markdown // "" | length > 0))
               ]
               ' $SARIF_FILE
@@ -109,7 +110,7 @@ jobs:
           if [ "$NOTIFICATIONS_WHICH_MAY_NOT_BE_IGNORED" != "[]" ]; then
             echo "Found CodeQL notifications which may not be ignored."
             echo "$NOTIFICATIONS_WHICH_MAY_NOT_BE_IGNORED"
-            exit
+            exit 3
           fi
           # Check if a notification is found related to the Kotlin version being too new. If multiple are found than pick the most recent
           # message.
