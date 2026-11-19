@@ -79,6 +79,7 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.WHEN
 import io.github.ktlint.core.rule.engine.core.api.ElementType.WHEN_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.WHERE_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.WHILE
+import io.github.ktlint.core.rule.engine.core.api.ElementType.WHITE_SPACE
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig.IndentStyle.SPACE
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig.IndentStyle.TAB
@@ -624,7 +625,7 @@ public class IndentationRule :
 
     private fun ASTNode.visitFun() {
         // Inner indent contexts in reversed order
-        var nextToAstNode: ASTNode = lastChildLeafOrSelf
+        var nextToAstNode: ASTNode = commentDirectlyAfterFunBodyExpression() ?: lastChildLeafOrSelf
         val eqOrBlock = findChildByType(EQ) ?: findChildByType(BLOCK)
         eqOrBlock?.let {
             nextToAstNode =
@@ -653,6 +654,22 @@ public class IndentationRule :
             childIndent = "",
         )
     }
+
+    private fun ASTNode.commentDirectlyAfterFunBodyExpression(): ASTNode? =
+        // Include the comment directly after a fun body expression in the indentContext of the function unless that comment is preceded by
+        // a blank line. So allow:
+        //     fun foo() =
+        //         """
+        //         """.trimIndent()
+        //         // Trailing comment belonging to function body expression
+        takeIf { findChildByType(EQ) != null }
+            ?.nextSibling
+            ?.takeUnless { it.isBlankLine() }
+            .takeIf { it.isWhiteSpace }
+            ?.nextSibling
+            ?.takeIf { it.isPartOfComment }
+
+    private fun ASTNode.isBlankLine(): Boolean = elementType == WHITE_SPACE && text.count { it == '\n' } > 1
 
     private fun ASTNode.visitWhereKeyword(): ASTNode {
         require(elementType == WHERE_KEYWORD) {}
