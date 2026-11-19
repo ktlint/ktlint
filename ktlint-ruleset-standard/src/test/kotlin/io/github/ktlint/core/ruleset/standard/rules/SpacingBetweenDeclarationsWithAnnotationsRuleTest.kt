@@ -332,4 +332,28 @@ class SpacingBetweenDeclarationsWithAnnotationsRuleTest {
             .hasLintViolation(3, 1, "Declarations and declarations with annotations should have an empty space between.")
             .isFormattedAs(formattedCode)
     }
+
+    @Test
+    fun `Given a declaration followed by EOL comment on same line, followed by an annotated declaration without blank line in between`() {
+        val code =
+            """
+            class Foo {
+                val bar = "bar" // Some comment
+                @Baz
+                val baz = "Baz"
+            }
+            """.trimIndent()
+        val formattedCode =
+            """
+            class Foo {
+                val bar = "bar" // Some comment
+
+                @Baz
+                val baz = "Baz"
+            }
+            """.trimIndent()
+        spacingBetweenDeclarationsWithAnnotationsRuleAssertThat(code)
+            .hasLintViolation(3, 1, "Declarations and declarations with annotations should have an empty space between.")
+            .isFormattedAs(formattedCode)
+    }
 }
