@@ -12,6 +12,7 @@ import io.github.ktlint.core.rule.engine.core.api.indent
 import io.github.ktlint.core.rule.engine.core.api.isCode
 import io.github.ktlint.core.rule.engine.core.api.isDeclaration
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
+import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevCodeLeaf
 import io.github.ktlint.core.rule.engine.core.api.prevCodeSibling
@@ -39,7 +40,7 @@ public class SpacingBetweenDeclarationsWithAnnotationsRule : StandardRule("spaci
             ?.takeIf { it.isDeclarationOrPropertyAccessor() }
             ?.takeIf { prevDeclaration -> hasNoBlankLineBetweenDeclarations(this, prevDeclaration) }
             ?.let {
-                val prevLeaf = prevCodeLeaf?.nextLeaf { it.isWhiteSpace }!!
+                val prevLeaf = prevCodeLeaf?.nextLeaf { it.isWhiteSpaceWithNewline }!!
                 emit(prevLeaf.startOffset + 1, "Declarations and declarations with annotations should have an empty space between.") {
                     prevLeaf.upsertWhitespaceBeforeMe("\n".plus(indent))
                 }
