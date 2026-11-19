@@ -351,4 +351,26 @@ class ChainWrappingRuleTest {
             """.trimIndent()
         chainWrappingRuleAssertThat(code).hasNoLintViolations()
     }
+
+    @Test
+    fun `Given a DOT QUALIFIED EXPRESSION with an EOL comment between the DOT and the CALL EXPRESSION then reformat`() {
+        val code =
+            """
+            var y =
+                false
+                    . // comment
+                    call()
+            """.trimIndent()
+        val formattedCode =
+            """
+            var y =
+                false
+                    // comment
+                    .call()
+            """.trimIndent()
+        chainWrappingRuleAssertThat(code)
+            .addAdditionalRuleProvider { ChainMethodContinuationRule() }
+            .hasLintViolation(3, 9, "Line must not end with \".\"")
+            .isFormattedAs(formattedCode)
+    }
 }

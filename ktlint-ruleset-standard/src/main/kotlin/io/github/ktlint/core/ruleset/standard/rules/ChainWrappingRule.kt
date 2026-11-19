@@ -25,6 +25,7 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_SIZE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
 import io.github.ktlint.core.rule.engine.core.api.isPartOfComment
+import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithoutNewline
 import io.github.ktlint.core.rule.engine.core.api.nextCodeLeaf
@@ -75,8 +76,8 @@ public class ChainWrappingRule :
     }
 
     private fun ASTNode.fixChainOperatorWhichMayNotBeUsedAtEndOfLine() {
-        val nextLeaf = nextCodeLeaf?.prevLeaf
-        if (nextLeaf.isWhiteSpaceWithNewline && !isElvisOperatorAndComment()) {
+        val leafBeforeNextCodeLeaf = nextCodeLeaf?.prevLeaf
+        if (leafBeforeNextCodeLeaf.isWhiteSpaceWithNewline && !isElvisOperatorAndComment()) {
             emit(startOffset, "Line must not end with \"$text\"") {
                 // rewriting
                 // <prevLeaf><node="."><nextLeaf="\n"> to
@@ -88,8 +89,11 @@ public class ChainWrappingRule :
                     upsertWhitespaceBeforeMe(indentConfig.childIndentOf(this))
                     upsertWhitespaceAfterMe(" ")
                 } else {
+                    if (prevLeaf.isWhiteSpace && nextLeaf.isWhiteSpace) {
+                        nextLeaf?.remove()
+                    }
                     remove()
-                    (nextLeaf as LeafElement).rawInsertAfterMe(this as LeafElement)
+                    (leafBeforeNextCodeLeaf as LeafElement).rawInsertAfterMe(this as LeafElement)
                 }
             }
         }
