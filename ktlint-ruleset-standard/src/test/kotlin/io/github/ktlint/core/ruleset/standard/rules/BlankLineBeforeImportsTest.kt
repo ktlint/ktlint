@@ -212,4 +212,22 @@ class BlankLineBeforeImportsTest {
             """.trimIndent()
         blankLineBeforeImportsRuleAssertThat(code).hasNoLintViolations()
     }
+
+    @Test
+    fun `Given no package statement and a blank line before the imports`() {
+        val code =
+            """
+
+            import foo
+            """.trimIndent()
+        val formattedCode =
+            """
+            import foo
+            """.trimIndent()
+        blankLineBeforeImportsRuleAssertThat(code)
+            .addAdditionalRuleProvider { NoBlankLineAtStartOfFileRule() }
+            .hasLintViolationForAdditionalRule(1, 1, "Unexpected whitespace at start of file")
+            .hasLintViolation(2, 1, "Expected a blank line before the import(s)")
+            .isFormattedAs(formattedCode)
+    }
 }
