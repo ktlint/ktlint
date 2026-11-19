@@ -6203,6 +6203,59 @@ internal class IndentationRuleTest {
         indentationRuleAssertThat(code).hasNoLintViolations()
     }
 
+    @Nested
+    inner class `Given a comment on a separate line after the function body expression` {
+        @Test
+        fun `Given an EOL comment directly below a function body expression than indent that comment on same indent as expression`() {
+            val code =
+                """
+                fun foo1() =
+                    $MULTILINE_STRING_QUOTE
+                    foo
+
+                    $MULTILINE_STRING_QUOTE.trimIndent()
+                    // Some comment related to expression above
+
+                fun foo2() =
+                    $MULTILINE_STRING_QUOTE
+                    foo
+
+                    $MULTILINE_STRING_QUOTE.trimIndent()
+                    /*
+                     * Some comment related to expression above
+                     */
+                """.trimIndent()
+
+            indentationRuleAssertThat(code).hasNoLintViolations()
+        }
+
+        @Test
+        fun `Given an EOL comment below a function body or expression but separated with blank line than do not indent that comment at same level as fun keyword`() {
+            val code =
+                """
+                class Bar {
+                    fun foo1() =
+                        $MULTILINE_STRING_QUOTE
+                        foo
+                        $MULTILINE_STRING_QUOTE.trimIndent()
+
+                    // Some comment not related to expression above because it is preceded by blank line
+
+                    fun foo2() =
+                        $MULTILINE_STRING_QUOTE
+                        foo
+                        $MULTILINE_STRING_QUOTE.trimIndent()
+
+                    /*
+                     * Some comment not related to expression above because it is preceded by blank line
+                     */
+                }
+                """.trimIndent()
+
+            indentationRuleAssertThat(code).hasNoLintViolations()
+        }
+    }
+
     private companion object {
         val INDENT_STYLE_TAB =
             INDENT_STYLE_PROPERTY to PropertyType.IndentStyleValue.tab
