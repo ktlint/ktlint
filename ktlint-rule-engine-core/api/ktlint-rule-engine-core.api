@@ -109,6 +109,7 @@ public final class io/github/ktlint/core/rule/engine/core/api/ElementType {
 	public final fun getCOLON ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
 	public final fun getCOLONCOLON ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
 	public final fun getCOMMA ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
+	public final fun getCOMPANION_BLOCK ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
 	public final fun getCOMPANION_KEYWORD ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
 	public final fun getCONDITION ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
 	public final fun getCONSTRUCTOR_CALLEE ()Lorg/jetbrains/kotlin/com/intellij/psi/tree/IElementType;
