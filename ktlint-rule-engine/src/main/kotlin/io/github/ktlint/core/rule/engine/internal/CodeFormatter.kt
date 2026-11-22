@@ -70,7 +70,7 @@ internal class CodeFormatter(
                 // It is unknown if the last format run introduces new lint violations which can be autocorrected. So run lint once more
                 // so that the user can be informed about this correctly. The lint errors are added to the format errors so that the
                 // report can indicate how many errors will be fixed when ktlint is run again.
-                if (hasLintErrorsAfterFormat(NoAutocorrectHandler(onLintAfterMaxFormatRuns))) {
+                if (hasLintErrorsThatCanBeAutocorrectedAfterFormat(NoAutocorrectHandler(onLintAfterMaxFormatRuns))) {
                     LOGGER.warn {
                         "Format was not able to resolve all violations which (theoretically) can be autocorrected in file " +
                             "${code.filePathOrStdin()} in $maxFormatRunsPerFile consecutive runs of format."
@@ -107,14 +107,16 @@ internal class CodeFormatter(
         return errors
     }
 
-    private fun RuleExecutionContext.hasLintErrorsAfterFormat(noAutocorrectHandler: NoAutocorrectHandler): Boolean {
-        var hasLintErrors = false
+    private fun RuleExecutionContext.hasLintErrorsThatCanBeAutocorrectedAfterFormat(noAutocorrectHandler: NoAutocorrectHandler): Boolean {
+        var hasLintErrorsThatCanBeAutocorrected = false
         executeRules(VisitorProvider(ruleProviders).rules, noAutocorrectHandler) { offset, ruleId, errorMessage, canBeAutoCorrected ->
-            hasLintErrors = true
+            if (canBeAutoCorrected) {
+                hasLintErrorsThatCanBeAutocorrected = true
+            }
             val (line, col) = positionInTextLocator(offset)
             noAutocorrectHandler.autocorrectDecision(LintError(line, col, ruleId, errorMessage, canBeAutoCorrected))
         }
-        return hasLintErrors
+        return hasLintErrorsThatCanBeAutocorrected
     }
 
     private fun RuleExecutionContext.format(

@@ -34,6 +34,7 @@ public object ElementType {
     public val VALUE_PARAMETER_LIST: IElementType = KtNodeTypes.VALUE_PARAMETER_LIST
     public val VALUE_PARAMETER: IElementType = KtNodeTypes.VALUE_PARAMETER
     public val CLASS_BODY: IElementType = KtNodeTypes.CLASS_BODY
+    public val COMPANION_BLOCK: IElementType = KtNodeTypes.COMPANION_BLOCK
     public val IMPORT_LIST: IElementType = KtNodeTypes.IMPORT_LIST
     public val FILE_ANNOTATION_LIST: IElementType = KtNodeTypes.FILE_ANNOTATION_LIST
     public val IMPORT_DIRECTIVE: IElementType = KtNodeTypes.IMPORT_DIRECTIVE

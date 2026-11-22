@@ -881,7 +881,8 @@ class NoUnusedImportsRuleTest {
 
             import bar.Bar.Companion.FORTY_TWO
 
-            fun foo(): Int = FORTY_TWO
+            fun foo(): Int =
+                FORTY_TWO
             """.trimIndent()
         noUnusedImportsRuleAssertThat(code)
             .addAdditionalRuleProvider { FunctionExpressionBodyRule() }

@@ -10,6 +10,7 @@ import io.github.ktlint.core.cli.reporter.core.api.KtlintCliError.Status.LINT_CA
 import io.github.ktlint.core.cli.reporter.core.api.ReporterV2
 import java.io.File
 import java.io.PrintStream
+import java.text.DecimalFormat
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.collections.toList
 
@@ -117,7 +118,12 @@ public class PlainReporter(
         val sumOfLintCannotBeAutocorrected = summaryCount.values.sumOf { it.lintCannotBeAutocorrected }
         val sumOfTotal = summaryCount.values.sumOf { it.notIgnored }
         val separatorLine =
-            "  |-${"-".repeat(maxCategoryLength)}-|---------------|----------------------|-------------------------|-------|"
+            "  |-${"-".repeat(maxCategoryLength)}-" +
+                "|-${"-".repeat(maxOf(sumOfFormatIsAutocorrected.formatToString().length, AUTOCORRECTED_HEADER.length))}-" +
+                "|-${"-".repeat(maxOf(sumOfLintCanBeAutocorrected.formatToString().length, CAN_BE_AUTOCORRECTED_HEADER.length))}-" +
+                "|-${"-".repeat(maxOf(sumOfLintCannotBeAutocorrected.formatToString().length, CANNOT_BE_AUTOCORRECTED_HEADER.length))}-" +
+                "|-${"-".repeat(maxOf(sumOfTotal.formatToString().length, TOTAL_HEADER.length))}-" +
+                "|"
         out.println("")
         out.println("Summary of violations (descending on total) by by rule:")
         out.println(separatorLine)
@@ -126,7 +132,7 @@ public class PlainReporter(
                 "| $AUTOCORRECTED_HEADER " +
                 "| $CAN_BE_AUTOCORRECTED_HEADER " +
                 "| $CANNOT_BE_AUTOCORRECTED_HEADER " +
-                "| $TOTAL_HEADER " +
+                "| ${TOTAL_HEADER.padStart(sumOfTotal.formatToString().length)} " +
                 "|",
         )
         out.println(separatorLine)
@@ -164,14 +170,16 @@ public class PlainReporter(
         maxValue: Long,
         columnHeader: String,
     ): String {
-        val stringValue = value.toString()
+        val stringValue = value.formatToString()
         val columnWidth = columnHeader.length
-        val maxValueWidth = maxValue.toString().length
+        val maxValueWidth = maxValue.formatToString().length
         val padColumnRight = maxOf(0, columnWidth - maxValueWidth) / 2
         val padValueLeft = maxOf(0, maxValueWidth - stringValue.length)
         val padColumnLeft = maxOf(0, columnWidth - padColumnRight - maxValueWidth)
         return " ".repeat(padColumnLeft + padValueLeft) + stringValue + " ".repeat(padColumnRight)
     }
+
+    private fun Long.formatToString() = NUMBER_FORMAT.format(this)
 
     private fun colorFileName(fileName: String): String {
         val name = fileName.substringAfterLast(File.separator)
@@ -219,6 +227,8 @@ public class PlainReporter(
         const val CAN_BE_AUTOCORRECTED_HEADER = "Can be autocorrected"
         const val CANNOT_BE_AUTOCORRECTED_HEADER = "Cannot be autocorrected"
         const val TOTAL_HEADER = "Total"
+
+        val NUMBER_FORMAT = DecimalFormat("#,###")
     }
 }
 
