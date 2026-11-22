@@ -31,6 +31,21 @@ class FunctionExpressionBodyRuleTest {
     }
 
     @Test
+    fun `Given a single line function body with a return statement`() {
+        val code =
+            """
+            fun foo() { return "foo" }
+            """.trimIndent()
+        val formattedCode =
+            """
+            fun foo() = "foo"
+            """.trimIndent()
+        functionExpressionBodyRule(code)
+            .hasLintViolation(1, 11, "Function body should be replaced with body expression")
+            .isFormattedAs(formattedCode)
+    }
+
+    @Test
     fun `Given a function body with a return statement`() {
         val code =
             """
@@ -43,8 +58,12 @@ class FunctionExpressionBodyRuleTest {
             fun foo() = "foo"
             """.trimIndent()
         functionExpressionBodyRule(code)
+            .addAdditionalRuleProvider { FunctionSignatureRule() }
+            .withRerunFormatAfterAutocorrect(
+                "The FunctionSignatureRule triggers on the EQ sign, which is already processed when the " +
+                    "FunctionExpressionBodyRule is triggered on the BLOCK element.",
+            ).hasLintViolation(1, 11, "Function body should be replaced with body expression")
             .isFormattedAs(formattedCode)
-            .hasLintViolation(1, 11, "Function body should be replaced with body expression")
     }
 
     @Test
@@ -60,8 +79,12 @@ class FunctionExpressionBodyRuleTest {
             fun foo(): String = "foo"
             """.trimIndent()
         functionExpressionBodyRule(code)
+            .addAdditionalRuleProvider { FunctionSignatureRule() }
+            .withRerunFormatAfterAutocorrect(
+                "The FunctionSignatureRule triggers on the EQ sign, which is already processed when the " +
+                    "FunctionExpressionBodyRule is triggered on the BLOCK element.",
+            ).hasLintViolation(1, 19, "Function body should be replaced with body expression")
             .isFormattedAs(formattedCode)
-            .hasLintViolation(1, 19, "Function body should be replaced with body expression")
     }
 
     @Test
@@ -78,15 +101,16 @@ class FunctionExpressionBodyRuleTest {
             """.trimIndent()
         val formattedCode =
             """
-            fun foo(bar: Boolean) = if (bar) {
+            fun foo(bar: Boolean) =
+                if (bar) {
                     "bar"
                 } else {
                     "foo"
                 }
             """.trimIndent()
         functionExpressionBodyRule(code)
-            .isFormattedAs(formattedCode)
             .hasLintViolation(1, 23, "Function body should be replaced with body expression")
+            .isFormattedAs(formattedCode)
     }
 
     @ParameterizedTest(name = "Body: {0}")
@@ -187,7 +211,11 @@ class FunctionExpressionBodyRuleTest {
             fun foo2(): String = "foo2"
             """.trimIndent()
         functionExpressionBodyRule(code)
-            .hasLintViolations(
+            .addAdditionalRuleProvider { FunctionSignatureRule() }
+            .withRerunFormatAfterAutocorrect(
+                "The FunctionSignatureRule triggers on the EQ sign, which is already processed when the " +
+                    "FunctionExpressionBodyRule is triggered on the BLOCK element.",
+            ).hasLintViolations(
                 LintViolation(1, 20, "Function body should be replaced with body expression"),
                 LintViolation(4, 20, "Function body should be replaced with body expression"),
             ).isFormattedAs(formattedCode)

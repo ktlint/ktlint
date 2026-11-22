@@ -43,7 +43,8 @@ class PlainReporterTest {
             KtlintCliError(1, 1, "rule-1", "description-error-at-position-1:1", FORMAT_IS_AUTOCORRECTED),
         )
 
-        repeat(10) { line ->
+        // Repeat at 10,000 times to ensure that the "Total" column is expanded to fit the formatted number
+        repeat(10_000) { line ->
             reporter.onLintError(
                 "file-4.kt",
                 @Suppress("ktlint:standard:argument-list-wrapping")
@@ -60,15 +61,15 @@ class PlainReporterTest {
             |file-2.kt:2:20: description-error-at-position-2:20 (rule-2)
             |
             |Summary of violations (descending on total) by by rule:
-            |  |----------------|---------------|----------------------|-------------------------|-------|
-            |  | Category       | Autocorrected | Can be autocorrected | Cannot be autocorrected | Total |
-            |  |----------------|---------------|----------------------|-------------------------|-------|
-            |  | some-long-rule |       10      |           0          |            0            |   10  |
-            |  | rule-1         |        1      |           2          |            0            |    3  |
-            |  | rule-2         |        1      |           1          |            0            |    2  |
-            |  |----------------|---------------|----------------------|-------------------------|-------|
-            |  | Total          |       12      |           3          |            0            |   15  |
-            |  |----------------|---------------|----------------------|-------------------------|-------|
+            |  |----------------|---------------|----------------------|-------------------------|--------|
+            |  | Category       | Autocorrected | Can be autocorrected | Cannot be autocorrected |  Total |
+            |  |----------------|---------------|----------------------|-------------------------|--------|
+            |  | some-long-rule |     10,000    |           0          |            0            | 10,000 |
+            |  | rule-1         |          1    |           2          |            0            |      3 |
+            |  | rule-2         |          1    |           1          |            0            |      2 |
+            |  |----------------|---------------|----------------------|-------------------------|--------|
+            |  | Total          |     10,002    |           3          |            0            | 10,005 |
+            |  |----------------|---------------|----------------------|-------------------------|--------|
             |
             """.trimMargin().replace("\n", System.lineSeparator()),
         )
@@ -81,12 +82,24 @@ class PlainReporterTest {
         @Suppress("ktlint:standard:max-line-length")
         reporter.onLintError(
             "file-1.kt",
-            KtlintCliError(18, 51, "", "Not a valid Kotlin file (18:51 unexpected tokens (use ';' to separate expressions on the same line)) (cannot be auto-corrected) ()", KOTLIN_PARSE_EXCEPTION),
+            KtlintCliError(
+                18,
+                51,
+                "",
+                "Not a valid Kotlin file (18:51 unexpected tokens (use ';' to separate expressions on the same line)) (cannot be auto-corrected) ()",
+                KOTLIN_PARSE_EXCEPTION,
+            ),
         )
         @Suppress("ktlint:standard:max-line-length")
         reporter.onLintError(
             "file-2.kt",
-            KtlintCliError(18, 51, "", "Not a valid Kotlin file (18:51 unexpected tokens (use ';' to separate expressions on the same line)) (cannot be auto-corrected) ()", KOTLIN_PARSE_EXCEPTION),
+            KtlintCliError(
+                18,
+                51,
+                "",
+                "Not a valid Kotlin file (18:51 unexpected tokens (use ';' to separate expressions on the same line)) (cannot be auto-corrected) ()",
+                KOTLIN_PARSE_EXCEPTION,
+            ),
         )
         @Suppress("ktlint:standard:argument-list-wrapping")
         reporter.onLintError(

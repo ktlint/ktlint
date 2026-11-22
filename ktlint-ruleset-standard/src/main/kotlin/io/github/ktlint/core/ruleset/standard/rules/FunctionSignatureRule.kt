@@ -781,8 +781,7 @@ public class FunctionSignatureRule :
 
         /**
          * Force the body expression to start on a separate line in case it is a multiline expression. A single line
-         * body expression is wrapped only when it does not f
-         * it on the same line as the function signature.
+         * body expression is wrapped only when it does not fit on the same line as the function signature.
          */
         MULTILINE,
 
