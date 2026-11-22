@@ -8,9 +8,34 @@ on:
       - '*.*.*'
 
 jobs:
+  # Ktlint now requires the Kotlin Analysis API which is only exposed as from Kotlin 2.5.0. So we need to skip build with non-dev version
+  # of kotlin temporarily. Remove this step when Kotlin "2.5.0" is officially released.
+  check-kotlin-version:
+    runs-on: ubuntu-latest
+    outputs:
+      kotlin-is-rc: ${{ steps.check.outputs.kotlin-is-rc }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: 'master'
+      - id: check
+        run: |
+          version=$(grep '^kotlin = ' gradle/libs.versions.toml | sed 's/kotlin = "\(.*\)"/\1/')
+          if [[ "$version" == 2.5.0-RC* ]]; then
+            echo "kotlin-is-rc=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "kotlin-is-rc=false" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
   prepare:
+    needs: check-kotlin-version
     runs-on: ubuntu-latest
     if: github.repository == 'ktlint/ktlint'
+    env:
+      # Ktlint now requires the Kotlin Analysis API which is only exposed as from Kotlin 2.5.0. So we need to skip build with non-dev
+      # version of kotlin temporarily. Remove this flag (and needs above) when Kotlin "2.5.0" is officially released.
+      KOTLIN_DEV_FLAG: ${{ needs.check-kotlin-version.outputs.kotlin-is-rc == 'true' && '-PkotlinDev' || '' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -31,7 +56,7 @@ jobs:
           fi
 
       - name: Build executable
-        run: ./gradlew clean build ktlintCliFiles
+        run: ./gradlew $KOTLIN_DEV_FLAG clean build ktlintCliFiles
 
   build-native-image:
     name: "Build GraalVM native-image (${{ matrix.os }})"
@@ -83,8 +108,12 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    needs: [prepare, build-native-image]
+    needs: [prepare, build-native-image, check-kotlin-version]
     if: github.repository == 'ktlint/ktlint'
+    env:
+      # Ktlint now requires the Kotlin Analysis API which is only exposed as from Kotlin 2.5.0. So we need to skip build with non-dev
+      # version of kotlin temporarily. Remove this flag (and needs above) when Kotlin "2.5.0" is officially released.
+      KOTLIN_DEV_FLAG: ${{ needs.check-kotlin-version.outputs.kotlin-is-rc == 'true' && '-PkotlinDev' || '' }}
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -94,7 +123,7 @@ jobs:
       - uses: ./.github/actions/setup-gradle-build
 
       - name: Publish to Maven
-        run: ./gradlew ktlintCliFiles publishMavenPublicationToMavenCentralRepository
+        run: ./gradlew $KOTLIN_DEV_FLAG ktlintCliFiles publishMavenPublicationToMavenCentralRepository
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.CENTRAL_PORTAL_USERNAME_KTLINT_2 }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.CENTRAL_PORTAL_TOKEN_KTLINT_2 }}

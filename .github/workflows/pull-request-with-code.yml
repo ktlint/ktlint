@@ -39,7 +39,29 @@ env:
 
 # Note that all "jobs" (build, tests) including "jobs.*.runs-on" should be kept in sync with "pull-request-without-code"
 jobs:
+  # Ktlint now requires the Kotlin Analysis API which is only exposed as from Kotlin 2.5.0. So we need to skip build with non-dev version of
+  # kotlin temporarily. Remove this step when Kotlin "2.5.0" is officially released.
+  check-kotlin-version:
+    runs-on: ubuntu-latest
+    outputs:
+      kotlin-is-rc: ${{ steps.check.outputs.kotlin-is-rc }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - id: check
+        run: |
+          version=$(grep '^kotlin = ' gradle/libs.versions.toml | sed 's/kotlin = "\(.*\)"/\1/')
+          if [[ "$version" == 2.5.0-RC* ]]; then
+            echo "kotlin-is-rc=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "kotlin-is-rc=false" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
   build:
+    needs: check-kotlin-version
+    # Ktlint now requires the Kotlin Analysis API which is only exposed as from Kotlin 2.5.0. So we need to skip build with non-dev version
+    # of kotlin temporarily. Remove this condition when Kotlin "2.5.0" is officially released.
+    if: needs.check-kotlin-version.outputs.kotlin-is-rc != 'true'
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
