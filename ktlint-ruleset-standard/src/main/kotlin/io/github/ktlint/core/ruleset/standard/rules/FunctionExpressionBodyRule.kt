@@ -25,6 +25,7 @@ import io.github.ktlint.core.rule.engine.core.api.firstChildLeafOrSelf
 import io.github.ktlint.core.rule.engine.core.api.isWhiteSpace
 import io.github.ktlint.core.rule.engine.core.api.lastChildLeafOrSelf
 import io.github.ktlint.core.rule.engine.core.api.leavesInClosedRange
+import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.rule.engine.core.api.nextSibling
 import io.github.ktlint.core.rule.engine.core.api.parent
 import io.github.ktlint.core.rule.engine.core.api.prevSibling
@@ -104,7 +105,21 @@ public class FunctionExpressionBodyRule :
                     parent!!.let { parent ->
                         // Insert the code sibling before the block
                         parent.addChild(LeafPsiElement(EQ, "="), this)
-                        parent.addChild(PsiWhiteSpaceImpl(" "), this)
+                        // Retain the whitespace from the block
+                        //     fun foo() {
+                        //         return "foo"
+                        //     }
+                        // becomes:
+                        //     fun foo() =
+                        //         "foo"
+                        // While `fun foo() { return "foo" }` becomes `fun foo() = "foo"`. It is up to the function signature rule to decide
+                        // whether the body is concatenated on same line as function signature, or that it is placed on a separate line.
+                        val whitespace =
+                            findChildByType(LBRACE)
+                                ?.nextLeaf
+                                ?.takeIf { it.isWhiteSpace }
+                                ?: PsiWhiteSpaceImpl(" ")
+                        parent.addChild(whitespace, this)
                         parent.addChild(codeSibling, this)
                     }
                     remove()
