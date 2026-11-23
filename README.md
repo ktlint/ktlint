@@ -14,9 +14,6 @@
 <a href="https://central.sonatype.com/artifact/io.github.ktlint.core/ktlint-cli?smo=true">
   <img src="https://img.shields.io/maven-central/v/io.github.ktlint.core/ktlint-cli.svg" alt="Maven Central">
 </a>
-<a href="https://jitpack.io/#ktlint/ktlint">
-  <img src="https://jitpack.io/v/pinterest/ktlint.svg" alt="JitPack">
-</a>
 <a href="https://formulae.brew.sh/formula/ktlint">
   <img src="https://img.shields.io/homebrew/v/ktlint.svg" alt="HomeBrew">
 </a>
