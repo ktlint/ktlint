@@ -2,6 +2,7 @@
 
 package com.pinterest.ktlint.rule.engine.core.api
 
+import com.intellij.lang.ASTNode
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfig
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.EditorConfigProperty
 import io.github.ktlint.core.rule.engine.api.Code
@@ -11,7 +12,6 @@ import io.github.ktlint.core.rule.engine.core.api.replaceTextWith
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.ec4j.core.model.PropertyType
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import com.pinterest.ktlint.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY as CODE_STYLE_PROPERTY_COM_PINTEREST_KTLINT

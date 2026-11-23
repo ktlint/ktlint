@@ -6,7 +6,7 @@ dependencies {
     implementation(projects.ktlintLogger)
     implementation(projects.ktlintRuleEngineCore)
 
-    api(libs.kotlin.compiler)
+    implementation(libs.kotlin.analysisApiImplementation)
     api(libs.ec4j)
 
     testImplementation(projects.ktlintTest)
