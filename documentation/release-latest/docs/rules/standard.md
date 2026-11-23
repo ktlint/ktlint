@@ -74,7 +74,7 @@ Suppress or disable rule (1)
 
 ## Blank line between when-conditions
 
-Consistently add or remove a blank line between when-conditions in a when-statement. A blank line is only added between when-conditions if the when-statement contains at lease one multiline when-condition. If a when-statement only contains single line when-conditions, then the blank lines between the when-conditions are removed.
+Consistently add or remove a blank line between when-conditions in a when-statement. A blank line is only added between when-conditions if the when-statement contains at least one multiline when-condition. If a when-statement only contains single line when-conditions, then the blank lines between the when-conditions are removed.
 
 !!! note
     Ktlint uses `.editorconfig` property `ij_kotlin_line_break_after_multiline_when_entry` but applies it also on single line entries to increase consistency.
@@ -1345,6 +1345,7 @@ Indentation formatting - respects `.editorconfig` `indent_size` with no continua
 | `indent_size`</br><i>The size of an indentation level when `indent_style` is set to `space`. Use value `unset` to ignore indentation.</i>                                                                                                                                                         |        4        |       4       |       4        |
 | `indent_style`</br><i>Style of indentation. Set this value to `space` or `tab`.</i>                                                                                                                                                                                                               |     `space`     |    `space`    |    `space`     |
 | `ij_kotlin_indent_before_arrow_on_new_line`</br><i>Indent the arrow in a when-entry if the arrow starts on a new line. Set this value to `true` or `false`. Starting from IDEA version `2024.2` or above this value needs to be set to `true` to maintain compatibility with IDEA formatting.</i> |     `false`     |    `false`    |    `false`     |
+| `ktlint_indent_explicit_constructor`</br><i>Indent an explicit constructor of a class. As side effect the entire class body will also be indented.</i>                                                                                                                                            |     `true`      |    `false`    |    `false`     |
 
 Rule id: `standard:indent`
 
@@ -2685,51 +2686,6 @@ Suppress or disable rule (1)
     ktlint_standard_no-multi-spaces = disabled
     ```
 
-## No semicolons
-
-Avoid using unnecessary semicolons.
-
-=== "[:material-heart:](#) Ktlint"
-
-    ```kotlin
-    fun foo() {
-        bar()
-
-        bar()
-    }
-    ```
-=== "[:material-heart-off-outline:](#) Disallowed"
-
-    ```kotlin
-    fun foo() {
-        ;
-        bar()
-        ;
-
-        bar()
-
-        ;
-    }
-    ```
-
-Rule id: `standard:no-semi`
-
-Suppress or disable rule (1)
-{ .annotate }
-
-1. Suppress rule in code with annotation below:
-    ```kotlin
-    @Suppress("ktlint:standard:no-semi")
-    ```
-   Enable rule via `.editorconfig`
-    ```editorconfig
-    ktlint_standard_no-semi = enabled
-    ```
-   Disable rule via `.editorconfig`
-    ```editorconfig
-    ktlint_standard_no-semi = disabled
-    ```
-
 ## No trailing whitespaces
 
 Rule id: `standard:no-trailing-spaces`
@@ -2850,6 +2806,53 @@ Suppress or disable rule (1)
    Disable rule via `.editorconfig`
     ```editorconfig
     ktlint_standard_no-wildcard-imports = disabled
+    ```
+
+## Semicolon
+
+!!! Note: this rule was known a the `no-semi` rule in Ktlint `1.x` and before. As of Ktlint `2.x` this rule has been rebranded to `semicolon`. It now also takes care of wrapping statements on the same line which are separated by a semicolon which previously was a responsibility of the `statement-wrapping` rule.
+
+Avoid using unnecessary semicolons. Wrap statements on same line separated by semicolon.
+
+=== "[:material-heart:](#) Ktlint"
+
+    ```kotlin
+    fun foo() {
+        bar()
+
+        bar()
+    }
+    ```
+=== "[:material-heart-off-outline:](#) Disallowed"
+
+    ```kotlin
+    fun foo() {
+        ;
+        bar()
+        ;
+
+        bar()
+
+        ;
+    }
+    ```
+
+Rule id: `standard:semicolon`
+
+Suppress or disable rule (1)
+{ .annotate }
+
+1. Suppress rule in code with annotation below:
+    ```kotlin
+    @Suppress("ktlint:standard:semicolon")
+    ```
+   Enable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_semicolon = enabled
+    ```
+   Disable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_no-semicolon = disabled
     ```
 
 ## Spacing

@@ -11,7 +11,7 @@ git clone https://github.com/ktlint/ktlint && cd ktlint
 ```
 
 !!! tip
-    To open and run `ktlint` in Intellij IDEA:  
+    To open and run `ktlint` in IntelliJ IDEA:  
   
     * <kbd>File</kbd> -> <kbd>Open...</kbd>.      
     * You'll also need to set the "Project language level" to 8 in "Project Settings" (<kbd>File</kbd> -> <kbd>Project Structure...</kbd> -> <kbd>Project</kbd>).    

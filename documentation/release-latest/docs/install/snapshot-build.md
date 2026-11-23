@@ -4,7 +4,7 @@ Whenever a commit is added to the `master` branch a snapshot build is automatica
 If you are eager to try upcoming changes (that might or might not be included in the next stable release) you can do so by changing the version of ktlint to `<latest-version>-SNAPSHOT`, and adding the Sonatype snapshot repository location.
 
 !!! important
-    Snapshots are kept until 90 days after being published. Due to some bug at sonatype, it is currently not possible to browse the snapshot directories. But, building against a snapshot version is possible.
+    Snapshots are kept until 90 days after being published. Due to some bug at Sonatype, it is currently not possible to browse the snapshot directories. But, building against a snapshot version is possible.
 
 ### Maven
 
