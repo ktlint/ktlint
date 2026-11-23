@@ -6,8 +6,11 @@ import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
 import io.github.ktlint.core.test.MULTILINE_STRING_QUOTE
 import io.github.ktlint.core.test.TAB
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 @Suppress("RemoveCurlyBracesFromTemplate")
 class StringTemplateIndentRuleTest {
@@ -126,11 +129,79 @@ class StringTemplateIndentRuleTest {
             val someVar =
                 $MULTILINE_STRING_QUOTE
                 line1
-                line2
+                    line2
                 $MULTILINE_STRING_QUOTE.trimIndent()
             """.trimIndent()
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolation(2, 13, "Missing newline after the opening quotes of the raw string literal")
+            .isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Issue 3442 - Preserve indentation following text on the opening line`() {
+        val code =
+            """
+            val someVar =
+                ${MULTILINE_STRING_QUOTE}line1
+                    line2
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val formattedCode =
+            """
+            val someVar =
+                $MULTILINE_STRING_QUOTE
+                line1
+                        line2
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        stringTemplateIndentRuleAssertThat(code).isFormattedAs(formattedCode)
+        assertThat(formattedCode.substringAfter(MULTILINE_STRING_QUOTE).substringBefore(MULTILINE_STRING_QUOTE).trimIndent())
+            .isEqualTo(code.substringAfter(MULTILINE_STRING_QUOTE).substringBefore(MULTILINE_STRING_QUOTE).trimIndent())
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["", "$$"])
+    fun `Issue 3442 - Include leading whitespace on the opening line in the common indent`(interpolationPrefix: String) {
+        val code =
+            """
+            val someVar =
+                $interpolationPrefix$MULTILINE_STRING_QUOTE  line1
+                    line2
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val formattedCode =
+            """
+            val someVar =
+                $interpolationPrefix$MULTILINE_STRING_QUOTE
+                line1
+                      line2
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        stringTemplateIndentRuleAssertThat(code).isFormattedAs(formattedCode)
+        assertThat(formattedCode.substringAfter(MULTILINE_STRING_QUOTE).substringBefore(MULTILINE_STRING_QUOTE).trimIndent())
+            .isEqualTo(code.substringAfter(MULTILINE_STRING_QUOTE).substringBefore(MULTILINE_STRING_QUOTE).trimIndent())
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["\$value", "\${value}"])
+    fun `Issue 3442 - Keep interpolation nodes intact when moving text off the opening line`(interpolation: String) {
+        val code =
+            """
+            val someVar =
+                $MULTILINE_STRING_QUOTE$interpolation
+                    $interpolation
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val formattedCode =
+            """
+            val someVar =
+                $MULTILINE_STRING_QUOTE
+                $interpolation
+                        $interpolation
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        stringTemplateIndentRuleAssertThat(code)
+            .addAdditionalRuleProvider { IndentationRule() }
             .isFormattedAs(formattedCode)
     }
 
