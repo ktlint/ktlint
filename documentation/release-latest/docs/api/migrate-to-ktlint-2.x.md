@@ -54,32 +54,42 @@ public open fun beforeVisitChildNodes(
 ```kotlin title="New signature"
 public fun beforeVisitChildNodes(
     node: ASTNode,
-    emit: (
-        offset: Int,
-        errorMessage: String,
-        canBeAutoCorrected: Boolean
-    ) -> AutocorrectDecision,
-)
+
+    
+    
+    
+    
+    
+    )
 ```
 
 </td>
 </tr>
 </table>
 
-The `autoCorrect` parameter is no longer passed to the method.
-
-The signature of the `emit` parameter has changed from `emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit` to `emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> AutocorrectDecision`. On each violation found, the emitter calls a lambda provided by the Ktlint Integrator to decide on whether that specific violation should (`AutocorrectDecision.ALLOW_AUTOCORRECT`) or should not (`AutocorrectDecision.NO_AUTOCORRECT`) be autocorrected. The AutocorrectDecisions provided by the Ktlint Integrator will be returned to the rule which only should apply the autocorrect fix when allowed. In case a `LintError` is detected, and can be autocorrected, the `LintError` can be processed as shown below:
-
-```kotlin
-emit(node.startOffset, "some detail message", true)
-   .ifAutocorrectAllowed {
-       // Autocorrect the LintError
-   }
+The `emit` parameter is no longer be passed to the `beforeVisitChildNodes` and `afterVisitChildNodes` functions. Instead, the `RuleV2` base class now provides an `emit` function with signature:
+```kotlin title="New signature"
+public fun emit(
+    offset: Int,
+    errorMessage: String,
+    autoCorrect: () -> Unit = AUTOCORRECT_NOT_IMPLEMENTED,
+)
 ```
 
-In case the `LintError` can not be autocorrected, if suffices to emit the violation only:
+
+This function internally calls the `emit` lambda provided by the API consumer to decide whether the violation should be autocorrected, and only executes the autocorrect block when allowed.
+
+In case a `LintError` is detected and can be autocorrected, pass the autocorrect logic as a trailing lambda:
+
 ```kotlin
-emit(node.startOffset, "some detail message", false)
+emit(node.startOffset, "some detail message") {
+    // Autocorrect the LintError
+}
+```
+
+In case the `LintError` cannot be autocorrected, omit the lambda:
+```kotlin
+emit(node.startOffset, "some detail message")
 ```
 
 ### Rule set provider extends non existent `io.github.ktlint.core...RuleSetProviderV3`
