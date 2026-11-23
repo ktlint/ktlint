@@ -1,0 +1,2027 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ktlint.github.io/ktlint/2.0.0-ALPHA-5/faq/">
+      
+      
+        <link rel="prev" href="../api/badge/">
+      
+      
+        <link rel="next" href="../contributing/overview/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>FAQ - Ktlint</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#why-should-i-use-ktlint" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest version.
+<a href="../..">
+    <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Ktlint" class="md-header__button md-logo" aria-label="Ktlint" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ktlint
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FAQ
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ktlint/ktlint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ktlint/ktlint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../install/setup/" class="md-tabs__link">
+          
+  
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../rules/code-styles/" class="md-tabs__link">
+          
+  
+  
+  Rules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/overview/" class="md-tabs__link">
+          
+  
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributing/overview/" class="md-tabs__link">
+          
+  
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Ktlint" class="md-nav__button md-logo" aria-label="Ktlint" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ktlint
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ktlint/ktlint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ktlint/ktlint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recommended setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/snapshot-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snapshot build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/code-styles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code styles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/standard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/experimental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependencies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/configuration-ktlint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KtLint configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/configuration-intellij-idea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IntelliJ IDEA configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/migrate-to-ktlint-2.x/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate to Ktlint 2.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/custom-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/custom-rule-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom rule set
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/custom-reporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom reporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/badge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Badge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-should-i-use-ktlint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why should I use ktlint?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-the-maven-coordinates-in-ktlint-2x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are the Maven coordinates in Ktlint 2.x?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-enable-or-disable-a-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I enable or disable a rule?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-enable-or-disable-a-rule-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I enable or disable a rule set?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-is-a-rule-skipped-when-i-disable-some-other-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is a rule skipped when I disable some other rule?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-does-ktlint-discourage-certain-comment-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why does ktlint discourage certain comment locations?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-i-have-my-own-rules-on-top-of-ktlint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I have my own rules on top of ktlint?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-suppress-errors-for-a-lineblockfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I suppress errors for a line/block/file?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-is-editorconfig-property-disabled_rules-deprecated-and-how-do-i-resolve-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is .editorconfig property disabled_rules deprecated and how do I resolve this?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-is-wildcard-import-javautil-not-reported-by-the-no-wildcard-imports-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is wildcard import java.util.* not reported by the no-wildcard-imports rule?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-a-new-toggle-be-added-to-optionally-enabledisable-format-code-in-a-particular-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can a new toggle be added to optionally (enable/disable) format code in a particular way?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-i-use-ktlint-to-directly-format-the-code-im-generating-with-kotlinpoet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I use KtLint to directly format the code I'm generating with KotlinPoet?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#are-formatter-tags-respected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Are formatter tags respected?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-disable-ktlint-for-generated-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I disable ktlint for generated code?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/code-of-conduct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code of conduct
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-should-i-use-ktlint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why should I use ktlint?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-the-maven-coordinates-in-ktlint-2x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are the Maven coordinates in Ktlint 2.x?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-enable-or-disable-a-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I enable or disable a rule?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-enable-or-disable-a-rule-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I enable or disable a rule set?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-is-a-rule-skipped-when-i-disable-some-other-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is a rule skipped when I disable some other rule?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-does-ktlint-discourage-certain-comment-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why does ktlint discourage certain comment locations?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-i-have-my-own-rules-on-top-of-ktlint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I have my own rules on top of ktlint?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-suppress-errors-for-a-lineblockfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I suppress errors for a line/block/file?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-is-editorconfig-property-disabled_rules-deprecated-and-how-do-i-resolve-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is .editorconfig property disabled_rules deprecated and how do I resolve this?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-is-wildcard-import-javautil-not-reported-by-the-no-wildcard-imports-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why is wildcard import java.util.* not reported by the no-wildcard-imports rule?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-a-new-toggle-be-added-to-optionally-enabledisable-format-code-in-a-particular-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can a new toggle be added to optionally (enable/disable) format code in a particular way?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-i-use-ktlint-to-directly-format-the-code-im-generating-with-kotlinpoet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Can I use KtLint to directly format the code I'm generating with KotlinPoet?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#are-formatter-tags-respected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Are formatter tags respected?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-disable-ktlint-for-generated-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How do I disable ktlint for generated code?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h2 id="why-should-i-use-ktlint">Why should I use ktlint?<a class="headerlink" href="#why-should-i-use-ktlint" title="Permanent link">&para;</a></h2>
+<p>the short answer is <strong>Simplicity</strong>.</p>
+<p>Spending time on configuration (and maintenance down the road) of hundred-line long style config file(s) is counter-productive. Instead of wasting your energy on something that has no business value - focus on what really matters (not debating whether to use tabs or spaces).</p>
+<p>By using ktlint you put the importance of code clarity and community conventions over personal preferences. This makes things easier for people reading your code as well as frees you from having to document and explain what style potential contributor(s) have to follow.</p>
+<p>ktlint is a single binary with both linter &amp; formatter included. All you need is to drop it in (no need to get <a href="https://en.wikipedia.org/wiki/Decision_fatigue">overwhelmed</a> while choosing among <a href="https://checkstyle.sourceforge.net/checks.html">dozens of code style options</a>).</p>
+<h2 id="what-are-the-maven-coordinates-in-ktlint-2x">What are the Maven coordinates in Ktlint 2.x?<a class="headerlink" href="#what-are-the-maven-coordinates-in-ktlint-2x" title="Permanent link">&para;</a></h2>
+<p>With the release of ktlint <code>2.0</code> the Maven coordinates of all modules have been changed. Now all ktlint modules are published in Maven group <code>io.github.ktlint.core</code></p>
+<p>The Maven coordinates of modules below have been changed:</p>
+<table>
+<thead>
+<tr>
+<th>Old Maven coordinates</th>
+<th>New Maven coordinates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>com.pinterest:ktlint</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-baseline</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-baseline</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-checkstyle</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-checkstyle</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-core</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-core</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-format</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-format</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-html</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-html</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-json</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-json</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-plain</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-plain</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-plain-summary</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-plain-summary</code></td>
+</tr>
+<tr>
+<td><code>com.pinterest.ktlint:ktlint-cli-reporter-sarif</code></td>
+<td><code>io.github.ktlint.core:ktlint-cli-reporter-sarif</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-do-i-enable-or-disable-a-rule">How do I enable or disable a rule?<a class="headerlink" href="#how-do-i-enable-or-disable-a-rule" title="Permanent link">&para;</a></h2>
+<p>An individual rule can be enabled or disabled with a rule property. The name of the rule property consists of the <code>ktlint_</code> prefix followed by the rule set id followed by a <code>_</code> and the rule id. Examples:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ktlint_standard_final-newline = disabled # Disables the `final-newline` rule in the `standard` rule set provided by KtLint
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ktlint_standard_some-experimental-rule = enabled # Enables the (experimental) `some-experimental-rule` in the `standard` rule set provided by KtLint
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ktlint_custom-rule-set_custom-rule = disabled # Disables the `custom-rule` rule in the `custom-rule-set` rule set (not provided by KtLint)
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>rule</em> properties are applied after applying the <em>rule set</em> properties and take precedence. So if a rule set is disabled but a specific rule of that rule set is enabled, then the rule will be executed.</p>
+</div>
+<h2 id="how-do-i-enable-or-disable-a-rule-set">How do I enable or disable a rule set?<a class="headerlink" href="#how-do-i-enable-or-disable-a-rule-set" title="Permanent link">&para;</a></h2>
+<p>All rules in a rule set can be enabled or disabled with a rule set property. The name of the rule set property consists of the <code>ktlint_</code> prefix followed by the rule set id. Examples:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ktlint_standard = disabled # Disable all rules from the `standard` rule set provided by KtLint
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ktlint_experimental = enabled # Enable rules marked as experimental for all rule sets that are enabled
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>ktlint_custom-rule-set = enabled # Enable all rules in the `custom-rule-set` rule set (not provided by KtLint)
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All rules from the <code>standard</code> and custom rule sets are <em>enabled</em> by default and can optionally be disabled in the <code>.editorconfig</code>. All <code>experimental</code> rules are <em>disabled</em> by default and can optionally be enabled in the <code>.editorconfig</code>.</p>
+</div>
+<h2 id="why-is-a-rule-skipped-when-i-disable-some-other-rule">Why is a rule skipped when I disable some other rule?<a class="headerlink" href="#why-is-a-rule-skipped-when-i-disable-some-other-rule" title="Permanent link">&para;</a></h2>
+<p>Most rules in ktlint can be executed independently of other rules. However, some rules can only be executed in case one or more other rules are also loaded and/or enabled. Dependencies between rules are introduced to reduce complexity in ktlint. Similar logic in different rules has to be avoided as this might result in formatting conflicts between different rules, which could result in endless loops of formatting and reformatting by a set of rules.</p>
+<p>In case, you disable a rule, you might run into an <code>IllegalStateException</code> like below:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>java.lang.IllegalStateException: Skipping rule(s) which are depending on a rule which is not loaded. Please check if you need to add additional rule sets before creating an issue.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  - Rule with id 'RuleId(value=standard:string-template-indent)' requires rule with id 'RuleId(value=standard:multiline-expression-wrapping)' to be loaded
+</code></pre></div>
+<p>For the example above, the <code>string-template-indent</code> rule depends on the <code>multiline-expression-wrapping</code> so that the former rule does not need to know, how to wrap a multiline string that is not yet wrapped:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"""</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="s">    some text</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="s">   """</span><span class="p">.</span><span class="na">trimIndent</span><span class="p">()</span>
+</code></pre></div></p>
+<h2 id="why-does-ktlint-discourage-certain-comment-locations">Why does ktlint discourage certain comment locations?<a class="headerlink" href="#why-does-ktlint-discourage-certain-comment-locations" title="Permanent link">&para;</a></h2>
+<p>Kotlin has three different type of comments. Although the KDoc and the block comment look similar in code, their internal PSI structure is different. The EOL comment is yet very different.</p>
+<p>In Kotlin, it is possible to insert a comment everywhere. It is very challenging, and time-consuming, to make each rule fully resilient for each possible comment location, even in case such locations will (almost) never by used.</p>
+<p>For example, in sample below it is unclear whether the comment applies to the <code>if</code> block, or to the <code>else</code> block without interpreting the comment itself.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1"><a href="#"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.39 1.73 1.11 3l2.08 2.08C2.45 6 2 7.19 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32c.87-.79 1.69-1.53 2.45-2.24L20 22l1.27-1.27m-9.17-2.18-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5c0-.76.22-1.44.61-2l9.89 9.87c-.76.69-1.55 1.41-2.4 2.18M8.3 5.1 6.33 3.13C6.7 3.05 7.1 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 2.34-1.31 4.42-3.53 6.77l-1.41-1.41C18.91 11.88 20 10.2 20 8.5c0-2-1.5-3.5-3.5-3.5-1.4 0-2.76.83-3.39 2h-2.22c-.51-.94-1.5-1.66-2.59-1.9"/></svg></span></a> Unclear comment</label><label for="__tabbed_1_2"><a href="#"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/></svg></span></a> Clear comment</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">someCondition</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">doTrue</span><span class="p">()</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span><span class="w"> </span><span class="c1">// comment</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">doFalse</span><span class="p">()</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">someCondition</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">doTrue</span><span class="p">()</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="c1">// comment</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">doFalse</span><span class="p">()</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>In other cases, a comment location is more widely used but semantically still incorrect. For example, in sample below the EOL comment is placed after the comma, but it obviously is related to the part before the comma:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1"><a href="#"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.39 1.73 1.11 3l2.08 2.08C2.45 6 2 7.19 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32c.87-.79 1.69-1.53 2.45-2.24L20 22l1.27-1.27m-9.17-2.18-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5c0-.76.22-1.44.61-2l9.89 9.87c-.76.69-1.55 1.41-2.4 2.18M8.3 5.1 6.33 3.13C6.7 3.05 7.1 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 2.34-1.31 4.42-3.53 6.77l-1.41-1.41C18.91 11.88 20 10.2 20 8.5c0-2-1.5-3.5-3.5-3.5-1.4 0-2.76.83-3.39 2h-2.22c-.51-.94-1.5-1.66-2.59-1.9"/></svg></span></a> Unclear comment</label><label for="__tabbed_2_2"><a href="#"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/></svg></span></a> Clear comment</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">fooBar</span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">foo</span><span class="p">:</span><span class="w"> </span><span class="n">Foo</span><span class="p">,</span><span class="w"> </span><span class="c1">// foo-comment</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">bar</span><span class="p">:</span><span class="w"> </span><span class="n">Bar</span><span class="p">,</span><span class="w"> </span><span class="c1">// bar-comment</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">fooBar</span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="c1">// foo-comment</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="n">foo</span><span class="p">:</span><span class="w"> </span><span class="n">Foo</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="c1">// bar-comment</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">bar</span><span class="p">:</span><span class="w"> </span><span class="n">Bar</span><span class="p">,</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>By forbidding certain comment locations, the logic in the rules becomes a bit easier.</p>
+<h2 id="can-i-have-my-own-rules-on-top-of-ktlint">Can I have my own rules on top of ktlint?<a class="headerlink" href="#can-i-have-my-own-rules-on-top-of-ktlint" title="Permanent link">&para;</a></h2>
+<p>Absolutely, "no configuration" doesn't mean "no extensibility". You can add your own ruleset(s) to discover potential bugs, check for antipatterns, etc.</p>
+<p>See <a href="../api/custom-rule-set/">adding a custom rule set</a> for more information.</p>
+<h2 id="how-do-i-suppress-errors-for-a-lineblockfile">How do I suppress errors for a line/block/file?<a class="headerlink" href="#how-do-i-suppress-errors-for-a-lineblockfile" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Suppressing a <code>ktlint</code> violation is meant primarily as an escape latch for the rare cases when <strong>ktlint</strong> is not able to produce the correct result. Please report any such instances using <a href="https://github.com/ktlint/ktlint/issues">GitHub Issues</a>.</p>
+</div>
+<p>To disable a specific rule you'll need the fully qualified rule identifier. This identifier is displayed at the end of the lint error. In case your code was autocorrected, you need to revert the code and run the <code>lint</code> task instead of the <code>format</code> to find the rule identifier.</p>
+<p>As of Ktlint 0.50, an error can only be suppressed using @Suppress or @SuppressWarnings annotations</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Import statements can not be annotated in Kotlin. The rules related to import statements can be suppressed with file annotations only.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1"><a href="#"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/></svg></span></a> Allowed</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// Suppressing all rules for the entire file</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nd">@file</span><span class="p">:</span><span class="n">Suppress</span><span class="p">(</span><span class="s">"ktlint"</span><span class="p">)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1">// Suppressing specific rules for the entire file</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1">// Rules related to import statements can only be suppressed using file annotations</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nd">@file</span><span class="p">:</span><span class="n">Suppress</span><span class="p">(</span><span class="s">"ktlint:standard:no-wildcard-imports"</span><span class="p">,</span><span class="w"> </span><span class="s">"ktlint:custom-rule-set-id:custom-rule-id"</span><span class="p">)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1">// Suppress all rules for the annotated construct</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nd">@Suppress</span><span class="p">(</span><span class="s">"ktlint"</span><span class="p">)</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="kd">class</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="c1">// Suppress a single rule (with id 'rule-id', defined in rule set with id 'rule-set-id') in the scope of the annotated construct</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="nd">@Suppress</span><span class="p">(</span><span class="s">"ktlint:rule-set-id:rule-id"</span><span class="p">)</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="kd">class</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="why-is-editorconfig-property-disabled_rules-deprecated-and-how-do-i-resolve-this">Why is <code>.editorconfig</code> property <code>disabled_rules</code> deprecated and how do I resolve this?<a class="headerlink" href="#why-is-editorconfig-property-disabled_rules-deprecated-and-how-do-i-resolve-this" title="Permanent link">&para;</a></h2>
+<p>The <code>.editorconfig</code> properties <code>disabled_rules</code> and <code>ktlint_disabled_rules</code> are deprecated as of KtLint version <code>0.48</code> and are removed in version <code>0.49</code>. Those properties contain a comma separated list of rules which are disabled. Using a comma separated list of values has some disadvantages.</p>
+<p>A big disadvantage is that it is not possible to override the property partially in an <code>.editorconfig</code> file in a subpackage. Another disadvantage is that it is not possible to express explicitly that a rule is enabled. Lastly, (qualified) rule ids can be 20 characters or longer, which makes a list with multiple entries hard to read.</p>
+<p>Starting with KtLint <code>0.48</code> entire rule sets and individual rules can be disabled / enabled with a separate property per rule (set). Examples:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ktlint_standard = disabled # Disable all rules from the `standard` rule set provided by KtLint
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ktlint_standard_final-newline = enabled # Enables the `final-newline` rule in the `standard` rule set provided by KtLint
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>ktlint_experimental = enabled # Enable rules marked as experimental for all rule sets that are enabled
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>ktlint_standard_some-experimental-rule = disabled # Disables the (experimental) `some-experimental-rule` in the `standard` rule set provided by KtLint
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>ktlint_custom-rule-set = enabled # Enable all rules in the `custom-rule-set` rule set (not provided by KtLint)
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>ktlint_custom-rule-set_custom-rule = disabled # Disables the `custom-rule` rule in the `custom-rule-set` rule set (not provided by KtLint)
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All rules from the <code>standard</code> and custom rule sets are <em>enabled</em> by default and can optionally be disabled in the <code>.editorconfig</code>. All <code>experimental</code> rules are <em>disabled</em> by default and can optionally be enabled in the <code>.editorconfig</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>rule</em> properties are applied after applying the <em>rule set</em> properties and take precedence. So if a rule set is disabled but a specific rule of that rule set is enabled, then the rule will be executed.  </p>
+</div>
+<h2 id="why-is-wildcard-import-javautil-not-reported-by-the-no-wildcard-imports-rule">Why is wildcard import <code>java.util.*</code> not reported by the <code>no-wildcard-imports</code> rule?<a class="headerlink" href="#why-is-wildcard-import-javautil-not-reported-by-the-no-wildcard-imports-rule" title="Permanent link">&para;</a></h2>
+<p>The <code>no-wildcard-imports</code> rule forbids wildcard imports, except for imports defined in <code>.editorconfig</code> property <code>ij_kotlin_packages_to_use_import_on_demand</code>. If this property is not explicitly set, it allows wildcards imports like <code>java.util.*</code> by default to keep in sync with IntelliJ IDEA behavior.</p>
+<h2 id="can-a-new-toggle-be-added-to-optionally-enabledisable-format-code-in-a-particular-way">Can a new toggle be added to optionally (enable/disable) format code in a particular way?<a class="headerlink" href="#can-a-new-toggle-be-added-to-optionally-enabledisable-format-code-in-a-particular-way" title="Permanent link">&para;</a></h2>
+<p>Ktlint can be configured by enabling and disabling rules. Some rules can be configured in more details with additional <code>.editorconfig</code> properties. Regularly, a new configuration option is requested to modify behavior in existing rules.</p>
+<p>Ktlint is restrictive with adding additional configuration settings to customize behavior in rules. Each configuration option that Ktlint offers comes with complexity that has to be maintained by only a couple of maintainers. As of that, we cannot provide tens or even hundreds of such options.</p>
+<p>Less configuration options also means less discussions in teams about settings to use. Unfortunately this means that you cannot tweak Ktlint exactly to the format you prefer.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Any idea for a new configuration option is valuable. Please create an issue for it so that it can be considered to incorporate it in Ktlint.</p>
+</div>
+<h2 id="can-i-use-ktlint-to-directly-format-the-code-im-generating-with-kotlinpoet">Can I use KtLint to directly format the code I'm generating with KotlinPoet?<a class="headerlink" href="#can-i-use-ktlint-to-directly-format-the-code-im-generating-with-kotlinpoet" title="Permanent link">&para;</a></h2>
+<p>Yes, it is possible to use KtLint to directly format the code generated with KotlinPoet. 
+To do so, you must include the dependencies <code>io.github.ktlint.core:ktlint-core</code> and <code>io.github.ktlint.core:ktlint-ruleset-standard</code> in your Gradle/Maven project.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not include the dependency <code>io.github.ktlint.core:ktlint-cli</code> as that would import the entire ktlint project including unwanted dependencies. Besides a much bigger artifact, it might also result in problems regarding logging.</p>
+</div>
+<p>To format the output of KotlinPoet with KtLint, you can use the following snippet:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">ruleProviders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buildSet</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="n">ServiceLoader</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">      </span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">RuleSetProviderV2</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">      </span><span class="p">.</span><span class="na">flatMapTo</span><span class="p">(</span><span class="k">this</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">getRuleProviders</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kd">val</span><span class="w"> </span><span class="nv">ktLintRuleEngine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KtLintRuleEngine</span><span class="p">(</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="n">ruleProviders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ruleProviders</span><span class="p">,</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="n">editorConfigDefaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EditorConfigDefaults</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">EDITORCONFIG_PATH</span><span class="p">),</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="p">)</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">ktLintRuleEngine</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="n">outputDir</span><span class="p">.</span><span class="na">toPath</span><span class="p">())</span>
+</code></pre></div>
+Here, outputDir refers to the directory of the generated files by KotlinPoet, ktLintRuleEngine is an instance of KtLint rule engine.</p>
+<p>It is also possible to format file-by-file the output of KotlinPoet if you write your <code>FileSpec</code> to a <code>StringBuilder()</code>, instead of a <code>File</code>, 
+and send the generated code as <code>String</code> to KtLint inside a <code>CodeSnippet</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">kotlinFile</span><span class="p">.</span><span class="na">writeText</span><span class="p">(</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="n">ktLintRuleEngine</span><span class="p">.</span><span class="na">format</span><span class="p">(</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="n">Code</span><span class="p">.</span><span class="na">CodeSnippet</span><span class="p">(</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">      </span><span class="n">stringBuilder</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="p">)</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">)</span>
+</code></pre></div></p>
+<h1 id="are-formatter-tags-respected">Are formatter tags respected?<a class="headerlink" href="#are-formatter-tags-respected" title="Permanent link">&para;</a></h1>
+<p>As of version <code>0.49.x</code> the formatter tags of IntelliJ IDEA are respected. By default, those formatter tags are disabled. The formatter tags can be enabled with <code>.editorconfig</code> properties below:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ij_formatter_tags_enabled = true # Defaults to 'false'
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ij_formatter_off_tag = some-custom-off-tag # Defaults to '@formatter:off'
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>ij_formatter_on_tag = some-custom-on-tag # Defaults to '@formatter:on'
+</code></pre></div></p>
+<p>When enabled, the ktlint rule checking is disabled for all code surrounded by the formatter tags.</p>
+<h1 id="how-do-i-disable-ktlint-for-generated-code">How do I disable ktlint for generated code?<a class="headerlink" href="#how-do-i-disable-ktlint-for-generated-code" title="Permanent link">&para;</a></h1>
+<p>Running ktlint on generated code is not useful. Fixing lint and format errors on generated code is a waste of time as errors will be re-introduced once that code is generated again. Given that generated code is located in a separate directory, you can disable ktlint for such directory by adding a glob for that directory:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>[some/path/to/generated/code/**/*]
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>ktlint = disabled
+</code></pre></div></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>ec4j</code> library used by ktlint does not seem to work with globs starting with <code>**</code> followed by a chain of multiple directories (for example <code>**/path/to/generated/**/*</code>). But both <code>some/path/to/generated/**/*</code> and <code>**/generated/**/*</code> work fine.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "search.suggest", "search.share", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

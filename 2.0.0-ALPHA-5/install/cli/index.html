@@ -1,0 +1,2088 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ktlint.github.io/ktlint/2.0.0-ALPHA-5/install/cli/">
+      
+      
+        <link rel="prev" href="../setup/">
+      
+      
+        <link rel="next" href="../integrations/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Command line - Ktlint</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#download-and-verification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest version.
+<a href="../../..">
+    <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Ktlint" class="md-header__button md-logo" aria-label="Ktlint" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ktlint
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Command line
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ktlint/ktlint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ktlint/ktlint
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../setup/" class="md-tabs__link">
+          
+  
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../rules/code-styles/" class="md-tabs__link">
+          
+  
+  
+  Rules
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/overview/" class="md-tabs__link">
+          
+  
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../contributing/overview/" class="md-tabs__link">
+          
+  
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ktlint" class="md-nav__button md-logo" aria-label="Ktlint" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ktlint
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ktlint/ktlint" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ktlint/ktlint
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recommended setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command line
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download and verification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Download and verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-manually-from-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download manually from GitHub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-using-curl-linux-or-macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download using curl (Linux or macOS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-on-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download on Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-of-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification of download
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Package managers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command line usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command line usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rule set(s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-autocorrect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format (autocorrect)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#globs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Globs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#violation-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Violation reporting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-configuration-editorconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rule configuration (.editorconfig)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdin-stdout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stdin &amp;&amp; stdout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-flags-and-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous flags and commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../snapshot-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snapshot build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/code-styles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code styles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/standard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standard rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/experimental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependencies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/configuration-ktlint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KtLint configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/configuration-intellij-idea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IntelliJ IDEA configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/migrate-to-ktlint-2.x/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate to Ktlint 2.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/custom-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/custom-rule-set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom rule set
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/custom-reporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom reporter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/badge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Badge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/code-of-conduct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code of conduct
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download and verification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Download and verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-manually-from-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download manually from GitHub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-using-curl-linux-or-macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download using curl (Linux or macOS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-on-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download on Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-of-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification of download
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Package managers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command line usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command line usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rule set(s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-autocorrect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format (autocorrect)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#globs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Globs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#violation-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Violation reporting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-configuration-editorconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rule configuration (.editorconfig)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stdin-stdout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stdin &amp;&amp; stdout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-flags-and-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous flags and commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Command line</h1>
+
+<div class="admonition note">
+<p class="admonition-title">Command Line usage</p>
+<p>If you don't plan to use <code>ktlint</code>'s command line interface then you can skip this section.</p>
+</div>
+<h2 id="download-and-verification">Download and verification<a class="headerlink" href="#download-and-verification" title="Permanent link">&para;</a></h2>
+<h3 id="download-manually-from-github">Download manually from GitHub<a class="headerlink" href="#download-manually-from-github" title="Permanent link">&para;</a></h3>
+<p>All releases of <code>ktlint</code> can be downloaded from the <a href="https://github.com/ktlint/ktlint/releases">releases</a> page.</p>
+<p>Each release contains multiple ways to run <code>ktlint</code>:</p>
+<ul>
+<li><code>ktlint</code> is the executable JAR and requires a JVM.</li>
+<li><code>ktlint_linux-x86-64</code> is a native executable for Linux x86-64.</li>
+<li><code>ktlint_darwin-arm64</code> is a native executable for macOS Apple Silicon.</li>
+<li><code>ktlint_windows-x86-64.exe</code> is a native executable for Windows x86-64.</li>
+<li><code>ktlint.bat</code> starts the executable JAR on Windows.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Native executables and custom rulesets/reporters</p>
+<p>The native executables (<code>ktlint_linux-x86-64</code>, <code>ktlint_darwin-arm64</code>, <code>ktlint_windows-x86-64.exe</code>) are ahead-of-time compiled with GraalVM <code>native-image</code> and cannot load ruleset or reporter JARs supplied at runtime via the command line. Only the built-in rulesets and reporters are available. If you need custom or third-party rulesets/reporters, use the executable JAR (<code>ktlint</code>) instead.</p>
+</div>
+<h3 id="download-using-curl-linux-or-macos">Download using curl (Linux or macOS)<a class="headerlink" href="#download-using-curl-linux-or-macos" title="Permanent link">&para;</a></h3>
+<p>A particular version of <code>ktlint</code> can be downloaded with the commands below. Each command uses <code>curl</code> for downloading. The downloaded file will be renamed to <code>/usr/local/bin/ktlint</code> and changed to an executable file.</p>
+<div class="admonition tip">
+<p class="admonition-title">Curl not installed or behind proxy</p>
+<p>If you don't have curl installed - replace <code>curl -sL</code> with <code>wget -qO-</code>.<br />
+If you are behind a proxy see - <a href="https://curl.haxx.se/docs/manpage.html#ENVIRONMENT">curl</a> / <a href="https://www.gnu.org/software/wget/manual/wget.html#Proxies">wget</a> manpage. Usually simple:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">http_proxy</span><span class="o">=</span>http://proxy-server:port<span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span>http://proxy-server:port<span class="w"> </span>curl<span class="w"> </span>-sL<span class="w"> </span>...
+</code></pre></div></p>
+</div>
+<div class="highlight"><span class="filename">Download Linux native for x86-64</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-sSLO<span class="w"> </span>https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-4/ktlint_linux-x86-64<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>a+x<span class="w"> </span>ktlint_linux-x86-64<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>ktlint_linux-x86-64<span class="w"> </span>/usr/local/bin/ktlint
+</code></pre></div>
+<div class="highlight"><span class="filename">Download macOS native for Apple Silicon</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>-sSLO<span class="w"> </span>https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-4/ktlint_darwin-arm64<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>a+x<span class="w"> </span>ktlint_darwin-arm64<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>ktlint_darwin-arm64<span class="w"> </span>/usr/local/bin/ktlint
+</code></pre></div>
+<div class="highlight"><span class="filename">Download executable JAR</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-sSLO<span class="w"> </span>https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-4/ktlint<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>a+x<span class="w"> </span>ktlint<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>ktlint<span class="w"> </span>/usr/local/bin/
+</code></pre></div>
+<h3 id="download-on-windows">Download on Windows<a class="headerlink" href="#download-on-windows" title="Permanent link">&para;</a></h3>
+<p>Download <code>ktlint_windows-x86-64.exe</code> from the <a href="https://github.com/ktlint/ktlint/releases/tag/2.0.0-ALPHA-4">release</a> and add the directory containing it to your <code>%PATH%</code>.</p>
+<div class="highlight"><span class="filename">Download Windows native</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">ktlint</span><span class="p">/</span><span class="n">ktlint</span><span class="p">/</span><span class="n">releases</span><span class="p">/</span><span class="n">download</span><span class="p">/</span><span class="n">2</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0-ALPHA</span><span class="p">-</span><span class="n">4</span><span class="p">/</span><span class="n">ktlint_windows-x86</span><span class="p">-</span><span class="n">64</span><span class="p">.</span><span class="n">exe</span> <span class="n">-OutFile</span> <span class="n">ktlint</span><span class="p">.</span><span class="n">exe</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Run ktlint on Microsoft Windows</p>
+<p>Ktlint can be run in following ways on Microsoft Windows:  <br />
+* Use the native executable <code>ktlint_windows-x86-64.exe</code> provided as part of the <a href="https://github.com/ktlint/ktlint/releases/tag/2.0.0-ALPHA-4">release</a>
+* Use the <code>ktlint.bat</code> batch file provided as part of the release. Add the batch file to your <code>%PATH%</code> environment variable for easy access
+* Run <code>ktlint</code> using Git Bash
+* Run the executable JAR as <code>java -jar ktlint</code></p>
+</div>
+<h3 id="verification-of-download">Verification of download<a class="headerlink" href="#verification-of-download" title="Permanent link">&para;</a></h3>
+<p><code>ktlint.asc</code> contains PGP signature which you can verify with:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ktlint 2.x has been moved to a separate organization, and no longer affiliated with Pinterest open source projects. Our public signature can be downloaded from the Ubuntu Key Server.</p>
+</div>
+<div class="highlight"><span class="filename">Verify releases 2.0 and up</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>-sS<span class="w"> </span><span class="s2">"https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0x0F631C1DD2A656869B1F47350FDF10E71780F7FD"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--import<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>gpg<span class="w"> </span>--verify<span class="w"> </span>ktlint.asc
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As reported in <a href="https://github.com/ktlint/ktlint/issues/3130">this issue</a> the https://keybase.io/ktlint/pgp_keys.asc is no longer available. Our public signature can be downloaded from the Ubuntu Key Server.</p>
+</div>
+<div class="highlight"><span class="filename">Verify releases 0.32.0 - 1.8.0</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>curl<span class="w"> </span>-sS<span class="w"> </span><span class="s2">"https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xadbc987d1a7b91db6b0aaa81995efbf4a3d20beb"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--import<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>gpg<span class="w"> </span>--verify<span class="w"> </span>ktlint.asc
+</code></pre></div>
+<div class="highlight"><span class="filename">Verify releases up through 0.31.0</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>curl<span class="w"> </span>-sS<span class="w"> </span>https://keybase.io/shyiko/pgp_keys.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--import<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>gpg<span class="w"> </span>--verify<span class="w"> </span>ktlint.asc
+</code></pre></div>
+<h3 id="package-managers">Package managers<a class="headerlink" href="#package-managers" title="Permanent link">&para;</a></h3>
+<p><code>ktlint</code> can be installed via several OS specific package managers.</p>
+<p>Install with <a href="https://brew.sh/">brew on macOS</a> or <a href="https://docs.brew.sh/Homebrew-on-Linux">Homebrew on Linux</a>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>brew<span class="w"> </span>install<span class="w"> </span>ktlint
+</code></pre></div></p>
+<p>Install with <a href="https://www.macports.org/">MacPorts</a>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>port<span class="w"> </span>install<span class="w"> </span>ktlint
+</code></pre></div></p>
+<h2 id="command-line-usage">Command line usage<a class="headerlink" href="#command-line-usage" title="Permanent link">&para;</a></h2>
+<h3 id="rule-sets">Rule set(s)<a class="headerlink" href="#rule-sets" title="Permanent link">&para;</a></h3>
+<p>When no arguments are specified, the style of all Kotlin files (ending with '.kt' or '.kts') inside the current dir (recursively) are validated with the rules from the <a href="../../rules/standard/">standard ruleset</a>. Hidden folders will be skipped.</p>
+<div class="highlight"><span class="filename">Default validation with standard ruleset</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ktlint
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The experimental rules in the standard rule set will only be run when <code>.editorconfig</code> property <code>ktlint_experimental = enabled</code> is set.</p>
+</div>
+<p>To validate with a <a href="../../api/custom-rule-set/#running-ktlint-cli-with-the-custom-ruleset">custom ruleset</a> run command below:  </p>
+<div class="highlight"><span class="filename">Validation with standard and a custom ruleset</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ktlint<span class="w"> </span>--ruleset<span class="o">=</span>/path/to/custom-ruleset.jar
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># or</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ktlint<span class="w"> </span>-R<span class="w"> </span>/path/to/custom-ruleset.jar
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the custom rule set contains rules that are marked as experimental, those rule will only be run when <code>.editorconfig</code> property <code>ktlint_experimental = enabled</code> is set.</p>
+</div>
+<h3 id="format-autocorrect">Format (autocorrect)<a class="headerlink" href="#format-autocorrect" title="Permanent link">&para;</a></h3>
+<p>Most style violations can be corrected automatically. Errors that can not be corrected, are printed to <code>stderr</code>.</p>
+<div class="highlight"><span class="filename">Autocorrect style violations</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ktlint<span class="w"> </span>--format
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># or</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>ktlint<span class="w"> </span>-F
+</code></pre></div>
+<h3 id="globs">Globs<a class="headerlink" href="#globs" title="Permanent link">&para;</a></h3>
+<p>Globs can be used to specify more exactly what files and directories are to be validated. <code>ktlint</code> uses the <a href="https://git-scm.com/docs/gitignore"><code>.gitignore</code> pattern style syntax for globs</a>. Globs are processed from left to right. Prepend a glob with <code>!</code> to negate it. Hidden folders will be skipped.</p>
+<div class="highlight"><span class="filename">Check only certain locations starting from the current directory</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Check all '.kt' files in 'src/' directory, but ignore files ending with 'Test.kt':</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>ktlint<span class="w"> </span><span class="s1">'src/**/*.kt'</span><span class="w"> </span><span class="s1">'!src/**/*Test.kt'</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Check all '.kt' files in 'src/' directory, but ignore 'generated' directory and its subdirectories:</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>ktlint<span class="w"> </span><span class="s1">'src/**/*.kt'</span><span class="w"> </span><span class="s1">'!src/**/generated/**'</span>
+</code></pre></div>
+<h3 id="violation-reporting">Violation reporting<a class="headerlink" href="#violation-reporting" title="Permanent link">&para;</a></h3>
+<p><code>ktlint</code> supports different type of reporters for lint violations. When not specified the <code>plain</code> reporter is used. Optionally the <code>plain</code> reporter can group the violations per file.</p>
+<div class="highlight"><span class="filename">Style violation grouped by file</span><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$<span class="w"> </span>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain?group_by_file
+</code></pre></div>
+<p>When using <code>ktlint</code> on an existing project, the number of violations can be huge. To get more insights in which rules are causing the most violations, the <code>plain-summary</code> reporter can be used.
+<div class="highlight"><span class="filename">Style violations counted per rule</span><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$<span class="w"> </span>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain-summary
+</code></pre></div></p>
+<p>Other built-in reporters are: <code>json</code>, <code>sarif</code>, <code>checkstyle</code>, and <code>html</code></p>
+<p>Style violations can be written to an output file which is convenient when multiple reporters are specified. In example below, the plain reporter is used to write to the console while the checkstyle reports is written to a file:</p>
+<div class="highlight"><span class="filename">Multiple reporters</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ktlint<span class="w"> </span>--reporter<span class="o">=</span>plain<span class="w"> </span>--reporter<span class="o">=</span>checkstyle,output<span class="o">=</span>ktlint-report-in-checkstyle-format.xml
+</code></pre></div>
+<p>If resolving all existing errors in a project is unwanted, it is possible to create a baseline and in following invocations compare violations against this baseline. Violations that are registered in the baseline, will be ignored silently. Remove the baseline file in case you want to reset it.</p>
+<div class="highlight"><span class="filename">Check against a baseline file</span><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ktlint<span class="w"> </span>--baseline<span class="o">=</span>ktlint-baseline.xml<span class="w"> </span><span class="c1"># Baseline is created when not existing</span>
+</code></pre></div>
+<h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h3>
+<p>Logging information is written to <code>stdout</code>. The amount of logging can be influenced by setting the minimal log level using option <code>--log-level</code> or <code>-l</code> to one of values <code>trace</code>, <code>debug</code>, <code>info</code>, <code>warn</code>, <code>error</code>, or <code>none</code> to suppress all logging.</p>
+<p>By default, the <code>info</code> log level is used meaning that all log lines at level <code>info</code>, <code>warn</code> and <code>error</code> are shown while suppressing log lines at level <code>debug</code> or <code>trace</code>.</p>
+<h3 id="rule-configuration-editorconfig">Rule configuration (<code>.editorconfig</code>)<a class="headerlink" href="#rule-configuration-editorconfig" title="Permanent link">&para;</a></h3>
+<p>Some rules can be tweaked via the <a href="../../rules/configuration-ktlint/"><code>editorconfig file</code></a>.</p>
+<p>A scaffold of the <code>.editorconfig</code> file can be generated with command below. Note: that the generated file only contains configuration settings which are actively used by the <a href="#rule-sets">rules which are loaded</a>:</p>
+<div class="highlight"><span class="filename">Generate .editorconfig</span><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Specify the code style (ktlint_official, intellij_idea or android_studio) to be used when generating the .editorconfig</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ktlint<span class="w"> </span>generateEditorConfig<span class="w"> </span>--code-style<span class="w"> </span>ktlint_official
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># or</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>ktlint<span class="w"> </span>--ruleset<span class="o">=</span>/path/to/custom-ruleset.jar<span class="w"> </span>generateEditorConfig<span class="w"> </span>--code-style<span class="w"> </span>android_studio
+</code></pre></div>
+<p>Normally the <code>.editorconfig</code> file is located in the root of your project directory. In case the file is located in a sub folder of the project, the settings of that file only applies to that subdirectory and its folders (recursively). Ktlint automatically detects and reads all <code>.editorconfig</code> files in your project.</p>
+<p>Use command below, to specify a default <code>editorconfig</code>. In case a property is not defined in any <code>.editorconfig</code> file on the path to the file, the value from the default file is used. The path may point to any valid file or directory. The path can be relative or absolute. Depending on your OS, the "~" at the beginning of a path is replaced by the user home directory.</p>
+<div class="highlight"><span class="filename">Override &#x27;.editorconfig&#x27;</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ktlint<span class="w"> </span>--editorconfig<span class="o">=</span>/path/to/.editorconfig
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Overrides '.editorconfig' in project directory" in KtLint 0.46 and older</p>
+<p>When specifying this option using ktlint 0.46 or older, all <code>.editorconfig</code> files in the project directory are being ignored. Starting from KtLint 0.47 the properties in this file are used as fallback.</p>
+</div>
+<h3 id="stdin-stdout">Stdin &amp;&amp; stdout<a class="headerlink" href="#stdin-stdout" title="Permanent link">&para;</a></h3>
+<p>With command below, the input is read from <code>stdin</code> and the violations are printed to <code>stderr</code>. Logging is written to <code>stdout</code>.</p>
+<div class="highlight"><span class="filename">Lint from stdin</span><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ktlint<span class="w"> </span>--stdin
+</code></pre></div>
+<p>When combined with the <code>--format</code> option, the formatted code is written to <code>stdout</code> and the violations are printed to <code>stderr</code>:</p>
+<div class="highlight"><span class="filename">Format from stdin and write to stdout</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ktlint<span class="w"> </span>--stdin<span class="w"> </span>-F
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Suppress logging and error output</p>
+<p>Logging output printed to <code>stdout</code> can be suppressed by setting <code>--log-level=none</code> (see <a href="#logging">logging</a>).
+Output printed to <code>stderr</code> can be suppressed in different ways. To ignore all error output, add <code>2&gt; /dev/null</code> to the end of the command line. Otherwise, specify a <a href="#violation-reporting">reporter</a> to write the error output to a file.</p>
+<p>If input from <code>stdin</code> represents the contents of a file, the file path can be supplied with <code>stdin-path</code>. This path is made available for rules to use, the <code>--format</code> option will not modify this file. </p>
+</div>
+<div class="highlight"><span class="filename">file path from stdin-path</span><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ktlint<span class="w"> </span>--stdin<span class="w"> </span>--stdin-path<span class="w"> </span>/path/to/file/Foo.kt
+</code></pre></div>
+<h3 id="git-hooks">Git hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h3>
+<p>Predefined git hooks can be installed, to automatically validate lint errors before commit or push.</p>
+<div class="highlight"><span class="filename">Install git pre-commit hook</span><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ktlint<span class="w"> </span>installGitPreCommitHook
+</code></pre></div>
+<div class="highlight"><span class="filename">Install git pre-push hook</span><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ktlint<span class="w"> </span>installGitPrePushHook
+</code></pre></div>
+<h3 id="exit-codes">Exit codes<a class="headerlink" href="#exit-codes" title="Permanent link">&para;</a></h3>
+<p>When integrating with Ktlint CLI with another tool it is important to take the exit codes below into account.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Exit code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td>The command has been executed succesfully. If the command included the option to format the code then no violations were found, or all violations have been autocorrected.</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td>The input has been reformatted succesfully but at least one violation remains to be fixed. Usually this is a violation which cannot be autocorrected. After autocorrecting the error, rerun ktlint again.<br/><br/>However, in some occasions it might happen that some violations remain that will be autocorrected in the next run.<br/><br/>Note that Ktlint automatically reruns format a couple of times automatically. Inspect the logging output to verify that no cyclic behavior occurs where the fix of one rule is reverted by another rule in the next run as this might result in an endless loop.</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>An IO Exception has occurred. Check the logging output.</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>Input provided via <code>stdin</code> is not valid Kotlin (Script) code. Ensure that the input can be compiled before invoking Ktlint.</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>Input provided via <code>stdin</code> resulted in an exception. In case the <stderr> logging has been suppressed, rerun Ktlint with logging enabled and see the stacktrace.</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>A command line option refers to an invalid path. See logging output.</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>The rule set jar provided is not supported. See logging output.</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>The reporter configuration is invalid. See logging output.</td>
+</tr>
+<tr>
+<td style="text-align: right;">123</td>
+<td>When using option <code>--force-lint-after-format</code>, a parse exception occurs when trying to lint the formatted output. This means that Ktlint changes resulted in a file which no longer can be compiled. This option is merely used for regression testing only.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="miscellaneous-flags-and-commands">Miscellaneous flags and commands<a class="headerlink" href="#miscellaneous-flags-and-commands" title="Permanent link">&para;</a></h3>
+<p><code>--color</code> and <code>--color-name=&lt;colorName&gt;</code>: Make output colorful and optionally set the color name to use.</p>
+<p><code>-h</code> or <code>--help</code>: Prints help information.</p>
+<p><code>--limit=&lt;limit&gt;</code>: Maximum number of errors to show (default: show all)</p>
+<p><code>--relative</code>: Print files relative to the working directory (e.g. dir/file.kt instead of /home/user/project/dir/file.kt)</p>
+<p><code>--patterns-from-stdin[=&lt;delimiter&gt;]</code>: Reads additional patterns from <code>stdin</code>, where the patterns are separated by <code>&lt;delimiter&gt;</code>. If <code>=&lt;delimiter&gt;</code> is omitted, newline is used as fallback delimiter. If an empty string is given, the <code>NUL</code> byte is used as delimiter instead.
+If this option is given, then the default patterns are disabled.
+Options <code>--stdin</code> and <code>--patterns-from-stdin</code> are mutually exclusive, only one of them can be given at a time.</p>
+<p><code>-V</code> or <code>--version</code>: Prints version information and exit.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "search.suggest", "search.share", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
