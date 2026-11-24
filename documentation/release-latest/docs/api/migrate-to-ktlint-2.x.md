@@ -1,5 +1,7 @@
 Ktlint has been moved away from the Pinterest GitHub organization towards its own [Ktlint GitHub organization](https://github.com/ktlint). This results in several breaking changes which are documented below.
 
+Also, KtLint is now using the Kotlin Analysis API dependencies instead of depending directly on the Kotlin embedded compiler to provide for a more seamless integration for external integrators.
+
 !!! tip
     Please [create an issue](https://github.com/ktlint/ktlint/issues/new/choose) if you run into problems when migrating your Ktlint integration or your custom ruleset, so that this guide can be updated.
 
@@ -23,6 +25,14 @@ Ktlint 2.x is published with changed maven coordinates. The Maven group id has c
 All package names starting with `com.pinterest.ktlint` have been changed and now start with `io.github.ktlint.core`. A simple search and replace should resolve most problems.
 
 This substitution results in several compilation errors as some classes are not provided in the `io.github.ktlint.core` namespace. See below for how to resolve the compilation errors.
+
+## Change imports to Kotlin Analysis API
+
+Dependency `org.jetbrains.kotlin:kotlin-compiler-embeddable` has been replaced with `org.jetbrains.kotlin:kotlin-analysis-api-surface` (api), `org.jetbrains.kotlin:kotlin-analysis-api-implementation` (implementation), `org.jetbrains.kotlin:kotlin-analysis-api-intellij-api-surface-components` (api), and `org.jetbrains.kotlin:kotlin-analysis-api-intellij-implementation-components` (implementation).
+
+All imports starting with `org.jetbrains.kotlin.com.intellij` have to be replaced with `com.intellij`.
+
+See [changes in KtLint](https://github.com/ktlint/ktlint/pull/3437/changes) if you need more information.
 
 ### Rule extends non existent `io.github.ktlint.core...Rule`
 
