@@ -1,7 +1,17 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
+import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision.ALLOW_AUTOCORRECT
+import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPRESSION
+import io.github.ktlint.core.rule.engine.core.api.ElementType.LITERAL_STRING_TEMPLATE_ENTRY
+import io.github.ktlint.core.rule.engine.core.api.ElementType.OPEN_QUOTE
+import io.github.ktlint.core.rule.engine.core.api.ElementType.PROPERTY
+import io.github.ktlint.core.rule.engine.core.api.ElementType.STRING_TEMPLATE
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
+import io.github.ktlint.core.rule.engine.core.api.KtlintKotlinCompiler
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
+import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
+import io.github.ktlint.core.rule.engine.core.api.nextSibling
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
 import io.github.ktlint.core.test.MULTILINE_STRING_QUOTE
@@ -203,6 +213,37 @@ class StringTemplateIndentRuleTest {
         stringTemplateIndentRuleAssertThat(code)
             .addAdditionalRuleProvider { IndentationRule() }
             .isFormattedAs(formattedCode)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["\$value", "\${value}"])
+    fun `Issue 3442 - Insert the opening newline outside an interpolation at column zero`(interpolation: String) {
+        val code =
+            """
+            val someVar =
+            $MULTILINE_STRING_QUOTE$interpolation
+                line2
+            $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val openingQuote =
+            requireNotNull(
+                KtlintKotlinCompiler
+                    .createASTNodeFromText(code)
+                    ?.findChildByType(PROPERTY)
+                    ?.findChildByType(DOT_QUALIFIED_EXPRESSION)
+                    ?.findChildByType(STRING_TEMPLATE)
+                    ?.findChildByType(OPEN_QUOTE),
+            )
+        val rule = StringTemplateIndentRule()
+        rule.beforeFirstNode(EditorConfig().filterBy(rule.usesEditorConfigProperties + CODE_STYLE_PROPERTY))
+        rule.startTraversalOfAST { _, _, _, _ -> ALLOW_AUTOCORRECT }
+        rule.beforeVisitChildNodes(openingQuote)
+
+        // Check the live AST: reparsing the formatted text would hide a newline inserted inside the interpolation.
+        val newline = openingQuote.nextSibling
+        assertThat(newline?.elementType).isEqualTo(LITERAL_STRING_TEMPLATE_ENTRY)
+        assertThat(newline?.text).isEqualTo("\n")
+        assertThat(newline?.nextSibling?.text).isEqualTo(interpolation)
     }
 
     @Test

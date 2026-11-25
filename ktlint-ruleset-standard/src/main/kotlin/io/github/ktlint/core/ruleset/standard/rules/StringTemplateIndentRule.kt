@@ -318,9 +318,8 @@ public class StringTemplateIndentRule :
                 ) {
                     // Normalize the original margin before adding a line, so text on the opening line contributes to trimIndent.
                     parent!!.indentStringTemplate(indent, indentOpeningLine = true)
-                    (nextLeaf as LeafPsiElement).rawInsertBeforeMe(
-                        LeafPsiElement(REGULAR_STRING_PART, "\n"),
-                    )
+                    // Read the sibling after normalization, which may have inserted an indent before an interpolation.
+                    nextSibling!!.insertLiteralStringTemplateEntryBeforeMe("\n")
                 }
             }
     }
@@ -352,17 +351,21 @@ public class StringTemplateIndentRule :
                 )
             } else if (node.elementType == SHORT_STRING_TEMPLATE_ENTRY || node.elementType == LONG_STRING_TEMPLATE_ENTRY) {
                 // Keep interpolation tokens intact when adding their indentation.
-                val indentEntry =
-                    node.parent!!
-                        .children
-                        .first { it.elementType == LITERAL_STRING_TEMPLATE_ENTRY && it.text == "\n" }
-                        .clone() as ASTNode
-                indentEntry.firstChildLeafOrSelf.replaceTextWith(newIndent)
-                node.parent!!.addChild(indentEntry, node)
+                node.insertLiteralStringTemplateEntryBeforeMe(newIndent)
             } else {
                 node.firstChildLeafOrSelf.replaceTextWith(newIndent + newContent)
             }
         }
+    }
+
+    private fun ASTNode.insertLiteralStringTemplateEntryBeforeMe(text: String) {
+        val stringTemplate = parent!!
+        val literalEntry =
+            stringTemplate.children
+                .first { it.elementType == LITERAL_STRING_TEMPLATE_ENTRY && it.text == "\n" }
+                .clone() as ASTNode
+        literalEntry.firstChildLeafOrSelf.replaceTextWith(text)
+        stringTemplate.addChild(literalEntry, this)
     }
 
     private fun ASTNode.checkAndFixNewLineBeforeClosingQuotes(stringTemplateContainsMixedIndentationCharacters: Boolean) {
