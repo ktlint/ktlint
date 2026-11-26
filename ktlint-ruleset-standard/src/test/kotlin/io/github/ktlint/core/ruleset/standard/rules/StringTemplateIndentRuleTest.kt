@@ -1,22 +1,11 @@
 package io.github.ktlint.core.ruleset.standard.rules
 
-import io.github.ktlint.core.rule.engine.core.api.AutocorrectDecision.ALLOW_AUTOCORRECT
-import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPRESSION
-import io.github.ktlint.core.rule.engine.core.api.ElementType.LITERAL_STRING_TEMPLATE_ENTRY
-import io.github.ktlint.core.rule.engine.core.api.ElementType.OPEN_QUOTE
-import io.github.ktlint.core.rule.engine.core.api.ElementType.PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.ElementType.STRING_TEMPLATE
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
-import io.github.ktlint.core.rule.engine.core.api.KtlintKotlinCompiler
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.CODE_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.INDENT_STYLE_PROPERTY
-import io.github.ktlint.core.rule.engine.core.api.nextSibling
 import io.github.ktlint.core.test.KtLintAssertThat.Companion.assertThatRule
 import io.github.ktlint.core.test.LintViolation
 import io.github.ktlint.core.test.MULTILINE_STRING_QUOTE
 import io.github.ktlint.core.test.TAB
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -46,9 +35,8 @@ class StringTemplateIndentRuleTest {
             """.trimIndent()
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolations(
-                LintViolation(3, 12, "Unexpected indent of raw string literal"),
-                LintViolation(3, 12, "Unexpected indent of raw string literal"),
-                LintViolation(4, 12, "Unexpected indent of raw string literal"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 11"),
+                LintViolation(4, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 11"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -71,8 +59,8 @@ class StringTemplateIndentRuleTest {
             .withEditorConfigOverride(INDENT_STYLE_PROPERTY to IndentConfig.IndentStyle.TAB)
             .hasLintViolations(
                 LintViolation(1, 22, "Expected newline before multiline string template"),
-                LintViolation(2, 5, "Unexpected indent of raw string literal"),
-                LintViolation(3, 5, "Unexpected indent of raw string literal"),
+                LintViolation(2, 1, "Unexpected indent inside raw string literal. Expected: 1. Found: 4"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 1. Found: 4"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -125,34 +113,15 @@ class StringTemplateIndentRuleTest {
         }
     }
 
-    @Test
-    fun `A multiline raw string literal should not contain text on the same line as the opening quotes`() {
+    @ParameterizedTest
+    @ValueSource(strings = ["line1", $$"$value", $$"${value}"])
+    fun `Issue 3442 - Given a raw string literal with content without indent after the opening quotes then wrap and preserve the indentation of the other lines`(
+        contentOpeningLine: String,
+    ) {
         val code =
             """
             val someVar =
-                ${MULTILINE_STRING_QUOTE}line1
-                line2
-                $MULTILINE_STRING_QUOTE.trimIndent()
-            """.trimIndent()
-        val formattedCode =
-            """
-            val someVar =
-                $MULTILINE_STRING_QUOTE
-                line1
-                    line2
-                $MULTILINE_STRING_QUOTE.trimIndent()
-            """.trimIndent()
-        stringTemplateIndentRuleAssertThat(code)
-            .hasLintViolation(2, 13, "Missing newline after the opening quotes of the raw string literal")
-            .isFormattedAs(formattedCode)
-    }
-
-    @Test
-    fun `Issue 3442 - Preserve indentation following text on the opening line`() {
-        val code =
-            """
-            val someVar =
-                ${MULTILINE_STRING_QUOTE}line1
+                ${MULTILINE_STRING_QUOTE}$contentOpeningLine
                     line2
                 $MULTILINE_STRING_QUOTE.trimIndent()
             """.trimIndent()
@@ -160,90 +129,184 @@ class StringTemplateIndentRuleTest {
             """
             val someVar =
                 $MULTILINE_STRING_QUOTE
-                line1
+                $contentOpeningLine
                         line2
                 $MULTILINE_STRING_QUOTE.trimIndent()
             """.trimIndent()
-        stringTemplateIndentRuleAssertThat(code).isFormattedAs(formattedCode)
-        assertThat(formattedCode.substringAfter(MULTILINE_STRING_QUOTE).substringBefore(MULTILINE_STRING_QUOTE).trimIndent())
-            .isEqualTo(code.substringAfter(MULTILINE_STRING_QUOTE).substringBefore(MULTILINE_STRING_QUOTE).trimIndent())
+        stringTemplateIndentRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(2, 8, "Missing newline after opening quotes. Expected indent: 4. Found: 0"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 12. Found: 8"),
+            ).isFormattedAs(formattedCode)
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["", "$$"])
-    fun `Issue 3442 - Include leading whitespace on the opening line in the common indent`(interpolationPrefix: String) {
+    @ValueSource(strings = [$$"$value", $$"${value}", "line1"])
+    fun `Issue 3442 - Given a raw string literal, and content with indent smaller than other indents after opening quotes than wrap and decrease indents with the common prefix length`(
+        contentOpeningLine: String,
+    ) {
         val code =
             """
-            val someVar =
-                $interpolationPrefix$MULTILINE_STRING_QUOTE  line1
+            val someVar1 =
+                ${MULTILINE_STRING_QUOTE} $contentOpeningLine
                     line2
                 $MULTILINE_STRING_QUOTE.trimIndent()
             """.trimIndent()
         val formattedCode =
             """
-            val someVar =
-                $interpolationPrefix$MULTILINE_STRING_QUOTE
-                line1
-                      line2
+            val someVar1 =
+                $MULTILINE_STRING_QUOTE
+                $contentOpeningLine
+                       line2
                 $MULTILINE_STRING_QUOTE.trimIndent()
             """.trimIndent()
-        stringTemplateIndentRuleAssertThat(code).isFormattedAs(formattedCode)
-        assertThat(formattedCode.substringAfter(MULTILINE_STRING_QUOTE).substringBefore(MULTILINE_STRING_QUOTE).trimIndent())
-            .isEqualTo(code.substringAfter(MULTILINE_STRING_QUOTE).substringBefore(MULTILINE_STRING_QUOTE).trimIndent())
+        stringTemplateIndentRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(2, 8, "Missing newline after opening quotes. Expected indent: 4. Found: 1"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 11. Found: 8"),
+            ).isFormattedAs(formattedCode)
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["\$value", "\${value}"])
-    fun `Issue 3442 - Keep interpolation nodes intact when moving text off the opening line`(interpolation: String) {
+    @ValueSource(strings = [$$"$value", $$"${value}", "line1"])
+    fun `Issue 3442 - Given raw string literal, and text with indent bigger than other indents after opening quotes than wrap and increase indents with the common prefix length`(
+        contentOpeningLine: String,
+    ) {
         val code =
             """
-            val someVar =
-                $MULTILINE_STRING_QUOTE$interpolation
-                    $interpolation
+            val someVar1 =
+                ${MULTILINE_STRING_QUOTE}            $contentOpeningLine
+                    line2
                 $MULTILINE_STRING_QUOTE.trimIndent()
             """.trimIndent()
         val formattedCode =
             """
-            val someVar =
+            val someVar1 =
                 $MULTILINE_STRING_QUOTE
-                $interpolation
-                        $interpolation
+                    $contentOpeningLine
+                line2
                 $MULTILINE_STRING_QUOTE.trimIndent()
             """.trimIndent()
         stringTemplateIndentRuleAssertThat(code)
-            .addAdditionalRuleProvider { IndentationRule() }
+            .isFormattedAs(formattedCode)
+            .hasLintViolations(
+                LintViolation(2, 8, "Missing newline after opening quotes. Expected indent: 8. Found: 12"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 4. Found: 8"),
+            ).isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Issue 3442 - Include leading whitespace on the opening line in the common indent`() {
+        val code =
+            """
+            val foo1 =
+                $MULTILINE_STRING_QUOTE line1
+                    line2
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            val foo2 =
+                $$$MULTILINE_STRING_QUOTE line1
+                    line2
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val formattedCode =
+            """
+            val foo1 =
+                $MULTILINE_STRING_QUOTE
+                line1
+                       line2
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            val foo2 =
+                $$$MULTILINE_STRING_QUOTE
+                line1
+                       line2
+                $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        stringTemplateIndentRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(2, 8, "Missing newline after opening quotes. Expected indent: 4. Found: 1"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 11. Found: 8"),
+                LintViolation(6, 10, "Missing newline after opening quotes. Expected indent: 4. Found: 1"),
+                LintViolation(7, 1, "Unexpected indent inside raw string literal. Expected: 11. Found: 8"),
+            ).isFormattedAs(formattedCode)
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = [$$"$value", $$"${value}", "line1"])
+    fun `Issue 3442 - Given raw string literal starting at position 0, and text without indent after opening quotes than wrap but do not change indents of other lines`(
+        contentOpeningLine: String,
+    ) {
+        val code =
+            """
+            val someVar =
+            ${MULTILINE_STRING_QUOTE}$contentOpeningLine
+                line2
+            $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val formattedCode =
+            """
+            val someVar =
+            $MULTILINE_STRING_QUOTE
+            $contentOpeningLine
+                line2
+            $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        stringTemplateIndentRuleAssertThat(code)
+            .hasLintViolation(2, 4, "Missing newline after opening quotes. Expected indent: 0. Found: 0")
             .isFormattedAs(formattedCode)
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["\$value", "\${value}"])
-    fun `Issue 3442 - Insert the opening newline outside an interpolation at column zero`(interpolation: String) {
+    @ValueSource(strings = [$$"$value", $$"${value}", "line1"])
+    fun `Issue 3442 - Given a raw string literal starting at position 0, and text with indent smaller than other indents after opening quotes than wrap and decrease indents with the common prefix length`(
+        contentOpeningLine: String,
+    ) {
         val code =
             """
-            val someVar =
-            $MULTILINE_STRING_QUOTE$interpolation
+            val someVar1 =
+            ${MULTILINE_STRING_QUOTE}  $contentOpeningLine
                 line2
             $MULTILINE_STRING_QUOTE.trimIndent()
             """.trimIndent()
-        val openingQuote =
-            requireNotNull(
-                KtlintKotlinCompiler
-                    .createASTNodeFromText(code)
-                    ?.findChildByType(PROPERTY)
-                    ?.findChildByType(DOT_QUALIFIED_EXPRESSION)
-                    ?.findChildByType(STRING_TEMPLATE)
-                    ?.findChildByType(OPEN_QUOTE),
-            )
-        val rule = StringTemplateIndentRule()
-        rule.beforeFirstNode(EditorConfig().filterBy(rule.usesEditorConfigProperties + CODE_STYLE_PROPERTY))
-        rule.startTraversalOfAST { _, _, _, _ -> ALLOW_AUTOCORRECT }
-        rule.beforeVisitChildNodes(openingQuote)
+        val formattedCode =
+            """
+            val someVar1 =
+            $MULTILINE_STRING_QUOTE
+            $contentOpeningLine
+              line2
+            $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        stringTemplateIndentRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(2, 4, "Missing newline after opening quotes. Expected indent: 0. Found: 2"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 2. Found: 4"),
+            ).isFormattedAs(formattedCode)
+    }
 
-        // Check the live AST: reparsing the formatted text would hide a newline inserted inside the interpolation.
-        val newline = openingQuote.nextSibling
-        assertThat(newline?.elementType).isEqualTo(LITERAL_STRING_TEMPLATE_ENTRY)
-        assertThat(newline?.text).isEqualTo("\n")
-        assertThat(newline?.nextSibling?.text).isEqualTo(interpolation)
+    @ParameterizedTest
+    @ValueSource(strings = [$$"$value", $$"${value}", "line1"])
+    fun `Issue 3442 - Given raw string literal starting at position 0, and text with indent bigger than other indents after opening quotes than wrap and increase indents with the common prefix length`(
+        contentOpeningLine: String,
+    ) {
+        val code =
+            """
+            val someVar1 =
+            ${MULTILINE_STRING_QUOTE}        $contentOpeningLine
+                line2
+            $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        val formattedCode =
+            """
+            val someVar1 =
+            $MULTILINE_STRING_QUOTE
+                $contentOpeningLine
+            line2
+            $MULTILINE_STRING_QUOTE.trimIndent()
+            """.trimIndent()
+        stringTemplateIndentRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(2, 4, "Missing newline after opening quotes. Expected indent: 4. Found: 8"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 0. Found: 4"),
+            ).isFormattedAs(formattedCode)
     }
 
     @Test
@@ -265,8 +328,8 @@ class StringTemplateIndentRuleTest {
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(1, 15, "Expected newline before multiline string template"),
-                LintViolation(2, 15, "Unexpected indent of raw string literal"),
-                LintViolation(3, 15, "Unexpected indent of raw string literal"),
+                LintViolation(2, 1, "Unexpected indent inside raw string literal. Expected: 4. Found: 14"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 4. Found: 14"),
                 LintViolation(3, 20, "Missing newline before the closing quotes of the raw string literal"),
             ).isFormattedAs(formattedCode)
     }
@@ -289,8 +352,8 @@ class StringTemplateIndentRuleTest {
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(1, 15, "Expected newline before multiline string template"),
-                LintViolation(2, 15, "Unexpected indent of raw string literal"),
-                LintViolation(3, 15, "Unexpected indent of raw string literal"),
+                LintViolation(2, 1, "Unexpected indent inside raw string literal. Expected: 4. Found: 14"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 4. Found: 14"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -318,8 +381,8 @@ class StringTemplateIndentRuleTest {
             .addAdditionalRuleProvider { IndentationRule() }
             .hasLintViolations(
                 LintViolation(2, 13, "Expected newline before multiline string template"),
-                LintViolation(3, 13, "Unexpected indent of raw string literal"),
-                LintViolation(4, 13, "Unexpected indent of raw string literal"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 12"),
+                LintViolation(4, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 12"),
                 LintViolation(4, 29, "Expected newline after 'trimIndent' in a multiline string template"),
             ).isFormattedAs(formattedCode)
     }
@@ -359,7 +422,7 @@ class StringTemplateIndentRuleTest {
     }
 
     @Test
-    fun `Format multiline string with unexpected tabs in indentation margin`() {
+    fun `Format multiline string with unexpected tabs in indentation margin`() { // x
         val code =
             """
             val str = $MULTILINE_STRING_QUOTE
@@ -380,7 +443,7 @@ class StringTemplateIndentRuleTest {
                 LintViolation(1, 11, "Expected newline before multiline string template"),
                 LintViolation(2, 1, "Unexpected 'tab' character(s) in margin of multiline string"),
                 LintViolation(3, 1, "Unexpected 'tab' character(s) in margin of multiline string"),
-                LintViolation(4, 1, "Unexpected indent of raw string literal"),
+                LintViolation(4, 1, "Unexpected indent before closing quotes of raw string literal. Expected: 4. Found: 0"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -406,10 +469,10 @@ class StringTemplateIndentRuleTest {
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(1, 11, "Expected newline before multiline string template"),
-                LintViolation(2, 7, "Unexpected indent of raw string literal"),
-                LintViolation(3, 7, "Unexpected indent of raw string literal"),
-                LintViolation(4, 7, "Unexpected indent of raw string literal"),
-                LintViolation(5, 1, "Unexpected indent of raw string literal"),
+                LintViolation(2, 1, "Unexpected indent inside raw string literal. Expected: 4. Found: 6"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 4. Found: 6"),
+                LintViolation(4, 1, "Unexpected indent inside raw string literal. Expected: 4. Found: 6"),
+                LintViolation(5, 1, "Unexpected indent before closing quotes of raw string literal. Expected: 4. Found: 0"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -435,8 +498,8 @@ class StringTemplateIndentRuleTest {
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(2, 15, "Expected newline before multiline string template"),
-                LintViolation(3, 15, "Unexpected indent of raw string literal"),
-                LintViolation(4, 15, "Unexpected indent of raw string literal"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 14"),
+                LintViolation(4, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 14"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -462,8 +525,8 @@ class StringTemplateIndentRuleTest {
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(2, 12, "Expected newline before multiline string template"),
-                LintViolation(3, 12, "Unexpected indent of raw string literal"),
-                LintViolation(4, 12, "Unexpected indent of raw string literal"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 11"),
+                LintViolation(4, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 11"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -491,8 +554,8 @@ class StringTemplateIndentRuleTest {
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(2, 26, "Expected newline before multiline string template"),
-                LintViolation(3, 26, "Unexpected indent of raw string literal"),
-                LintViolation(4, 26, "Unexpected indent of raw string literal"),
+                LintViolation(3, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 25"),
+                LintViolation(4, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 25"),
             ).isFormattedAs(formattedCode)
     }
 
@@ -527,11 +590,11 @@ class StringTemplateIndentRuleTest {
         stringTemplateIndentRuleAssertThat(code)
             .hasLintViolations(
                 LintViolation(3, 34, "Expected newline before multiline string template"),
-                LintViolation(4, 34, "Unexpected indent of raw string literal"),
-                LintViolation(5, 34, "Unexpected indent of raw string literal"),
+                LintViolation(4, 1, "Unexpected indent inside raw string literal. Expected: 12. Found: 33"),
+                LintViolation(5, 1, "Unexpected indent inside raw string literal. Expected: 12. Found: 33"),
                 LintViolation(6, 17, "Expected newline before multiline string template"),
-                LintViolation(7, 17, "Unexpected indent of raw string literal"),
-                LintViolation(8, 17, "Unexpected indent of raw string literal"),
+                LintViolation(7, 1, "Unexpected indent inside raw string literal. Expected: 12. Found: 16"),
+                LintViolation(8, 1, "Unexpected indent inside raw string literal. Expected: 12. Found: 16"),
             ).isFormattedAs(formattedCode)
     }
 

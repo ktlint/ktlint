@@ -45,6 +45,7 @@ import io.github.ktlint.core.rule.engine.core.api.upsertWhitespaceBeforeMe
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
+import kotlin.properties.Delegates
 
 @SinceKtlint("0.49", EXPERIMENTAL)
 @SinceKtlint("1.0", STABLE)
@@ -60,7 +61,7 @@ public class StringTemplateIndentRule :
     RuleV2.OfficialCodeStyle {
     private lateinit var indentConfig: IndentConfig
     private lateinit var nextIndent: String
-    private lateinit var wrongIndentChar: String
+    private var wrongIndentChar by Delegates.notNull<Char>()
     private lateinit var wrongIndentDescription: String
 
     override fun beforeFirstNode(editorConfig: EditorConfig) {
@@ -76,12 +77,12 @@ public class StringTemplateIndentRule :
         nextIndent = indentConfig.indent
         when (indentConfig.indentStyle) {
             IndentConfig.IndentStyle.SPACE -> {
-                wrongIndentChar = "\t"
+                wrongIndentChar = '\t'
                 wrongIndentDescription = "tab"
             }
 
             IndentConfig.IndentStyle.TAB -> {
-                wrongIndentChar = " "
+                wrongIndentChar = ' '
                 wrongIndentDescription = "space"
             }
         }
@@ -93,11 +94,16 @@ public class StringTemplateIndentRule :
             val newIndent = node.stringTemplateIndent()
             when {
                 node.elementType == OPEN_QUOTE -> {
-                    node.visitOpeningQuote(stringTemplateContainsMixedIndentationCharacters, newIndent)
+                    node.visitOpeningQuote()
+                    if (!stringTemplateContainsMixedIndentationCharacters) {
+                        node.checkAndFixNewLineAfterOpeningQuotes(newIndent)
+                    }
                 }
 
                 node.nextSibling?.elementType == CLOSING_QUOTE -> {
-                    node.checkAndFixNewLineBeforeClosingQuotes(stringTemplateContainsMixedIndentationCharacters)
+                    if (!stringTemplateContainsMixedIndentationCharacters) {
+                        node.checkAndFixNewLineBeforeClosingQuotes()
+                    }
                 }
 
                 else -> {
@@ -114,7 +120,7 @@ public class StringTemplateIndentRule :
                                     "Indentation of multiline raw string literal should not contain both tab(s) and space(s)",
                                 )
                             } else {
-                                stringTemplate.indentStringTemplate(newIndent)
+                                stringTemplate.visitStringTemplate(newIndent)
                             }
                         }
                 }
@@ -134,23 +140,17 @@ public class StringTemplateIndentRule :
             ?.let { it.containsLiteralStringTemplateEntryWithNewline() && it.isFollowedByTrimIndent() }
             ?: false
 
-    private fun ASTNode.visitOpeningQuote(
-        stringTemplateContainsMixedIndentationCharacters: Boolean,
-        newIndent: String,
-    ) {
+    private fun ASTNode.visitOpeningQuote() {
         require(elementType == OPEN_QUOTE)
         parent!!
             .takeUnless { it.isPrecededByWhitespaceWithNewline() }
             ?.takeUnless { it.isPrecededByReturnKeyword() }
             ?.takeUnless { it.isFunctionBodyExpressionOnSameLine() }
-            ?.let { whiteSpace ->
+            ?.let { stringTemplate ->
                 emit(startOffset, "Expected newline before multiline string template") {
-                    whiteSpace.upsertWhitespaceBeforeMe(indentConfig.childIndentOf(whiteSpace.parent!!))
+                    stringTemplate.upsertWhitespaceBeforeMe(indentConfig.childIndentOf(stringTemplate.parent!!))
                 }
             }
-        if (!stringTemplateContainsMixedIndentationCharacters) {
-            checkAndFixNewLineAfterOpeningQuotes(newIndent)
-        }
     }
 
     private fun isTrimIndentAfterMultilineStringTemplate(node: ASTNode): Boolean =
@@ -256,9 +256,9 @@ public class StringTemplateIndentRule :
             .filterNot { it.isBlank() }
     }
 
-    private fun ASTNode.indentStringTemplate(
+    private fun ASTNode.visitStringTemplate(
         newIndent: String,
-        indentOpeningLine: Boolean = false,
+        wrapOpeningLine: Boolean = false,
     ) {
         require(elementType == STRING_TEMPLATE)
         val prefixLength = calculateCommonPrefixLength()
@@ -270,32 +270,29 @@ public class StringTemplateIndentRule :
                 // Blank lines inside the string template should not be indented
                 it.text == "\n"
             }.forEach {
-                if (it.prevLeaf?.text == "\n" || (indentOpeningLine && it.prevSibling?.elementType == OPEN_QUOTE)) {
-                    val (currentIndent, currentContent) =
+                if (it.prevLeaf?.text == "\n" || (wrapOpeningLine && it.prevSibling?.elementType == OPEN_QUOTE)) {
+                    val actualMarginIndent =
                         if (it.isIndentBeforeClosingQuote()) {
-                            Pair(it.text, "")
+                            it.text
                         } else {
-                            it.text.splitIndentAt(prefixLength)
+                            it.text.splitIndentAt(prefixLength).first
                         }
-                    val expectedIndent =
-                        if (it.isIndentBeforeClosingQuote() || prefixLength > 0 || indentOpeningLine) {
+                    val newMarginIndent =
+                        if (it.isIndentBeforeClosingQuote() || prefixLength > 0 || wrapOpeningLine) {
                             newIndent
                         } else {
                             ""
                         }
-                    if (currentIndent.contains(wrongIndentChar)) {
-                        checkAndFixWrongIndentationChar(
-                            node = it,
-                            oldIndent = currentIndent,
-                            newIndent = expectedIndent,
-                            newContent = currentContent,
+                    if (actualMarginIndent.contains(wrongIndentChar)) {
+                        it.checkAndFixWrongIndentationChar(
+                            newIndent = newMarginIndent,
+                            newContent = it.text.drop(prefixLength),
                         )
-                    } else if (currentIndent != expectedIndent) {
-                        checkAndFixIndent(
-                            node = it,
-                            oldIndentLength = currentIndent.length,
-                            newIndent = expectedIndent,
-                            newContent = currentContent,
+                    } else if (actualMarginIndent != newMarginIndent || (wrapOpeningLine && it.prevSibling?.elementType == OPEN_QUOTE)) {
+                        it.checkAndFixIndent(
+                            wrapOpeningLine = wrapOpeningLine,
+                            prefixLength = prefixLength,
+                            newMarginIndent = newMarginIndent,
                         )
                     }
                 }
@@ -309,51 +306,72 @@ public class StringTemplateIndentRule :
 
     private fun ASTNode.checkAndFixNewLineAfterOpeningQuotes(indent: String) {
         require(elementType == OPEN_QUOTE)
-        nextLeaf
-            ?.takeIf { it.text.isNotBlank() }
-            ?.let { firstNodeAfterOpeningQuotes ->
-                emit(
-                    firstNodeAfterOpeningQuotes.startOffset + firstNodeAfterOpeningQuotes.text.length,
-                    "Missing newline after the opening quotes of the raw string literal",
-                ) {
-                    // Normalize the original margin before adding a line, so text on the opening line contributes to trimIndent.
-                    parent!!.indentStringTemplate(indent, indentOpeningLine = true)
-                    // Read the sibling after normalization, which may have inserted an indent before an interpolation.
-                    nextSibling!!.insertLiteralStringTemplateEntryBeforeMe("\n")
-                }
-            }
+        if (nextLeaf?.text != "\n") {
+            // Wrap content after opening quotes to new line. When this content is preceded by whitespace, then take this into consideration
+            // when calculating the common indent of the entire raw string literal
+            parent!!.visitStringTemplate(indent, wrapOpeningLine = true)
+        }
     }
 
-    private fun checkAndFixWrongIndentationChar(
-        node: ASTNode,
-        oldIndent: String,
+    private fun ASTNode.checkAndFixWrongIndentationChar(
         newIndent: String,
         newContent: String,
     ) {
         emit(
-            node.startOffset + oldIndent.indexOf(wrongIndentChar),
+            this.startOffset + this.text.indexOf(wrongIndentChar),
             "Unexpected '$wrongIndentDescription' character(s) in margin of multiline string",
         ) {
-            node.firstChildNode.replaceTextWith(newIndent + newContent)
+            this.firstChildNode.replaceTextWith(newIndent + newContent)
         }
     }
 
-    private fun checkAndFixIndent(
-        node: ASTNode,
-        oldIndentLength: Int,
-        newIndent: String,
-        newContent: String,
+    private fun ASTNode.checkAndFixIndent(
+        wrapOpeningLine: Boolean,
+        prefixLength: Int,
+        newMarginIndent: String, // Common indent for all content lines in the string template
     ) {
-        emit(node.startOffset + oldIndentLength, "Unexpected indent of raw string literal") {
-            if (node.elementType == CLOSING_QUOTE) {
-                (node as LeafPsiElement).rawInsertBeforeMe(
-                    LeafPsiElement(REGULAR_STRING_PART, newIndent),
-                )
-            } else if (node.elementType == SHORT_STRING_TEMPLATE_ENTRY || node.elementType == LONG_STRING_TEMPLATE_ENTRY) {
-                // Keep interpolation tokens intact when adding their indentation.
-                node.insertLiteralStringTemplateEntryBeforeMe(newIndent)
+        val contentWithoutIndent = this.text.dropWhile { it.isWhitespace() && it != wrongIndentChar }
+        val oldIndent = this.text.takeWhile { it.isWhitespace() && it != wrongIndentChar }
+        val newIndent =
+            if (nextSibling?.elementType == CLOSING_QUOTE) {
+                newMarginIndent
             } else {
-                node.firstChildLeafOrSelf.replaceTextWith(newIndent + newContent)
+                newMarginIndent + oldIndent.take(maxOf(0, oldIndent.length - prefixLength))
+            }
+        when {
+            wrapOpeningLine && prevSibling?.elementType == OPEN_QUOTE -> {
+                emit(
+                    this.startOffset,
+                    "Missing newline after opening quotes. Expected indent: ${newIndent.length}. Found: ${oldIndent.length}",
+                ) {
+                    insertLiteralStringTemplateEntryBeforeMe("\n")
+                    if (this.elementType == SHORT_STRING_TEMPLATE_ENTRY || this.elementType == LONG_STRING_TEMPLATE_ENTRY) {
+                        // Keep interpolation tokens intact when adding their indentation.
+                        insertLiteralStringTemplateEntryBeforeMe(newMarginIndent)
+                    } else {
+                        firstChildLeafOrSelf.replaceTextWith(newIndent + contentWithoutIndent)
+                    }
+                }
+            }
+
+            this.elementType == CLOSING_QUOTE -> {
+                emit(
+                    this.startOffset,
+                    "Unexpected indent before closing quotes of raw string literal. Expected: ${newIndent.length}. Found: ${oldIndent.length}",
+                ) {
+                    (this as LeafPsiElement).rawInsertBeforeMe(
+                        LeafPsiElement(REGULAR_STRING_PART, newIndent),
+                    )
+                }
+            }
+
+            else -> {
+                emit(
+                    this.startOffset,
+                    "Unexpected indent inside raw string literal. Expected: ${newIndent.length}. Found: ${oldIndent.length}",
+                ) {
+                    firstChildLeafOrSelf.replaceTextWith(newIndent + contentWithoutIndent)
+                }
             }
         }
     }
@@ -368,11 +386,9 @@ public class StringTemplateIndentRule :
         stringTemplate.addChild(literalEntry, this)
     }
 
-    private fun ASTNode.checkAndFixNewLineBeforeClosingQuotes(stringTemplateContainsMixedIndentationCharacters: Boolean) {
+    private fun ASTNode.checkAndFixNewLineBeforeClosingQuotes() {
         require(nextSibling?.elementType == CLOSING_QUOTE)
-        takeUnless { stringTemplateContainsMixedIndentationCharacters }
-            ?.firstChildLeafOrSelf
-            ?.takeIf { it.text.isNotBlank() }
+        takeIf { it.text.isNotBlank() }
             ?.let { lastNodeBeforeClosingQuotes ->
                 emit(
                     lastNodeBeforeClosingQuotes.startOffset + lastNodeBeforeClosingQuotes.text.length,
