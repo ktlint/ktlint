@@ -1243,6 +1243,67 @@ You're not viewing the latest version.
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-do-i-need-to-know-before-migrating-to-ktlint-2x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What do I need to know before migrating to Ktlint 2.x?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What do I need to know before migrating to Ktlint 2.x?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ktlint-cli-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KtLint CLI user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-api-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External API integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-integrator-with-ktlintruleengine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API integrator with KtlintRuleEngine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-of-custom-ruleset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider of custom ruleset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-are-the-maven-coordinates-in-ktlint-2x" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1574,6 +1635,67 @@ You're not viewing the latest version.
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-do-i-need-to-know-before-migrating-to-ktlint-2x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What do I need to know before migrating to Ktlint 2.x?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What do I need to know before migrating to Ktlint 2.x?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ktlint-cli-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KtLint CLI user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-api-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External API integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-integrator-with-ktlintruleengine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API integrator with KtlintRuleEngine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-of-custom-ruleset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider of custom ruleset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-are-the-maven-coordinates-in-ktlint-2x" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1741,6 +1863,17 @@ You're not viewing the latest version.
 <p>Spending time on configuration (and maintenance down the road) of hundred-line long style config file(s) is counter-productive. Instead of wasting your energy on something that has no business value - focus on what really matters (not debating whether to use tabs or spaces).</p>
 <p>By using ktlint you put the importance of code clarity and community conventions over personal preferences. This makes things easier for people reading your code as well as frees you from having to document and explain what style potential contributor(s) have to follow.</p>
 <p>ktlint is a single binary with both linter &amp; formatter included. All you need is to drop it in (no need to get <a href="https://en.wikipedia.org/wiki/Decision_fatigue">overwhelmed</a> while choosing among <a href="https://checkstyle.sourceforge.net/checks.html">dozens of code style options</a>).</p>
+<h2 id="what-do-i-need-to-know-before-migrating-to-ktlint-2x">What do I need to know before migrating to Ktlint 2.x?<a class="headerlink" href="#what-do-i-need-to-know-before-migrating-to-ktlint-2x" title="Permanent link">&para;</a></h2>
+<p>Ktlint is no longer backed by Pinterest, and has moved to a separate GitHub organization. As result the <a href="#what-are-the-maven-coordinates-in-ktlint-2x">maven coordinates of Ktlint have been changed</a>.</p>
+<p>What else you need to know depends on the way you are using Ktlint. See sections below. </p>
+<h3 id="ktlint-cli-user">KtLint CLI user<a class="headerlink" href="#ktlint-cli-user" title="Permanent link">&para;</a></h3>
+<p>KtLint CLI works out of the box when you are using the standard ruleset only. External custom rulesets might stop working when they have not adapted to changes that have been introduced in KtLint <code>1.3</code>. This is clearly reported.</p>
+<h3 id="external-api-integration">External API integration<a class="headerlink" href="#external-api-integration" title="Permanent link">&para;</a></h3>
+<p>When you are using tools like the Ktlint IntelliJ Plugin, or the KtLint Gradle Plugin, you obviously have to wait until that a compatible release has been provided by the external integrator.</p>
+<h3 id="api-integrator-with-ktlintruleengine">API integrator with KtlintRuleEngine<a class="headerlink" href="#api-integrator-with-ktlintruleengine" title="Permanent link">&para;</a></h3>
+<p>This release contains breaking changes in the API of the <code>KtlintRuleEngine</code>. See the <a href="../api/migrate-to-ktlint-2.x/">migration guide</a> for more details.</p>
+<h3 id="provider-of-custom-ruleset">Provider of custom ruleset<a class="headerlink" href="#provider-of-custom-ruleset" title="Permanent link">&para;</a></h3>
+<p>This release contains breaking changes in the API for providing a custom rule set. See the <a href="../api/migrate-to-ktlint-2.x/">migration guide</a> for more details.</p>
 <h2 id="what-are-the-maven-coordinates-in-ktlint-2x">What are the Maven coordinates in Ktlint 2.x?<a class="headerlink" href="#what-are-the-maven-coordinates-in-ktlint-2x" title="Permanent link">&para;</a></h2>
 <p>With the release of ktlint <code>2.0</code> the Maven coordinates of all modules have been changed. Now all ktlint modules are published in Maven group <code>io.github.ktlint.core</code></p>
 <p>The Maven coordinates of modules below have been changed:</p>

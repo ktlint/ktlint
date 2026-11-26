@@ -1118,7 +1118,18 @@ You're not viewing the latest version.
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Change package names">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-imports-to-kotlin-analysis-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change imports to Kotlin Analysis API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change imports to Kotlin Analysis API">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1514,7 +1525,18 @@ You're not viewing the latest version.
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Change package names">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-imports-to-kotlin-analysis-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change imports to Kotlin Analysis API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change imports to Kotlin Analysis API">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1578,6 +1600,7 @@ You're not viewing the latest version.
   <h1>Migrate to Ktlint 2.x</h1>
 
 <p>Ktlint has been moved away from the Pinterest GitHub organization towards its own <a href="https://github.com/ktlint">Ktlint GitHub organization</a>. This results in several breaking changes which are documented below.</p>
+<p>Also, KtLint is now using the Kotlin Analysis API dependencies instead of depending directly on the Kotlin embedded compiler to provide for a more seamless integration for external integrators.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Please <a href="https://github.com/ktlint/ktlint/issues/new/choose">create an issue</a> if you run into problems when migrating your Ktlint integration or your custom ruleset, so that this guide can be updated.</p>
@@ -1596,6 +1619,10 @@ You're not viewing the latest version.
 <h2 id="change-package-names">Change package names<a class="headerlink" href="#change-package-names" title="Permanent link">&para;</a></h2>
 <p>All package names starting with <code>com.pinterest.ktlint</code> have been changed and now start with <code>io.github.ktlint.core</code>. A simple search and replace should resolve most problems.</p>
 <p>This substitution results in several compilation errors as some classes are not provided in the <code>io.github.ktlint.core</code> namespace. See below for how to resolve the compilation errors.</p>
+<h2 id="change-imports-to-kotlin-analysis-api">Change imports to Kotlin Analysis API<a class="headerlink" href="#change-imports-to-kotlin-analysis-api" title="Permanent link">&para;</a></h2>
+<p>Dependency <code>org.jetbrains.kotlin:kotlin-compiler-embeddable</code> has been replaced with <code>org.jetbrains.kotlin:kotlin-analysis-api-surface</code> (api), <code>org.jetbrains.kotlin:kotlin-analysis-api-implementation</code> (implementation), <code>org.jetbrains.kotlin:kotlin-analysis-api-intellij-api-surface-components</code> (api), and <code>org.jetbrains.kotlin:kotlin-analysis-api-intellij-implementation-components</code> (implementation).</p>
+<p>All imports starting with <code>org.jetbrains.kotlin.com.intellij</code> have to be replaced with <code>com.intellij</code>.</p>
+<p>See <a href="https://github.com/ktlint/ktlint/pull/3437/changes">changes in KtLint</a> if you need more information.</p>
 <h3 id="rule-extends-non-existent-iogithubktlintcorerule">Rule extends non existent <code>io.github.ktlint.core...Rule</code><a class="headerlink" href="#rule-extends-non-existent-iogithubktlintcorerule" title="Permanent link">&para;</a></h3>
 <p>The <code>com.pinterest.ktlint.rule.engine.core.api.Rule</code> class has been replaced with the <code>io.github.ktlint.core.rule.engine.core.api.RuleV2</code> class. </p>
 <p>If the custom rule implemented the <code>com.pinterest.ktlint.rule.engine.core.api.RuleAutocorrectApproveHandler</code> interface then remove this interface from the class signature. The functions provided by this interface are now provided directly by the <code>RuleV2</code> class.</p>
