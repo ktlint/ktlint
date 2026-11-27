@@ -1,5 +1,6 @@
 package io.github.ktlint.core.api.consumer
 
+import com.intellij.lang.ASTNode
 import io.github.ktlint.core.api.consumer.KtLintRuleEngineTest.DemoRule.Companion.DEMO_RULE_ID
 import io.github.ktlint.core.rule.engine.api.Code
 import io.github.ktlint.core.rule.engine.api.EditorConfigOverride.Companion.from
@@ -20,7 +21,6 @@ import io.github.ktlint.core.ruleset.standard.rules.INDENTATION_RULE_ID
 import io.github.ktlint.core.ruleset.standard.rules.IndentationRule
 import io.github.ktlint.core.test.KtlintTestFileSystem
 import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

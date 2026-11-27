@@ -8,6 +8,27 @@ By using ktlint you put the importance of code clarity and community conventions
 
 ktlint is a single binary with both linter & formatter included. All you need is to drop it in (no need to get [overwhelmed](https://en.wikipedia.org/wiki/Decision_fatigue) while choosing among [dozens of code style options](https://checkstyle.sourceforge.net/checks.html)).
 
+## What do I need to know before migrating to Ktlint 2.x?
+
+Ktlint is no longer backed by Pinterest, and has moved to a separate GitHub organization. As result the [maven coordinates of Ktlint have been changed](#what-are-the-maven-coordinates-in-ktlint-2x).
+
+What else you need to know depends on the way you are using Ktlint. See sections below. 
+
+### KtLint CLI user
+
+KtLint CLI works out of the box when you are using the standard ruleset only. External custom rulesets might stop working when they have not adapted to changes that have been introduced in KtLint `1.3`. This is clearly reported.
+
+### External API integration
+
+When you are using tools like the Ktlint IntelliJ Plugin, or the KtLint Gradle Plugin, you obviously have to wait until that a compatible release has been provided by the external integrator.
+
+### API integrator with KtlintRuleEngine
+
+This release contains breaking changes in the API of the `KtlintRuleEngine`. See the [migration guide](api/migrate-to-ktlint-2.x.md) for more details.
+
+### Provider of custom ruleset
+
+This release contains breaking changes in the API for providing a custom rule set. See the [migration guide](api/migrate-to-ktlint-2.x.md) for more details.
 
 ## What are the Maven coordinates in Ktlint 2.x?
 

@@ -7,8 +7,11 @@ You're not viewing the latest version.
 </a>
 {% endblock %}
 
+{% block announce %}
+{{ super() }}
 <strong>The maven coordinates of `ktlint` have been changed. See
-  <a href="{{ '../' ~ base_url }}/1.0.0/faq/#what-are-the-maven-coordinates-in-ktlint-1x">
-    new Maven coordinates
+  <a href="{{ '../' ~ base_url }}/latest/faq/#what-are-the-maven-coordinates-in-ktlint-2x">
+    new Maven coordinates in Ktlint 2.x
   </a>
 </strong>
+{% endblock %}

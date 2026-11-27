@@ -237,6 +237,79 @@ Suppress or disable rule (1)
     ktlint_standard_expression-operand-wrapping = disabled
     ```
 
+## KDoc delimiter
+
+A single-line KDoc comment starts with `/** ` and ends with ` */`. A multi-line KDoc comment starts with a line containing only `/**`, ends with a line containing only `*/`, and every other line starts with a leading asterisk indented one space more than the opening `/**`, followed by a single space and the content of that line, or by nothing in case the line is empty. The line directly after the opening delimiter, and the line directly before the closing delimiter, must not be empty. An empty (or blank) KDoc comment is not allowed.
+
+Autocorrect is only applied to whitespace and delimiters, and only when doing so will not change the meaning, or the visual indentation, of the actual content of the KDoc comment. Most notably, a continuation line which is missing its leading asterisk is always reported without being autocorrected, as inserting the asterisk could change the intended visual indentation of that content.
+
+=== "[:material-heart:](#) Ktlint"
+
+    ```kotlin
+    /** A group of *members* */
+
+    /**
+     * A group of *members*.
+     *
+     * This class has no useful logic; it's just a documentation example.
+     *
+     * @param T the type of a member in this group.
+     * @property name the name of this group.
+     * @constructor Creates an empty group.
+     */
+    ```
+=== "[:material-heart-off-outline:](#) Disallowed"
+
+    ```kotlin
+    /***
+     * A group of *members*.
+     */
+
+    /**A group of *members* */
+
+    /** A group of *members*.
+     * This class has no useful logic; it's just a documentation example.
+     */
+
+    /**
+     * A group of *members*.
+       This class has no useful logic; it's just a documentation example.
+     */
+
+    /**
+     * A group of *members*.
+     * This class has no useful logic; it's just a documentation example.
+    */
+
+    /**
+     *
+     * A group of *members*.
+     */
+
+    /***/
+    ```
+
+!!! note
+    This rule is only run when `ktlint_experimental` is enabled and `ktlint_code_style` is set to `ktlint_official`, or when the rule is enabled explicitly.
+
+Rule id: `standard:kdoc-delimiter`
+
+Suppress or disable rule (1)
+{ .annotate }
+
+1. Suppress rule in code with annotation below:
+    ```kotlin
+    @Suppress("ktlint:standard:kdoc-delimiter")
+    ```
+   Enable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_kdoc-delimiter = enabled
+    ```
+   Disable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_kdoc-delimiter = disabled
+    ```
+
 ## Lambda return
 
 Do not use a labeled return for the last statement in a lambda if that label refers to the lambda itself.

@@ -35,6 +35,7 @@ dependencies {
     implementation(projects.ktlintRuleEngine)
     implementation(projects.ktlintRulesetStandard)
     implementation(libs.clikt)
+    implementation(libs.kotlin.analysisApiImplementation)
     implementation(libs.logback)
 
     runtimeOnly(projects.ktlintCliReporterCheckstyle)

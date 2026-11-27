@@ -30,28 +30,28 @@ A particular version of `ktlint` can be downloaded with the commands below. Each
     ```
 
 ```sh title="Download Linux native for x86-64"
-curl -sSLO https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-4/ktlint_linux-x86-64 && chmod a+x ktlint_linux-x86-64 && sudo mv ktlint_linux-x86-64 /usr/local/bin/ktlint
+curl -sSLO https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-5/ktlint_linux-x86-64 && chmod a+x ktlint_linux-x86-64 && sudo mv ktlint_linux-x86-64 /usr/local/bin/ktlint
 ```
 
 ```sh title="Download macOS native for Apple Silicon"
-curl -sSLO https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-4/ktlint_darwin-arm64 && chmod a+x ktlint_darwin-arm64 && sudo mv ktlint_darwin-arm64 /usr/local/bin/ktlint
+curl -sSLO https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-5/ktlint_darwin-arm64 && chmod a+x ktlint_darwin-arm64 && sudo mv ktlint_darwin-arm64 /usr/local/bin/ktlint
 ```
 
 ```sh title="Download executable JAR"
-curl -sSLO https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-4/ktlint && chmod a+x ktlint && sudo mv ktlint /usr/local/bin/
+curl -sSLO https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-5/ktlint && chmod a+x ktlint && sudo mv ktlint /usr/local/bin/
 ```
 
 ### Download on Windows
 
-Download `ktlint_windows-x86-64.exe` from the [release](https://github.com/ktlint/ktlint/releases/tag/2.0.0-ALPHA-4) and add the directory containing it to your `%PATH%`.
+Download `ktlint_windows-x86-64.exe` from the [release](https://github.com/ktlint/ktlint/releases/tag/2.0.0-ALPHA-5) and add the directory containing it to your `%PATH%`.
 
 ```powershell title="Download Windows native"
-Invoke-WebRequest -Uri https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-4/ktlint_windows-x86-64.exe -OutFile ktlint.exe
+Invoke-WebRequest -Uri https://github.com/ktlint/ktlint/releases/download/2.0.0-ALPHA-5/ktlint_windows-x86-64.exe -OutFile ktlint.exe
 ```
 
 !!! tip "Run ktlint on Microsoft Windows"
     Ktlint can be run in following ways on Microsoft Windows:    
-    * Use the native executable `ktlint_windows-x86-64.exe` provided as part of the [release](https://github.com/ktlint/ktlint/releases/tag/2.0.0-ALPHA-4)
+    * Use the native executable `ktlint_windows-x86-64.exe` provided as part of the [release](https://github.com/ktlint/ktlint/releases/tag/2.0.0-ALPHA-5)
     * Use the `ktlint.bat` batch file provided as part of the release. Add the batch file to your `%PATH%` environment variable for easy access
     * Run `ktlint` using Git Bash
     * Run the executable JAR as `java -jar ktlint`

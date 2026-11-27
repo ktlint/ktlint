@@ -2,9 +2,161 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.0-ALPHA-5] - 2026-11-23
+
+IMPORTANT: This project is no longer maintained by Pinterest. As a result the Maven coordinates of the project have changed from `com.pinterest.ktlint` to `io.github.ktlint.core`. Read more in the [documentation](https://ktlint.github.io/ktlint/dev-snapshot/api/migrate-to-ktlint-2.x/).
+
+Note: Also, see changelist of [2.0.0-ALPHA-4](https://github.com/ktlint/ktlint/releases/tag/2.0.0-ALPHA-4) for other changes since version `1.8`.
+
+IMPORTANT: This version of Ktlint is using a release candidate of the Kotlin compiler `2.5.0-RC2`. Be careful when using this in your production environment. It should be safe for running Ktlint CLI as it runs standalone. Do not use or provide this version of Ktlint without taking proper precautions. 
+
+### 💔 Breaking changes
+
+* Switch from kotlin-compiler-embeddable to Kotlin Analysis API dependencies - [#3437](https://github.com/ktlint/ktlint/pull/3437), by @3flex
+
+* Stop using KtStubElementTypes - [#3398](https://github.com/ktlint/ktlint/pull/3398), by @3flex
+
+* Convert enum values to upper case (breaking change) - [#3407](https://github.com/ktlint/ktlint/pull/3407), by @paul-dingemans
+
+* Move the lint violation emitter from functions to Rule class (breaking change) - [#3424](https://github.com/ktlint/ktlint/pull/3424), by @paul-dingemans
+
+### 🆕 Features
+
+* Add KDoc comment format rule - [#3369](https://github.com/ktlint/ktlint/pull/3369), by @exijn
+
+* Add property `ktlint_indent_explicit_constructor` to `indent` rule - [#3392](https://github.com/ktlint/ktlint/pull/3392), by @paul-dingemans
+
+* Improve statistics of Ktlint CLI PlainReporter - [#3455](https://github.com/ktlint/ktlint/pull/3455), by @paul-dingemans
+
+### 🔧 Fixes
+
+* fix(indent): accept aligned where constraints with tabs - [#3374](https://github.com/ktlint/ktlint/pull/3374), by @autaut03
+
+* Move comma in a multiline constraint type list after the constraint type - [#3378](https://github.com/ktlint/ktlint/pull/3378), by @paul-dingemans
+
+* Fix references to `io.github.ktlint.core` in `ktlint-ruleset-template` - [#3379](https://github.com/ktlint/ktlint/pull/3379), by @paul-dingemans
+
+* Fix alignment of same-line WHERE clause in class declarations - [#3381](https://github.com/ktlint/ktlint/pull/3381), by @ZaMan0806
+
+* Check type-parameter-list-spacing for generic extension properties - [#3384](https://github.com/ktlint/ktlint/pull/3384), by @ZaMan0806
+
+* Wrap `where` keyword in a multiline type constraint list - [#3382](https://github.com/ktlint/ktlint/pull/3382), by @paul-dingemans
+
+* Fix replacing text of last node in the file in rule `no-consecutive-blank-lines` - [#3404](https://github.com/ktlint/ktlint/pull/3404), by @paul-dingemans
+
+* Fix `no-unused-imports` rule - [#3405](https://github.com/ktlint/ktlint/pull/3405), by @paul-dingemans
+
+* Update glob for ktlint self-checks - [#3410](https://github.com/ktlint/ktlint/pull/3410), by @3flex
+
+* Prevent loss of original file in case of error after truncate - [#3418](https://github.com/ktlint/ktlint/pull/3418), by @paul-dingemans
+
+* Do not wrap after context receiver in function type reference in property value - [#3425](https://github.com/ktlint/ktlint/pull/3425), by @paul-dingemans
+
+* Do not remove arrow from function literal when block ends with 'Unit' keyword - [#3426](https://github.com/ktlint/ktlint/pull/3426), by @paul-dingemans
+
+* Fix max-line-length check in call-expression-wrapping - [#3428](https://github.com/ktlint/ktlint/pull/3428), by @paul-dingemans
+
+* Fix kdoc-delimiter rule single line KDoc - [#3429](https://github.com/ktlint/ktlint/pull/3429), by @paul-dingemans
+
+* Fix when-entry-bracing in case arrow of when condition with expression is placed on separate line - [#3430](https://github.com/ktlint/ktlint/pull/3430), by @paul-dingemans
+
+* Do not log warning when all lint violations are fixed in last possible run - [#3431](https://github.com/ktlint/ktlint/pull/3431), by @paul-dingemans
+
+* Fix check on redundant arrow in lambda argument - [#3432](https://github.com/ktlint/ktlint/pull/3432), by @paul-dingemans
+
+* Do not wrap call expression inside string template - [#3449](https://github.com/ktlint/ktlint/pull/3449), by @paul-dingemans
+
+* Fix when-entry-bracing to add braces to all entries in a single run - [#3443](https://github.com/ktlint/ktlint/pull/3443), by @maoxor
+
+* Ignore consecutive spaces when they are trailing spaces - [#3450](https://github.com/ktlint/ktlint/pull/3450), by @paul-dingemans
+
+* Fix detection of when-entry-bracing - [#3451](https://github.com/ktlint/ktlint/pull/3451), by @paul-dingemans
+
+* Do not insert a second newline before the closing quotes of a raw string literal - [#3440](https://github.com/ktlint/ktlint/pull/3440), by @wleeaf
+
+* Fix crash in wrapping rule on a multiline where clause of a class - [#3444](https://github.com/ktlint/ktlint/pull/3444), by @maoxor
+
+* Do not count lines after a newline in a string template in `property-wrapping` - [#3461](https://github.com/ktlint/ktlint/pull/3461), by @1AbdullahButt
+
+* Fix semicolon rule joining statements and leaving a trailing space - [#3462](https://github.com/ktlint/ktlint/pull/3462), by @yamamoto7
+
+* Remove trailing space after unnecessary semicolon - [#3463](https://github.com/ktlint/ktlint/pull/3463), by @paul-dingemans
+
+* Fix autocorrect in `colon-spacing` for EOL comment between class and colon of supertype list - [#3460](https://github.com/ktlint/ktlint/pull/3460), by @Hexay
+
+* Do not report non-const vals in a companion block in property-naming - [#3472](https://github.com/ktlint/ktlint/pull/3472), by @halotukozak
+
+* Format numbers in PlainReporter summary with thousands separator - [#3474](https://github.com/ktlint/ktlint/pull/3474), by @paul-dingemans
+
+* Fix indent of comment on separate line below a function body expression - [#3476](https://github.com/ktlint/ktlint/pull/3476), by @paul-dingemans
+
+* Fix indent for EOL comment in `chain-wrapping` rule - [#3478](https://github.com/ktlint/ktlint/pull/3478), by @paul-dingemans
+
+* Fix autocorrect for EOL comment in `spacing-between-declarations-with-annotations` rule - [#3479](https://github.com/ktlint/ktlint/pull/3479), by @paul-dingemans
+
+* Retain whitespace in `function-expression-body` - [#3482](https://github.com/ktlint/ktlint/pull/3482), by @paul-dingemans
+
+* Fix warning that ktlint format was not able to resolve all errors - [#3483](https://github.com/ktlint/ktlint/pull/3483), by @paul-dingemans
+
+### 📦 Dependencies
+
+* Update dependency com.google.jimfs:jimfs to v1.3.2 - [#3372](https://github.com/ktlint/ktlint/pull/3372), by @renovate[bot]
+
+* Update dependency io.github.detekt.sarif4k:sarif4k to v0.8.0 - [#3376](https://github.com/ktlint/ktlint/pull/3376), by @renovate[bot]
+
+* Update actions/setup-java action to v6 - [#3377](https://github.com/ktlint/ktlint/pull/3377), by @renovate[bot]
+
+* Update dependency dev.drewhamilton.poko:poko-gradle-plugin to v0.23.2 - [#3393](https://github.com/ktlint/ktlint/pull/3393), by @renovate[bot]
+
+* Update dependency org.slf4j:slf4j-simple to v2.0.20 - [#3400](https://github.com/ktlint/ktlint/pull/3400), by @renovate[bot]
+
+* Update kotlin monorepo to v2.4.21 - [#3413](https://github.com/ktlint/ktlint/pull/3413), by @renovate[bot]
+
+* Update plugin com.gradle.develocity to v4.6.1 - [#3435](https://github.com/ktlint/ktlint/pull/3435), by @renovate[bot]
+
+* Update dependency org.jetbrains.dokka:dokka-gradle-plugin to v2.3.0 - [#3454](https://github.com/ktlint/ktlint/pull/3454), by @renovate[bot]
+
+* Update dependency io.github.oshai:kotlin-logging-jvm to v8.0.7 - [#3464](https://github.com/ktlint/ktlint/pull/3464), by @renovate[bot]
+
+* Update dependency com.github.ajalt.clikt:clikt to v5.2.1 - [#3473](https://github.com/ktlint/ktlint/pull/3473), by @paul-dingemans
+
+* Update dependency ch.qos.logback:logback-classic to v1.6.8 - [#3477](https://github.com/ktlint/ktlint/pull/3477), by @renovate[bot]
+
+* Update Gradle to v9.9.2 - [#3480](https://github.com/ktlint/ktlint/pull/3480), by @renovate[bot]
+
+* Update to Kotlin 2.5.0 - [#3436](https://github.com/ktlint/ktlint/pull/3436), by @3flex
+
+### 💬 Other
+
+* Set GraalVM version instead of Java version - [#3390](https://github.com/ktlint/ktlint/pull/3390), by @paul-dingemans
+
+* Address deprecation of Kotlin DSL delegated properties in Gradle build scripts - [#3408](https://github.com/ktlint/ktlint/pull/3408), by @3flex
+
+* Do not set kotlin version explicitly in ktlint-ruleset-template - [#3420](https://github.com/ktlint/ktlint/pull/3420), by @paul-dingemans
+
+* Add detekt for static analysis on ktlint's own codebase - [#3395](https://github.com/ktlint/ktlint/pull/3395), by @kimseongchan0914
+
+* Cleanup based on code inspection IntelliJ IDEA - [#3423](https://github.com/ktlint/ktlint/pull/3423), by @paul-dingemans
+
+* Set group name for all projects - [#3411](https://github.com/ktlint/ktlint/pull/3411), by @3flex
+
+* Use kotlin-dsl plugin in build-logic - [#3446](https://github.com/ktlint/ktlint/pull/3446), by @3flex
+
+* Clean up - remove outdated todo - [#3448](https://github.com/ktlint/ktlint/pull/3448), by @paul-dingemans
+
+* Upgrade JVM toolchain in ktlint-ruleset-template to java 25 - [#3452](https://github.com/ktlint/ktlint/pull/3452), by @paul-dingemans
+
+* Minimize automatic format runs - [#3453](https://github.com/ktlint/ktlint/pull/3453), by @paul-dingemans
+
+* Do not fail CodeQL analysis when CodeQL is lagging behind with new Kotlin version - [#3470](https://github.com/ktlint/ktlint/pull/3470), by @paul-dingemans
+
+* Publish release and snapshot documentation sequentially - [#3471](https://github.com/ktlint/ktlint/pull/3471), by @paul-dingemans
+
+* Temporarily use kotlinDev plugin to build and release with Kotlin "2.5.0-RC*" - [#3485](https://github.com/ktlint/ktlint/pull/3485), by @paul-dingemans
+
 ## [2.0.0-ALPHA-4] - 2026-08-20
 
-IMPORTANT: This project is no longer maintained by Pinterest. As a result the Maven coordinates of the project have changed from `com.pinterest.ktlint` to `io.github.ktlint`. Read more in the [documentation](https://ktlint.github.io/ktlint/dev-snapshot/api/migrate-to-ktlint-2.x/).
+IMPORTANT: This project is no longer maintained by Pinterest. As a result the Maven coordinates of the project have changed from `com.pinterest.ktlint` to `io.github.ktlint.core`. Read more in the [documentation](https://ktlint.github.io/ktlint/dev-snapshot/api/migrate-to-ktlint-2.x/).
 
 Note: Earlier alpha versions are not available as GitHub, nor as Maven Central download due to problems in fixing the release pipeline.
 
@@ -3014,6 +3166,7 @@ set in `[*{kt,kts}]` section).
 
 ## 0.1.0 - 2016-07-27
 
+[2.0.0-ALPHA-5]: https://github.com/pinterest/ktlint/compare/2.0.0-ALPHA-5...2.0.0-ALPHA-4
 [2.0.0-ALPHA-4]: https://github.com/pinterest/ktlint/compare/2.0.0-ALPHA-4...1.8.0
 [1.8.0]: https://github.com/pinterest/ktlint/compare/1.8.0...1.7.1
 [1.7.1]: https://github.com/pinterest/ktlint/compare/1.7.1...1.7.0
