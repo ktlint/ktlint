@@ -11,6 +11,7 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.DOT_QUALIFIED_EXPR
 import io.github.ktlint.core.rule.engine.core.api.ElementType.EQ
 import io.github.ktlint.core.rule.engine.core.api.ElementType.FUN
 import io.github.ktlint.core.rule.engine.core.api.ElementType.LITERAL_STRING_TEMPLATE_ENTRY
+import io.github.ktlint.core.rule.engine.core.api.ElementType.LONG_STRING_TEMPLATE_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.OPEN_QUOTE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.OPERATION_REFERENCE
 import io.github.ktlint.core.rule.engine.core.api.ElementType.PROPERTY
@@ -18,6 +19,7 @@ import io.github.ktlint.core.rule.engine.core.api.ElementType.REFERENCE_EXPRESSI
 import io.github.ktlint.core.rule.engine.core.api.ElementType.REGULAR_STRING_PART
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RETURN_KEYWORD
 import io.github.ktlint.core.rule.engine.core.api.ElementType.RPAR
+import io.github.ktlint.core.rule.engine.core.api.ElementType.SHORT_STRING_TEMPLATE_ENTRY
 import io.github.ktlint.core.rule.engine.core.api.ElementType.STRING_TEMPLATE
 import io.github.ktlint.core.rule.engine.core.api.IndentConfig
 import io.github.ktlint.core.rule.engine.core.api.KtlintKotlinCompiler
@@ -124,7 +126,10 @@ public class StringTemplateIndentRule :
     }
 
     private fun ASTNode.isMultilineStringTemplateFollowedByTrimIndent(): Boolean =
-        parent
+        takeIf {
+            // A multi-dollar interpolation prefix precedes the opening quotes and must not normalize the margin first.
+            elementType == OPEN_QUOTE || prevSibling { it.elementType == OPEN_QUOTE } != null
+        }?.parent
             ?.takeIf { it.elementType == STRING_TEMPLATE }
             ?.let { it.containsLiteralStringTemplateEntryWithNewline() && it.isFollowedByTrimIndent() }
             ?: false
@@ -245,13 +250,16 @@ public class StringTemplateIndentRule :
     private fun ASTNode.getNonBlankLines(): List<String> {
         require(elementType == STRING_TEMPLATE)
         return text
+            .substringAfter(RAW_STRING_LITERAL_QUOTES)
+            .removeSuffix(RAW_STRING_LITERAL_QUOTES)
             .split("\n")
-            .map { it.removePrefix(RAW_STRING_LITERAL_QUOTES) }
-            .map { it.removeSuffix(RAW_STRING_LITERAL_QUOTES) }
             .filterNot { it.isBlank() }
     }
 
-    private fun ASTNode.indentStringTemplate(newIndent: String) {
+    private fun ASTNode.indentStringTemplate(
+        newIndent: String,
+        indentOpeningLine: Boolean = false,
+    ) {
         require(elementType == STRING_TEMPLATE)
         val prefixLength = calculateCommonPrefixLength()
         children
@@ -262,7 +270,7 @@ public class StringTemplateIndentRule :
                 // Blank lines inside the string template should not be indented
                 it.text == "\n"
             }.forEach {
-                if (it.prevLeaf?.text == "\n") {
+                if (it.prevLeaf?.text == "\n" || (indentOpeningLine && it.prevSibling?.elementType == OPEN_QUOTE)) {
                     val (currentIndent, currentContent) =
                         if (it.isIndentBeforeClosingQuote()) {
                             Pair(it.text, "")
@@ -270,7 +278,7 @@ public class StringTemplateIndentRule :
                             it.text.splitIndentAt(prefixLength)
                         }
                     val expectedIndent =
-                        if (it.isIndentBeforeClosingQuote() || prefixLength > 0) {
+                        if (it.isIndentBeforeClosingQuote() || prefixLength > 0 || indentOpeningLine) {
                             newIndent
                         } else {
                             ""
@@ -297,19 +305,7 @@ public class StringTemplateIndentRule :
     private fun ASTNode.calculateCommonPrefixLength(): Int =
         // Get the max prefix length that all lines in the multiline string have in common. All whitespace characters are counted as one
         // single position. Note that the way of counting should be in sync with the way this is done by the trimIndent function.
-        text
-            .split("\n")
-            .asSequence()
-            .filterNot {
-                // For a multiline raw string literal it is very unlikely that text after the opening quotes do contain indentation
-                // characters (it really looks ugly). In such a case this text should be ignored when calculating the common prefix length
-                // as otherwise it is probably set to 0.
-                it.startsWith(RAW_STRING_LITERAL_QUOTES)
-            }.map {
-                // Indentation before the closing quotes however is relevant to take into account
-                it.removeSuffix(RAW_STRING_LITERAL_QUOTES)
-            }.filterNot { it.isBlank() }
-            .minOfOrNull { it.indentLength() } ?: 0
+        getNonBlankLines().minOfOrNull { it.indentLength() } ?: 0
 
     private fun ASTNode.checkAndFixNewLineAfterOpeningQuotes(indent: String) {
         require(elementType == OPEN_QUOTE)
@@ -320,9 +316,10 @@ public class StringTemplateIndentRule :
                     firstNodeAfterOpeningQuotes.startOffset + firstNodeAfterOpeningQuotes.text.length,
                     "Missing newline after the opening quotes of the raw string literal",
                 ) {
-                    (firstNodeAfterOpeningQuotes as LeafPsiElement).rawInsertBeforeMe(
-                        LeafPsiElement(REGULAR_STRING_PART, "\n" + indent),
-                    )
+                    // Normalize the original margin before adding a line, so text on the opening line contributes to trimIndent.
+                    parent!!.indentStringTemplate(indent, indentOpeningLine = true)
+                    // Read the sibling after normalization, which may have inserted an indent before an interpolation.
+                    nextSibling!!.insertLiteralStringTemplateEntryBeforeMe("\n")
                 }
             }
     }
@@ -352,10 +349,23 @@ public class StringTemplateIndentRule :
                 (node as LeafPsiElement).rawInsertBeforeMe(
                     LeafPsiElement(REGULAR_STRING_PART, newIndent),
                 )
+            } else if (node.elementType == SHORT_STRING_TEMPLATE_ENTRY || node.elementType == LONG_STRING_TEMPLATE_ENTRY) {
+                // Keep interpolation tokens intact when adding their indentation.
+                node.insertLiteralStringTemplateEntryBeforeMe(newIndent)
             } else {
                 node.firstChildLeafOrSelf.replaceTextWith(newIndent + newContent)
             }
         }
+    }
+
+    private fun ASTNode.insertLiteralStringTemplateEntryBeforeMe(text: String) {
+        val stringTemplate = parent!!
+        val literalEntry =
+            stringTemplate.children
+                .first { it.elementType == LITERAL_STRING_TEMPLATE_ENTRY && it.text == "\n" }
+                .clone() as ASTNode
+        literalEntry.firstChildLeafOrSelf.replaceTextWith(text)
+        stringTemplate.addChild(literalEntry, this)
     }
 
     private fun ASTNode.checkAndFixNewLineBeforeClosingQuotes(stringTemplateContainsMixedIndentationCharacters: Boolean) {
