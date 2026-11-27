@@ -10,13 +10,19 @@ Also see [enable/disable specific rules](configuration-ktlint.md#disable-rules).
 
 ## Annotation ordering
 
-Annotations above a target are sorted alphabetically.
+Annotations above a target are sorted alphabetically. Optionally, specific annotations can be pinned to a fixed position using the `.editorconfig` property `ktlint_annotation_ordering`. Pinned annotations appear first in the specified order; all remaining annotations follow in alphabetical order.
 
 === "[:material-heart:](#) Ktlint"
 
     ```kotlin
     @Alpha
     @Beta
+    fun foo() {}
+    
+    // With ktlint_annotation_ordering=Suppress,Deprecated
+    @Suppress("FOO")
+    @Deprecated("Use bar instead")
+    @Alpha
     fun foo() {}
     ```
 
@@ -26,7 +32,17 @@ Annotations above a target are sorted alphabetically.
     @Beta
     @Alpha
     fun foo() {}
+
+    // With ktlint_annotation_ordering=Suppress,Deprecated
+    @Deprecated("Use bar instead")
+    @Suppress("FOO")
+    @Alpha
+    fun foo() {}
     ```
+
+| Configuration setting                                                                                                                                                                                                                              | ktlint_official | intellij_idea | android_studio |
+|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------:|:-------------:|:--------------:|
+| `ktlint_annotation_ordering`<br/><i>Comma-separated list of annotation names defining a fixed ordering. Listed annotations are placed first in the specified order; remaining annotations are sorted alphabetically. List the annotation names without the `@` prefix.</i> |     `unset`     |    `unset`    |    `unset`     |
 
 Rule id: `standard:annotation-ordering`
 

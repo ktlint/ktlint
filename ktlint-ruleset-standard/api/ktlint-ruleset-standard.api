@@ -15,6 +15,7 @@ public final class io/github/ktlint/core/ruleset/standard/rules/AnnotationOrderR
 
 public final class io/github/ktlint/core/ruleset/standard/rules/AnnotationOrderRuleKt {
 	public static final fun getANNOTATION_ORDER_RULE_ID ()Lio/github/ktlint/core/rule/engine/core/api/RuleId;
+	public static final fun getKTLINT_ANNOTATION_ORDERING_PROPERTY ()Lio/github/ktlint/core/rule/engine/core/api/editorconfig/EditorConfigProperty;
 }
 
 public final class io/github/ktlint/core/ruleset/standard/rules/AnnotationRule : io/github/ktlint/core/ruleset/standard/StandardRule {
