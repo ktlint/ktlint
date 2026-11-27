@@ -788,4 +788,32 @@ class StringTemplateIndentRuleTest {
             """.trimIndent()
         stringTemplateIndentRuleAssertThat(code).hasNoLintViolations()
     }
+
+    @Test
+    fun `Given a raw string with text on the opening line and a column-0 interpolation on a following line`() {
+        val code =
+            $$"""
+            fun foo(value: String) {
+                val bar =
+                    $${MULTILINE_STRING_QUOTE}line1
+            $value
+                    $$MULTILINE_STRING_QUOTE.trimIndent()
+            }
+            """.trimIndent()
+        val formattedCode =
+            $$"""
+            fun foo(value: String) {
+                val bar =
+                    $$MULTILINE_STRING_QUOTE
+                    line1
+                    $value
+                    $$MULTILINE_STRING_QUOTE.trimIndent()
+            }
+            """.trimIndent()
+        stringTemplateIndentRuleAssertThat(code)
+            .hasLintViolations(
+                LintViolation(3, 12, "Missing newline after opening quotes. Expected indent: 8. Found: 0"),
+                LintViolation(4, 1, "Unexpected indent inside raw string literal. Expected: 8. Found: 0"),
+            ).isFormattedAs(formattedCode)
+    }
 }
