@@ -248,8 +248,8 @@ class ImportOrderingRuleCustomTest {
             .isFormattedAs(formattedCode)
     }
 
-    @Suppress("DANGEROUS_CHARACTERS")
     @Test
+    @Suppress("DANGEROUS_CHARACTERS")
     fun `Issue 1845 - Given a list of pattern entries including a '|' pattern but no import exists that match any pattern before the first '|'`() {
         val code =
             """

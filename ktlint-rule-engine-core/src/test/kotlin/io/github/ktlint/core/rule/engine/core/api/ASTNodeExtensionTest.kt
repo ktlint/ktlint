@@ -689,8 +689,8 @@ class ASTNodeExtensionTest {
         )
     }
 
-    @Suppress("DEPRECATION")
     @Test
+    @Suppress("DEPRECATION")
     fun `Given some line containing identifiers at different indentation levels then check that all leaves on those line are found`() {
         val code =
             """
@@ -724,8 +724,8 @@ class ASTNodeExtensionTest {
 
     @Nested
     inner class LineLengthWithoutNewlinePrefix {
-        @Suppress("DEPRECATION")
         @Test
+        @Suppress("DEPRECATION")
         fun `Given some lines containing identifiers at different indentation levels then get line length exclusive the leading newline characters`() {
             val code =
                 """
@@ -754,8 +754,8 @@ class ASTNodeExtensionTest {
             )
         }
 
-        @Suppress("DEPRECATION")
         @Test
+        @Suppress("DEPRECATION")
         fun `Given some lines containing identifiers and EOL comment then get line length exclusive the leading newline characters and exclusive EOL comment`() {
             val code =
                 """
@@ -784,8 +784,8 @@ class ASTNodeExtensionTest {
             )
         }
 
-        @Suppress("DEPRECATION")
         @Test
+        @Suppress("DEPRECATION")
         fun `Given some lines containing identifiers at different indentation levels then get line length exclusive the leading newline characters until and including the identifier`() {
             val code =
                 """
@@ -818,8 +818,8 @@ class ASTNodeExtensionTest {
             )
         }
 
-        @Suppress("DEPRECATION")
         @Test
+        @Suppress("DEPRECATION")
         fun `xxGiven some lines containing identifiers at different indentation levels then get line length exclusive the leading newline characters until and including the identifier`() {
             val code =
                 """

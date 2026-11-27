@@ -285,8 +285,8 @@ class FunctionNamingRuleTest {
     }
 
     private companion object {
-        @Suppress("UnstableApiUsage", "UnusedPrivateMember")
         @JvmStatic
+        @Suppress("UnstableApiUsage", "UnusedPrivateMember")
         fun ktTokens() =
             KtTokens.KEYWORDS.types
                 .plus(KtTokens.SOFT_KEYWORDS.types)

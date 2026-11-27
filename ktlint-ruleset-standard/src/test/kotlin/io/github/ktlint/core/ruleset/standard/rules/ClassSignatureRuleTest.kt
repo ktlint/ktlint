@@ -241,8 +241,8 @@ class ClassSignatureRuleTest {
             ).isFormattedAs(formattedCode)
     }
 
-    @Disabled
     @Test
+    @Disabled
     fun `Given some class signatures containing at least one comment then do not reformat although the max line length is exceeded`() {
         val code =
             """

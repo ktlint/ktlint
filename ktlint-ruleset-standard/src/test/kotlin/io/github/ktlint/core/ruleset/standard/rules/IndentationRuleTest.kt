@@ -1442,8 +1442,8 @@ internal class IndentationRuleTest {
                 .isFormattedAs(formattedCode)
         }
 
-        @Disabled("To be fixed")
         @Test
+        @Disabled("To be fixed")
         fun `Given some incorrectly indented block comment`() {
             val code =
                 """
@@ -1560,8 +1560,8 @@ internal class IndentationRuleTest {
                 ).isFormattedAs(formattedCode)
         }
 
-        @Disabled("To be fixed")
         @Test
+        @Disabled("To be fixed")
         fun `Given KDoc starting at position 0`() {
             val code =
                 """
@@ -3426,8 +3426,8 @@ internal class IndentationRuleTest {
                 ).isFormattedAs(formattedCode)
         }
 
-        @Disabled("to be fixed")
         @Test
+        @Disabled("to be fixed")
         fun `Given a multiline raw string literal in which the opening quotes are followed with some text on the same line`() {
             val code =
                 """
@@ -4457,8 +4457,8 @@ internal class IndentationRuleTest {
         indentationRuleAssertThat(code).hasNoLintViolations()
     }
 
-    @Disabled("To be fixed as code as lambda with parameters on multiple line")
     @Test
+    @Disabled("To be fixed as code as lambda with parameters on multiple line")
     fun `Given a function with lambda parameters on multiple lines then align the parameters`() {
         val code =
             """

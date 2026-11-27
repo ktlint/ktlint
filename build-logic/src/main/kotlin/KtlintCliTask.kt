@@ -18,8 +18,8 @@ abstract class KtlintCliTask
         @InputFile
         val ktlintCliJarFile = objects.fileProperty()
 
-        @PathSensitive(PathSensitivity.RELATIVE)
         @InputFile
+        @PathSensitive(PathSensitivity.RELATIVE)
         val ktlintCliWindowsBatchScriptSource = objects.fileProperty()
 
         @Internal

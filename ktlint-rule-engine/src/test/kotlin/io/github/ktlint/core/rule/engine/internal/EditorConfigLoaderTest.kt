@@ -24,8 +24,8 @@ internal class EditorConfigLoaderTest {
         ktlintTestFileSystem.close()
     }
 
-    @Suppress("EditorConfigShadowingOption", "EditorConfigPartialOverride", "EditorConfigShadowedOption")
     @ParameterizedTest
+    @Suppress("EditorConfigShadowingOption", "EditorConfigPartialOverride", "EditorConfigShadowedOption")
     @ValueSource(
         strings = [
             //language=EditorConfig

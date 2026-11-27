@@ -905,8 +905,8 @@ class MultilineExpressionWrappingRuleTest {
             ).isFormattedAs(formattedCode)
     }
 
-    @Disabled
     @Test
+    @Disabled
     fun `Issue 2286 - xx `() {
         val code =
             """

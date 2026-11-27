@@ -13,10 +13,10 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 class SinceKtlintAnnotationTest {
-    @ParameterizedClass(name = "{argumentSetName}")
-    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    @MethodSource("allRules")
     @Nested
+    @ParameterizedClass(name = "{argumentSetName}")
+    @MethodSource("allRules")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class `Given a STABLE or EXPERIMENTAL rule` {
         @Parameter
         lateinit var rule: RuleV2
@@ -39,10 +39,10 @@ class SinceKtlintAnnotationTest {
         }
     }
 
-    @ParameterizedClass(name = "{argumentSetName}")
-    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    @MethodSource("stableRules")
     @Nested
+    @ParameterizedClass(name = "{argumentSetName}")
+    @MethodSource("stableRules")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class `Given a STABLE rule, eg not implementing interface Experimental` {
         @Parameter
         lateinit var stableRule: RuleV2
@@ -70,10 +70,10 @@ class SinceKtlintAnnotationTest {
         fun stableRules(): Stream<Arguments> = rules { it !is RuleV2.Experimental }
     }
 
-    @ParameterizedClass(name = "{argumentSetName}")
-    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    @MethodSource("experimentalRules")
     @Nested
+    @ParameterizedClass(name = "{argumentSetName}")
+    @MethodSource("experimentalRules")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class `Given an EXPERIMENTAL rule, eg implementing interface Experimental` {
         @Parameter
         lateinit var experimentalRule: RuleV2

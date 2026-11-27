@@ -27,6 +27,9 @@ ktlint_experimental = enabled
 # no-unused-imports rules needs to be enabled explicitly as it otherwise will not be run
 ktlint_standard_no-unused-imports = enabled
 
+# Sort annotations in this list in the given order. Annotations not in this list will be sorted alphabetically after the pinned annotations
+ktlint_annotation_ordering = Deprecated,Repeatable,Target,Retention,MustBeDocumented,Test,Nested,ParameterizedClass,ParameterizedTest,EnabledOnOs,DisabledOnOs,Disabled
+
 # Don't allow any wildcard imports
 ij_kotlin_packages_to_use_import_on_demand = unset
 

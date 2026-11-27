@@ -256,8 +256,8 @@ internal class FileUtilsTest {
     }
 
     // Jimfs does not currently support the Windows syntax for an absolute path on the current drive (e.g. "\foo\bar")
-    @DisabledOnOs(OS.WINDOWS)
     @ParameterizedTest(name = "Pattern: {0}")
+    @DisabledOnOs(OS.WINDOWS)
     @ValueSource(
         strings = [
             "~/project/src/main/kotlin/One.kt",
@@ -344,8 +344,8 @@ internal class FileUtilsTest {
             )
     }
 
-    @EnabledOnOs(OS.WINDOWS)
     @Test
+    @EnabledOnOs(OS.WINDOWS)
     fun `Given the Windows OS and some globs using backslash as file separator the convert the globs to using a forward slash`() {
         val foundFiles =
             getFiles(
@@ -361,8 +361,8 @@ internal class FileUtilsTest {
             .doesNotContain(ktFile2InProjectSubDirectory)
     }
 
-    @DisabledOnOs(OS.WINDOWS)
     @ParameterizedTest(name = "Pattern: {0}")
+    @DisabledOnOs(OS.WINDOWS)
     @ValueSource(
         strings = [
             "../**/*.kt",
@@ -383,8 +383,8 @@ internal class FileUtilsTest {
         assertThat(foundFiles).contains(ktFile1InProjectSubDirectory)
     }
 
-    @EnabledOnOs(OS.WINDOWS)
     @ParameterizedTest(name = "Pattern: {0}")
+    @EnabledOnOs(OS.WINDOWS)
     @ValueSource(
         strings = [
             "../**/*.kt",
@@ -410,8 +410,8 @@ internal class FileUtilsTest {
         assertThat(foundFiles).isEmpty()
     }
 
-    @DisabledOnOs(OS.WINDOWS)
     @ParameterizedTest(name = "Pattern: {0}")
+    @DisabledOnOs(OS.WINDOWS)
     @ValueSource(
         strings = [
             "**/../**/*.kt",
@@ -429,8 +429,8 @@ internal class FileUtilsTest {
         assertThat(foundFiles).contains(ktFile1InProjectSubDirectory)
     }
 
-    @EnabledOnOs(OS.WINDOWS)
     @ParameterizedTest(name = "Pattern: {0}")
+    @EnabledOnOs(OS.WINDOWS)
     @ValueSource(
         strings = [
             "**/../**/*.kt",
@@ -476,8 +476,8 @@ internal class FileUtilsTest {
             )
     }
 
-    @DisabledOnOs(OS.WINDOWS)
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     fun `Issue 2002 - On non-Windows OS, find files in a sibling directory based on a relative path to the working directory`() {
         val foundFiles =
             getFiles(
@@ -498,8 +498,8 @@ internal class FileUtilsTest {
             )
     }
 
-    @DisabledOnOs(OS.WINDOWS)
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     fun `Issue 2002 - On non-Windows OS, find files in a sibling directory based on a relative glob`() {
         val foundFiles =
             getFiles(
