@@ -317,12 +317,17 @@ public class StringTemplateIndentRule :
         newIndent: String,
         newContent: String,
     ) {
-        emit(
-            this.startOffset + this.text.indexOf(wrongIndentChar),
-            "Unexpected '$wrongIndentDescription' character(s) in margin of multiline string",
-        ) {
-            this.firstChildNode.replaceTextWith(newIndent + newContent)
-        }
+        require(elementType == LITERAL_STRING_TEMPLATE_ENTRY)
+        firstChildNode
+            .also { require(it.elementType == REGULAR_STRING_PART) }
+            ?.let { regularStringPart ->
+                emit(
+                    regularStringPart.startOffset + regularStringPart.text.indexOf(wrongIndentChar),
+                    "Unexpected '$wrongIndentDescription' character(s) in margin of multiline string",
+                ) {
+                    regularStringPart.replaceTextWith(newIndent + newContent)
+                }
+            }
     }
 
     private fun ASTNode.checkAndFixIndent(
