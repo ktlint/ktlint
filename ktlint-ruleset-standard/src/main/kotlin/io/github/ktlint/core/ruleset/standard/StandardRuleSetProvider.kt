@@ -3,6 +3,7 @@ package io.github.ktlint.core.ruleset.standard
 import io.github.ktlint.core.cli.ruleset.core.api.RuleSetV2Provider
 import io.github.ktlint.core.rule.engine.core.api.RuleSetId
 import io.github.ktlint.core.rule.engine.core.api.RuleV2Provider
+import io.github.ktlint.core.ruleset.standard.rules.AnnotationOrderRule
 import io.github.ktlint.core.ruleset.standard.rules.AnnotationRule
 import io.github.ktlint.core.ruleset.standard.rules.AnnotationSpacingRule
 import io.github.ktlint.core.ruleset.standard.rules.ArgumentListWrappingRule
@@ -114,6 +115,7 @@ public class StandardRuleSetProvider : RuleSetV2Provider(RuleSetId.STANDARD) {
     @Suppress("LongMethod")
     override fun getRuleProviders(): Set<RuleV2Provider> =
         setOf(
+            RuleV2Provider { AnnotationOrderRule() },
             RuleV2Provider { AnnotationRule() },
             RuleV2Provider { AnnotationSpacingRule() },
             RuleV2Provider { ArgumentListWrappingRule() },

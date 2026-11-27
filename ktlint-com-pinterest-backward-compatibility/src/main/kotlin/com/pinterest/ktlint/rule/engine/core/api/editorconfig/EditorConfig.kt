@@ -15,8 +15,8 @@ private val LOGGER = KotlinLogging.logger {}.initKtLintKLogger()
 /**
  * Loaded [Property]s from `.editorconfig` files.
  */
-@Poko
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+@Poko
 public class EditorConfig(
     private val properties: Map<String, Property> = emptyMap(),
 ) {

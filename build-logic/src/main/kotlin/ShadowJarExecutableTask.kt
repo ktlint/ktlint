@@ -18,8 +18,8 @@ abstract class ShadowJarExecutableTask
         @InputFile
         val allJarFile = objects.fileProperty()
 
-        @PathSensitive(PathSensitivity.RELATIVE)
         @InputFile
+        @PathSensitive(PathSensitivity.RELATIVE)
         val windowsBatchScriptSource = objects.fileProperty()
 
         @Internal

@@ -16,7 +16,6 @@ import io.github.ktlint.core.test.LintViolation
 import io.github.ktlint.core.test.MULTILINE_STRING_QUOTE
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -249,11 +248,26 @@ class FunctionSignatureRuleTest {
                 LintViolation(2, 49, "Exceeded max line length (48)", canBeAutoCorrected = false),
                 LintViolation(3, 49, "Exceeded max line length (48)", canBeAutoCorrected = false),
                 LintViolation(4, 49, "Exceeded max line length (48)", canBeAutoCorrected = false),
-                LintViolation(5, 18, "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.", false),
+                LintViolation(
+                    5,
+                    18,
+                    "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.",
+                    false,
+                ),
                 LintViolation(5, 49, "Exceeded max line length (48)", canBeAutoCorrected = false),
-                LintViolation(6, 19, "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.", false),
+                LintViolation(
+                    6,
+                    19,
+                    "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.",
+                    false,
+                ),
                 LintViolation(6, 49, "Exceeded max line length (48)", canBeAutoCorrected = false),
-                LintViolation(7, 23, "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.", false),
+                LintViolation(
+                    7,
+                    23,
+                    "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.",
+                    false,
+                ),
                 LintViolation(7, 49, "Exceeded max line length (48)", canBeAutoCorrected = false),
                 LintViolation(8, 49, "Exceeded max line length (48)", canBeAutoCorrected = false),
                 LintViolation(9, 49, "Exceeded max line length (48)", canBeAutoCorrected = false),
@@ -273,9 +287,24 @@ class FunctionSignatureRuleTest {
         functionSignatureWrappingRuleAssertThat(code)
             .addAdditionalRuleProvider { ValueParameterCommentRule() }
             .hasLintViolationsForAdditionalRule(
-                LintViolation(1, 18, "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.", false),
-                LintViolation(2, 19, "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.", false),
-                LintViolation(3, 23, "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.", false),
+                LintViolation(
+                    1,
+                    18,
+                    "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.",
+                    false,
+                ),
+                LintViolation(
+                    2,
+                    19,
+                    "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.",
+                    false,
+                ),
+                LintViolation(
+                    3,
+                    23,
+                    "A comment inside or on same line after a 'value_parameter' is not allowed. It may be placed on a separate line above.",
+                    false,
+                ),
             ).hasNoLintViolationsExceptInAdditionalRules()
         // When ValueParameterCommentRule is not loaded or disabled:
         functionSignatureWrappingRuleAssertThat(code).hasNoLintViolations()
@@ -757,8 +786,7 @@ class FunctionSignatureRuleTest {
     }
 
     @Nested
-    @DisplayName("Given a single line function signature followed by a body expression starting on that same line")
-    inner class BodyExpressionOnSameLine {
+    inner class `Given a single line function signature followed by a body expression starting on that same line` {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,
@@ -861,8 +889,7 @@ class FunctionSignatureRuleTest {
     }
 
     @Nested
-    @DisplayName("Given a multiline function signature followed by a body expression starting on a separate line")
-    inner class BodyExpressionOnSeparateLine {
+    inner class `Given a multiline function signature followed by a body expression starting on a separate line` {
         @ParameterizedTest(name = "bodyExpressionWrapping: {0}")
         @EnumSource(
             value = FunctionBodyExpressionWrapping::class,

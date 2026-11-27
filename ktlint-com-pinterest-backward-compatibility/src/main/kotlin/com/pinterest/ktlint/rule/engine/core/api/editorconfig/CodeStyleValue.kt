@@ -1,5 +1,5 @@
-@file:Suppress("DEPRECATION")
 @file:JvmName("CodeStyleEditorConfigPropertyKt") // Preserve the binary-compatible facade class name after the file rename below
+@file:Suppress("DEPRECATION")
 
 package com.pinterest.ktlint.rule.engine.core.api.editorconfig
 
@@ -9,8 +9,8 @@ import org.ec4j.core.model.PropertyType.PropertyValueParser.EnumValueParser
 /**
  * Code style to be used while linting and formatting. Note that the [EnumValueParser] requires values to be lowercase.
  */
-@Suppress("EnumEntryName")
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+@Suppress("EnumEntryName")
 public enum class CodeStyleValue {
     android_studio,
     intellij_idea,

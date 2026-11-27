@@ -740,8 +740,8 @@ class NoUnusedImportsRuleTest {
         // Solution for #1256 has been reverted as it can lead to removal of imports which are actually used (see test for
         // #1277). For now, there seems to be no reliable way to determine whether the wildcard import is actually used or
         // not.
-        @Disabled
         @Test
+        @Disabled
         fun `Issue 1256 - remove wildcard import when not used`() {
             val code =
                 """

@@ -48,8 +48,8 @@ class NoUnitReturnRuleTest {
             ).isFormattedAs(formattedCode)
     }
 
-    @Disabled("To be fixed")
     @Test
+    @Disabled("To be fixed")
     fun `Given a function that does have Unit as return type and is followed by a comment before the body then do return a lint error`() {
         val code =
             """

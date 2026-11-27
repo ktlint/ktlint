@@ -21,8 +21,8 @@ import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigPrope
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.RULE_EXECUTION_PROPERTY_TYPE as RULE_EXECUTION_PROPERTY_TYPE_IO_GITHUB_KTLINT
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.RuleExecution as RuleExecutionIoGithubKtlint
 
-@Poko
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+@Poko
 public class RuleId(
     public val value: String,
 ) {
@@ -40,8 +40,8 @@ public class RuleId(
     }
 }
 
-@Poko
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+@Poko
 public class RuleSetId(
     public val value: String,
 ) {
@@ -188,11 +188,11 @@ public open class Rule(
      * API consumers to provide more detailed information about the rule. Please provide all details below, so that users of your rule set
      * can easily get up-to-date information about the rule.
      */
-    @Poko
     @Deprecated(
         message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Use RuleV2.about when possible.",
         replaceWith = ReplaceWith("RuleV2.About"),
     )
+    @Poko
     public class About(
         /**
          * Name of person, organization or group maintaining the rule.
@@ -218,13 +218,13 @@ public open class Rule(
          * Defines that the [Rule] that declares this [VisitorModifier] will be run after the [Rule] with rule id
          * [VisitorModifier.RunAfterRule.ruleId].
          */
-        @Poko
         @Deprecated(
             message =
                 "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. The RunAfterRule VisitorModifier is " +
                     "ignored by Ktlint 2.x as due to the way that rules are executed, modifying the order in which rules are visited is " +
                     "not needed anymore.",
         )
+        @Poko
         public class RunAfterRule(
             /**
              * The [RuleId] of the [Rule] which should run before the [Rule] that declares the [VisitorModifier.RunAfterRule].

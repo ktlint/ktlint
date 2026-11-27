@@ -17,8 +17,8 @@ import org.ec4j.core.model.PropertyType
  * - Kotlin specific properties defined
  *   [here](https://github.com/JetBrains/kotlin/blob/master/idea/formatter/src/org/jetbrains/kotlin/idea/core/formatter/KotlinCodeStyleSettings.java)
  */
-@Poko
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+@Poko
 public class EditorConfigProperty<T>(
     /**
      * Type of property. Could be one of default ones (see [PropertyType.STANDARD_TYPES]) or custom one.

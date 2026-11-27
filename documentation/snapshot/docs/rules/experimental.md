@@ -8,6 +8,60 @@ ktlint_experimental=enabled
 ```
 Also see [enable/disable specific rules](configuration-ktlint.md#disable-rules).
 
+## Annotation ordering
+
+Annotations above a target are sorted alphabetically. Optionally, specific annotations can be pinned to a fixed position using the `.editorconfig` property `ktlint_annotation_ordering`. Pinned annotations appear first in the specified order; all remaining annotations follow in alphabetical order.
+
+=== "[:material-heart:](#) Ktlint"
+
+    ```kotlin
+    @Alpha
+    @Beta
+    fun foo() {}
+    
+    // With ktlint_annotation_ordering=Suppress,Deprecated
+    @Suppress("FOO")
+    @Deprecated("Use bar instead")
+    @Alpha
+    fun foo() {}
+    ```
+
+=== "[:material-heart-off-outline:](#) Disallowed"
+
+    ```kotlin
+    @Beta
+    @Alpha
+    fun foo() {}
+
+    // With ktlint_annotation_ordering=Suppress,Deprecated
+    @Deprecated("Use bar instead")
+    @Suppress("FOO")
+    @Alpha
+    fun foo() {}
+    ```
+
+| Configuration setting                                                                                                                                                                                                                              | ktlint_official | intellij_idea | android_studio |
+|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------:|:-------------:|:--------------:|
+| `ktlint_annotation_ordering`<br/><i>Comma-separated list of annotation names defining a fixed ordering. Listed annotations are placed first in the specified order; remaining annotations are sorted alphabetically. List the annotation names without the `@` prefix.</i> |     `unset`     |    `unset`    |    `unset`     |
+
+Rule id: `standard:annotation-ordering`
+
+Suppress or disable rule (1)
+{ .annotate }
+
+1. Suppress rule in code with annotation below:
+    ```kotlin
+    @Suppress("ktlint:standard:annotation-ordering")
+    ```
+   Enable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_annotation-ordering = enabled
+    ```
+   Disable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_annotation-ordering = disabled
+    ```
+
 ## Blank line before file annotation
 
 Requires a blank line before the file annotation unless that file annotation is on the first line of the file.

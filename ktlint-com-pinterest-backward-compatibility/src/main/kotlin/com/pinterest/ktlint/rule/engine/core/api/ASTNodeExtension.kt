@@ -198,8 +198,8 @@ public val ASTNode.prevCodeLeaf: ASTNode?
         return node
     }
 
-@Suppress("UnusedParameter") // Signature must stay identical to the original Ktlint 1.x public API being preserved here
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+@Suppress("UnusedParameter") // Signature must stay identical to the original Ktlint 1.x public API being preserved here
 public fun ASTNode.nextCodeLeaf(
     includeEmpty: Boolean = false,
     skipSubtree: Boolean = false,

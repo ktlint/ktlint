@@ -1,5 +1,5 @@
-@file:Suppress("DEPRECATION")
 @file:JvmName("RuleExecutionEditorConfigPropertyKt") // Preserve the binary-compatible facade class name after the file rename below
+@file:Suppress("DEPRECATION")
 
 package com.pinterest.ktlint.rule.engine.core.api.editorconfig
 
@@ -7,8 +7,8 @@ import com.pinterest.ktlint.rule.engine.core.api.RuleId
 import com.pinterest.ktlint.rule.engine.core.api.RuleSetId
 import org.ec4j.core.model.PropertyType
 
-@Suppress("EnumEntryName")
 @Deprecated(message = "Provides backwards compatibility of custom ruleset JARs created for Ktlint 1.x. Don't use for RuleV2")
+@Suppress("EnumEntryName")
 public enum class RuleExecution {
     enabled,
     disabled,
