@@ -350,12 +350,7 @@ public class StringTemplateIndentRule :
                     "Missing newline after opening quotes. Expected indent: ${newIndent.length}. Found: ${oldIndent.length}",
                 ) {
                     insertLiteralStringTemplateEntryBeforeMe("\n")
-                    if (this.elementType == SHORT_STRING_TEMPLATE_ENTRY || this.elementType == LONG_STRING_TEMPLATE_ENTRY) {
-                        // Keep interpolation tokens intact when adding their indentation.
-                        insertLiteralStringTemplateEntryBeforeMe(newMarginIndent)
-                    } else {
-                        firstChildLeafOrSelf.replaceTextWith(newIndent + contentWithoutIndent)
-                    }
+                    fixStringTemplateEntryIndent(newMarginIndent, newIndent, contentWithoutIndent)
                 }
             }
 
@@ -375,9 +370,25 @@ public class StringTemplateIndentRule :
                     this.startOffset,
                     "Unexpected indent inside raw string literal. Expected: ${newIndent.length}. Found: ${oldIndent.length}",
                 ) {
-                    firstChildLeafOrSelf.replaceTextWith(newIndent + contentWithoutIndent)
+                    fixStringTemplateEntryIndent(newMarginIndent, newIndent, contentWithoutIndent)
                 }
             }
+        }
+    }
+
+    private fun ASTNode.fixStringTemplateEntryIndent(
+        newMarginIndent: String,
+        newIndent: String,
+        contentWithoutIndent: String,
+    ) {
+        if (elementType == SHORT_STRING_TEMPLATE_ENTRY || elementType == LONG_STRING_TEMPLATE_ENTRY) {
+            // Keep interpolation tokens intact when adding their indentation.
+            takeIf { newMarginIndent != "" }?.insertLiteralStringTemplateEntryBeforeMe(newMarginIndent)
+        } else {
+            takeIf { text != newIndent + contentWithoutIndent }
+                ?.firstChildLeafOrSelf
+                ?.also { require(it.elementType == REGULAR_STRING_PART) }
+                ?.replaceTextWith(newIndent + contentWithoutIndent)
         }
     }
 
