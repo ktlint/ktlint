@@ -43,34 +43,48 @@ public class AnnotationOrderRule :
     }
 
     override fun beforeVisitChildNodes(node: ASTNode) {
-        if (node.elementType !in ANNOTATION_CONTAINER) return
+        if (node.elementType in ANNOTATION_CONTAINER) {
+            node.visitAnnotationContainer()
+        }
+    }
 
-        val annotationEntries =
-            node
-                .children
-                .filter { it.elementType == ANNOTATION_ENTRY }
-                .toList()
+    private fun ASTNode.visitAnnotationContainer() {
+        children
+            .filter { it.elementType == ANNOTATION_ENTRY }
+            .toList()
+            .takeIf { it.size > 1 }
+            ?.let { annotationEntries ->
+                annotationEntries
+                    .sortAnnotationEntries()
+                    .takeUnless { it.hasIdenticalSortingAs(annotationEntries) }
+                    ?.let { sortedAnnotationEntries ->
+                        reorderAnnotationEntries(annotationEntries, sortedAnnotationEntries)
+                    }
+            }
+    }
 
-        if (annotationEntries.size < 2) return
+    private fun List<ASTNode>.sortAnnotationEntries(): List<ASTNode> =
+        sortedWith(
+            compareBy(
+                { pinnedIndex(it.annotationName()) },
+                { it.annotationName() ?: it.text },
+                { it.text },
+            ),
+        )
 
-        val sortedAnnotationEntries =
-            annotationEntries
-                .sortedWith(
-                    compareBy(
-                        { pinnedIndex(it.annotationName()) },
-                        { it.annotationName() ?: it.text },
-                        { it.text },
-                    ),
-                )
+    private fun List<ASTNode>.hasIdenticalSortingAs(annotationEntries: List<ASTNode>): Boolean =
+        annotationEntries.map { it.text } == map { it.text }
 
-        if (annotationEntries.map { it.text } == sortedAnnotationEntries.map { it.text }) return
-
+    private fun ASTNode.reorderAnnotationEntries(
+        annotationEntries: List<ASTNode>,
+        sortedAnnotationEntries: List<ASTNode>,
+    ) {
         emit(annotationEntries.first().startOffset, "Annotations should be sorted alphabetically after annotation with preset order") {
             if (annotationEntries.last().isFollowedByCommentOnSameLine()) {
                 // The Kotlin PSI parser places an EOL comment after the last annotation entry in the parent node rather than inside the
                 // annotation container (MODIFIER_LIST etc.). Normalize this by moving such content into the container so it can be treated
                 // uniformly during sorting.
-                node.moveEolCommentIntoAnnotationContainer()
+                moveEolCommentIntoAnnotationContainer()
             }
 
             val trailingNodesAfterAnnotation = mutableMapOf<ASTNode, List<ASTNode>>()
@@ -87,12 +101,12 @@ public class AnnotationOrderRule :
             }
 
             annotationEntries.forEach { entry ->
-                trailingNodesAfterAnnotation[entry]!!.forEach { node.removeChild(it) }
-                node.removeChild(entry)
+                trailingNodesAfterAnnotation[entry]!!.forEach { removeChild(it) }
+                removeChild(entry)
             }
             sortedAnnotationEntries.zip(separators).forEach { (sortedEntry, separator) ->
-                node.addChild(sortedEntry, separator)
-                trailingNodesAfterAnnotation[sortedEntry]!!.forEach { node.addChild(it, separator) }
+                addChild(sortedEntry, separator)
+                trailingNodesAfterAnnotation[sortedEntry]!!.forEach { addChild(it, separator) }
             }
         }
     }
