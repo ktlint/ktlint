@@ -393,13 +393,18 @@ public class StringTemplateIndentRule :
     }
 
     private fun ASTNode.insertLiteralStringTemplateEntryBeforeMe(text: String) {
-        val stringTemplate = parent!!
-        val literalEntry =
-            stringTemplate.children
-                .first { it.elementType == LITERAL_STRING_TEMPLATE_ENTRY && it.text == "\n" }
-                .clone() as ASTNode
-        literalEntry.firstChildLeafOrSelf.replaceTextWith(text)
-        stringTemplate.addChild(literalEntry, this)
+        val literalStringTemplateEntry =
+            KtlintKotlinCompiler
+                .createASTNodeFromText(
+                    """
+                    val foo = ${'"'}${'"'}${'"'}$text${'"'}${'"'}${'"'}
+                    """.trimIndent(),
+                )?.findChildByType(PROPERTY)
+                ?.findChildByType(STRING_TEMPLATE)
+                ?.findChildByType(LITERAL_STRING_TEMPLATE_ENTRY)
+                ?.takeIf { it.text == text }
+                ?: error("Can not create LITERAL_STRING_TEMPLATE_ENTRY with text '$text'")
+        parent?.addChild(literalStringTemplateEntry, this)
     }
 
     private fun ASTNode.checkAndFixNewLineBeforeClosingQuotes() {
