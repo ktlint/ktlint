@@ -8,6 +8,44 @@ ktlint_experimental=enabled
 ```
 Also see [enable/disable specific rules](configuration-ktlint.md#disable-rules).
 
+## Annotation ordering
+
+Annotations above a target are sorted alphabetically.
+
+=== "[:material-heart:](#) Ktlint"
+
+    ```kotlin
+    @Alpha
+    @Beta
+    fun foo() {}
+    ```
+
+=== "[:material-heart-off-outline:](#) Disallowed"
+
+    ```kotlin
+    @Beta
+    @Alpha
+    fun foo() {}
+    ```
+
+Rule id: `standard:annotation-ordering`
+
+Suppress or disable rule (1)
+{ .annotate }
+
+1. Suppress rule in code with annotation below:
+    ```kotlin
+    @Suppress("ktlint:standard:annotation-ordering")
+    ```
+   Enable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_annotation-ordering = enabled
+    ```
+   Disable rule via `.editorconfig`
+    ```editorconfig
+    ktlint_standard_annotation-ordering = disabled
+    ```
+
 ## Blank line before file annotation
 
 Requires a blank line before the file annotation unless that file annotation is on the first line of the file.
