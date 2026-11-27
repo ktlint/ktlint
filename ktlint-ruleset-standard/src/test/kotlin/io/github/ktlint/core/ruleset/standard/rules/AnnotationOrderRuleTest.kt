@@ -244,4 +244,42 @@ class AnnotationOrderRuleTest {
                 .isFormattedAs(formattedCode)
         }
     }
+
+    @Test
+    fun `Given unsorted annotations followed by EOL comments then sort them including the EOL comments`() {
+        val code =
+            """
+            @Beta // Beta comment
+            @Alpha // Alpha comment
+            val foo = "bar"
+            """.trimIndent()
+        val formattedCode =
+            """
+            @Alpha // Alpha comment
+            @Beta // Beta comment
+            val foo = "bar"
+            """.trimIndent()
+        annotationOrderRuleAssertThat(code)
+            .hasLintViolation(1, 1, "Annotations should be sorted alphabetically after annotation with preset order")
+            .isFormattedAs(formattedCode)
+    }
+
+    @Test
+    fun `Given unsorted annotations followed by block comments then sort them including the block comments`() {
+        val code =
+            """
+            @Beta /* Beta comment */
+            @Alpha /* Alpha comment */
+            val foo = "bar"
+            """.trimIndent()
+        val formattedCode =
+            """
+            @Alpha /* Alpha comment */
+            @Beta /* Beta comment */
+            val foo = "bar"
+            """.trimIndent()
+        annotationOrderRuleAssertThat(code)
+            .hasLintViolation(1, 1, "Annotations should be sorted alphabetically after annotation with preset order")
+            .isFormattedAs(formattedCode)
+    }
 }

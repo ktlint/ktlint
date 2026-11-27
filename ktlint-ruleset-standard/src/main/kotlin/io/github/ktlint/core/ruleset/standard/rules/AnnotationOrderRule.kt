@@ -17,6 +17,11 @@ import io.github.ktlint.core.rule.engine.core.api.SinceKtlint.Status.EXPERIMENTA
 import io.github.ktlint.core.rule.engine.core.api.children
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfig
 import io.github.ktlint.core.rule.engine.core.api.editorconfig.EditorConfigProperty
+import io.github.ktlint.core.rule.engine.core.api.isPartOfComment
+import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithNewline
+import io.github.ktlint.core.rule.engine.core.api.isWhiteSpaceWithoutNewline
+import io.github.ktlint.core.rule.engine.core.api.lastChildLeafOrSelf
+import io.github.ktlint.core.rule.engine.core.api.nextLeaf
 import io.github.ktlint.core.ruleset.standard.StandardRule
 import org.ec4j.core.model.PropertyType
 
@@ -61,11 +66,54 @@ public class AnnotationOrderRule :
         if (annotationEntries.map { it.text } == sortedAnnotationEntries.map { it.text }) return
 
         emit(annotationEntries.first().startOffset, "Annotations should be sorted alphabetically after annotation with preset order") {
-            val anchors = annotationEntries.map { it.treeNext }
-            annotationEntries.forEach { node.removeChild(it) }
-            sortedAnnotationEntries
-                .zip(anchors)
-                .forEach { (entry, anchor) -> node.addChild(entry, anchor) }
+            if (annotationEntries.last().isFollowedByCommentOnSameLine()) {
+                // The Kotlin PSI parser places an EOL comment after the last annotation entry in the parent node rather than inside the
+                // annotation container (MODIFIER_LIST etc.). Normalize this by moving such content into the container so it can be treated
+                // uniformly during sorting.
+                node.moveEolCommentIntoAnnotationContainer()
+            }
+
+            val trailingNodesAfterAnnotation = mutableMapOf<ASTNode, List<ASTNode>>()
+            val separators = mutableListOf<ASTNode?>()
+            for (entry in annotationEntries) {
+                val trailingNodes = mutableListOf<ASTNode>()
+                var currentNode = entry.treeNext
+                while (currentNode != null && !currentNode.isWhiteSpaceWithNewline) {
+                    trailingNodes.add(currentNode)
+                    currentNode = currentNode.treeNext
+                }
+                trailingNodesAfterAnnotation[entry] = trailingNodes
+                separators.add(currentNode.takeIf { it.isWhiteSpaceWithNewline })
+            }
+
+            annotationEntries.forEach { entry ->
+                trailingNodesAfterAnnotation[entry]!!.forEach { node.removeChild(it) }
+                node.removeChild(entry)
+            }
+            sortedAnnotationEntries.zip(separators).forEach { (sortedEntry, separator) ->
+                node.addChild(sortedEntry, separator)
+                trailingNodesAfterAnnotation[sortedEntry]!!.forEach { node.addChild(it, separator) }
+            }
+        }
+    }
+
+    private fun ASTNode.isFollowedByCommentOnSameLine() =
+        lastChildLeafOrSelf
+            .nextLeaf { !it.isWhiteSpaceWithoutNewline }
+            ?.isPartOfComment
+            ?: false
+
+    private fun ASTNode.moveEolCommentIntoAnnotationContainer() {
+        val parentTrailing = mutableListOf<ASTNode>()
+        var current = treeNext
+        while (current != null) {
+            if (current.isWhiteSpaceWithNewline) break
+            parentTrailing.add(current)
+            current = current.treeNext
+        }
+        parentTrailing.forEach { sibling ->
+            treeParent.removeChild(sibling)
+            addChild(sibling, null)
         }
     }
 
